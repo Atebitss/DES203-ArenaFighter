@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 move;
     private Vector2 playerVelocity;
     private float jumpForce = 15f, moveForce = 5f;
+    private bool inputA, inputD;
 
     void Awake()
     {
@@ -17,18 +18,40 @@ public class PlayerController : MonoBehaviour
         controls = new InputPlayerControls();
 
         //define interations when controller input registered
+        //CONTROLLER
         controls.PlayerInput.X.performed += ctx => X();
         controls.PlayerInput.Y.performed += ctx => Y();
         controls.PlayerInput.B.performed += ctx => B();
         controls.PlayerInput.Jump.performed += ctx => Jump();
+        //KEYBOARD
+        controls.PlayerInput.A.started += ctx => inputA = true;
+        controls.PlayerInput.A.canceled += ctx => inputA = false;
+        controls.PlayerInput.D.started += ctx => inputD = true;
+        controls.PlayerInput.D.canceled += ctx => inputD = false;
+        controls.PlayerInput.Space.performed += ctx => Space();
+
 
         controls.PlayerInput.Move.performed += ctx => move = ctx.ReadValue<Vector2>();
         controls.PlayerInput.Move.canceled += ctx => move = Vector2.zero;
     }
 
 
-    void Update()
+    void FixedUpdate()
     {
+        if (inputA)
+        {
+            move = new Vector2(-1, 0);
+        }
+        if (inputD)
+        {
+            move = new Vector2(1, 0);
+        }
+
+        if (!inputA && !inputD)
+        {
+            move = Vector2.zero;
+        }
+
         playerVelocity = playerRigid.velocity;
         playerRigid.velocity = new Vector3(move.x * moveForce, playerVelocity.y, 0);
     }
@@ -52,11 +75,30 @@ public class PlayerController : MonoBehaviour
 
     void Jump()
     {
-        Debug.Log("A");
+        Debug.Log("A/space");
         //do jump
         playerRigid.velocity = new Vector3(playerVelocity.x, jumpForce, 0);
     }
 
+
+
+    //~~~~~~~KEYBOARD~~~~~~~\\
+    void D()
+    {
+        inputD = true;
+        Debug.Log("D");
+    }
+
+    void A()
+    {
+        inputA = true;
+        Debug.Log("A");
+    }
+
+    void Space()
+    { 
+        Jump();
+    }
 
 
 

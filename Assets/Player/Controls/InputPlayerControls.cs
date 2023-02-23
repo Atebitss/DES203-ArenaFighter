@@ -57,6 +57,30 @@ public class @InputPlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""A"",
+                    ""type"": ""Button"",
+                    ""id"": ""378f591d-3e43-4556-8405-166d8100ded7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""D"",
+                    ""type"": ""Button"",
+                    ""id"": ""4bd90dcd-27a2-4dac-883a-c527c975b688"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Space"",
+                    ""type"": ""Button"",
+                    ""id"": ""e0dcaded-8d96-4e32-908c-fe1b8dd7ec08"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -114,6 +138,39 @@ public class @InputPlayerControls : IInputActionCollection, IDisposable
                     ""action"": ""B"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e15b7311-a5cf-4d67-bbc4-8c47d05557f0"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""A"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e8e19085-b787-498b-a108-00acb8e4178b"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""D"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0e8e5e14-d0d0-487f-9365-d272c04a7fb7"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Space"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -127,6 +184,9 @@ public class @InputPlayerControls : IInputActionCollection, IDisposable
         m_PlayerInput_X = m_PlayerInput.FindAction("X", throwIfNotFound: true);
         m_PlayerInput_Y = m_PlayerInput.FindAction("Y", throwIfNotFound: true);
         m_PlayerInput_B = m_PlayerInput.FindAction("B", throwIfNotFound: true);
+        m_PlayerInput_A = m_PlayerInput.FindAction("A", throwIfNotFound: true);
+        m_PlayerInput_D = m_PlayerInput.FindAction("D", throwIfNotFound: true);
+        m_PlayerInput_Space = m_PlayerInput.FindAction("Space", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -181,6 +241,9 @@ public class @InputPlayerControls : IInputActionCollection, IDisposable
     private readonly InputAction m_PlayerInput_X;
     private readonly InputAction m_PlayerInput_Y;
     private readonly InputAction m_PlayerInput_B;
+    private readonly InputAction m_PlayerInput_A;
+    private readonly InputAction m_PlayerInput_D;
+    private readonly InputAction m_PlayerInput_Space;
     public struct PlayerInputActions
     {
         private @InputPlayerControls m_Wrapper;
@@ -190,6 +253,9 @@ public class @InputPlayerControls : IInputActionCollection, IDisposable
         public InputAction @X => m_Wrapper.m_PlayerInput_X;
         public InputAction @Y => m_Wrapper.m_PlayerInput_Y;
         public InputAction @B => m_Wrapper.m_PlayerInput_B;
+        public InputAction @A => m_Wrapper.m_PlayerInput_A;
+        public InputAction @D => m_Wrapper.m_PlayerInput_D;
+        public InputAction @Space => m_Wrapper.m_PlayerInput_Space;
         public InputActionMap Get() { return m_Wrapper.m_PlayerInput; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -214,6 +280,15 @@ public class @InputPlayerControls : IInputActionCollection, IDisposable
                 @B.started -= m_Wrapper.m_PlayerInputActionsCallbackInterface.OnB;
                 @B.performed -= m_Wrapper.m_PlayerInputActionsCallbackInterface.OnB;
                 @B.canceled -= m_Wrapper.m_PlayerInputActionsCallbackInterface.OnB;
+                @A.started -= m_Wrapper.m_PlayerInputActionsCallbackInterface.OnA;
+                @A.performed -= m_Wrapper.m_PlayerInputActionsCallbackInterface.OnA;
+                @A.canceled -= m_Wrapper.m_PlayerInputActionsCallbackInterface.OnA;
+                @D.started -= m_Wrapper.m_PlayerInputActionsCallbackInterface.OnD;
+                @D.performed -= m_Wrapper.m_PlayerInputActionsCallbackInterface.OnD;
+                @D.canceled -= m_Wrapper.m_PlayerInputActionsCallbackInterface.OnD;
+                @Space.started -= m_Wrapper.m_PlayerInputActionsCallbackInterface.OnSpace;
+                @Space.performed -= m_Wrapper.m_PlayerInputActionsCallbackInterface.OnSpace;
+                @Space.canceled -= m_Wrapper.m_PlayerInputActionsCallbackInterface.OnSpace;
             }
             m_Wrapper.m_PlayerInputActionsCallbackInterface = instance;
             if (instance != null)
@@ -233,6 +308,15 @@ public class @InputPlayerControls : IInputActionCollection, IDisposable
                 @B.started += instance.OnB;
                 @B.performed += instance.OnB;
                 @B.canceled += instance.OnB;
+                @A.started += instance.OnA;
+                @A.performed += instance.OnA;
+                @A.canceled += instance.OnA;
+                @D.started += instance.OnD;
+                @D.performed += instance.OnD;
+                @D.canceled += instance.OnD;
+                @Space.started += instance.OnSpace;
+                @Space.performed += instance.OnSpace;
+                @Space.canceled += instance.OnSpace;
             }
         }
     }
@@ -244,5 +328,8 @@ public class @InputPlayerControls : IInputActionCollection, IDisposable
         void OnX(InputAction.CallbackContext context);
         void OnY(InputAction.CallbackContext context);
         void OnB(InputAction.CallbackContext context);
+        void OnA(InputAction.CallbackContext context);
+        void OnD(InputAction.CallbackContext context);
+        void OnSpace(InputAction.CallbackContext context);
     }
 }

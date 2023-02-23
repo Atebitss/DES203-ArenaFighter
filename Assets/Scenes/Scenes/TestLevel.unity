@@ -1284,6 +1284,7 @@ GameObject:
   - component: {fileID: 913012130}
   - component: {fileID: 913012131}
   - component: {fileID: 913012129}
+  - component: {fileID: 913012134}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1418,6 +1419,56 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &913012134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 913012128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 358811c9c7165774ca90dd9c58ad3f84, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2f98b0d8-6030-490b-8257-0e76e38fcef7
+    m_ActionName: PlayerInput/Move[/XInputControllerWindows/leftStick]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0b0280ea-f431-4068-9f65-21ac31d61dcf
+    m_ActionName: PlayerInput/Jump[/XInputControllerWindows/buttonSouth]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6e0ef3b3-5a3f-401c-9e96-a40cb94dd137
+    m_ActionName: PlayerInput/X[/XInputControllerWindows/buttonWest]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c35e1895-b869-417a-8cc2-5c6f893801e5
+    m_ActionName: PlayerInput/Y[/XInputControllerWindows/buttonNorth]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 207c7b3e-d0ea-47b0-8ce5-0584692769f1
+    m_ActionName: PlayerInput/B[/XInputControllerWindows/buttonEast]
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: PlayerInput
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &994038852
 GameObject:
   m_ObjectHideFlags: 0
