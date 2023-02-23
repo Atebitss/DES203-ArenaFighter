@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D playerRigid;
+    [SerializeField] private bool controller = true;
     private InputPlayerControls controls;
     private Vector2 move;
     private Vector2 playerVelocity;
@@ -18,38 +19,46 @@ public class PlayerController : MonoBehaviour
         controls = new InputPlayerControls();
 
         //define interations when controller input registered
-        //CONTROLLER
-        controls.PlayerInput.X.performed += ctx => X();
-        controls.PlayerInput.Y.performed += ctx => Y();
-        controls.PlayerInput.B.performed += ctx => B();
-        controls.PlayerInput.Jump.performed += ctx => Jump();
-        //KEYBOARD
-        controls.PlayerInput.A.started += ctx => inputA = true;
-        controls.PlayerInput.A.canceled += ctx => inputA = false;
-        controls.PlayerInput.D.started += ctx => inputD = true;
-        controls.PlayerInput.D.canceled += ctx => inputD = false;
-        controls.PlayerInput.Space.performed += ctx => Space();
+        if (controller)
+        {
+            //CONTROLLER
+            controls.PlayerInput.X.performed += ctx => X();
+            controls.PlayerInput.Y.performed += ctx => Y();
+            controls.PlayerInput.B.performed += ctx => B();
+            controls.PlayerInput.Jump.performed += ctx => Jump();
 
-
-        controls.PlayerInput.Move.performed += ctx => move = ctx.ReadValue<Vector2>();
-        controls.PlayerInput.Move.canceled += ctx => move = Vector2.zero;
+            controls.PlayerInput.Move.performed += ctx => move = ctx.ReadValue<Vector2>();
+            controls.PlayerInput.Move.canceled += ctx => move = Vector2.zero;
+        }
+        else if (!controller)
+        {
+            //KEYBOARD
+            controls.PlayerInput.A.started += ctx => inputA = true;
+            controls.PlayerInput.A.canceled += ctx => inputA = false;
+            controls.PlayerInput.D.started += ctx => inputD = true;
+            controls.PlayerInput.D.canceled += ctx => inputD = false;
+            controls.PlayerInput.Space.performed += ctx => Space();
+        }
     }
 
 
     void FixedUpdate()
     {
-        if (inputA)
+        if (!controller)
         {
-            move = new Vector2(-1, 0);
-        }
-        if (inputD)
-        {
-            move = new Vector2(1, 0);
-        }
+            if (inputA)
+            {
+                move = new Vector2(-1, 0);
+            }
+            if (inputD)
+            {
+                move = new Vector2(1, 0);
+            }
 
-        if (!inputA && !inputD)
-        {
-            move = Vector2.zero;
+            if (!inputA && !inputD)
+            {
+                move = Vector2.zero;
+            }
         }
 
         playerVelocity = playerRigid.velocity;

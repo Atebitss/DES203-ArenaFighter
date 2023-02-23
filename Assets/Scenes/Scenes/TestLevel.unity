@@ -1305,6 +1305,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerRigid: {fileID: 913012130}
+  controller: 0
 --- !u!50 &913012130
 Rigidbody2D:
   serializedVersion: 4
@@ -1464,6 +1465,18 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 207c7b3e-d0ea-47b0-8ce5-0584692769f1
     m_ActionName: PlayerInput/B[/XInputControllerWindows/buttonEast]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 378f591d-3e43-4556-8405-166d8100ded7
+    m_ActionName: PlayerInput/A[/Keyboard/a]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 4bd90dcd-27a2-4dac-883a-c527c975b688
+    m_ActionName: PlayerInput/D[/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e0dcaded-8d96-4e32-908c-fe1b8dd7ec08
+    m_ActionName: PlayerInput/Space[/Keyboard/space]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: PlayerInput
