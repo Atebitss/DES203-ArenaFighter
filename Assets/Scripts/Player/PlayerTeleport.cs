@@ -12,6 +12,8 @@ public class PlayerTeleport : MonoBehaviour
     private bool canTeleport = true;
 
     private Rigidbody2D body;
+
+    private float collisionForce;
     
 
     private void Awake()
@@ -29,7 +31,7 @@ public class PlayerTeleport : MonoBehaviour
         {
             if (canTeleport == true)
             {
-               
+                collisionForce = body.velocity.magnitude;
 
                 currentTeleporter = collision.gameObject;
                 teleport();
@@ -53,7 +55,7 @@ public class PlayerTeleport : MonoBehaviour
     //teleports player to the current teleporters destination
     private void teleport()
     {
-        
+       
         transform.position = currentTeleporter.GetComponent<Teleporter>().GetDestination().position;
 
         Quaternion destinationRotation = currentTeleporter.GetComponent<Teleporter>().GetDestination().rotation;
@@ -62,7 +64,10 @@ public class PlayerTeleport : MonoBehaviour
         if (destinationRotation != currentRotation)
         {
             print("rotation is different, adding force");
-            body.AddForce(currentTeleporter.transform.forward * 64000);
+            //will need to fix later
+            //body.AddForce(new Vector2((collisionForce * 2000), currentTeleporter.transform.right.magnitude));
+           
+
 
 
         }
