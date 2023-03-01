@@ -5,16 +5,24 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private Rigidbody2D playerRigid;
+    private Rigidbody2D playerRigid;
+    private BoxCollider2D boxCollider;
+    [SerializeField] private LayerMask groundLayer;
+
     [SerializeField] private bool controller = true;
     private InputPlayerControls controls;
+
     private Vector2 move;
     private Vector2 playerVelocity;
+
     private float jumpForce = 15f, moveForce = 5f;
     private bool inputA, inputD;
 
     void Awake()
     {
+        playerRigid = GetComponent<Rigidbody2D>();
+        boxCollider = GetComponent<BoxCollider2D>();
+
         //Code from Brackeys, CONTROLLER INPUT in Unity! - https://youtu.be/p-3S73MaDP8
         controls = new InputPlayerControls();
 
@@ -84,8 +92,8 @@ public class PlayerController : MonoBehaviour
 
     void Jump()
     {
-        Debug.Log("A/space");
-        //do jump
+       // Debug.Log("A/space");
+        
         playerRigid.velocity = new Vector3(playerVelocity.x, jumpForce, 0);
     }
 
@@ -106,7 +114,12 @@ public class PlayerController : MonoBehaviour
 
     void Space()
     { 
-        Jump();
+        //only jump when on the ground
+        if (IsGrounded())
+        {
+            Jump();
+        }
+        
     }
 
 
@@ -163,4 +176,70 @@ public class PlayerController : MonoBehaviour
     {
         moveForce = newMF;
     }
+
+
+
+
+
+
+
+    private bool IsGrounded()
+    {
+        //casts an invisble ray from the players center down to see if the player is touching the ground
+        RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, Vector2.down, 0.4f, groundLayer);
+        return raycastHit.collider != null;
+    }
+    private bool IsOnIce()
+    {
+        //casts an invisble ray to see if the player is touching the ground
+        RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, Vector2.down, 0.4f, groundLayer);
+
+        //if we hit something, and that something has the Ice tag, return true, else, return false
+        if (raycastHit.collider != null)
+        {
+
+            if (raycastHit.collider.CompareTag("Ice"))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+        else
+        {
+            return false;
+        }
+
+
+    }
+    private bool IsOnBouncy()
+    {
+        //casts an invisble ray to see if the player is touching the ground
+        RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, Vector2.down, 0.4f, groundLayer);
+
+        //if we hit something, and that something has the Bouncy tag, return true, else, return false
+        if (raycastHit.collider != null)
+        {
+
+            if (raycastHit.collider.CompareTag("Bouncy"))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+        else
+        {
+            return false;
+        }
+
+
+    }
+
 }

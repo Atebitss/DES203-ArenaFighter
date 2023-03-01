@@ -9,6 +9,7 @@ TagManager:
   - Teleporter
   - Bouncy
   - Ice
+  - StickyWall
   layers:
   - Default
   - TransparentFX
