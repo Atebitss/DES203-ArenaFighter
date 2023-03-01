@@ -151,7 +151,11 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 64
   controller: 0
+  bounceMultiplier: 1.5
 --- !u!114 &581631144581870672
 MonoBehaviour:
   m_ObjectHideFlags: 0
