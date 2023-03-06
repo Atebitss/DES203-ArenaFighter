@@ -6,120 +6,42 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D playerRigid;
-    [SerializeField] private bool controller = true;
-    private InputPlayerControls controls;
     private Vector2 move;
     private Vector2 playerVelocity;
     private float jumpForce = 15f, moveForce = 5f;
-    private bool inputA, inputD;
 
     void Awake()
     {
-        //Code from Brackeys, CONTROLLER INPUT in Unity! - https://youtu.be/p-3S73MaDP8
-        controls = new InputPlayerControls();
-
-        //define interations when controller input registered
-        if (controller)
-        {
-            //CONTROLLER
-            controls.PlayerInput.X.performed += ctx => X();
-            controls.PlayerInput.Y.performed += ctx => Y();
-            controls.PlayerInput.B.performed += ctx => B();
-            controls.PlayerInput.Jump.performed += ctx => Jump();
-
-            controls.PlayerInput.Move.performed += ctx => move = ctx.ReadValue<Vector2>();
-            controls.PlayerInput.Move.canceled += ctx => move = Vector2.zero;
-        }
-        else if (!controller)
-        {
-            //KEYBOARD
-            controls.PlayerInput.A.started += ctx => inputA = true;
-            controls.PlayerInput.A.canceled += ctx => inputA = false;
-            controls.PlayerInput.D.started += ctx => inputD = true;
-            controls.PlayerInput.D.canceled += ctx => inputD = false;
-            controls.PlayerInput.Space.performed += ctx => Space();
-        }
     }
 
 
     void FixedUpdate()
     {
-        if (!controller)
+        playerVelocity = playerRigid.velocity;   //update current velocity Vector2
+        playerRigid.velocity = new Vector3(move.x * moveForce, playerVelocity.y, 0);   //Player's rigid component's velocity set to 1/-1 * 15, 0/15
+    }
+
+
+
+    //~~~~~~~PLAYER CONTROL~~~~~~~\\
+    public void OnMove(InputAction.CallbackContext ctx)
+    {
+        Vector2 movement = ctx.ReadValue<Vector2>();
+        //Debug.Log(movement);
+        //Debug.Log(ctx.control.displayName);
+        /*if (ctx.control.displayName == "A" || ctx.control.displayName == "D")
         {
-            if (inputA)
-            {
-                move = new Vector2(-1, 0);
-            }
-            if (inputD)
-            {
-                move = new Vector2(1, 0);
-            }
+            movement.x/=2;   //keyboard control -1/1 is twice as fast controller -1 to 1
+        }*/
 
-            if (!inputA && !inputD)
-            {
-                move = Vector2.zero;
-            }
-        }
-
-        playerVelocity = playerRigid.velocity;
-        playerRigid.velocity = new Vector3(move.x * moveForce, playerVelocity.y, 0);
+        move = new Vector3(movement.x, 0, playerVelocity.y);
     }
 
-
-    //~~~~~~~PLAYER INPUT~~~~~~~\\
-    void X()
+    public void OnJump(InputAction.CallbackContext ctx)
     {
-        Debug.Log("X");
-    }
-
-    void Y()
-    {
-        Debug.Log("Y");
-    }
-
-    void B()
-    {
-        Debug.Log("B");
-    }
-
-    void Jump()
-    {
-        Debug.Log("A/space");
         //do jump
+        //Debug.Log("A/space");
         playerRigid.velocity = new Vector3(playerVelocity.x, jumpForce, 0);
-    }
-
-
-
-    //~~~~~~~KEYBOARD~~~~~~~\\
-    void D()
-    {
-        inputD = true;
-        Debug.Log("D");
-    }
-
-    void A()
-    {
-        inputA = true;
-        Debug.Log("A");
-    }
-
-    void Space()
-    { 
-        Jump();
-    }
-
-
-
-    //~~~~~~~CONTROLLER~~~~~~~\\
-    void OnEnable()
-    {
-        controls.PlayerInput.Enable();
-    }
-
-    void OnDisable()
-    {
-        controls.PlayerInput.Disable();
     }
 
 
@@ -129,25 +51,51 @@ public class PlayerController : MonoBehaviour
     {
         return this.transform.position.x;
     }
+    public void SetPlayerX(float newX)
+    {
+        Vector2 newPos = new Vector2(newX, playerRigid.position.y);
+        playerRigid.position = newPos;
+    }
 
     public float GetPlayerY()
     {
         return this.transform.position.y;
     }
+    public void SetPlayerY(float newY)
+    {
+        Vector2 newPos = new Vector2(playerRigid.position.x, newY);
+        playerRigid.position = newPos;
+    }
 
+
+    public void GetPlayerPos(Vector2 newPos)
+    {
+        playerRigid.position = newPos;
+    }
     public void SetPlayerPos(Vector2 newPos)
     {
         playerRigid.position = newPos;
     }
 
+
     public float GetPlayerXVelocity()
     {
         return playerRigid.velocity.x;
+    }
+    public void SetPlayerXVelocity(float newXVel)
+    {
+        Vector3 newVel = new Vector3(newXVel, playerRigid.velocity.y);
+        playerRigid.velocity = newVel;
     }
 
     public float GetPlayerYVelocity()
     {
         return playerRigid.velocity.y;
+    }
+    public void SetPlayerYVelocity(float newYVel)
+    {
+        Vector3 newVel = new Vector3(playerRigid.velocity.x, newYVel);
+        playerRigid.velocity = newVel;
     }
 
 
@@ -162,5 +110,10 @@ public class PlayerController : MonoBehaviour
     public void SetMoveForce(float newMF)
     {
         moveForce = newMF;
+    }
+
+    public void SetPlayerGravity(float newPG)
+    {
+        playerRigid.gravityScale = newPG;
     }
 }

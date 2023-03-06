@@ -7,7 +7,8 @@ using TMPro;
 public class DebugUIScript : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI debugText;
-    [SerializeField] private PlayerController playerScript;
+    private PlayerController playerScript;
+    private GameObject activePlayer;
 
     void Start()
     {
@@ -18,11 +19,20 @@ public class DebugUIScript : MonoBehaviour
 
     void Update()
     {
+        activePlayer = GameObject.FindWithTag("Player");
 
-        debugText.text =
-              "X: " + playerScript.GetPlayerX().ToString("F2")
-            + "\tY: " + playerScript.GetPlayerY().ToString("F2")
-            + "\nVelocity X: " + playerScript.GetPlayerXVelocity().ToString("F2")
-            + "\tVelocity Y: " + playerScript.GetPlayerYVelocity().ToString("F2");
+        if (activePlayer != null)
+        {
+            playerScript = activePlayer.GetComponent<PlayerController>();
+        }
+
+        if (playerScript != null)
+        {
+            debugText.text =
+                  "X: " + playerScript.GetPlayerX().ToString("F2")
+                + "\tY: " + playerScript.GetPlayerY().ToString("F2")
+                + "\nVelocity X: " + playerScript.GetPlayerXVelocity().ToString("F2")
+                + "\tVelocity Y: " + playerScript.GetPlayerYVelocity().ToString("F2");
+        }
     }
 }
