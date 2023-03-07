@@ -17,14 +17,21 @@ public class PlayerController : MonoBehaviour
     private Vector2 playerVelocity;
 
     private float jumpForce = 15f, moveForce = 5f;
-    [SerializeField] private float bounceMultiplier = 1.5f;
+    
     private bool inputA, inputD;
 
     private float previousXMovement;
     private float IceDecceleration = 0.9f; //must be between 1 and 0
     private float startingGravity;
-    private float wallJumpCooldown;
 
+    private float wallJumpCooldown;
+    private float wallSlidingSpeed = 2f;
+    private bool isWallJumping;
+    private float wallJumpingDirection;
+    private float wallJumpingDuration = 0.2f;
+
+    private float bounceMultiplier = 1.5f;
+    private float bounceRebound = 1.25f; 
 
 
     void Awake()
@@ -65,7 +72,6 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         
-
         if (!controller)
         {
             if (inputA)
@@ -85,69 +91,101 @@ public class PlayerController : MonoBehaviour
 
         playerVelocity = playerRigid.velocity;
 
+        if (move.x != 0)
+        {
+            previousXMovement = playerRigid.velocity.x;
+
+        }
+     
+
+       
+
         //~~~~~~~ MOVEMENT LOGIC ~~~~~~~\\ (Could pop this in a seperate script tbh)
 
-        //flips the player around when moving left or right
+
+        Flip();
+        IceMovement();
+        WallSlide();
+        BounceMovement();
+
+
+    }
+    
+    private void Flip()
+    {
+        //flips the player around when moving left or right | Allows us to determine player direction for animating and other stuffs
         if (move.x > 0.01f)
             transform.localScale = Vector3.one;
         else if (move.x < -0.01f)
             transform.localScale = new Vector3(-1, 1, 1);
-
-
-        // when we have any x movment input, store the current x velocity for use in ice physics
-        if (move.x != 0) 
-         {
-            previousXMovement = playerRigid.velocity.x;
-
-        }
-
-
-        //Ice Movement Logic
+    }
+    private void IceMovement()
+    {
         if (IsOnIce())
         {
             if (move.x != 0) //when we have input, move normally (will refine this later)
             {
-                 playerRigid.velocity = new Vector3(move.x * moveForce, playerVelocity.y, 0);
+                playerRigid.velocity = new Vector3(move.x * moveForce, playerVelocity.y, 0);
             }
             else
             {
                 playerRigid.velocity = new Vector3(previousXMovement * IceDecceleration, playerVelocity.y, 0); //when no input, slide across|Speed decreases by the rate of IceDecceleration
                 previousXMovement = playerRigid.velocity.x;
             }
-               
+
         }
-        else if (!OnStickyWall())
+        else if (!OnStickyWall() && !isWallJumping)
         {
-           
-            playerRigid.velocity = new Vector3(move.x * moveForce, playerVelocity.y, 0); //if not on ice, use normal movement logic
+
+            playerRigid.velocity = new Vector3(move.x * moveForce, playerVelocity.y, 0); //if not on ice and not on a wall , use normal movement logic
         }
-
-
-
-
-
-        //wall jumping code orignally from https://www.youtube.com/watch?v=_UBpkdKlJzE || make sure to clean this up/ not outirght copy this later
-        if (wallJumpCooldown > 0.2f && (!IsOnIce()))
+    }
+    private void WallSlide()
+    {
+        //wall jumping code adapted  from https://www.youtube.com/watch?v=_UBpkdKlJzE and https://www.youtube.com/watch?v=O6VX6Ro7EtA | 
+        if (wallJumpCooldown > 0.2f && (!IsOnIce()) && !isWallJumping)
         {
             playerRigid.velocity = new Vector3(move.x * moveForce, playerVelocity.y, 0);
 
             if (OnStickyWall() && !IsGrounded())
             {
-                playerRigid.gravityScale = 0; //change this if we want to slide down wall!!
-                playerRigid.velocity = Vector2.zero;
+                isWallJumping = false;
+                CancelInvoke(nameof(StopWallJumping));
+
+                playerRigid.velocity = new Vector2(playerRigid.velocity.x, Mathf.Clamp(playerRigid.velocity.y, -wallSlidingSpeed, float.MaxValue));
             }
             else
-                playerRigid.gravityScale = startingGravity;
+            {
 
-            if (Input.GetKey(KeyCode.Space))
+            }
+
+
+            if (Input.GetButtonDown("Jump"))
                 Jump();
         }
         else
             wallJumpCooldown += Time.deltaTime;
-
-
     }
-    
+    private void BounceMovement()
+    {
+        if (IsOnBouncy() &&  playerRigid.velocity.y <= 0f) 
+        {
+            // float previousYMovement = playerRigid.velocity.y;
+            // playerRigid.velocity = new Vector2(playerVelocity.x, -previousYMovement * bounceRebound);
+            playerRigid.velocity = new Vector2(playerVelocity.x, jumpForce * bounceRebound);
+            print("Yipeeee");
+
+        }
+
+       
+    }
+
+
+
+
+
+
+
 
     //~~~~~~~PLAYER INPUT~~~~~~~\\
     void X()
@@ -167,39 +205,45 @@ public class PlayerController : MonoBehaviour
 
     void Jump()
     {
-       if (IsGrounded()) //jump mechanics when on bouncy terrain
+       if (IsGrounded()) 
         {
             if (IsOnBouncy())
             {
-                playerRigid.velocity = new Vector3(playerVelocity.x, jumpForce * bounceMultiplier, 0);
+                print("BIG JUMP");
+                playerRigid.velocity = new Vector2(playerVelocity.x, jumpForce * bounceMultiplier); //Bouncy Jump
             }
             else 
             {
-                playerRigid.velocity = new Vector3(playerVelocity.x, jumpForce, 0);
+                playerRigid.velocity = new Vector2(playerVelocity.x, jumpForce); // Normal Jump
             }
             
         }
-       else if (OnStickyWall() & !IsGrounded()) //jump mechanics when on sticky walls,(walljumping)
+       else if (OnStickyWall() & !IsGrounded()) // Wall Jumping
         {
-            print("should be jumping");
-           if (move.x == 0) //when there is no x input,when we jump just drop down from the wall
+            isWallJumping = true;
+            playerRigid.velocity = new Vector2(-transform.localScale.x * 16, 16);
+            wallJumpCooldown = 0;
+
+            if (transform.localScale.x != wallJumpingDirection) //flips player so they are facing the direction that they are jumping towards
             {
-                playerRigid.velocity = new Vector2(-Mathf.Sign(transform.localScale.x) * 10, 0);
-                transform.localScale = new Vector3(-Mathf.Sign(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+                Vector3 localScale = transform.localScale;
+                localScale.x *= -1f;
+                transform.localScale = localScale;
             }
-            else //else, jump away from the wall and up a little
-            {
-                //when facing right transform.localScale.x = 1, and -1 when facing left -> MathF.Sign returns -1 or 1 depending on sign -> function returns 1 or -1 depending on direction | multiplied by -1 at beginnibg to invert
-                playerRigid.velocity = new Vector2(-Mathf.Sign(transform.localScale.x) * 3, 12);
-                wallJumpCooldown = 0;
-            }
-           
+
+            Invoke(nameof(StopWallJumping), wallJumpingDuration); //while we are wall jumping, the player cannot change thier velocity, so after a duration, let the players control the PC again
+
         }
        
       
 
     }
+    
 
+    private void StopWallJumping()
+    {
+        isWallJumping = false;
+    }
 
 
     //~~~~~~~KEYBOARD~~~~~~~\\
@@ -321,7 +365,7 @@ public class PlayerController : MonoBehaviour
     private bool IsOnBouncy()
     {
         
-        RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, Vector2.down, 0.4f, groundLayer);
+        RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, Vector2.down, 0.5f, groundLayer);
 
         //if we hit something, and that something has the Bouncy tag, return true, else, return false
         if (raycastHit.collider != null)
