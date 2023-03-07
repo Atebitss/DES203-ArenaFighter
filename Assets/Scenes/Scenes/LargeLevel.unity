@@ -1727,6 +1727,10 @@ PrefabInstance:
       propertyPath: playerRigid
       value: 
       objectReference: {fileID: 1972424864}
+    - target: {fileID: 581631144581870678, guid: ccffba64a5f2ba7449c704a3c6d66654, type: 3}
+      propertyPath: wallLayer.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
     - target: {fileID: 581631144581870679, guid: ccffba64a5f2ba7449c704a3c6d66654, type: 3}
       propertyPath: m_AngularDrag
       value: 0.02

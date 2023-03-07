@@ -85,6 +85,7 @@ public class PlayerController : MonoBehaviour
 
         playerVelocity = playerRigid.velocity;
 
+        //~~~~~~~ MOVEMENT LOGIC ~~~~~~~\\ (Could pop this in a seperate script tbh)
 
         //flips the player around when moving left or right
         if (move.x > 0.01f)
@@ -125,7 +126,7 @@ public class PlayerController : MonoBehaviour
 
 
 
-        //wall jumping code orignallyt from https://www.youtube.com/watch?v=_UBpkdKlJzE || make sure to clean this up/ not outirght copy this later
+        //wall jumping code orignally from https://www.youtube.com/watch?v=_UBpkdKlJzE || make sure to clean this up/ not outirght copy this later
         if (wallJumpCooldown > 0.2f && (!IsOnIce()))
         {
             playerRigid.velocity = new Vector3(move.x * moveForce, playerVelocity.y, 0);
@@ -166,7 +167,7 @@ public class PlayerController : MonoBehaviour
 
     void Jump()
     {
-       if (IsGrounded())
+       if (IsGrounded()) //jump mechanics when on bouncy terrain
         {
             if (IsOnBouncy())
             {
@@ -178,15 +179,15 @@ public class PlayerController : MonoBehaviour
             }
             
         }
-       else if (OnStickyWall() & !IsGrounded())
+       else if (OnStickyWall() & !IsGrounded()) //jump mechanics when on sticky walls,(walljumping)
         {
             print("should be jumping");
-           if (move.x == 0)
+           if (move.x == 0) //when there is no x input,when we jump just drop down from the wall
             {
                 playerRigid.velocity = new Vector2(-Mathf.Sign(transform.localScale.x) * 10, 0);
                 transform.localScale = new Vector3(-Mathf.Sign(transform.localScale.x), transform.localScale.y, transform.localScale.z);
             }
-            else
+            else //else, jump away from the wall and up a little
             {
                 //when facing right transform.localScale.x = 1, and -1 when facing left -> MathF.Sign returns -1 or 1 depending on sign -> function returns 1 or -1 depending on direction | multiplied by -1 at beginnibg to invert
                 playerRigid.velocity = new Vector2(-Mathf.Sign(transform.localScale.x) * 3, 12);
@@ -195,10 +196,7 @@ public class PlayerController : MonoBehaviour
            
         }
        
-       
-        
-
-
+      
 
     }
 
