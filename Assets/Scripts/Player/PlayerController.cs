@@ -21,17 +21,21 @@ public class PlayerController : MonoBehaviour
     private bool inputA, inputD;
 
     private float previousXMovement;
-    private float IceDecceleration = 0.9f; //must be between 1 and 0
+    private float IceDecceleration = 0.95f; //must be between 1 and 0
     private float startingGravity;
 
     private float wallJumpCooldown;
     private float wallSlidingSpeed = 2f;
-    private bool isWallJumping;
+    private bool  isWallJumping;
     private float wallJumpingDirection;
-    private float wallJumpingDuration = 0.2f;
+    private float wallJumpingDuration = 0.4f;
 
     private float bounceMultiplier = 1.5f;
-    private float bounceRebound = 1.25f; 
+    private float bounceRebound = 1.25f;
+
+    private GameObject currentTeleporter;
+    private bool isTeleporting;
+    private float teleportingDuration = 0.2f;
 
 
     void Awake()
@@ -134,7 +138,7 @@ public class PlayerController : MonoBehaviour
             }
 
         }
-        else if (!OnStickyWall() && !isWallJumping)
+        else if (!OnStickyWall() && !isWallJumping && !isTeleporting)
         {
 
             playerRigid.velocity = new Vector3(move.x * moveForce, playerVelocity.y, 0); //if not on ice and not on a wall , use normal movement logic
@@ -143,7 +147,7 @@ public class PlayerController : MonoBehaviour
     private void WallSlide()
     {
         //wall jumping code adapted  from https://www.youtube.com/watch?v=_UBpkdKlJzE and https://www.youtube.com/watch?v=O6VX6Ro7EtA | 
-        if (wallJumpCooldown > 0.2f && (!IsOnIce()) && !isWallJumping)
+        if (wallJumpCooldown > 0.2f && (!IsOnIce()) && !isWallJumping && !isTeleporting)
         {
             playerRigid.velocity = new Vector3(move.x * moveForce, playerVelocity.y, 0);
 
@@ -221,7 +225,7 @@ public class PlayerController : MonoBehaviour
        else if (OnStickyWall() & !IsGrounded()) // Wall Jumping
         {
             isWallJumping = true;
-            playerRigid.velocity = new Vector2(-transform.localScale.x * 16, 16);
+            playerRigid.velocity = new Vector2(-transform.localScale.x * 12, 20);
             wallJumpCooldown = 0;
 
             if (transform.localScale.x != wallJumpingDirection) //flips player so they are facing the direction that they are jumping towards
@@ -238,11 +242,63 @@ public class PlayerController : MonoBehaviour
       
 
     }
-    
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Teleporter"))
+        {
+            if (!isTeleporting)
+            {
+                currentTeleporter = collision.gameObject;
+                Teleport();
+                Debug.Log("Teleporting");
+            }
+
+        }
+    }
+    //deassigns the current teleporter as the player exits it
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Teleporter"))
+        {
+            if (currentTeleporter == collision.gameObject)
+            {
+                currentTeleporter = null;
+
+            }
+        }
+    }
+    //teleports player to the current teleporters destination
+    private void Teleport()
+    {
+        isTeleporting = true;
+        Vector2 previousVelocity = playerVelocity;
+        transform.position = currentTeleporter.GetComponent<Teleporter>().GetDestination().position;
+
+        Quaternion destinationRotation = currentTeleporter.GetComponent<Teleporter>().GetDestination().rotation;
+        Quaternion currentRotation = currentTeleporter.GetComponent<Transform>().rotation;
+        
+        if (destinationRotation != currentRotation)
+        {
+            print("rotation is different, adding force");
+           //will shoot out portal with the 80% of the velocity it fell into the portal with
+            playerRigid.velocity = new Vector2((-previousVelocity.y) * 0.8f,previousVelocity.x);
+            //will not work when teleporting to teleports facing left due to velocity direction, need to find a fix
+        }
+
+
+
+        Invoke(nameof(StopTeleporting), teleportingDuration);
+    }
+
+ 
 
     private void StopWallJumping()
     {
         isWallJumping = false;
+    }
+    private void StopTeleporting()
+    {
+        isTeleporting = false;
     }
 
 
@@ -261,10 +317,7 @@ public class PlayerController : MonoBehaviour
 
     void Space()
     {
-
         Jump();
-        
-        
     }
 
 
@@ -333,13 +386,13 @@ public class PlayerController : MonoBehaviour
     private bool IsGrounded()
     {
         //casts an invisble box from the players center down to see if the player is touching the ground
-        RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, Vector2.down, 0.4f, groundLayer);
+        RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, Vector2.down, 0.5f, groundLayer);
         return raycastHit.collider != null;
     }
     private bool IsOnIce()
     {
         
-        RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, Vector2.down, 0.4f, groundLayer);
+        RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, Vector2.down, 0.5f, groundLayer);
 
         //if we hit something, and that something has the Ice tag, return true, else, return false
         if (raycastHit.collider != null)
@@ -394,5 +447,6 @@ public class PlayerController : MonoBehaviour
         RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0,new Vector2(transform.localScale.x, 0), 0.2f, wallLayer);
         return raycastHit.collider != null;
     }
-
+ 
+   
 }

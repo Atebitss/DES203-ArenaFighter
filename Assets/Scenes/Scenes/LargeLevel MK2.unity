@@ -1249,6 +1249,26 @@ PrefabInstance:
       propertyPath: teleportingTo
       value: 
       objectReference: {fileID: 2035600626}
+    - target: {fileID: 5057215427097471708, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
+      propertyPath: canTeleportTo.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5057215427097471708, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
+      propertyPath: canTeleportTo.Array.data[0]
+      value: 
+      objectReference: {fileID: 2049288776}
+    - target: {fileID: 5057215427097471708, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
+      propertyPath: canTeleportTo.Array.data[1]
+      value: 
+      objectReference: {fileID: 2035600626}
+    - target: {fileID: 5057215427097471708, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
+      propertyPath: canTeleportTo.Array.data[2]
+      value: 
+      objectReference: {fileID: 1014164180}
+    - target: {fileID: 5057215427097471708, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
+      propertyPath: canTeleportTo.Array.data[3]
+      value: 
+      objectReference: {fileID: 422045882}
     - target: {fileID: 5649826251163482021, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
       propertyPath: m_Name
       value: Teleporter C
@@ -1315,6 +1335,26 @@ PrefabInstance:
       propertyPath: teleportingTo
       value: 
       objectReference: {fileID: 22932019}
+    - target: {fileID: 5057215427097471708, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
+      propertyPath: canTeleportTo.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5057215427097471708, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
+      propertyPath: canTeleportTo.Array.data[0]
+      value: 
+      objectReference: {fileID: 2049288776}
+    - target: {fileID: 5057215427097471708, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
+      propertyPath: canTeleportTo.Array.data[1]
+      value: 
+      objectReference: {fileID: 2035600626}
+    - target: {fileID: 5057215427097471708, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
+      propertyPath: canTeleportTo.Array.data[2]
+      value: 
+      objectReference: {fileID: 1014164180}
+    - target: {fileID: 5057215427097471708, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
+      propertyPath: canTeleportTo.Array.data[3]
+      value: 
+      objectReference: {fileID: 422045882}
     - target: {fileID: 5649826251163482021, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
       propertyPath: m_Name
       value: Teleporter B
@@ -1402,10 +1442,15 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1972424864}
     - target: {fileID: 581631144581870679, guid: ccffba64a5f2ba7449c704a3c6d66654, type: 3}
-      propertyPath: m_AngularDrag
-      value: 0.02
+      propertyPath: m_LinearDrag
+      value: 0.1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 581631144581870679, guid: ccffba64a5f2ba7449c704a3c6d66654, type: 3}
+      propertyPath: m_AngularDrag
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 581631144581870668, guid: ccffba64a5f2ba7449c704a3c6d66654, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ccffba64a5f2ba7449c704a3c6d66654, type: 3}
 --- !u!114 &167750059 stripped
 MonoBehaviour:
@@ -10884,6 +10929,11 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!4 &422045882 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1678745854424780549, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
+  m_PrefabInstance: {fileID: 2021074796}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &596861667
 GameObject:
   m_ObjectHideFlags: 0
@@ -12103,6 +12153,22 @@ PrefabInstance:
       propertyPath: teleportingTo
       value: 
       objectReference: {fileID: 2049288776}
+    - target: {fileID: 5057215427097471708, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
+      propertyPath: canTeleportTo.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5057215427097471708, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
+      propertyPath: canTeleportTo.Array.data[0]
+      value: 
+      objectReference: {fileID: 22932019}
+    - target: {fileID: 5057215427097471708, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
+      propertyPath: canTeleportTo.Array.data[1]
+      value: 
+      objectReference: {fileID: 2035600626}
+    - target: {fileID: 5057215427097471708, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
+      propertyPath: canTeleportTo.Array.data[2]
+      value: 
+      objectReference: {fileID: 422045882}
     - target: {fileID: 5649826251163482021, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
       propertyPath: m_Name
       value: Teleporter E
@@ -12169,9 +12235,37 @@ PrefabInstance:
       propertyPath: teleportingTo
       value: 
       objectReference: {fileID: 2049288776}
+    - target: {fileID: 5057215427097471708, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
+      propertyPath: canTeleportTo.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5057215427097471708, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
+      propertyPath: canTeleportTo.Array.data[0]
+      value: 
+      objectReference: {fileID: 2049288776}
+    - target: {fileID: 5057215427097471708, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
+      propertyPath: canTeleportTo.Array.data[1]
+      value: 
+      objectReference: {fileID: 131735088}
+    - target: {fileID: 5057215427097471708, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
+      propertyPath: canTeleportTo.Array.data[2]
+      value: 
+      objectReference: {fileID: 22932019}
+    - target: {fileID: 5057215427097471708, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
+      propertyPath: canTeleportTo.Array.data[3]
+      value: 
+      objectReference: {fileID: 2035600626}
+    - target: {fileID: 5057215427097471708, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
+      propertyPath: canTeleportTo.Array.data[4]
+      value: 
+      objectReference: {fileID: 1014164180}
+    - target: {fileID: 5057215427097471708, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
+      propertyPath: canTeleportTo.Array.data[5]
+      value: 
+      objectReference: {fileID: 422045882}
     - target: {fileID: 5649826251163482021, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
       propertyPath: m_Name
-      value: Teleporter F (1)
+      value: Teleporter G
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
@@ -12955,6 +13049,22 @@ PrefabInstance:
       propertyPath: teleportingTo
       value: 
       objectReference: {fileID: 2049288776}
+    - target: {fileID: 5057215427097471708, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
+      propertyPath: canTeleportTo.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5057215427097471708, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
+      propertyPath: canTeleportTo.Array.data[0]
+      value: 
+      objectReference: {fileID: 2049288776}
+    - target: {fileID: 5057215427097471708, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
+      propertyPath: canTeleportTo.Array.data[1]
+      value: 
+      objectReference: {fileID: 131735088}
+    - target: {fileID: 5057215427097471708, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
+      propertyPath: canTeleportTo.Array.data[2]
+      value: 
+      objectReference: {fileID: 1014164180}
     - target: {fileID: 5649826251163482021, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
       propertyPath: m_Name
       value: Teleporter F
@@ -13014,6 +13124,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5057215427097471708, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
       propertyPath: teleportingTo
+      value: 
+      objectReference: {fileID: 1014164180}
+    - target: {fileID: 5057215427097471708, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
+      propertyPath: canTeleportTo.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5057215427097471708, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
+      propertyPath: canTeleportTo.Array.data[0]
+      value: 
+      objectReference: {fileID: 2049288776}
+    - target: {fileID: 5057215427097471708, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
+      propertyPath: canTeleportTo.Array.data[1]
+      value: 
+      objectReference: {fileID: 131735088}
+    - target: {fileID: 5057215427097471708, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
+      propertyPath: canTeleportTo.Array.data[2]
       value: 
       objectReference: {fileID: 1014164180}
     - target: {fileID: 5649826251163482021, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
@@ -13082,6 +13208,22 @@ PrefabInstance:
       propertyPath: teleportingTo
       value: 
       objectReference: {fileID: 131735088}
+    - target: {fileID: 5057215427097471708, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
+      propertyPath: canTeleportTo.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5057215427097471708, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
+      propertyPath: canTeleportTo.Array.data[0]
+      value: 
+      objectReference: {fileID: 22932019}
+    - target: {fileID: 5057215427097471708, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
+      propertyPath: canTeleportTo.Array.data[1]
+      value: 
+      objectReference: {fileID: 2035600626}
+    - target: {fileID: 5057215427097471708, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
+      propertyPath: canTeleportTo.Array.data[2]
+      value: 
+      objectReference: {fileID: 422045882}
     - target: {fileID: 5649826251163482021, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
       propertyPath: m_Name
       value: Teleporter A
