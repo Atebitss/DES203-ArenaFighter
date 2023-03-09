@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask wallLayer;
     private Vector2 move;
     private Vector2 playerVelocity;
-    private float jumpForce = 15f, moveForce = 5f, previousXMovement, startingGravity;
+    private float jumpForce = 15f, moveForce = 5f, gravity = -9.81f, previousXMovement;
 
     //~~~~~~~ GAMEPLAY ~~~~~~~\\
     //~~~ ICE ~~~\\
@@ -37,11 +37,6 @@ public class PlayerController : MonoBehaviour
 
 
 
-
-    void Awake()
-    {
-        startingGravity = playerRigid.gravityScale;
-    }
 
     void FixedUpdate()
     {
@@ -78,7 +73,7 @@ public class PlayerController : MonoBehaviour
         //A/space 0/+1
         //if +1, set vertical velocity to levels provided jump force
         //Debug.Log("jump");
-        if (IsGrounded())
+        if (IsOnGround())
         {
             if (IsOnBouncy())
             {
@@ -86,7 +81,7 @@ public class PlayerController : MonoBehaviour
             }
             else { playerRigid.velocity = new Vector2(playerVelocity.x, jumpForce); } // Normal Jump
         }
-        else if (OnStickyWall() & !IsGrounded()) // Wall Jumping
+        else if (IsOnStickyWall() & !IsOnGround()) // Wall Jumping
         {
             isWallJumping = true;
             playerRigid.velocity = new Vector2(-transform.localScale.x * 12, 20);
@@ -101,6 +96,11 @@ public class PlayerController : MonoBehaviour
 
             //while we are wall jumping, the player cannot change thier velocity, so after a duration, let the players control the PC again
             Invoke(nameof(StopWallJumping), wallJumpingDuration);
+        }
+
+        if(!IsOnGround() && !IsOnStickyWall() && !isWallJumping)
+        {
+            playerRigid.velocity = new Vector2(playerRigid.velocity.x, gravity);
         }
     }
 
@@ -136,7 +136,7 @@ public class PlayerController : MonoBehaviour
             }
 
         }
-        else if (!OnStickyWall() && !isWallJumping && !isTeleporting)
+        else if (!IsOnStickyWall() && !isWallJumping && !isTeleporting)
         {
 
             playerRigid.velocity = new Vector3(move.x * moveForce, playerVelocity.y, 0); //if not on ice and not on a wall , use normal movement logic
@@ -150,7 +150,7 @@ public class PlayerController : MonoBehaviour
         //wall jumping code adapted  from https://www.youtube.com/watch?v=_UBpkdKlJzE and https://www.youtube.com/watch?v=O6VX6Ro7EtA
         //if players wall jump cd is more than .2 and they're not on ice, not wall jumping, not teleporting, not on the ground, and on a sticky wall
         //set is wall jumping to false, 
-        if (wallJumpCooldown > 0.2f && (!IsOnIce()) && !isWallJumping && !isTeleporting && !IsGrounded() && OnStickyWall())
+        if (wallJumpCooldown > 0.2f && (!IsOnIce()) && !isWallJumping && !isTeleporting && !IsOnGround() && IsOnStickyWall())
         {
             isWallJumping = false;
             CancelInvoke(nameof(StopWallJumping));
@@ -243,7 +243,7 @@ public class PlayerController : MonoBehaviour
     //~~~~~~~ GROUND & WALL CHECKS ~~~~~~~\\
     //IsGrounded, IsOnWall Method orginally from https://www.youtube.com/watch?v=_UBpkdKlJzE
     //~~~ GROUNDED ~~~\\ 
-    private bool IsGrounded()
+    public bool IsOnGround()
     {
         //casts an invisble box from the players center down to see if the player is touching the ground
         RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, Vector2.down, 0.5f, groundLayer);
@@ -252,7 +252,7 @@ public class PlayerController : MonoBehaviour
 
 
     //~~~ ICE ~~~\\ 
-    private bool IsOnIce()
+    public bool IsOnIce()
     {
         RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, Vector2.down, 0.5f, groundLayer);
 
@@ -267,7 +267,7 @@ public class PlayerController : MonoBehaviour
 
 
     //~~~ BOUNCE ~~~\\ 
-    private bool IsOnBouncy()
+    public bool IsOnBouncy()
     {
         RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, Vector2.down, 0.5f, groundLayer);
 
@@ -282,7 +282,7 @@ public class PlayerController : MonoBehaviour
 
 
     //~~~ STICKY WALL ~~~\\ 
-    private bool OnStickyWall()
+    public bool IsOnStickyWall()
     {
         //casts an invisble box from the players center to whichever way the player is facing to see if we are touching a sticky wall
         RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, new Vector2(transform.localScale.x, 0), 0.2f, wallLayer);
