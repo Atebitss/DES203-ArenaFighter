@@ -33,10 +33,10 @@ public class DebugUIScript : MonoBehaviour
                 + "\tY: " + playerScript.GetPlayerY().ToString("F2")
                 + "\nVelocity X: " + playerScript.GetPlayerXVelocity().ToString("F2")
                 + "\tVelocity Y: " + playerScript.GetPlayerYVelocity().ToString("F2")
-                + "\nisGrounded: " + playerScript.IsOnGround()
-                + "\nisOnIce: " + playerScript.IsOnIce()
-                + "\nisOnBouncy: " + playerScript.IsOnBouncy()
-                + "\nisOnStickyWall: " + playerScript.IsOnStickyWall();
+                + "\nisGrounded: " + playerScript.GetOnGround()
+                + "\nisOnIce: " + playerScript.GetOnIce()
+                + "\nisOnBouncy: " + playerScript.GetOnBouncy()
+                + "\nisOnStickyWall: " + playerScript.GetOnStickyWall();
         }
     }
 }

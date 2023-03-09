@@ -12,27 +12,35 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask wallLayer;
     private Vector2 move;
     private Vector2 playerVelocity;
+    private bool onGround;
     private float jumpForce = 15f, moveForce = 5f, gravity = -9.81f, previousXMovement;
 
     //~~~~~~~ GAMEPLAY ~~~~~~~\\
     //~~~ ICE ~~~\\
     private float IceDecceleration = 0.95f; //must be between 1 and 0
+    private bool onIce;
 
     //~~~ WALL SLIDE & JUMP ~~~\\
     private float wallJumpCooldown;
-    private float wallSlidingSpeed = 2f;
+    private float wallSlideSpeed = -2f;
+    private bool onStickyWall;
     private bool isWallJumping;
+    private bool isJumping;
     private float wallJumpingDirection;
     private float wallJumpingDuration = 0.4f;
 
     //~~~ BOUNCE ~~~\\
     private float bounceMultiplier = 1.5f;
     private float bounceRebound = 1.25f;
+    private bool onBouncy;
 
     //~~~ TELEPORT ~~~\\
     private GameObject currentTeleporter;
     private bool isTeleporting;
     private float teleportingDuration = 0.2f;
+
+    //~~~ FLIP ~~~\\
+    private bool left, right;
 
 
 
@@ -40,13 +48,17 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        IsOnGround();
+        IsOnBouncy();
+        IsOnIce();
+
         Flip();
         IceMovement();
         WallSlide();
         BounceMovement();
 
         playerVelocity = playerRigid.velocity;   //update current velocity Vector2 to players current velocity
-        playerRigid.velocity = new Vector3(move.x * moveForce, playerVelocity.y, 0);   //Player's rigid component's velocity set to 1/-1 * 15, 0/15
+        //playerRigid.velocity = new Vector3(move.x * moveForce, playerVelocity.y, 0);   //Player's rigid component's velocity set to 1/-1 * 15, 0/15
     }
 
 
@@ -64,6 +76,7 @@ public class PlayerController : MonoBehaviour
         Vector2 movement = ctx.ReadValue<Vector2>();
         //Debug.Log(movement);
 
+        //update move vector with -1/+1, players current y velocity
         move = new Vector3(movement.x, 0, playerVelocity.y);
     }
 
@@ -72,35 +85,47 @@ public class PlayerController : MonoBehaviour
     {
         //A/space 0/+1
         //if +1, set vertical velocity to levels provided jump force
-        //Debug.Log("jump");
+
+        //if player is on the ground, then jump with relative force
+        //unless they are on a sticky wall and not on the ground, then wall jump
+        //if the player is not on the ground, not on a sticky wall, and not wall jumping, then apply gravity 
+
+        Debug.Log("jump");
         if (IsOnGround())
         {
+            Debug.Log("grounded");
             if (IsOnBouncy())
             {
+                Debug.Log("on bouncy");
                 playerRigid.velocity = new Vector2(playerVelocity.x, jumpForce * bounceMultiplier); //Bouncy Jump
             }
-            else { playerRigid.velocity = new Vector2(playerVelocity.x, jumpForce); } // Normal Jump
+            else { Debug.Log("normal"); playerRigid.velocity = new Vector2(playerVelocity.x, jumpForce); } // Normal Jump
         }
         else if (IsOnStickyWall() & !IsOnGround()) // Wall Jumping
         {
             isWallJumping = true;
             playerRigid.velocity = new Vector2(-transform.localScale.x * 12, 20);
             wallJumpCooldown = 0;
+            Debug.Log("wall jumping");
 
             if (transform.localScale.x != wallJumpingDirection) //flips player so they are facing the direction that they are jumping towards
             {
                 Vector3 localScale = transform.localScale;
                 localScale.x *= -1f;
                 transform.localScale = localScale;
+                Debug.Log("flipping player");
             }
 
             //while we are wall jumping, the player cannot change thier velocity, so after a duration, let the players control the PC again
             Invoke(nameof(StopWallJumping), wallJumpingDuration);
+            Debug.Log("starting wall jump cooldown");
         }
 
-        if(!IsOnGround() && !IsOnStickyWall() && !isWallJumping)
+        //apply gravity if not grounded, on a stick wall, or wall jumping
+        if(!IsOnGround() && !IsOnStickyWall() && !isWallJumping && !isJumping)
         {
-            playerRigid.velocity = new Vector2(playerRigid.velocity.x, gravity);
+            Debug.Log("apply gravity");
+            playerRigid.velocity = new Vector2(playerVelocity.x, gravity);
         }
     }
 
@@ -109,37 +134,41 @@ public class PlayerController : MonoBehaviour
 
 
     //~~~~~~~ MOVEMENT LOGIC ~~~~~~~\\ 
+    //called by Fixed Update, line 42
+
     //~~~ FLIP ~~~\\ 
     private void Flip()
     {
-        //flips the player around when moving left or right | Allows us to determine player direction for animating and other stuffs
+        //flips the player around when moving left or right | Allows us to determine player direction for animating and combat
         if (move.x > 0.01f)
+        {
+            Debug.Log("flip right");
             transform.localScale = Vector3.one;
+            right = true;
+            left = false;
+        }
         else if (move.x < -0.01f)
+        {
+            Debug.Log("flip left");
             transform.localScale = new Vector3(-1, 1, 1);
+            right = false;
+            left = true;
+        }
     }
 
 
     //~~~ ICE ~~~\\ 
     private void IceMovement()
     {
-        if (IsOnIce())
-        {
-            if (move.x != 0) //when we have input, move normally (will refine this later)
-            {
-                playerRigid.velocity = new Vector3(move.x * moveForce, playerVelocity.y, 0);
-            }
-            else
-            {
-                playerRigid.velocity = new Vector3(previousXMovement * IceDecceleration, playerVelocity.y, 0); //when no input, slide across|Speed decreases by the rate of IceDecceleration
-                previousXMovement = playerRigid.velocity.x;
-            }
+        //if player is on ice and there's no input, slow the players velocity until 0
 
-        }
-        else if (!IsOnStickyWall() && !isWallJumping && !isTeleporting)
+        if (IsOnIce() && move.x == 0) //if there's no player movement
         {
+            //x velocity decreases by the rate of IceDecceleration
+            playerRigid.velocity = new Vector3(previousXMovement * IceDecceleration, playerVelocity.y, 0);
+            previousXMovement = playerRigid.velocity.x;
 
-            playerRigid.velocity = new Vector3(move.x * moveForce, playerVelocity.y, 0); //if not on ice and not on a wall , use normal movement logic
+            Debug.Log("slowing player on ice");
         }
     }
 
@@ -148,14 +177,20 @@ public class PlayerController : MonoBehaviour
     private void WallSlide()
     {
         //wall jumping code adapted  from https://www.youtube.com/watch?v=_UBpkdKlJzE and https://www.youtube.com/watch?v=O6VX6Ro7EtA
-        //if players wall jump cd is more than .2 and they're not on ice, not wall jumping, not teleporting, not on the ground, and on a sticky wall
-        //set is wall jumping to false, 
+
+        //if wall jump cooldown is greater than 0.2 and the player is:
+        //1.not teleporting     2.not wall jumping     3.not on ice     4.not on the ground     5.on a sticky wall
+        //then set wall jumping false and update player y velocity with sliding down speed
+        //otherwise, increase wall jump cooldown
+
         if (wallJumpCooldown > 0.2f && (!IsOnIce()) && !isWallJumping && !isTeleporting && !IsOnGround() && IsOnStickyWall())
         {
+            Debug.Log("sliding player on sticky wall");
             isWallJumping = false;
             CancelInvoke(nameof(StopWallJumping));
 
-            playerRigid.velocity = new Vector2(playerRigid.velocity.x, Mathf.Clamp(playerRigid.velocity.y, -wallSlidingSpeed, float.MaxValue));
+            //could this be done with SetPlayerYVelocity(wallSlideSpeed)
+            playerRigid.velocity = new Vector2(playerRigid.velocity.x, Mathf.Clamp(playerRigid.velocity.y, wallSlideSpeed, float.MaxValue));
         }
         else { wallJumpCooldown += Time.deltaTime; }
     }
@@ -169,9 +204,12 @@ public class PlayerController : MonoBehaviour
     //~~~ BOUNCE ~~~\\ 
     private void BounceMovement()
     {
-        if (IsOnBouncy() && playerRigid.velocity.y <= 0f)
+        //if the player is on a bouncy surface and the players y velocity is less than 0
+        //throw player vertically
+
+        if (IsOnBouncy() && playerRigid.velocity.y < 0f)
         {
-            //Debug.Log("Bouncing");
+            Debug.Log("bouncing player");
             playerRigid.velocity = new Vector2(playerVelocity.x, jumpForce * bounceRebound);
         }
     }
@@ -189,7 +227,7 @@ public class PlayerController : MonoBehaviour
 
         if (destinationRotation != currentRotation)
         {
-            //Debug.Log("rotation is different, adding force");
+            Debug.Log("rotation is different, adding force");
             //will shoot out portal with the 80% of the velocity it fell into the portal with
             playerRigid.velocity = new Vector2((-previousVelocity.y) * 0.8f, previousVelocity.x);
             //will not work when teleporting to teleports facing left due to velocity direction, need to find a fix
@@ -226,14 +264,7 @@ public class PlayerController : MonoBehaviour
     //~~~ EXIT ~~~\\ 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("Teleporter"))
-        {
-            if (currentTeleporter == collision.gameObject)
-            {
-                currentTeleporter = null;
-
-            }
-        }
+        if (collision.CompareTag("Teleporter") && currentTeleporter == collision.gameObject){ currentTeleporter = null; }
     }
 
 
@@ -243,50 +274,65 @@ public class PlayerController : MonoBehaviour
     //~~~~~~~ GROUND & WALL CHECKS ~~~~~~~\\
     //IsGrounded, IsOnWall Method orginally from https://www.youtube.com/watch?v=_UBpkdKlJzE
     //~~~ GROUNDED ~~~\\ 
-    public bool IsOnGround()
+    private bool IsOnGround()
     {
         //casts an invisble box from the players center down to see if the player is touching the ground
-        RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, Vector2.down, 0.5f, groundLayer);
-        return raycastHit.collider != null;
+        RaycastHit2D groundRaycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, Vector2.down, 0.5f, groundLayer);
+
+        if (groundRaycastHit.collider != null) { return onGround = true; }
+        else { return onGround = false; }
+    }
+
+    public bool GetOnGround()
+    {
+        return onGround;
     }
 
 
     //~~~ ICE ~~~\\ 
-    public bool IsOnIce()
+    private bool IsOnIce()
     {
-        RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, Vector2.down, 0.5f, groundLayer);
+        RaycastHit2D iceRaycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, Vector2.down, 0.5f, groundLayer);
 
-        //if we hit something, and that something has the Ice tag, return true, else, return false
-        if (raycastHit.collider != null)
-        {
-            if (raycastHit.collider.CompareTag("Ice")) { return true; }
-            else { return false; }
-        }
-        else { return false; }
+        //if we hit something, and that something has the Ice tag, return true, else return false
+        if (iceRaycastHit.collider != null && iceRaycastHit.collider.tag == "Ice") { return onIce = true; }
+        else { return onIce = false; }
+    }
+
+    public bool GetOnIce()
+    {
+        return onIce;
     }
 
 
     //~~~ BOUNCE ~~~\\ 
-    public bool IsOnBouncy()
+    private bool IsOnBouncy()
     {
-        RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, Vector2.down, 0.5f, groundLayer);
+        RaycastHit2D bouncyRaycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, Vector2.down, 0.5f, groundLayer);
 
         //if we hit something and that something has the Bouncy tag, return true, else return false
-        if (raycastHit.collider != null)
-        {
-            if (raycastHit.collider.CompareTag("Bouncy")) { return true; }
-            else { return false; }
-        }
-        else { return false; }
+        if (bouncyRaycastHit.collider != null && bouncyRaycastHit.collider.tag == "Bouncy") { return onBouncy = true; }
+        else { return onBouncy = false; }
+    }
+
+    public bool GetOnBouncy()
+    {
+        return onBouncy;
     }
 
 
     //~~~ STICKY WALL ~~~\\ 
-    public bool IsOnStickyWall()
+    private bool IsOnStickyWall()
     {
         //casts an invisble box from the players center to whichever way the player is facing to see if we are touching a sticky wall
-        RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, new Vector2(transform.localScale.x, 0), 0.2f, wallLayer);
-        return raycastHit.collider != null;
+        RaycastHit2D stickyRaycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, new Vector2(transform.localScale.x, 0), 0.2f, wallLayer);
+        if(stickyRaycastHit.collider != null){ return onStickyWall = true; }
+        else { return onStickyWall = false; }
+    }
+
+    public bool GetOnStickyWall()
+    {
+        return onStickyWall;
     }
 
 
