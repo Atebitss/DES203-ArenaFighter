@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 move;
     private Vector2 playerVelocity;
     private bool onGround;
-    private float jumpForce = 15f, moveForce = 5f, gravity = -9.81f, previousXMovement;
+    private float jumpForce = 15f, moveForce = 5f, previousXMovement;
 
     //~~~~~~~ GAMEPLAY ~~~~~~~\\
     //~~~ ICE ~~~\\
@@ -48,17 +48,13 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        IsOnGround();
-        IsOnBouncy();
-        IsOnIce();
+        //Debug.Log("playerVelocity.x: " + playerVelocity.x);
+        PlayerMovement();
 
         Flip();
-        IceMovement();
+        Bounce();
+        IceSlide();
         WallSlide();
-        BounceMovement();
-
-        playerVelocity = playerRigid.velocity;   //update current velocity Vector2 to players current velocity
-        //playerRigid.velocity = new Vector3(move.x * moveForce, playerVelocity.y, 0);   //Player's rigid component's velocity set to 1/-1 * 15, 0/15
     }
 
 
@@ -80,6 +76,34 @@ public class PlayerController : MonoBehaviour
         move = new Vector3(movement.x, 0, playerVelocity.y);
     }
 
+    private void PlayerMovement()
+    {
+        //environment checks
+        IsOnStickyWall();
+        IsOnGround();
+        IsOnBouncy();
+        IsOnIce();
+
+        //update jumping bool if player is jumping and falling or still
+        if(isJumping && playerVelocity.y < 0.1f)
+        {
+            isJumping = false;
+        }
+
+        playerVelocity = playerRigid.velocity;   //update current velocity Vector2 to players current velocity
+
+        //if player is moving and on ice
+        //or not on ice and not wall jumping and on the ground
+        //or is not no the ground and and is not wall jumping and is jumping
+        if (move.x != 0 && onIce || !onIce && !isWallJumping)
+        {
+            //Debug.Log("move.x/y: " + move.x + "/" + move.y + "   onGround: " + onGround + "   onIce: " + onIce + "   onBouncy: " + onBouncy + "   onStickyWall: " + onStickyWall);
+            //Player's rigid component's velocity set to 1/-1 * 15, 0/15
+            playerRigid.velocity = new Vector3(move.x * moveForce, playerVelocity.y, 0);  
+        }
+    }
+
+
     //~~~ JUMP ~~~\\ 
     public void OnJump(InputAction.CallbackContext ctx)
     {
@@ -90,44 +114,56 @@ public class PlayerController : MonoBehaviour
         //unless they are on a sticky wall and not on the ground, then wall jump
         //if the player is not on the ground, not on a sticky wall, and not wall jumping, then apply gravity 
 
-        Debug.Log("jump");
-        if (IsOnGround())
+        if (onGround)
         {
-            Debug.Log("grounded");
-            if (IsOnBouncy())
+            isJumping = true;
+
+            if (onBouncy)
             {
-                Debug.Log("on bouncy");
+                //Debug.Log("jump on bouncy");
                 playerRigid.velocity = new Vector2(playerVelocity.x, jumpForce * bounceMultiplier); //Bouncy Jump
             }
-            else { Debug.Log("normal"); playerRigid.velocity = new Vector2(playerVelocity.x, jumpForce); } // Normal Jump
+            else 
+            { 
+                //Debug.Log("jump"); 
+                playerRigid.velocity = new Vector2(playerVelocity.x, jumpForce); // Normal Jump
+            }
         }
-        else if (IsOnStickyWall() & !IsOnGround()) // Wall Jumping
+        else if (onStickyWall && !onGround) // Wall Jumping
         {
+            Debug.Log("wall jump");
+            isJumping = true;
             isWallJumping = true;
-            playerRigid.velocity = new Vector2(-transform.localScale.x * 12, 20);
             wallJumpCooldown = 0;
-            Debug.Log("wall jumping");
 
             if (transform.localScale.x != wallJumpingDirection) //flips player so they are facing the direction that they are jumping towards
             {
+                //Debug.Log("flipping player");
                 Vector3 localScale = transform.localScale;
                 localScale.x *= -1f;
                 transform.localScale = localScale;
-                Debug.Log("flipping player");
             }
 
-            //while we are wall jumping, the player cannot change thier velocity, so after a duration, let the players control the PC again
-            Invoke(nameof(StopWallJumping), wallJumpingDuration);
-            Debug.Log("starting wall jump cooldown");
-        }
+            //sends the player in the opposite direction 
+            playerRigid.velocity = new Vector2(transform.localScale.x * 5, jumpForce);
 
-        //apply gravity if not grounded, on a stick wall, or wall jumping
-        if(!IsOnGround() && !IsOnStickyWall() && !isWallJumping && !isJumping)
-        {
-            Debug.Log("apply gravity");
-            playerRigid.velocity = new Vector2(playerVelocity.x, gravity);
+            //while we are wall jumping, the player cannot change thier velocity, so after a duration, let the players control the PC again
+            Debug.Log("starting wall jump cooldown");
+            Invoke(nameof(StopWallJumping), wallJumpingDuration);
         }
     }
+
+    private void StopWallJumping()
+    {
+        Debug.Log("wall jump stop");
+        isWallJumping = false;
+    }
+
+    public bool GetIsJumping()
+    {
+        return isJumping;
+    }
+
 
 
 
@@ -136,20 +172,21 @@ public class PlayerController : MonoBehaviour
     //~~~~~~~ MOVEMENT LOGIC ~~~~~~~\\ 
     //called by Fixed Update, line 42
 
+
     //~~~ FLIP ~~~\\ 
     private void Flip()
     {
         //flips the player around when moving left or right | Allows us to determine player direction for animating and combat
-        if (move.x > 0.01f)
+        if (move.x > 0.01f && !right)
         {
-            Debug.Log("flip right");
+            //Debug.Log("flip right");
             transform.localScale = Vector3.one;
             right = true;
             left = false;
         }
-        else if (move.x < -0.01f)
+        else if (move.x < -0.01f && !left)
         {
-            Debug.Log("flip left");
+            //Debug.Log("flip left");
             transform.localScale = new Vector3(-1, 1, 1);
             right = false;
             left = true;
@@ -158,17 +195,17 @@ public class PlayerController : MonoBehaviour
 
 
     //~~~ ICE ~~~\\ 
-    private void IceMovement()
+    private void IceSlide()
     {
+        //possibly update with take off acceleration
         //if player is on ice and there's no input, slow the players velocity until 0
 
-        if (IsOnIce() && move.x == 0) //if there's no player movement
+        if (onIce && move.x == 0 && playerVelocity.x != 0) //if there's no player movement
         {
             //x velocity decreases by the rate of IceDecceleration
-            playerRigid.velocity = new Vector3(previousXMovement * IceDecceleration, playerVelocity.y, 0);
             previousXMovement = playerRigid.velocity.x;
-
-            Debug.Log("slowing player on ice");
+            playerRigid.velocity = new Vector3(previousXMovement * IceDecceleration, playerVelocity.y, 0);
+            //Debug.Log("slowing player on ice");
         }
     }
 
@@ -180,38 +217,41 @@ public class PlayerController : MonoBehaviour
 
         //if wall jump cooldown is greater than 0.2 and the player is:
         //1.not teleporting     2.not wall jumping     3.not on ice     4.not on the ground     5.on a sticky wall
-        //then set wall jumping false and update player y velocity with sliding down speed
+        //then end wall jumping and update player y velocity with sliding down speed
         //otherwise, increase wall jump cooldown
 
-        if (wallJumpCooldown > 0.2f && (!IsOnIce()) && !isWallJumping && !isTeleporting && !IsOnGround() && IsOnStickyWall())
+        if (wallJumpCooldown > 0.2f && !onIce && !isWallJumping && !isTeleporting && !onGround && onStickyWall)
         {
-            Debug.Log("sliding player on sticky wall");
+            //Debug.Log("sliding player on sticky wall");
             isWallJumping = false;
             CancelInvoke(nameof(StopWallJumping));
 
             //could this be done with SetPlayerYVelocity(wallSlideSpeed)
-            playerRigid.velocity = new Vector2(playerRigid.velocity.x, Mathf.Clamp(playerRigid.velocity.y, wallSlideSpeed, float.MaxValue));
+            //playerRigid.velocity = new Vector2(playerRigid.velocity.x, Mathf.Clamp(playerRigid.velocity.y, wallSlideSpeed, float.MaxValue));
+            SetPlayerYVelocity(wallSlideSpeed);
         }
         else { wallJumpCooldown += Time.deltaTime; }
     }
 
-    private void StopWallJumping()
-    {
-        isWallJumping = false;
-    }
-
 
     //~~~ BOUNCE ~~~\\ 
-    private void BounceMovement()
+    private void Bounce()
     {
         //if the player is on a bouncy surface and the players y velocity is less than 0
         //throw player vertically
 
-        if (IsOnBouncy() && playerRigid.velocity.y < 0f)
+        if (onBouncy && playerRigid.velocity.y < -0.1f )
         {
-            Debug.Log("bouncing player");
+            //Debug.Log("bouncing player");
             playerRigid.velocity = new Vector2(playerVelocity.x, jumpForce * bounceRebound);
         }
+
+        /*if (onBouncy && playerRigid.velocity.y < -0.1f || onBouncy && playerRigid.velocity.y > 0.1f)
+        {
+            Debug.Log("bouncing player");
+            if (playerRigid.velocity.y < -0.1f) { playerRigid.velocity = new Vector2(playerVelocity.x, -playerVelocity.y * bounceRebound); }
+            else if (playerRigid.velocity.y > 0.1f) { playerRigid.velocity = new Vector2(playerVelocity.x, playerVelocity.y * bounceRebound); }
+        }*/
     }
 
 
@@ -227,7 +267,7 @@ public class PlayerController : MonoBehaviour
 
         if (destinationRotation != currentRotation)
         {
-            Debug.Log("rotation is different, adding force");
+            //Debug.Log("rotation is different, adding force");
             //will shoot out portal with the 80% of the velocity it fell into the portal with
             playerRigid.velocity = new Vector2((-previousVelocity.y) * 0.8f, previousVelocity.x);
             //will not work when teleporting to teleports facing left due to velocity direction, need to find a fix
@@ -253,9 +293,9 @@ public class PlayerController : MonoBehaviour
         {
             if (!isTeleporting)
             {
+                //Debug.Log("Teleporting");
                 currentTeleporter = collision.gameObject;
                 Teleport();
-                Debug.Log("Teleporting");
             }
 
         }
@@ -326,7 +366,7 @@ public class PlayerController : MonoBehaviour
     {
         //casts an invisble box from the players center to whichever way the player is facing to see if we are touching a sticky wall
         RaycastHit2D stickyRaycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, new Vector2(transform.localScale.x, 0), 0.2f, wallLayer);
-        if(stickyRaycastHit.collider != null){ return onStickyWall = true; }
+        if(stickyRaycastHit.collider != null && stickyRaycastHit.collider.tag == "StickyWall"){ return onStickyWall = true; }
         else { return onStickyWall = false; }
     }
 

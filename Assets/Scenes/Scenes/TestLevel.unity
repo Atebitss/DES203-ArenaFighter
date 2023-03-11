@@ -170,9 +170,9 @@ GameObject:
   - component: {fileID: 145351082}
   - component: {fileID: 145351081}
   - component: {fileID: 145351080}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WallLeft
-  m_TagString: Wall
+  m_TagString: StickyWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -200,7 +200,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 145351078}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 93e193592b5bb774588928d81a78644a, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -280,7 +280,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.5882353, g: 0.5882353, b: 0.5882353, a: 1}
+  m_Color: {r: 0.4817664, g: 0.5943396, b: 0.47939658, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -304,7 +304,7 @@ GameObject:
   - component: {fileID: 278850747}
   m_Layer: 3
   m_Name: Floor
-  m_TagString: Floor
+  m_TagString: Ice
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -332,7 +332,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 278850745}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 93e193592b5bb774588928d81a78644a, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -412,7 +412,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.5882353, g: 0.5882353, b: 0.5882353, a: 1}
+  m_Color: {r: 0.5066305, g: 0.6509434, b: 0.6426435, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -436,7 +436,7 @@ GameObject:
   - component: {fileID: 326155621}
   m_Layer: 3
   m_Name: PlatformShort (3)
-  m_TagString: Floor
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -464,7 +464,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 326155619}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 93e193592b5bb774588928d81a78644a, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -568,7 +568,7 @@ GameObject:
   - component: {fileID: 356721279}
   m_Layer: 3
   m_Name: PlatformShort (6)
-  m_TagString: Floor
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -596,7 +596,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 356721277}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 93e193592b5bb774588928d81a78644a, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -700,7 +700,7 @@ GameObject:
   - component: {fileID: 452476975}
   m_Layer: 3
   m_Name: PlatformLong
-  m_TagString: Floor
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -728,7 +728,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 452476973}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 93e193592b5bb774588928d81a78644a, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -1178,7 +1178,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 693896100}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Walls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1474,7 +1474,7 @@ GameObject:
   - component: {fileID: 994038854}
   m_Layer: 3
   m_Name: PlatformShort (5)
-  m_TagString: Floor
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1502,7 +1502,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 994038852}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 93e193592b5bb774588928d81a78644a, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -1604,9 +1604,9 @@ GameObject:
   - component: {fileID: 1101366727}
   - component: {fileID: 1101366726}
   - component: {fileID: 1101366725}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WallRight
-  m_TagString: Wall
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1634,7 +1634,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 1101366723}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 93e193592b5bb774588928d81a78644a, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -1771,9 +1771,9 @@ GameObject:
   - component: {fileID: 1300896805}
   - component: {fileID: 1300896804}
   - component: {fileID: 1300896803}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WallShort
-  m_TagString: Wall
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1801,7 +1801,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 1300896801}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 93e193592b5bb774588928d81a78644a, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -2039,9 +2039,9 @@ GameObject:
   - component: {fileID: 1564715799}
   - component: {fileID: 1564715798}
   - component: {fileID: 1564715797}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WallLong (1)
-  m_TagString: Wall
+  m_TagString: StickyWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2069,7 +2069,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 1564715795}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 93e193592b5bb774588928d81a78644a, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -2149,7 +2149,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.5882353, g: 0.5882353, b: 0.5882353, a: 1}
+  m_Color: {r: 0.48235297, g: 0.59607846, b: 0.4784314, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -2201,7 +2201,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 1582279833}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 93e193592b5bb774588928d81a78644a, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -2305,7 +2305,7 @@ GameObject:
   - component: {fileID: 1648428515}
   m_Layer: 3
   m_Name: PlatformShort
-  m_TagString: Floor
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2333,7 +2333,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 1648428513}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 93e193592b5bb774588928d81a78644a, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -2647,7 +2647,7 @@ GameObject:
   - component: {fileID: 1717169386}
   m_Layer: 3
   m_Name: PlatformLong (3)
-  m_TagString: Floor
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2675,7 +2675,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 1717169384}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 93e193592b5bb774588928d81a78644a, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -2813,9 +2813,9 @@ GameObject:
   - component: {fileID: 1771291787}
   - component: {fileID: 1771291786}
   - component: {fileID: 1771291785}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WallLong
-  m_TagString: Wall
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2843,7 +2843,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 1771291783}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 93e193592b5bb774588928d81a78644a, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -3009,7 +3009,7 @@ GameObject:
   - component: {fileID: 1882004283}
   m_Layer: 3
   m_Name: PlatformLong (4)
-  m_TagString: Floor
+  m_TagString: Bouncy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3037,7 +3037,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 1882004281}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 93e193592b5bb774588928d81a78644a, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -3117,7 +3117,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.5882353, g: 0.5882353, b: 0.5882353, a: 1}
+  m_Color: {r: 0.6037736, g: 0.498398, b: 0.498398, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -3141,7 +3141,7 @@ GameObject:
   - component: {fileID: 1951938424}
   m_Layer: 3
   m_Name: PlatformLong (5)
-  m_TagString: Floor
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3169,7 +3169,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 1951938422}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 93e193592b5bb774588928d81a78644a, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -3273,7 +3273,7 @@ GameObject:
   - component: {fileID: 1993423446}
   m_Layer: 3
   m_Name: PlatformShort (4)
-  m_TagString: Floor
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3301,7 +3301,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 1993423444}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 93e193592b5bb774588928d81a78644a, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -3405,7 +3405,7 @@ GameObject:
   - component: {fileID: 2035204413}
   m_Layer: 3
   m_Name: PlatformLong (1)
-  m_TagString: Floor
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3433,7 +3433,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 2035204411}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 93e193592b5bb774588928d81a78644a, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -3569,9 +3569,9 @@ GameObject:
   - component: {fileID: 2067169876}
   - component: {fileID: 2067169875}
   - component: {fileID: 2067169874}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WallShort (1)
-  m_TagString: Wall
+  m_TagString: StickyWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3599,7 +3599,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 2067169872}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 93e193592b5bb774588928d81a78644a, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -3679,7 +3679,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.5882353, g: 0.5882353, b: 0.5882353, a: 1}
+  m_Color: {r: 0.48235297, g: 0.59607846, b: 0.4784314, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -3703,7 +3703,7 @@ GameObject:
   - component: {fileID: 2070669790}
   m_Layer: 3
   m_Name: PlatformShort (2)
-  m_TagString: Floor
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3731,7 +3731,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 2070669788}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 93e193592b5bb774588928d81a78644a, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -3835,7 +3835,7 @@ GameObject:
   - component: {fileID: 2108613485}
   m_Layer: 3
   m_Name: PlatformShort (1)
-  m_TagString: Floor
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3863,7 +3863,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 2108613483}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 93e193592b5bb774588928d81a78644a, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -3967,7 +3967,7 @@ GameObject:
   - component: {fileID: 2137655461}
   m_Layer: 3
   m_Name: PlatformLong (2)
-  m_TagString: Floor
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3995,7 +3995,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 2137655459}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 93e193592b5bb774588928d81a78644a, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0

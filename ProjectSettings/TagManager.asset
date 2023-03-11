@@ -4,13 +4,13 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Floor
-  - Wall
   - SpawnPoint
   - Teleporter
   - StickyWall
   - Ice
   - Bouncy
+  - PlayerFront
+  - PlayerBack
   layers:
   - Default
   - TransparentFX
@@ -18,7 +18,7 @@ TagManager:
   - Ground
   - Water
   - UI
-  - StickyWall
+  - Wall
   - 
   - 
   - 
