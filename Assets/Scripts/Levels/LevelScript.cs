@@ -5,27 +5,40 @@ using UnityEngine.InputSystem;
 
 public class LevelScript : MonoBehaviour
 {
-    //variable player stats for different levels
+    //variable player stats
     [SerializeField] [Range(1, 5)] private float playerGravity = 2.5f;
-    [SerializeField] [Range(1, 25)] private float playerMoveForce = 25f;
+    [SerializeField] [Range(1, 100)] private float playerMoveForce = 25f;
     [SerializeField] [Range(10, 50)] private float playerJumpForce = 25f;
-    private int[] spawnOrder = new int[3];
-    private PlayerController[] playerScripts;
-    private GameObject activePlayer;
+
+    //debug
+    [SerializeField] private bool devMode = false;
+    private DebugUIManager DUIM;
+
+    //spawn points
     private GameObject[] spawnPoints;
+    private int[] spawnOrder = new int[3];
 
-    public List<PlayerInput> players = new List<PlayerInput>();
+    //playersInput
+    /*public List<PlayerController> playerScripts = new List<PlayerController>();
+    public List<PlayerInput> playersInput = new List<PlayerInput>();
+    public List<GameObject> players = new List<GameObject>();*/
 
+    private PlayerController[] playerScripts = new PlayerController[4];
+    private PlayerInput[] playersInput = new PlayerInput[4];
+    private GameObject[] players = new GameObject[4];
+    private int numOfPlayers = 0;
+
+    //important level & multiplayer stuff
     public static LevelScript instance = null;
-
     public event System.Action<PlayerInput> PlayerJoinedGame;
     public event System.Action<PlayerInput> PlayerLeftGame;
-
     [SerializeField] private InputAction joinAction;
     [SerializeField] private InputAction leaveAction;
 
+
     private void Awake()
     {
+        //ensure there is only 1 level script
         if(instance == null)
         {
             instance = this;
@@ -35,8 +48,7 @@ public class LevelScript : MonoBehaviour
             Destroy(gameObject);
         }
 
-        spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoint");
-
+        //set join/leave actions
         joinAction.Enable();
         joinAction.performed += ctx => JoinAction(ctx);
 
@@ -44,6 +56,10 @@ public class LevelScript : MonoBehaviour
         leaveAction.performed += ctx => LeaveAction(ctx);
 
 
+        //fill spawn point array
+        spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoint");
+
+        //set spawn point order
         /*for (int spawnIndex = 0; spawnIndex < spawnOrder.Length; spawnIndex++)
         {
             Debug.Log("Index: " + spawnIndex);
@@ -60,40 +76,92 @@ public class LevelScript : MonoBehaviour
                 }
             }
         }*/
+
+
+        //update debug
+        if(devMode)
+        {
+            DUIM = GameObject.Find("DebugUI").GetComponent<DebugUIManager>();
+        }
     }
 
     void Update()
     {
-        activePlayer = GameObject.FindWithTag("Player");
     }
 
-    private void ApplyLevelStats(PlayerController playerController)
+    private void ApplyLevelStats()
     {
-        playerController.SetMoveForce(playerMoveForce);
-        playerController.SetJumpForce(playerJumpForce);
-        playerController.SetPlayerGravity(playerGravity);
+        //applies levels stats to current joining player
+        //Debug.Log("applying stats to " + players[numOfPlayers] + ", " + playerScripts[numOfPlayers]);
+        playerScripts[numOfPlayers].SetMoveForce(playerMoveForce);
+        playerScripts[numOfPlayers].SetJumpForce(playerJumpForce);
+        playerScripts[numOfPlayers].SetPlayerGravity(playerGravity);
     }
 
+
+
+    void JoinAction(InputAction.CallbackContext ctx)
+    {
+        //joins player
+        //Debug.Log("JoinAction()");
+        PlayerInputManager.instance.JoinPlayerFromActionIfNotAlreadyJoined(ctx);
+    }
 
     void OnPlayerJoined(PlayerInput playerInput)
     {
-        Debug.Log("Player joined..");
-        Debug.Log(playerInput);
-        players.Add(playerInput);
-        
-        //only apply to newest joined player
-        //ApplyLevelStats(playerInput.transform.parent.gameObject.GetComponent<PlayerController>());
+        //runs when a player joins
+        //Debug.Log("OnPlayerJoined()");
+        //Debug.Log("Player joined..");
 
         if (PlayerJoinedGame != null)
         {
             PlayerJoinedGame(playerInput);
         }
+
+        playersInput[numOfPlayers] = playerInput;
+        //Debug.Log("playersInput: " + playersInput[numOfPlayers]);
+
+        numOfPlayers++;
+    }
+
+
+
+    void LeaveAction(InputAction.CallbackContext ctx)
+    {
+        //leaves player
     }
 
     void OnPlayerLeft(PlayerInput playerInput)
     {
-        Debug.Log("Player left...");
+        //player leaving code
+        //Debug.Log("Player left...");
+        numOfPlayers--;
     }
+
+
+
+    public int CurrentPlayers()
+    {
+        return numOfPlayers;
+    }
+
+    public void NewPlayer(GameObject newPlayer)
+    {
+        //Debug.Log("New Player()");
+        players[numOfPlayers] = newPlayer;
+        //Debug.Log("players: " + numOfPlayers + " - " + players[numOfPlayers]);
+
+        playerScripts[numOfPlayers] = newPlayer.GetComponent<PlayerController>();
+        //Debug.Log("playerScripts: " + playerScripts[numOfPlayers]);
+
+        ApplyLevelStats();
+
+        if (devMode)
+        {
+            DUIM.EnablePlayer(numOfPlayers, players[numOfPlayers]);
+        }
+    }
+
 
 
     public GameObject[] GetSpawnPoints()
@@ -104,16 +172,5 @@ public class LevelScript : MonoBehaviour
     public GameObject GetSpawnPoint(int i)
     {
         return spawnPoints[i];
-    }
-
-
-    void JoinAction(InputAction.CallbackContext ctx)
-    {
-        PlayerInputManager.instance.JoinPlayerFromActionIfNotAlreadyJoined(ctx);
-    }
-
-    void LeaveAction(InputAction.CallbackContext ctx)
-    {
-
     }
 }

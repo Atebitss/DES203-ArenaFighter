@@ -7,29 +7,17 @@ using TMPro;
 public class DebugUIScript : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI debugText;
+    private GameObject player;
     private PlayerController playerScript;
-    private GameObject activePlayer;
-
-    void Start()
-    {
-        //ex. debugText.text = "---THIS IS EMPTY DEBUG TEXT---";
-        debugText.text = "X: \nY: \nVelocity:";
-    }
 
 
     void Update()
     {
-        activePlayer = GameObject.FindWithTag("Player");
-
-        if (activePlayer != null)
-        {
-            playerScript = activePlayer.GetComponent<PlayerController>();
-        }
-
         if (playerScript != null)
         {
             debugText.text =
-                  "X: " + playerScript.GetPlayerX().ToString("F2")
+                    player.name
+                + "\nX: " + playerScript.GetPlayerX().ToString("F2")
                 + "\tY: " + playerScript.GetPlayerY().ToString("F2")
                 + "\nVelocity X: " + playerScript.GetPlayerXVelocity().ToString("F2")
                 + "\tVelocity Y: " + playerScript.GetPlayerYVelocity().ToString("F2")
@@ -38,5 +26,12 @@ public class DebugUIScript : MonoBehaviour
                 + "\nisOnBouncy: " + playerScript.GetOnBouncy()
                 + "\nisOnStickyWall: " + playerScript.GetOnStickyWall();
         }
+    }
+
+
+    public void SetPlayer(GameObject newPlayer)
+    {
+        player = newPlayer;
+        playerScript = newPlayer.GetComponent<PlayerController>();
     }
 }

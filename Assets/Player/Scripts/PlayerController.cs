@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 playerVelocity;
     private bool onGround;
     private float jumpForce = 15f, moveForce = 5f, previousXMovement;
+    private LevelScript ls;
 
     //~~~~~~~ GAMEPLAY ~~~~~~~\\
     //~~~ ICE ~~~\\
@@ -45,6 +46,13 @@ public class PlayerController : MonoBehaviour
 
 
 
+
+    void Awake()
+    {
+        ls = GameObject.Find("LevelController").GetComponent<LevelScript>();
+        gameObject.name = "Player" + ls.CurrentPlayers();
+        ls.NewPlayer(gameObject);
+    }
 
     void FixedUpdate()
     {
@@ -131,7 +139,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (onStickyWall && !onGround) // Wall Jumping
         {
-            Debug.Log("wall jump");
+            //Debug.Log("wall jump");
             isJumping = true;
             isWallJumping = true;
             wallJumpCooldown = 0;
@@ -148,14 +156,14 @@ public class PlayerController : MonoBehaviour
             playerRigid.velocity = new Vector2(transform.localScale.x * 5, jumpForce);
 
             //while we are wall jumping, the player cannot change thier velocity, so after a duration, let the players control the PC again
-            Debug.Log("starting wall jump cooldown");
+            //Debug.Log("starting wall jump cooldown");
             Invoke(nameof(StopWallJumping), wallJumpingDuration);
         }
     }
 
     private void StopWallJumping()
     {
-        Debug.Log("wall jump stop");
+        //Debug.Log("wall jump stop");
         isWallJumping = false;
     }
 
