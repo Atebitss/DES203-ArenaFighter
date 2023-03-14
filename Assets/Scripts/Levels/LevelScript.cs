@@ -16,7 +16,7 @@ public class LevelScript : MonoBehaviour
 
     //spawn points
     private GameObject[] spawnPoints;
-    private int[] spawnOrder = new int[3];
+    private int[] spawnOrder = new int[4];
 
     //playersInput
     /*public List<PlayerController> playerScripts = new List<PlayerController>();
@@ -55,28 +55,8 @@ public class LevelScript : MonoBehaviour
         leaveAction.Enable();
         leaveAction.performed += ctx => LeaveAction(ctx);
 
-
-        //fill spawn point array
-        spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoint");
-
-        //set spawn point order
-        /*for (int spawnIndex = 0; spawnIndex < spawnOrder.Length; spawnIndex++)
-        {
-            Debug.Log("Index: " + spawnIndex);
-            spawnOrder[spawnIndex] = Random.Range(0, 3);
-            Debug.Log("Order Index " + spawnIndex + ": " + spawnOrder[spawnIndex]);
-
-            for (int checkIndex = 0; checkIndex < spawnOrder.Length; checkIndex++)
-            {
-                if(spawnOrder[checkIndex] == spawnOrder[spawnIndex] && checkIndex != spawnIndex)
-                {
-                    Debug.Log("Order Index " + spawnIndex + " is the same as Order Index " + spawnOrder[checkIndex]);
-                    spawnOrder[spawnIndex] = Random.Range(0, 3);
-                    Debug.Log("New Order Index " + spawnIndex + ": " + spawnOrder[spawnIndex]);
-                }
-            }
-        }*/
-
+        SetSpawnPoints();
+        
 
         //update debug
         if(devMode)
@@ -85,8 +65,34 @@ public class LevelScript : MonoBehaviour
         }
     }
 
-    void Update()
+    private void SetSpawnPoints()
     {
+        //fill spawn point array
+        spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoint");
+
+        //set spawn point order
+        //for each spawn point, assign a random number
+        //check each previous spawn point and ensure the given number is not the same
+        //if it is, reroll the number and restart the duplicate check
+        for (int spawnIndex = 0; spawnIndex < spawnOrder.Length; spawnIndex++)
+        {
+            //Debug.Log("");
+            spawnOrder[spawnIndex] = Random.Range(0, 3);
+
+            for (int checkIndex = 0; checkIndex < spawnIndex; checkIndex++)
+            {
+                //Debug.Log("Checking Location " + checkIndex);
+                if (spawnOrder[checkIndex] == spawnOrder[spawnIndex] && checkIndex != spawnIndex)
+                {
+                    //Debug.Log("Spawn Point " + spawnOrder[spawnIndex] + " is being used by Spawn Location " + checkIndex);
+                    spawnOrder[spawnIndex] = Random.Range(0, 4);
+                    checkIndex = -1;
+                    //Debug.Log("New Spawn Point: " + spawnOrder[spawnIndex]);
+                }
+            }
+
+            Debug.Log("spawn " + spawnIndex + ", spawn point " + spawnOrder[spawnIndex]);
+        }
     }
 
     private void ApplyLevelStats()
@@ -164,13 +170,8 @@ public class LevelScript : MonoBehaviour
 
 
 
-    public GameObject[] GetSpawnPoints()
+    public Vector2 GetNextSpawnPoint()
     {
-        return spawnPoints;
-    }
-
-    public GameObject GetSpawnPoint(int i)
-    {
-        return spawnPoints[i];
+        return spawnPoints[numOfPlayers].transform.position;
     }
 }

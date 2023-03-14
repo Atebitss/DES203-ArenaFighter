@@ -297,22 +297,45 @@ public class PlayerController : MonoBehaviour
     //~~~ ENTER ~~~\\ 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Teleporter"))
-        {
-            if (!isTeleporting)
-            {
-                //Debug.Log("Teleporting");
-                currentTeleporter = collision.gameObject;
-                Teleport();
-            }
+        string colTag = collision.gameObject.tag;
 
+        switch(colTag)
+        {
+            case "Teleporter":
+                if (!isTeleporting)
+                {
+                    //Debug.Log("Teleporting");
+                    currentTeleporter = collision.gameObject;
+                    Teleport();
+                }
+                break;
+            case "PlayerFront":
+                //deflect player
+                break;
+            case "PlayerBack":
+                //if going fast enough, kill other player
+                break;
+            default:
+                break;
         }
     }
 
     //~~~ EXIT ~~~\\ 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("Teleporter") && currentTeleporter == collision.gameObject){ currentTeleporter = null; }
+        string colTag = collision.gameObject.tag;
+
+        switch(colTag)
+        {
+            case "Teleporter":
+                if (currentTeleporter == collision.gameObject)
+                {
+                    currentTeleporter = null;
+                }
+                break;
+            default:
+                break;
+        }
     }
 
 
