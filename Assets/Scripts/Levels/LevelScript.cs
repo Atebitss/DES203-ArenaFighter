@@ -31,7 +31,7 @@ public class LevelScript : MonoBehaviour
     //important level & multiplayer stuff
     public static LevelScript instance = null;
     public event System.Action<PlayerInput> PlayerJoinedGame;
-    public event System.Action<PlayerInput> PlayerLeftGame;
+   // public event System.Action<PlayerInput> PlayerLeftGame;
     [SerializeField] private InputAction joinAction;
     [SerializeField] private InputAction leaveAction;
 

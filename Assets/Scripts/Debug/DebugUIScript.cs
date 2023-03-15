@@ -20,11 +20,8 @@ public class DebugUIScript : MonoBehaviour
                 + "\nX: " + playerScript.GetPlayerX().ToString("F2")
                 + "\tY: " + playerScript.GetPlayerY().ToString("F2")
                 + "\nVelocity X: " + playerScript.GetPlayerXVelocity().ToString("F2")
-                + "\tVelocity Y: " + playerScript.GetPlayerYVelocity().ToString("F2")
-                + "\nisGrounded: " + playerScript.GetOnGround()
-                + "\nisOnIce: " + playerScript.GetOnIce()
-                + "\nisOnBouncy: " + playerScript.GetOnBouncy()
-                + "\nisOnStickyWall: " + playerScript.GetOnStickyWall();
+                + "\tVelocity Y: " + playerScript.GetPlayerYVelocity().ToString("F2");
+                
         }
     }
 
