@@ -10,6 +10,12 @@ public class DebugUIScript : MonoBehaviour
     private GameObject player;
     private PlayerController playerScript;
 
+    void Start()
+    {
+        //ex. debugText.text = "---THIS IS EMPTY DEBUG TEXT---";
+        debugText.text = "X: \nY: \nVelocity:";
+    }
+
 
     void Update()
     {
@@ -20,8 +26,12 @@ public class DebugUIScript : MonoBehaviour
                 + "\nX: " + playerScript.GetPlayerX().ToString("F2")
                 + "\tY: " + playerScript.GetPlayerY().ToString("F2")
                 + "\nVelocity X: " + playerScript.GetPlayerXVelocity().ToString("F2")
-                + "\tVelocity Y: " + playerScript.GetPlayerYVelocity().ToString("F2");
-                
+                + "\tVelocity Y: " + playerScript.GetPlayerYVelocity().ToString("F2")
+                + "\n\nisGrounded: " + playerScript.IsGrounded()
+                + "\nisOnIce: " + playerScript.IsOnIce()
+                + "\nisOnBouncy: " + playerScript.IsOnBouncy()
+                + "\nisOnStickyWall: " + playerScript.OnStickyWall()
+                + "\n\nisDeflecting: " + playerScript.IsDeflecting();
         }
     }
 
@@ -29,6 +39,6 @@ public class DebugUIScript : MonoBehaviour
     public void SetPlayer(GameObject newPlayer)
     {
         player = newPlayer;
-        playerScript = newPlayer.GetComponent<PlayerController>();
+        playerScript = player.GetComponent<PlayerController>();
     }
 }

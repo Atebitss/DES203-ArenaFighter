@@ -42,6 +42,10 @@ public class PlayerController : MonoBehaviour
     //~~~ FLIP ~~~\\
     private bool left, right;
 
+    //~~~ COMBAT ~~~\\
+    private bool deflecting;
+    private float deflectDuration = 0.5f;
+
 
 
 
@@ -95,9 +99,9 @@ public class PlayerController : MonoBehaviour
         //if player is moving and on ice
         //or not on ice and not wall jumping and on the ground
         //or is not no the ground and and is not wall jumping and is jumping
-        if (move.x != 0 && onIce || !onIce && !isWallJumping)
+        if (move.x != 0 && onIce || !onIce && !isWallJumping && !deflecting)
         {
-            //Debug.Log("move.x/y: " + move.x + "/" + move.y + "   onGround: " + onGround + "   onIce: " + onIce + "   onBouncy: " + onBouncy + "   onStickyWall: " + onStickyWall);
+            //Debug.Log("move.x/y: " + move.x + "/" + move.y + "   onGround: " + IsGrounded() + "   onIce: " + IsOnIce() + "   onBouncy: " + IsOnBouncy() + "   onStickyWall: " + OnStickyWall() + "   isDeflecting: " + IsDeflecting());
             //Player's rigid component's velocity set to 1/-1 * 15, 0/15
             playerRigid.velocity = new Vector3(move.x * moveForce, playerVelocity.y, 0);  
         }
@@ -239,7 +243,41 @@ public class PlayerController : MonoBehaviour
     }
 
 
-   
+    //~~~ DEFLECT ~~~\\
+    private void Deflect()
+    {
+        //Debug.Log("deflecting");
+        deflecting = true;
+
+        //Debug.Log("velocity before: " + playerRigid.velocity);
+        //playerRigid.velocity = new Vector2(playerVelocity.x * -10, playerVelocity.y * -10);
+        //Debug.Log("velocity after: " + playerRigid.velocity);
+        Invoke(nameof(StopDeflect), deflectDuration);
+    }
+
+    private void StopDeflect()
+    {
+        //Debug.Log("deflect stop");
+        deflecting = false;
+    }
+
+
+    //~~~ COMBAT ~~~\\
+    private void Combat(GameObject target)
+    {
+        //ADD ART & SPECIFICS
+
+        //Debug.Log(this.gameObject.name + " is attacking " + target.name);
+        if(playerVelocity.x > 10f || playerVelocity.x < -10f || playerVelocity.y > 10f || playerVelocity.y < -10f )
+        {
+            //Debug.Log(this.gameObject.name + " is going fast enough");
+            Destroy(target);
+        }
+        //else { Debug.Log(this.gameObject.name + " is not going fast enough"); }
+    }
+
+
+
 
 
     //~~~~~~~ TRIGGERS ~~~~~~~\\
@@ -248,7 +286,8 @@ public class PlayerController : MonoBehaviour
     {
         string colTag = collision.gameObject.tag;
 
-        switch(colTag)
+        //ADD COLLECTABLES
+        switch (colTag)
         {
             case "Teleporter":
                 if (!isTeleporting)
@@ -257,12 +296,6 @@ public class PlayerController : MonoBehaviour
                     currentTeleporter = collision.gameObject;
                     Teleport();
                 }
-                break;
-            case "PlayerFront":
-                //deflect player
-                break;
-            case "PlayerBack":
-                //if going fast enough, kill other player
                 break;
             default:
                 break;
@@ -288,18 +321,49 @@ public class PlayerController : MonoBehaviour
     }
 
 
+    //~~~ FRONT TRIGGER ~~~\\
+    public void FrontTrigger(Collider2D collision)
+    {
+        string colTag = collision.gameObject.tag;
+
+        switch (colTag)
+        {
+            case "PlayerFront":
+                //deflect player
+                if (!deflecting)
+                {
+                    Deflect(); 
+                }
+                break;
+            case "PlayerBack":
+                //if going fast enough, kill other player
+                Combat(collision.gameObject.transform.parent.gameObject);
+                break;
+            default:
+                break;
+        }
+    }
+
+
+    //~~~ BACK TRIGGER ~~~\\
+    public void BackTrigger(Collider2D collision)
+    {
+
+    }
+
+
 
 
 
     //~~~~~~~ GROUND & WALL CHECKS ~~~~~~~\\
     //IsGrounded, IsOnWall Method orginally from https://www.youtube.com/watch?v=_UBpkdKlJzE
-    private bool IsGrounded()
+    public bool IsGrounded()
     {
         //casts an invisble box from the players center down to see if the player is touching the ground
         RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, Vector2.down, 0.5f, groundLayer);
         return raycastHit.collider != null;
     }
-    private bool IsOnIce()
+    public bool IsOnIce()
     {
 
         RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, Vector2.down, 0.5f, groundLayer);
@@ -325,7 +389,7 @@ public class PlayerController : MonoBehaviour
 
 
     }
-    private bool IsOnBouncy()
+    public bool IsOnBouncy()
     {
 
         RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, Vector2.down, 0.5f, groundLayer);
@@ -351,11 +415,16 @@ public class PlayerController : MonoBehaviour
 
 
     }
-    private bool OnStickyWall()
+    public bool OnStickyWall()
     {
         //casts an invisble box from the players center to whichever way the player is facing to see if we are touching a sticky wall
         RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, new Vector2(transform.localScale.x, 0), 0.2f, wallLayer);
         return raycastHit.collider != null;
+    }
+
+    public bool IsDeflecting()
+    {
+        return deflecting;
     }
 
 

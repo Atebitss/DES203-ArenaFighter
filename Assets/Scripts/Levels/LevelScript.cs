@@ -164,7 +164,7 @@ public class LevelScript : MonoBehaviour
 
         if (devMode)
         {
-            DUIM.EnablePlayer(numOfPlayers, players[numOfPlayers]);
+            DUIM.EnablePlayer(numOfPlayers, newPlayer);
         }
     }
 
