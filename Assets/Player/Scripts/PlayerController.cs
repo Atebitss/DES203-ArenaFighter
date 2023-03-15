@@ -110,7 +110,6 @@ public class PlayerController : MonoBehaviour
         //A/space 0/+1
         //if +1, set vertical velocity to levels provided jump force
 
-   
         if (IsGrounded())
         {
             if (IsOnBouncy())
@@ -171,7 +170,7 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                print("AAAAAAAAAAAAAAAAAAAA");
+               
                 playerRigid.velocity = new Vector2(previousXMovement * IceDecceleration, playerVelocity.y); //when no input, slide across|Speed decreases by the rate of IceDecceleration
                 previousXMovement = playerRigid.velocity.x;
             }
@@ -206,9 +205,7 @@ public class PlayerController : MonoBehaviour
             // playerRigid.velocity = new Vector2(playerVelocity.x, -previousYMovement * bounceRebound);
             playerRigid.velocity = new Vector2(playerVelocity.x, jumpForce * bounceRebound);
             print("Yipeeee");
-
         }
-
 
     }
 
@@ -219,6 +216,8 @@ public class PlayerController : MonoBehaviour
         isTeleporting = true;
         Vector2 previousVelocity = playerVelocity;
         transform.position = currentTeleporter.GetComponent<Teleporter>().GetDestination().position;
+
+    
 
         Quaternion destinationRotation = currentTeleporter.GetComponent<Teleporter>().GetDestination().rotation;
         Quaternion currentRotation = currentTeleporter.GetComponent<Transform>().rotation;
@@ -240,7 +239,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-
+   
 
 
     //~~~~~~~ TRIGGERS ~~~~~~~\\

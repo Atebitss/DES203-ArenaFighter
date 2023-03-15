@@ -13086,6 +13086,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Teleporter D
       objectReference: {fileID: 0}
+    - target: {fileID: 5649826251163482021, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
 --- !u!4 &2035600626 stripped
