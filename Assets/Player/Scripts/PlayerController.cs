@@ -153,7 +153,7 @@ public class PlayerController : MonoBehaviour
             }
 
             //sends the player in the opposite direction 
-            playerRigid.velocity = new Vector2(transform.localScale.x * 5, jumpForce);
+            playerRigid.velocity = new Vector2(-transform.localScale.x * 12, 20);
 
             //while we are wall jumping, the player cannot change thier velocity, so after a duration, let the players control the PC again
             //Debug.Log("starting wall jump cooldown");
