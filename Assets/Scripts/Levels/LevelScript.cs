@@ -31,7 +31,7 @@ public class LevelScript : MonoBehaviour
     //important level & multiplayer stuff
     public static LevelScript instance = null;
     public event System.Action<PlayerInput> PlayerJoinedGame;
-   // public event System.Action<PlayerInput> PlayerLeftGame;
+    // public event System.Action<PlayerInput> PlayerLeftGame;
     [SerializeField] private InputAction joinAction;
     [SerializeField] private InputAction leaveAction;
 
@@ -39,11 +39,11 @@ public class LevelScript : MonoBehaviour
     private void Awake()
     {
         //ensure there is only 1 level script
-        if(instance == null)
+        if (instance == null)
         {
             instance = this;
         }
-        else if(instance != null)
+        else if (instance != null)
         {
             Destroy(gameObject);
         }
@@ -56,10 +56,10 @@ public class LevelScript : MonoBehaviour
         leaveAction.performed += ctx => LeaveAction(ctx);
 
         SetSpawnPoints();
-        
+
 
         //update debug
-        if(devMode)
+        if (devMode)
         {
             DUIM = GameObject.Find("DebugUI").GetComponent<DebugUIManager>();
         }
@@ -102,6 +102,31 @@ public class LevelScript : MonoBehaviour
         playerScripts[numOfPlayers].SetMoveForce(playerMoveForce);
         playerScripts[numOfPlayers].SetJumpForce(playerJumpForce);
         playerScripts[numOfPlayers].SetPlayerGravity(playerGravity);
+    }
+
+    private void ApplyColour(GameObject newPlayer)
+    {
+        SpriteRenderer playerRend = newPlayer.GetComponent<SpriteRenderer>();
+        //Color newColor = new Color(0.5f, 0.5f, 1f, 1f);
+        //playerRend.color = Color.red;
+        switch(numOfPlayers-1)
+        {
+            case 0:
+                playerRend.color = Color.red;
+                break;
+            case 1:
+                playerRend.color = Color.blue;
+                break;
+            case 2:
+                playerRend.color = Color.green;
+                break;
+            case 3:
+                playerRend.color = Color.black;
+                break;
+            default:
+                playerRend.color = Color.magenta;
+                break;
+        }
     }
 
 
@@ -160,6 +185,8 @@ public class LevelScript : MonoBehaviour
         playerScripts[numOfPlayers] = newPlayer.GetComponent<PlayerController>();
         //Debug.Log("playerScripts: " + playerScripts[numOfPlayers]);
 
+        //apply colour
+        ApplyColour(newPlayer);
         ApplyLevelStats();
 
         if (devMode)

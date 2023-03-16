@@ -57,6 +57,7 @@ public class PlayerController : MonoBehaviour
         ls.NewPlayer(gameObject);
     }
 
+
     void FixedUpdate()
     {
         //Debug.Log("playerVelocity.x: " + playerVelocity.x);

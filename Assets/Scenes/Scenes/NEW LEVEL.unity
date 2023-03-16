@@ -1360,7 +1360,7 @@ MonoBehaviour:
   playerGravity: 5
   playerMoveForce: 15
   playerJumpForce: 24
-  devMode: 1
+  devMode: 0
   joinAction:
     m_Name: Join
     m_Type: 0
@@ -11192,7 +11192,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3475228949402843119, guid: 2d1c6b8475f25064480dc3077390ac94, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -28
+      value: -29
       objectReference: {fileID: 0}
     - target: {fileID: 3475228949402843119, guid: 2d1c6b8475f25064480dc3077390ac94, type: 3}
       propertyPath: m_LocalPosition.y
@@ -12517,7 +12517,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3475228949402843119, guid: 2d1c6b8475f25064480dc3077390ac94, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 28
+      value: 29
       objectReference: {fileID: 0}
     - target: {fileID: 3475228949402843119, guid: 2d1c6b8475f25064480dc3077390ac94, type: 3}
       propertyPath: m_LocalPosition.y
