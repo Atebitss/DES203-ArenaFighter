@@ -104,7 +104,7 @@ public class LevelScript : MonoBehaviour
         playerScripts[numOfPlayers].SetPlayerGravity(playerGravity);
     }
 
-    private void ApplyColour(GameObject newPlayer)
+   /*private void ApplyColour(GameObject newPlayer)
     {
         SpriteRenderer playerRend = newPlayer.GetComponent<SpriteRenderer>();
         //Color newColor = new Color(0.5f, 0.5f, 1f, 1f);
@@ -127,7 +127,7 @@ public class LevelScript : MonoBehaviour
                 playerRend.color = Color.magenta;
                 break;
         }
-    }
+    } */
 
 
 
@@ -186,7 +186,7 @@ public class LevelScript : MonoBehaviour
         //Debug.Log("playerScripts: " + playerScripts[numOfPlayers]);
 
         //apply colour
-        ApplyColour(newPlayer);
+       // ApplyColour(newPlayer);
         ApplyLevelStats();
 
         if (devMode)
