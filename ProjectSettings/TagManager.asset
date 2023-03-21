@@ -48,6 +48,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: sdgfefg32w
+    uniqueID: 2419354741
+    locked: 0
   - name: Player
     uniqueID: 2495745949
     locked: 0

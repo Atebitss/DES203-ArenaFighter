@@ -204,8 +204,9 @@ public class PlayerController : MonoBehaviour
     }
     private void BounceMovement()
     {
-        if (IsOnBouncy() && playerRigid.velocity.y <= 0f)
+        if (IsOnBouncy() && playerRigid.velocity.y == 0f)
         {
+
             // float previousYMovement = playerRigid.velocity.y;
             // playerRigid.velocity = new Vector2(playerVelocity.x, -previousYMovement * bounceRebound);
             playerRigid.velocity = new Vector2(playerVelocity.x, jumpForce * bounceRebound);
