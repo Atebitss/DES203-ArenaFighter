@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask wallLayer;
     private Vector2 move;
     private Vector2 playerVelocity;
-    private bool onGround;
+    private bool onGround, devMode;
     private float jumpForce = 15f, moveForce = 5f, previousXMovement;
     private LevelScript ls;
 
@@ -68,6 +68,8 @@ public class PlayerController : MonoBehaviour
         IceMovement();
         WallSlide();
         BounceMovement();
+
+        if (devMode) { DebugMode(); }
     }
 
 
@@ -510,5 +512,119 @@ public class PlayerController : MonoBehaviour
     public void SetPlayerGravity(float newPG)
     {
         playerRigid.gravityScale = newPG;
+    }
+
+
+
+
+
+    public void SetDevMode(bool dev)
+    {
+        devMode = dev;
+    }
+
+    private void DebugMode()
+    {
+        BoxCollider2D frontCol, backCol, playerCol;
+        Vector3 fCenter, bCenter, pCenter;
+        Vector3 fSize, fMin, fMax, bSize, bMin, bMax, pSize, pMin, pMax;
+
+        //Debug.Log(this.transform.Find("Front"));
+        frontCol = this.transform.Find("Front").GetComponent<BoxCollider2D>();
+        fCenter = frontCol.bounds.center;
+        fSize = frontCol.bounds.size;
+        fMin = frontCol.bounds.min;
+        fMax = frontCol.bounds.max;
+
+        /*Debug.Log("Collider Center : " + fCenter);
+        Debug.Log("Collider Size : " + fSize);
+        Debug.Log("Collider bound Minimum : " + fMin);
+        Debug.Log("Collider bound Maximum : " + fMax);*/
+
+        Debug.DrawLine //front top line
+        (new Vector3(fMin.x, fMax.y, 0), //start
+        new Vector3(fMax.x, fMax.y, 0), //end
+        Color.red);
+
+        Debug.DrawLine //front bottom line
+        (new Vector3(fMin.x, fMin.y, 0), //start
+        new Vector3(fMax.x, fMin.y, 0), //end
+        Color.red);
+
+        Debug.DrawLine //front left line
+        (new Vector3(fMin.x, fMin.y, 0), //start
+        new Vector3(fMin.x, fMax.y, 0), //end
+        Color.red);
+
+        Debug.DrawLine //front right line
+        (new Vector3(fMax.x, fMin.y, 0), //start
+        new Vector3(fMax.x, fMax.y, 0), //end
+        Color.red);
+
+
+
+        backCol = this.transform.Find("Back").GetComponent<BoxCollider2D>();
+        bCenter = backCol.bounds.center;
+        bSize = backCol.bounds.size;
+        bMin = backCol.bounds.min;
+        bMax = backCol.bounds.max;
+
+        /*Debug.Log("Collider Center : " + bCenter);
+        Debug.Log("Collider Size : " + bSize);
+        Debug.Log("Collider bound Minimum : " + bMin);
+        Debug.Log("Collider bound Maximum : " + bMax);*/
+
+        Debug.DrawLine //back top line
+        (new Vector3(bMin.x, bMax.y, 0), //start
+        new Vector3(bMax.x, bMax.y, 0), //end
+        Color.magenta);
+
+        Debug.DrawLine //back bottom line
+        (new Vector3(bMin.x, bMin.y, 0), //start
+        new Vector3(bMax.x, bMin.y, 0), //end
+        Color.magenta);
+
+        Debug.DrawLine //back left line
+        (new Vector3(bMin.x, bMin.y, 0), //start
+        new Vector3(bMin.x, bMax.y, 0), //end
+        Color.magenta);
+
+        Debug.DrawLine //back right line
+        (new Vector3(bMax.x, bMin.y, 0), //start
+        new Vector3(bMax.x, bMax.y, 0), //end
+        Color.magenta);
+
+
+
+        playerCol = this.GetComponent<BoxCollider2D>();
+        pCenter = playerCol.bounds.center;
+        pSize = playerCol.bounds.size;
+        pMin = playerCol.bounds.min;
+        pMax = playerCol.bounds.max;
+
+        /*Debug.Log("Collider Center : " + pCenter);
+        Debug.Log("Collider Size : " + pSize);
+        Debug.Log("Collider bound Minimum : " + pMin);
+        Debug.Log("Collider bound Maximum : " + pMax);*/
+
+        Debug.DrawLine //back top line
+        (new Vector3(pMin.x, pMax.y, 0), //start
+        new Vector3(pMax.x, pMax.y, 0), //end
+        Color.green);
+
+        Debug.DrawLine //back bottom line
+        (new Vector3(pMin.x, pMin.y, 0), //start
+        new Vector3(pMax.x, pMin.y, 0), //end
+        Color.green);
+
+        Debug.DrawLine //back left line
+        (new Vector3(pMin.x, pMin.y, 0), //start
+        new Vector3(pMin.x, pMax.y, 0), //end
+        Color.green);
+
+        Debug.DrawLine //back right line
+        (new Vector3(pMax.x, pMin.y, 0), //start
+        new Vector3(pMax.x, pMax.y, 0), //end
+        Color.green);
     }
 }

@@ -19,10 +19,6 @@ public class LevelScript : MonoBehaviour
     private int[] spawnOrder = new int[4];
 
     //playersInput
-    /*public List<PlayerController> playerScripts = new List<PlayerController>();
-    public List<PlayerInput> playersInput = new List<PlayerInput>();
-    public List<GameObject> players = new List<GameObject>();*/
-
     private PlayerController[] playerScripts = new PlayerController[4];
     private PlayerInput[] playersInput = new PlayerInput[4];
     private GameObject[] players = new GameObject[4];
@@ -31,7 +27,7 @@ public class LevelScript : MonoBehaviour
     //important level & multiplayer stuff
     public static LevelScript instance = null;
     public event System.Action<PlayerInput> PlayerJoinedGame;
-    // public event System.Action<PlayerInput> PlayerLeftGame;
+    public event System.Action<PlayerInput> PlayerLeftGame;
     [SerializeField] private InputAction joinAction;
     [SerializeField] private InputAction leaveAction;
 
@@ -102,6 +98,8 @@ public class LevelScript : MonoBehaviour
         playerScripts[numOfPlayers].SetMoveForce(playerMoveForce);
         playerScripts[numOfPlayers].SetJumpForce(playerJumpForce);
         playerScripts[numOfPlayers].SetPlayerGravity(playerGravity);
+
+        playerScripts[numOfPlayers].SetDevMode(devMode);
     }
 
    /*private void ApplyColour(GameObject newPlayer)
@@ -160,11 +158,13 @@ public class LevelScript : MonoBehaviour
     void LeaveAction(InputAction.CallbackContext ctx)
     {
         //leaves player
+        Debug.Log("LeaveAction()");
     }
 
     void OnPlayerLeft(PlayerInput playerInput)
     {
         //player leaving code
+        Debug.Log("OnPlayerLeft()");
         //Debug.Log("Player left...");
         numOfPlayers--;
     }
