@@ -91,18 +91,18 @@ public class LevelScript : MonoBehaviour
         }
     }
 
-    private void ApplyLevelStats()
+    private void ApplyLevelStats(int playerPos)
     {
         //applies levels stats to current joining player
         //Debug.Log("applying stats to " + players[numOfPlayers] + ", " + playerScripts[numOfPlayers]);
-        playerScripts[numOfPlayers].SetMoveForce(playerMoveForce);
-        playerScripts[numOfPlayers].SetJumpForce(playerJumpForce);
-        playerScripts[numOfPlayers].SetPlayerGravity(playerGravity);
+        playerScripts[playerPos].SetMoveForce(playerMoveForce);
+        playerScripts[playerPos].SetJumpForce(playerJumpForce);
+        playerScripts[playerPos].SetPlayerGravity(playerGravity);
 
-        playerScripts[numOfPlayers].SetDevMode(devMode);
+        playerScripts[playerPos].SetDevMode(devMode);
     }
 
-   /*private void ApplyColour(GameObject newPlayer)
+    private void ApplyColour(GameObject newPlayer)
     {
         SpriteRenderer playerRend = newPlayer.GetComponent<SpriteRenderer>();
         //Color newColor = new Color(0.5f, 0.5f, 1f, 1f);
@@ -125,7 +125,7 @@ public class LevelScript : MonoBehaviour
                 playerRend.color = Color.magenta;
                 break;
         }
-    } */
+    }
 
 
 
@@ -147,8 +147,17 @@ public class LevelScript : MonoBehaviour
             PlayerJoinedGame(playerInput);
         }
 
-        playersInput[numOfPlayers] = playerInput;
-        //Debug.Log("playersInput: " + playersInput[numOfPlayers]);
+        for (int playerCheck = 0; playerCheck < 4; playerCheck++)
+        {
+            Debug.Log(playerCheck);
+            if (playersInput[playerCheck] == null)
+            {
+                Debug.Log(playersInput[playerCheck]);
+                playersInput[playerCheck] = playerInput;
+                playerCheck = 4;
+                //Debug.Log("playersInput: " + playersInput[numOfPlayers]);
+            }
+        }
 
         numOfPlayers++;
     }
@@ -166,7 +175,31 @@ public class LevelScript : MonoBehaviour
         //player leaving code
         Debug.Log("OnPlayerLeft()");
         //Debug.Log("Player left...");
+
+        if (PlayerLeftGame != null)
+        {
+            PlayerLeftGame(playerInput);
+        }
+
         numOfPlayers--;
+    }
+
+    public void Kill(GameObject target, GameObject killer)
+    {
+        string targetName = target.name;
+        int playerNum = (int)char.GetNumericValue(targetName[6]);
+
+        //player num out of array
+        playerScripts[playerNum] = null;
+        playersInput[playerNum] = null;
+        players[playerNum] = null;
+
+        if (devMode)
+        {
+            DUIM.DisablePlayer(playerNum);
+        }
+
+        Destroy(target);
     }
 
 
@@ -179,19 +212,28 @@ public class LevelScript : MonoBehaviour
     public void NewPlayer(GameObject newPlayer)
     {
         //Debug.Log("New Player()");
-        players[numOfPlayers] = newPlayer;
-        //Debug.Log("players: " + numOfPlayers + " - " + players[numOfPlayers]);
+        int playerPos = 0;
 
-        playerScripts[numOfPlayers] = newPlayer.GetComponent<PlayerController>();
-        //Debug.Log("playerScripts: " + playerScripts[numOfPlayers]);
+        for (int playerCheck = 0; playerCheck < 4; playerCheck++)
+        {
+            if (players[playerCheck] == null)
+            {
+                Debug.Log("New Player" + playerCheck);
+                players[playerCheck] = newPlayer;
+                playerScripts[playerCheck] = newPlayer.GetComponent<PlayerController>();
+                playerPos = playerCheck;
+                playerCheck = 4;
+                //Debug.Log("playersInput: " + playersInput[numOfPlayers]);
+            }
+        }
 
-        //apply colour
-       // ApplyColour(newPlayer);
-        ApplyLevelStats();
+        //apply stats
+        ApplyColour(newPlayer);
+        ApplyLevelStats(playerPos);
 
         if (devMode)
         {
-            DUIM.EnablePlayer(numOfPlayers, newPlayer);
+            DUIM.EnablePlayer(playerPos, newPlayer);
         }
     }
 

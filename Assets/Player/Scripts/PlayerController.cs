@@ -69,7 +69,7 @@ public class PlayerController : MonoBehaviour
         WallSlide();
         BounceMovement();
 
-        if (devMode) { DebugMode(); }
+        if (devMode) { HighlightHitboxes(); }
     }
 
 
@@ -248,8 +248,9 @@ public class PlayerController : MonoBehaviour
 
 
     //~~~ DEFLECT ~~~\\
-    private void Deflect()
+    private void Deflect(GameObject target)
     {
+        Debug.Log(target.name + " deflects " + this.gameObject.name + "'s attack.");
         //Debug.Log("deflecting");
         deflecting = true;
 
@@ -272,10 +273,11 @@ public class PlayerController : MonoBehaviour
         //ADD ART & SPECIFICS
 
         //Debug.Log(this.gameObject.name + " is attacking " + target.name);
-        if(playerVelocity.x > 10f || playerVelocity.x < -10f || playerVelocity.y > 10f || playerVelocity.y < -10f )
+        if (playerVelocity.x > 10f || playerVelocity.x < -10f || playerVelocity.y > 10f || playerVelocity.y < -10f )
         {
             //Debug.Log(this.gameObject.name + " is going fast enough");
-            Destroy(target);
+            Debug.Log(this.gameObject.name + " stabs " + target.name + " in the back.");
+            ls.Kill(target, this.gameObject);
         }
         //else { Debug.Log(this.gameObject.name + " is not going fast enough"); }
     }
@@ -336,7 +338,7 @@ public class PlayerController : MonoBehaviour
                 //deflect player
                 if (!deflecting)
                 {
-                    Deflect(); 
+                    Deflect(collision.gameObject.transform.parent.gameObject); 
                 }
                 break;
             case "PlayerBack":
@@ -523,7 +525,7 @@ public class PlayerController : MonoBehaviour
         devMode = dev;
     }
 
-    private void DebugMode()
+    private void HighlightHitboxes()
     {
         BoxCollider2D frontCol, backCol, playerCol;
         Vector3 fCenter, bCenter, pCenter;

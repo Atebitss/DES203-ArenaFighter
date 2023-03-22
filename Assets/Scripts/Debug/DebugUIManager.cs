@@ -40,7 +40,14 @@ public class DebugUIManager : MonoBehaviour
 
     public void EnablePlayer(int playerIndex, GameObject player)
     {
-        playerDebug[playerIndex-1].SetActive(true);
-        playerDebug[playerIndex-1].GetComponent<DebugUIScript>().SetPlayer(player);
+        Debug.Log("Enabling player " + playerIndex + " UI - " + playerDebug[playerIndex]);
+        playerDebug[playerIndex].SetActive(true);
+        playerDebug[playerIndex].GetComponent<DebugUIScript>().SetPlayer(player);
+    }
+
+    public void DisablePlayer(int playerIndex)
+    {
+        Debug.Log("Disabling player " + (playerIndex-1) + " UI - " + playerDebug[playerIndex]);
+        playerDebug[playerIndex-1].SetActive(false);
     }
 }
