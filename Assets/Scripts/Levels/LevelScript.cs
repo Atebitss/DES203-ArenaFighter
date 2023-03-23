@@ -31,6 +31,12 @@ public class LevelScript : MonoBehaviour
     [SerializeField] private InputAction joinAction;
     [SerializeField] private InputAction leaveAction;
 
+    //player sprites 
+    [SerializeField] private Sprite player1sprite;
+    [SerializeField] private Sprite player2sprite;
+    [SerializeField] private Sprite player3sprite;
+    [SerializeField] private Sprite player4sprite;
+
 
     private void Awake()
     {
@@ -110,16 +116,16 @@ public class LevelScript : MonoBehaviour
         switch(numOfPlayers-1)
         {
             case 0:
-                playerRend.color = Color.red;
+                playerRend.sprite = player1sprite;
                 break;
             case 1:
-                playerRend.color = Color.blue;
+                playerRend.sprite = player2sprite;
                 break;
             case 2:
-                playerRend.color = Color.green;
+                playerRend.sprite = player3sprite;
                 break;
             case 3:
-                playerRend.color = Color.black;
+                playerRend.sprite = player4sprite;
                 break;
             default:
                 playerRend.color = Color.magenta;
