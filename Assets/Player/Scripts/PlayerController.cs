@@ -23,8 +23,8 @@ public class PlayerController : MonoBehaviour
     private bool onIce;
 
     //~~~ WALL SLIDE & JUMP ~~~\\
-    [Header("Wall Sliding and Jumping")]
-    [SerializeField] private float wallJumpCooldown;
+    [Header("Wall sliding and Jumping")]
+    private float wallJumpCooldown;
     [SerializeField] private float wallSlideSpeed = -2f;
      private bool onStickyWall;
      private bool isWallJumping;
@@ -51,6 +51,9 @@ public class PlayerController : MonoBehaviour
     [Header("Combat")]
     private bool deflecting;
     [SerializeField] private float deflectDuration = 0.5f;
+    [Header("Misc")]
+    [SerializeField] private float fallGravityMult;
+    private float startingGravity;
 
 
 
@@ -63,6 +66,7 @@ public class PlayerController : MonoBehaviour
         gameObject.name = "Player" + ls.CurrentPlayer();
         Debug.Log("New player awake, " + gameObject.name);
         ls.NewPlayer(gameObject);
+        startingGravity = playerRigid.gravityScale;
     }
 
 
@@ -78,6 +82,16 @@ public class PlayerController : MonoBehaviour
         BounceMovement();
 
         if (devMode) { HighlightHitboxes(); }
+
+        //GRAVITY SHENANIGANS
+        if (playerRigid.velocity.y < 0 && !OnStickyWall())
+        {
+            playerRigid.gravityScale = 5 * fallGravityMult;
+        }
+        else
+        {
+            playerRigid.gravityScale = 5;
+        }
     }
 
 
@@ -105,6 +119,7 @@ public class PlayerController : MonoBehaviour
             previousXMovement = playerRigid.velocity.x;
 
         }
+      
 
         //if player is moving and on ice
         //or not on ice and not wall jumping and on the ground
@@ -118,7 +133,7 @@ public class PlayerController : MonoBehaviour
         else if (move.x != 0 && onIce || !onIce  && !deflecting) //for post-wall jump velocity
         {
 
-            playerRigid.velocity = new Vector2(move.x * postWallJumpMoveForce, playerVelocity.y);
+            //playerRigid.velocity = new Vector2(move.x * postWallJumpMoveForce, playerVelocity.y);
         }
     }
 

@@ -357,6 +357,56 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1678745854424780549, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
   m_PrefabInstance: {fileID: 131735087}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &191488194
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 191488196}
+  - component: {fileID: 191488195}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &191488195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 191488194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea79343c4aa380a4ca20feee45ef5c1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: 
+    clip: {fileID: 0}
+    volume: 0
+    pitch: 0
+    loop: 0
+    source: {fileID: 0}
+--- !u!4 &191488196
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 191488194}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.0271162, y: -2.8738375, z: -75.28471}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &220159763
 GameObject:
   m_ObjectHideFlags: 0
@@ -12170,6 +12220,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5466975082429926602, guid: 946b428bc067cc5459454ed534dacaf7, type: 3}
+      propertyPath: wallJumpCooldown
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5466975082429926603, guid: 946b428bc067cc5459454ed534dacaf7, type: 3}
       propertyPath: m_Name
       value: TestPlayer
@@ -12953,7 +13007,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerGravity: 5
   playerMoveForce: 14
-  playerJumpForce: 21
+  playerJumpForce: 22
   devMode: 1
   joinAction:
     m_Name: Join
