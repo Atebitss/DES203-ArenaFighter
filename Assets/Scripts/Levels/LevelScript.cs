@@ -42,6 +42,8 @@ public class LevelScript : MonoBehaviour
 
     private void Awake()
     {
+        FindObjectOfType<AudioManager>().Play("MusicFight");
+
         //ensure there is only 1 level script
         if (instance == null)
         {

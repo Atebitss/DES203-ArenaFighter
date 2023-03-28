@@ -150,10 +150,12 @@ public class PlayerController : MonoBehaviour
             {
                 print("BIG JUMP");
                 playerRigid.velocity = new Vector2(playerVelocity.x, jumpForce * bounceMultiplier); //Bouncy Jump
+                PlayJumpAudio();
             }
             else
             {
                 playerRigid.velocity = new Vector2(playerVelocity.x, jumpForce); // Normal Jump
+                PlayJumpAudio();
             }
 
         }
@@ -161,6 +163,7 @@ public class PlayerController : MonoBehaviour
         {
             isWallJumping = true;
             playerRigid.velocity = new Vector2(-transform.localScale.x * 12, 20);
+            PlayJumpAudio();
             wallJumpCooldown = 0;
 
             if (transform.localScale.x != wallJumpingDirection) //flips player so they are facing the direction that they are jumping towards
@@ -239,6 +242,7 @@ public class PlayerController : MonoBehaviour
             // float previousYMovement = playerRigid.velocity.y;
             // playerRigid.velocity = new Vector2(playerVelocity.x, -previousYMovement * bounceRebound);
             playerRigid.velocity = new Vector2(playerVelocity.x, jumpForce * bounceRebound);
+            FindObjectOfType<AudioManager>().Play("Bouncy");
             print("Yipeeee");
         }
 
@@ -251,8 +255,8 @@ public class PlayerController : MonoBehaviour
         isTeleporting = true;
         Vector2 previousVelocity = playerVelocity;
         transform.position = currentTeleporter.GetComponent<Teleporter>().GetDestination().position;
+        FindObjectOfType<AudioManager>().Play("Teleport");
 
-    
 
         Quaternion destinationRotation = currentTeleporter.GetComponent<Teleporter>().GetDestination().rotation;
         Quaternion currentRotation = currentTeleporter.GetComponent<Transform>().rotation;
@@ -305,6 +309,7 @@ public class PlayerController : MonoBehaviour
             //Debug.Log(this.gameObject.name + " is going fast enough");
             Debug.Log(this.gameObject.name + " stabs " + target.name + " in the back.");
             ls.Kill(target, this.gameObject);
+            PlayDeathAudio();
         }
         //else { Debug.Log(this.gameObject.name + " is not going fast enough"); }
     }
@@ -543,7 +548,44 @@ public class PlayerController : MonoBehaviour
         playerRigid.gravityScale = newPG;
     }
 
+    //~~~ AUDIO ~~~\\
+    public void PlayJumpAudio()
+    {
+        int SoundNo = Random.Range(1, 5);
 
+        FindObjectOfType<AudioManager>().Play("JumpWhoosh");
+
+        if (SoundNo == 1)
+        {
+            FindObjectOfType<AudioManager>().Play("JumpGrunt");
+        }
+        if (SoundNo == 2)
+        {
+            FindObjectOfType<AudioManager>().Play("JumpGrunt2");
+        }
+
+    }
+
+    public void PlayDeathAudio()
+    {
+        int SoundNo = Random.Range(1, 4);
+
+        FindObjectOfType<AudioManager>().Play("DeathSound");
+
+        if (SoundNo == 1)
+        {
+            FindObjectOfType<AudioManager>().Play("DeathCry1");
+        }
+        if (SoundNo == 2)
+        {
+            FindObjectOfType<AudioManager>().Play("DeathCry2");
+        }
+        if (SoundNo == 3)
+        {
+            FindObjectOfType<AudioManager>().Play("DeathCry3");
+        }
+
+    }
 
 
 
