@@ -1737,17 +1737,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ccffba64a5f2ba7449c704a3c6d66654, type: 3}
---- !u!114 &167750059 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 581631144581870678, guid: ccffba64a5f2ba7449c704a3c6d66654, type: 3}
-  m_PrefabInstance: {fileID: 167750058}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8000a4aff5d9a6d4e88870fc5c267832, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &268008258
 GameObject:
   m_ObjectHideFlags: 0
@@ -11932,7 +11921,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debugText: {fileID: 596861670}
-  playerScript: {fileID: 167750059}
 --- !u!114 &596861670
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13250,9 +13238,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b5573cc8f61a7c418643ca1bca2281e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerScript: {fileID: 167750059}
+  playerGravity: 2.5
   playerMoveForce: 14
   playerJumpForce: 23
+  devMode: 0
+  joinAction:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+  leaveAction:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+  player1sprite: {fileID: 0}
+  player2sprite: {fileID: 0}
+  player3sprite: {fileID: 0}
+  player4sprite: {fileID: 0}
 --- !u!4 &1717366796
 Transform:
   m_ObjectHideFlags: 0

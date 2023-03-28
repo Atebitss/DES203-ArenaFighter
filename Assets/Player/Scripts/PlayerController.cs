@@ -18,33 +18,39 @@ public class PlayerController : MonoBehaviour
 
     //~~~~~~~ GAMEPLAY ~~~~~~~\\
     //~~~ ICE ~~~\\
-    private float IceDecceleration = 0.95f; //must be between 1 and 0
+    [Header("Ice Movement")]
+    [SerializeField] private float IceDecceleration = 0.95f; //must be between 1 and 0
     private bool onIce;
 
     //~~~ WALL SLIDE & JUMP ~~~\\
-    private float wallJumpCooldown;
-    private float wallSlideSpeed = -2f;
-    private bool onStickyWall;
-    private bool isWallJumping;
-    private float wallJumpingDirection;
-    private float wallJumpingDuration = 0.4f;
+    [Header("Wall Sliding and Jumping")]
+    [SerializeField] private float wallJumpCooldown;
+    [SerializeField] private float wallSlideSpeed = -2f;
+     private bool onStickyWall;
+     private bool isWallJumping;
+    [SerializeField] private float postWallJumpMoveForce = 1f;
+    [SerializeField] private float wallJumpingDirection;
+    [SerializeField] private float wallJumpingDuration = 0.4f;
 
     //~~~ BOUNCE ~~~\\
-    private float bounceMultiplier = 1.5f;
-    private float bounceRebound = 1.25f;
+    [Header("Bouncing")]
+    [SerializeField] private float bounceMultiplier = 1.5f;
+    [SerializeField] private float bounceRebound = 1.25f;
     private bool onBouncy;
 
     //~~~ TELEPORT ~~~\\
-    private GameObject currentTeleporter;
+    [Header("Teleport")]
+    [SerializeField] private GameObject currentTeleporter;
     private bool isTeleporting;
-    private float teleportingDuration = 0.2f;
+    [SerializeField] private float teleportingDuration = 0.2f;
 
     //~~~ FLIP ~~~\\
     private bool left, right;
 
     //~~~ COMBAT ~~~\\
+    [Header("Combat")]
     private bool deflecting;
-    private float deflectDuration = 0.5f;
+    [SerializeField] private float deflectDuration = 0.5f;
 
 
 
@@ -106,7 +112,12 @@ public class PlayerController : MonoBehaviour
         {
             //Debug.Log("move.x/y: " + move.x + "/" + move.y + "   onGround: " + IsGrounded() + "   onIce: " + IsOnIce() + "   onBouncy: " + IsOnBouncy() + "   onStickyWall: " + OnStickyWall() + "   isDeflecting: " + IsDeflecting());
             //Player's rigid component's velocity set to 1/-1 * 15, 0/15
-            playerRigid.velocity = new Vector3(move.x * moveForce, playerVelocity.y, 0);  
+            playerRigid.velocity = new Vector2(move.x * moveForce, playerVelocity.y);  
+        }
+        else if (move.x != 0 && onIce || !onIce  && !deflecting) //for post-wall jump velocity
+        {
+
+            playerRigid.velocity = new Vector2(move.x * postWallJumpMoveForce, playerVelocity.y);
         }
     }
 
@@ -206,7 +217,7 @@ public class PlayerController : MonoBehaviour
     }
     private void BounceMovement()
     {
-        if (IsOnBouncy() && playerRigid.velocity.y >= 0f)
+        if (IsOnBouncy() )//&& playerRigid.velocity.y >= 0f)
         {
 
             // float previousYMovement = playerRigid.velocity.y;
