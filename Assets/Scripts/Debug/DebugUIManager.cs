@@ -47,7 +47,7 @@ public class DebugUIManager : MonoBehaviour
 
     public void DisablePlayer(int playerIndex)
     {
-        Debug.Log("Disabling player " + (playerIndex-1) + " UI - " + playerDebug[playerIndex]);
-        playerDebug[playerIndex-1].SetActive(false);
+        Debug.Log("Disabling player " + playerIndex + " UI - " + playerDebug[playerIndex]);
+        playerDebug[playerIndex].SetActive(false);
     }
 }

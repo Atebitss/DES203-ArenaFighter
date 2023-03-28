@@ -23,6 +23,8 @@ public class LevelScript : MonoBehaviour
     private PlayerInput[] playersInput = new PlayerInput[4];
     private GameObject[] players = new GameObject[4];
     private int numOfPlayers = 0;
+    private int curPlayerPos = 0;
+    private int prevPlayerPos = 0;
 
     //important level & multiplayer stuff
     public static LevelScript instance = null;
@@ -67,6 +69,15 @@ public class LevelScript : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        if (prevPlayerPos != curPlayerPos)
+        {
+            Debug.Log(curPlayerPos);
+            prevPlayerPos = curPlayerPos;
+        }
+    }
+
     private void SetSpawnPoints()
     {
         //fill spawn point array
@@ -97,15 +108,15 @@ public class LevelScript : MonoBehaviour
         }
     }
 
-    private void ApplyLevelStats(int playerPos)
+    private void ApplyLevelStats()
     {
         //applies levels stats to current joining player
         //Debug.Log("applying stats to " + players[numOfPlayers] + ", " + playerScripts[numOfPlayers]);
-        playerScripts[playerPos].SetMoveForce(playerMoveForce);
-        playerScripts[playerPos].SetJumpForce(playerJumpForce);
-        playerScripts[playerPos].SetPlayerGravity(playerGravity);
+        playerScripts[curPlayerPos].SetMoveForce(playerMoveForce);
+        playerScripts[curPlayerPos].SetJumpForce(playerJumpForce);
+        playerScripts[curPlayerPos].SetPlayerGravity(playerGravity);
 
-        playerScripts[playerPos].SetDevMode(devMode);
+        playerScripts[curPlayerPos].SetDevMode(devMode);
     }
 
     private void ApplyColour(GameObject newPlayer)
@@ -113,7 +124,7 @@ public class LevelScript : MonoBehaviour
         SpriteRenderer playerRend = newPlayer.GetComponent<SpriteRenderer>();
         //Color newColor = new Color(0.5f, 0.5f, 1f, 1f);
         //playerRend.color = Color.red;
-        switch(numOfPlayers-1)
+        switch(curPlayerPos)
         {
             case 0:
                 playerRend.sprite = player1sprite;
@@ -139,7 +150,10 @@ public class LevelScript : MonoBehaviour
     {
         //joins player
         //Debug.Log("JoinAction()");
-        PlayerInputManager.instance.JoinPlayerFromActionIfNotAlreadyJoined(ctx);
+        if (numOfPlayers < 4)
+        {
+            PlayerInputManager.instance.JoinPlayerFromActionIfNotAlreadyJoined(ctx);
+        }
     }
 
     void OnPlayerJoined(PlayerInput playerInput)
@@ -153,13 +167,15 @@ public class LevelScript : MonoBehaviour
             PlayerJoinedGame(playerInput);
         }
 
+        Debug.Log("New player joining");
         for (int playerCheck = 0; playerCheck < 4; playerCheck++)
         {
             Debug.Log(playerCheck);
             if (playersInput[playerCheck] == null)
             {
-                Debug.Log(playersInput[playerCheck]);
+                Debug.Log("player input " + playerCheck + ": " + playersInput[playerCheck]);
                 playersInput[playerCheck] = playerInput;
+                curPlayerPos = playerCheck;
                 playerCheck = 4;
                 //Debug.Log("playersInput: " + playersInput[numOfPlayers]);
             }
@@ -210,36 +226,41 @@ public class LevelScript : MonoBehaviour
 
 
 
-    public int CurrentPlayers()
+    public int CurrentPlayer()
     {
-        return numOfPlayers;
+        return curPlayerPos;
     }
 
     public void NewPlayer(GameObject newPlayer)
     {
         //Debug.Log("New Player()");
-        int playerPos = 0;
+        //curPlayerPos = 0;
 
-        for (int playerCheck = 0; playerCheck < 4; playerCheck++)
+        /*for (int playerCheck = 0; playerCheck < 4; playerCheck++)
         {
+            //Debug.Log(playerCheck);
             if (players[playerCheck] == null)
             {
-                Debug.Log("New Player" + playerCheck);
+                Debug.Log("New Player: " + newPlayer.name);
                 players[playerCheck] = newPlayer;
                 playerScripts[playerCheck] = newPlayer.GetComponent<PlayerController>();
-                playerPos = playerCheck;
                 playerCheck = 4;
                 //Debug.Log("playersInput: " + playersInput[numOfPlayers]);
             }
-        }
+        }*/
+
+        Debug.Log("New Player: " + newPlayer.name);
+        players[curPlayerPos] = newPlayer;
+        playerScripts[curPlayerPos] = newPlayer.GetComponent<PlayerController>();
 
         //apply stats
         ApplyColour(newPlayer);
-        ApplyLevelStats(playerPos);
+        ApplyLevelStats();
 
         if (devMode)
         {
-            DUIM.EnablePlayer(playerPos, newPlayer);
+            Debug.Log("Dev mode for " + newPlayer.name);
+            DUIM.EnablePlayer(curPlayerPos, newPlayer);
         }
     }
 
@@ -247,6 +268,6 @@ public class LevelScript : MonoBehaviour
 
     public Vector2 GetNextSpawnPoint()
     {
-        return spawnPoints[numOfPlayers].transform.position;
+        return spawnPoints[curPlayerPos].transform.position;
     }
 }

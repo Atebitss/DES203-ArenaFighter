@@ -58,8 +58,10 @@ public class PlayerController : MonoBehaviour
 
     void Awake()
     {
+        //set level script, update in-game object with name, give level script new player object
         ls = GameObject.Find("LevelController").GetComponent<LevelScript>();
-        gameObject.name = "Player" + ls.CurrentPlayers();
+        gameObject.name = "Player" + ls.CurrentPlayer();
+        Debug.Log("New player awake, " + gameObject.name);
         ls.NewPlayer(gameObject);
     }
 
@@ -96,7 +98,6 @@ public class PlayerController : MonoBehaviour
 
     private void PlayerMovement()
     {
-        
         playerVelocity = playerRigid.velocity;   //update current velocity Vector2 to players current velocity
         
         if (move.x != 0) //gets previous Xmovement for use in Ice Stuff
@@ -281,7 +282,7 @@ public class PlayerController : MonoBehaviour
     //~~~ COMBAT ~~~\\
     private void Combat(GameObject target)
     {
-        //ADD ART & SPECIFICS
+        //ADD ANIMATIONS AND SOUND
 
         //Debug.Log(this.gameObject.name + " is attacking " + target.name);
         if (playerVelocity.x > 10f || playerVelocity.x < -10f || playerVelocity.y > 10f || playerVelocity.y < -10f )

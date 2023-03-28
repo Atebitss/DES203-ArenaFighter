@@ -18,6 +18,7 @@ public class PlayerInputHandler : MonoBehaviour
 
         if (playerPrefab != null)
         {
+            Debug.Log("New PlayerInputHandler");
             ls = GameObject.Find("LevelController").GetComponent<LevelScript>();
             Vector2 SpawnPointLocation = ls.GetNextSpawnPoint();
 
