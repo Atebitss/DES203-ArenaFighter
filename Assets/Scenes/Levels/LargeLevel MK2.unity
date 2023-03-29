@@ -473,15 +473,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 191488194}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 1.0271162, y: -2.8738375, z: -75.28471}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-<<<<<<< Updated upstream:Assets/Scenes/Levels/LargeLevel MK2.unity
   m_RootOrder: 0
-=======
-  m_RootOrder: 5
->>>>>>> Stashed changes:Assets/Scenes/Scenes/LargeLevel MK2.unity
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &220159763
 GameObject:
@@ -1257,21 +1253,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 777771586}
-<<<<<<< Updated upstream:Assets/Scenes/Levels/LargeLevel MK2.unity
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.2918, y: -4.0691, z: 0}
   m_LocalScale: {x: 1.5728331, y: 1.59376, z: 1}
   m_Children: []
   m_Father: {fileID: 1330416179}
   m_RootOrder: 5
-=======
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.25, y: -4, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
->>>>>>> Stashed changes:Assets/Scenes/Scenes/LargeLevel MK2.unity
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &780512204
 GameObject:
@@ -11967,7 +11954,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1330416178
 GameObject:
@@ -12005,7 +11992,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-<<<<<<< Updated upstream:Assets/Scenes/Levels/LargeLevel MK2.unity
 --- !u!1001 &1353541444
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12071,8 +12057,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 946b428bc067cc5459454ed534dacaf7, type: 3}
-=======
->>>>>>> Stashed changes:Assets/Scenes/Scenes/LargeLevel MK2.unity
 --- !u!1 &1392580977
 GameObject:
   m_ObjectHideFlags: 0
@@ -12872,11 +12856,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-<<<<<<< Updated upstream:Assets/Scenes/Levels/LargeLevel MK2.unity
   m_RootOrder: 1
-=======
-  m_RootOrder: 2
->>>>>>> Stashed changes:Assets/Scenes/Scenes/LargeLevel MK2.unity
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1717366797
 MonoBehaviour:

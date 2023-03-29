@@ -18,7 +18,7 @@ public class PlayerInputHandler : MonoBehaviour
 
         if (playerPrefab != null)
         {
-            //Debug.Log("New PlayerInputHandler");
+            Debug.Log("New PlayerInputHandler");
             ls = GameObject.Find("LevelController").GetComponent<LevelScript>();
             Vector2 SpawnPointLocation = ls.GetNextSpawnPoint();
 
@@ -42,14 +42,6 @@ public class PlayerInputHandler : MonoBehaviour
         if (ctx.started)
         {
             playerController.OnJump(ctx);
-        }
-    }
-
-    public void OnAttack(InputAction.CallbackContext ctx)
-    {
-        if (ctx.started)
-        {
-            playerController.OnAttack(ctx);
         }
     }
 }

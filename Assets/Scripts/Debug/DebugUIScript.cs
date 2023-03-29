@@ -38,7 +38,7 @@ public class DebugUIScript : MonoBehaviour
 
     public void SetPlayer(GameObject newPlayer)
     {
-        //Debug.Log("Setting new player - " + newPlayer.name);
+        Debug.Log("Setting new player - " + newPlayer.name);
         player = newPlayer;
         playerScript = player.GetComponent<PlayerController>();
     }
