@@ -42,7 +42,7 @@ public class LevelScript : MonoBehaviour
 
     private void Awake()
     {
-        FindObjectOfType<AudioManager>().Play("MusicFight");
+        //FindObjectOfType<AudioManager>().Play("MusicFight"); //NULL REFERENCE
 
         //ensure there is only 1 level script
         if (instance == null)
@@ -65,6 +65,7 @@ public class LevelScript : MonoBehaviour
 
 
         //update debug
+        //Debug.Log("Dev mode: " + devMode);
         if (devMode)
         {
             DUIM = GameObject.Find("DebugUI").GetComponent<DebugUIManager>();
@@ -75,7 +76,7 @@ public class LevelScript : MonoBehaviour
     {
         if (prevPlayerPos != curPlayerPos)
         {
-            Debug.Log(curPlayerPos);
+            //Debug.Log(curPlayerPos);
             prevPlayerPos = curPlayerPos;
         }
     }
@@ -106,7 +107,7 @@ public class LevelScript : MonoBehaviour
                 }
             }
 
-            Debug.Log("spawn " + spawnIndex + ", spawn point " + spawnOrder[spawnIndex]);
+            //Debug.Log("spawn " + spawnIndex + ", spawn point " + spawnOrder[spawnIndex]);
         }
     }
 
@@ -169,13 +170,13 @@ public class LevelScript : MonoBehaviour
             PlayerJoinedGame(playerInput);
         }
 
-        Debug.Log("New player joining");
+        //Debug.Log("New player joining");
         for (int playerCheck = 0; playerCheck < 4; playerCheck++)
         {
-            Debug.Log(playerCheck);
+            //Debug.Log(playerCheck);
             if (playersInput[playerCheck] == null)
             {
-                Debug.Log("player input " + playerCheck + ": " + playersInput[playerCheck]);
+                //Debug.Log("player input " + playerCheck + ": " + playersInput[playerCheck]);
                 playersInput[playerCheck] = playerInput;
                 curPlayerPos = playerCheck;
                 playerCheck = 4;
@@ -191,13 +192,19 @@ public class LevelScript : MonoBehaviour
     void LeaveAction(InputAction.CallbackContext ctx)
     {
         //leaves player
-        Debug.Log("LeaveAction()");
+        //Debug.Log("LeaveAction()");
+        BoxCollider2D[] collisions = this.gameObject.transform.Find("Attack").GetComponent<PlayerAttackTrigger>().GetColliders();
+        for(int i = 0; i < collisions.Length; i++)
+        {
+            Debug.Log("pos " + i + ": " + collisions[i]);
+        }
+
     }
 
     void OnPlayerLeft(PlayerInput playerInput)
     {
         //player leaving code
-        Debug.Log("OnPlayerLeft()");
+        //Debug.Log("OnPlayerLeft()");
         //Debug.Log("Player left...");
 
         if (PlayerLeftGame != null)
@@ -235,23 +242,7 @@ public class LevelScript : MonoBehaviour
 
     public void NewPlayer(GameObject newPlayer)
     {
-        //Debug.Log("New Player()");
-        //curPlayerPos = 0;
-
-        /*for (int playerCheck = 0; playerCheck < 4; playerCheck++)
-        {
-            //Debug.Log(playerCheck);
-            if (players[playerCheck] == null)
-            {
-                Debug.Log("New Player: " + newPlayer.name);
-                players[playerCheck] = newPlayer;
-                playerScripts[playerCheck] = newPlayer.GetComponent<PlayerController>();
-                playerCheck = 4;
-                //Debug.Log("playersInput: " + playersInput[numOfPlayers]);
-            }
-        }*/
-
-        Debug.Log("New Player: " + newPlayer.name);
+        //Debug.Log("New Player: " + newPlayer.name);
         players[curPlayerPos] = newPlayer;
         playerScripts[curPlayerPos] = newPlayer.GetComponent<PlayerController>();
 
@@ -261,7 +252,7 @@ public class LevelScript : MonoBehaviour
 
         if (devMode)
         {
-            Debug.Log("Dev mode for " + newPlayer.name);
+            //Debug.Log("Dev mode for " + newPlayer.name);
             DUIM.EnablePlayer(curPlayerPos, newPlayer);
         }
     }
