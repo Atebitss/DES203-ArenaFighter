@@ -226,17 +226,19 @@ MonoBehaviour:
   wallLayer:
     serializedVersion: 2
     m_Bits: 64
-  IceDecceleration: 0.95
-  wallSlideSpeed: -2
-  postWallJumpMoveForce: 1
+  coyoteTime: 0.1
+  jumpBufferTime: 0.1
+  fallGravityMult: 1.4
+  playerGravity: 5
+  IceDecceleration: 0.99
+  iceSpeed: 16
+  wallSlideSpeed: -3
   wallJumpingDirection: 0
   wallJumpingDuration: 0.3
   bounceMultiplier: 1.5
   bounceRebound: 1.25
-  currentTeleporter: {fileID: 0}
   teleportingDuration: 0.2
   deflectDuration: 0.5
-  fallGravityMult: 1.5
 --- !u!1 &5887555980118777008
 GameObject:
   m_ObjectHideFlags: 0

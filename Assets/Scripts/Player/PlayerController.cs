@@ -17,18 +17,29 @@ public class PlayerController : MonoBehaviour
     private LevelScript ls;
 
     //~~~~~~~ GAMEPLAY ~~~~~~~\\
+
+    //~~~ JUMPING ~~~\\
+    [Header("Jumping")]
+    [SerializeField] private float coyoteTime;
+     private float coyoteCounter;
+    [SerializeField] private float jumpBufferTime;
+     private float jumpBufferCounter;
+    private bool isJumping;
+    [SerializeField] private float fallGravityMult;
+    [SerializeField] private float playerGravity = 5;
+
     //~~~ ICE ~~~\\
     [Header("Ice Movement")]
     [SerializeField] private float IceDecceleration = 0.95f; //must be between 1 and 0
-    private bool onIce;
+    [SerializeField] private float iceSpeed = 9f;
+     private bool onIce;
 
     //~~~ WALL SLIDE & JUMP ~~~\\
-    [Header("Wall sliding and Jumping")]
-    private float wallJumpCooldown;
+    [Header("Wall Sliding and Jumping")]
     [SerializeField] private float wallSlideSpeed = -2f;
+     private float wallJumpCooldown;
      private bool onStickyWall;
      private bool isWallJumping;
-    [SerializeField] private float postWallJumpMoveForce = 1f;
     [SerializeField] private float wallJumpingDirection;
     [SerializeField] private float wallJumpingDuration = 0.4f;
 
@@ -36,27 +47,27 @@ public class PlayerController : MonoBehaviour
     [Header("Bouncing")]
     [SerializeField] private float bounceMultiplier = 1.5f;
     [SerializeField] private float bounceRebound = 1.25f;
-    private bool onBouncy;
+     private bool onBouncy;
 
     //~~~ TELEPORT ~~~\\
     [Header("Teleport")]
-    [SerializeField] private GameObject currentTeleporter;
-    private bool isTeleporting;
     [SerializeField] private float teleportingDuration = 0.2f;
+     private GameObject currentTeleporter;
+     private bool isTeleporting;
 
     //~~~ FLIP ~~~\\
-    private bool left, right;
+     private bool left, right;
 
     //~~~ COMBAT ~~~\\
     [Header("Combat")]
-    private bool deflecting;
+     private bool deflecting;
     [SerializeField] private float deflectDuration = 0.5f;
-    [Header("Misc")]
-    [SerializeField] private float fallGravityMult;
-    private float startingGravity;
 
 
+    
 
+
+    
 
 
     void Awake()
@@ -66,16 +77,15 @@ public class PlayerController : MonoBehaviour
         gameObject.name = "Player" + ls.CurrentPlayer();
         Debug.Log("New player awake, " + gameObject.name);
         ls.NewPlayer(gameObject);
-        startingGravity = playerRigid.gravityScale;
+
+        
+        
     }
 
 
     void FixedUpdate()
     {
-        //Debug.Log("playerVelocity.x: " + playerVelocity.x);
         PlayerMovement();
-
-
         Flip();
         IceMovement();
         WallSlide();
@@ -83,15 +93,37 @@ public class PlayerController : MonoBehaviour
 
         if (devMode) { HighlightHitboxes(); }
 
-        //GRAVITY SHENANIGANS
+        //~~~MISC CHECKS AND ADJUSTMENTS ~~~\\ 
+
+        //Gravity tweaking, we fall faster when we start falling in our jump
         if (playerRigid.velocity.y < 0 && !OnStickyWall())
         {
-            playerRigid.gravityScale = 5 * fallGravityMult;
+            playerRigid.gravityScale = playerGravity * fallGravityMult;
         }
         else
         {
-            playerRigid.gravityScale = 5;
+            playerRigid.gravityScale = playerGravity;
         }
+
+        //Adding coyote time (can jump a bit after not being on a platform)
+        if (IsGrounded())
+        {
+            coyoteCounter = coyoteTime;
+        }
+        else
+        {
+            coyoteCounter -= Time.deltaTime;
+        }
+        //Adding jump buffer (can jump a bit before touching the ground)
+        if (isJumping)
+        {
+            jumpBufferCounter = jumpBufferTime;
+        }
+        else
+        {
+            jumpBufferCounter -= Time.deltaTime;
+        }
+       
     }
 
 
@@ -113,49 +145,51 @@ public class PlayerController : MonoBehaviour
     private void PlayerMovement()
     {
         playerVelocity = playerRigid.velocity;   //update current velocity Vector2 to players current velocity
-        
+
         if (move.x != 0) //gets previous Xmovement for use in Ice Stuff
         {
             previousXMovement = playerRigid.velocity.x;
-
         }
-      
+       
 
         //if player is moving and on ice
         //or not on ice and not wall jumping and on the ground
         //or is not no the ground and and is not wall jumping and is jumping
         if (move.x != 0 && onIce || !onIce && !isWallJumping && !deflecting)
         {
-            //Debug.Log("move.x/y: " + move.x + "/" + move.y + "   onGround: " + IsGrounded() + "   onIce: " + IsOnIce() + "   onBouncy: " + IsOnBouncy() + "   onStickyWall: " + OnStickyWall() + "   isDeflecting: " + IsDeflecting());
-            //Player's rigid component's velocity set to 1/-1 * 15, 0/15
             playerRigid.velocity = new Vector2(move.x * moveForce, playerVelocity.y);  
         }
-        else if (move.x != 0 && onIce || !onIce  && !deflecting) //for post-wall jump velocity
-        {
-
-            //playerRigid.velocity = new Vector2(move.x * postWallJumpMoveForce, playerVelocity.y);
-        }
+        
+     
+      
     }
 
 
     //~~~ JUMP ~~~\\ 
     public void OnJump(InputAction.CallbackContext ctx)
     {
-        //A/space 0/+1
-        //if +1, set vertical velocity to levels provided jump force
+        isJumping = true;
 
-        if (IsGrounded())
+        if (coyoteCounter > 0 && jumpBufferCounter > 0 ) //checking for coyote time and jump buffer
         {
             if (IsOnBouncy())
             {
                 print("BIG JUMP");
                 playerRigid.velocity = new Vector2(playerVelocity.x, jumpForce * bounceMultiplier); //Bouncy Jump
                 PlayJumpAudio();
+
+                coyoteCounter = 0f;
+                jumpBufferCounter = 0f;
+                isJumping = true;
             }
             else
             {
                 playerRigid.velocity = new Vector2(playerVelocity.x, jumpForce); // Normal Jump
                 PlayJumpAudio();
+
+                coyoteCounter = 0f;
+                jumpBufferCounter = 0f;
+                isJumping = true;
             }
 
         }
@@ -203,7 +237,7 @@ public class PlayerController : MonoBehaviour
         {
             if (move.x != 0) //when we have input, move normally (will refine this later)
             {
-                playerRigid.velocity = new Vector3(move.x * moveForce, playerVelocity.y, 0);
+                playerRigid.velocity = new Vector3(move.x * iceSpeed, playerVelocity.y, 0);
             }
             else
             {
@@ -236,7 +270,7 @@ public class PlayerController : MonoBehaviour
     }
     private void BounceMovement()
     {
-        if (IsOnBouncy() )//&& playerRigid.velocity.y >= 0f)
+        if (IsOnBouncy())
         {
 
             // float previousYMovement = playerRigid.velocity.y;
