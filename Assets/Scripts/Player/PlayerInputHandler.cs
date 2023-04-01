@@ -44,4 +44,12 @@ public class PlayerInputHandler : MonoBehaviour
             playerController.OnJump(ctx);
         }
     }
+
+    public void OnAttack(InputAction.CallbackContext ctx)
+    {
+        if (ctx.started)
+        {
+            playerController.OnAttack(ctx);
+        }
+    }
 }

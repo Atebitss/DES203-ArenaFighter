@@ -92,7 +92,7 @@ public class LevelScript : MonoBehaviour
         for (int spawnIndex = 0; spawnIndex < spawnOrder.Length; spawnIndex++)
         {
             //Debug.Log("");
-            spawnOrder[spawnIndex] = Random.Range(0, 3);
+            spawnOrder[spawnIndex] = Random.Range(1, 5);
 
             for (int checkIndex = 0; checkIndex < spawnIndex; checkIndex++)
             {
@@ -100,7 +100,7 @@ public class LevelScript : MonoBehaviour
                 if (spawnOrder[checkIndex] == spawnOrder[spawnIndex] && checkIndex != spawnIndex)
                 {
                     //Debug.Log("Spawn Point " + spawnOrder[spawnIndex] + " is being used by Spawn Location " + checkIndex);
-                    spawnOrder[spawnIndex] = Random.Range(0, 4);
+                    spawnOrder[spawnIndex] = Random.Range(1, 5);
                     checkIndex = -1;
                     //Debug.Log("New Spawn Point: " + spawnOrder[spawnIndex]);
                 }
@@ -236,21 +236,6 @@ public class LevelScript : MonoBehaviour
     public void NewPlayer(GameObject newPlayer)
     {
         //Debug.Log("New Player()");
-        //curPlayerPos = 0;
-
-        /*for (int playerCheck = 0; playerCheck < 4; playerCheck++)
-        {
-            //Debug.Log(playerCheck);
-            if (players[playerCheck] == null)
-            {
-                Debug.Log("New Player: " + newPlayer.name);
-                players[playerCheck] = newPlayer;
-                playerScripts[playerCheck] = newPlayer.GetComponent<PlayerController>();
-                playerCheck = 4;
-                //Debug.Log("playersInput: " + playersInput[numOfPlayers]);
-            }
-        }*/
-
         Debug.Log("New Player: " + newPlayer.name);
         players[curPlayerPos] = newPlayer;
         playerScripts[curPlayerPos] = newPlayer.GetComponent<PlayerController>();
@@ -270,6 +255,7 @@ public class LevelScript : MonoBehaviour
 
     public Vector2 GetNextSpawnPoint()
     {
+        Debug.Log("player " + curPlayerPos + " spawn point is " + spawnPoints[curPlayerPos] + " at " + spawnPoints[curPlayerPos].transform.position);
         return spawnPoints[curPlayerPos].transform.position;
     }
 }
