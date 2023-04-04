@@ -196,7 +196,8 @@ public class PlayerController : MonoBehaviour
         else if (OnStickyWall() & !IsGrounded()) // Wall Jumping
         {
             isWallJumping = true;
-            playerRigid.velocity = new Vector2(-transform.localScale.x * 12, 20);
+            //playerRigid.velocity = new Vector2(-transform.localScale.x * 12, 20);
+            playerRigid.velocity = new Vector2(-transform.localScale.x * 2, 4);
             PlayJumpAudio();
             wallJumpCooldown = 0;
 
