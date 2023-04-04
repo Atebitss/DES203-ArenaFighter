@@ -35,13 +35,16 @@ public class PlayerController : MonoBehaviour
      private bool onIce;
 
     //~~~ WALL SLIDE & JUMP ~~~\\
-    [Header("Wall Sliding and Jumping")]
+    [Header("Wall Jumps, Climbs and Slides")]
     [SerializeField] private float wallSlideSpeed = -2f;
+    [SerializeField] private float wallCoyoteTime;
+     private float wallCoyoteCounter;
      private float wallJumpCooldown;
      private bool onStickyWall;
      private bool isWallJumping;
-    [SerializeField] private float wallJumpingDirection;
+     private float wallJumpingDirection;
     [SerializeField] private float wallJumpingDuration = 0.4f;
+    [SerializeField] private float wallClimbingDuration = 0.1f;
 
     //~~~ BOUNCE ~~~\\
     [Header("Bouncing")]
@@ -56,15 +59,16 @@ public class PlayerController : MonoBehaviour
      private bool isTeleporting;
 
     //~~~ FLIP ~~~\\
-     private bool left, right;
+     private bool facingRight;
+    
 
     //~~~ COMBAT ~~~\\
     [Header("Combat")]
-    private bool isDeflecting, isAttacking;
     [SerializeField] private float deflectDuration = 0.5f;
     [SerializeField] private float attackBuildUp = 0.1f;
     [SerializeField] private float attackTimer = 0.4f;
     [SerializeField] private GameObject attackObject;
+    private bool isDeflecting, isAttacking;
 
 
 
@@ -114,6 +118,16 @@ public class PlayerController : MonoBehaviour
         {
             coyoteCounter -= Time.deltaTime;
         }
+        //Adding wall jump coyote time (can wall jump a bit after not being on a wall)
+        if (OnStickyWall())
+        {
+            wallCoyoteCounter = wallCoyoteTime;
+        }
+        else
+        {
+            wallCoyoteCounter -= Time.deltaTime;
+        }
+
         //Adding jump buffer (can jump a bit before touching the ground)
         if (isJumping)
         {
@@ -193,20 +207,42 @@ public class PlayerController : MonoBehaviour
             }
 
         }
-        else if (OnStickyWall() & !IsGrounded()) // Wall Jumping
+
+        //~~~ WALL JUMP ~~~\\ 
+
+        else if (wallCoyoteCounter > 0 & !IsGrounded() & facingRight && move.x > 0f) // Wall Climbing when facing right
         {
             isWallJumping = true;
-            //playerRigid.velocity = new Vector2(-transform.localScale.x * 12, 20);
-            playerRigid.velocity = new Vector2(-transform.localScale.x * 2, 4);
+            playerRigid.velocity = new Vector2(-transform.localScale.x * 4, 20);
             PlayJumpAudio();
             wallJumpCooldown = 0;
 
-            if (transform.localScale.x != wallJumpingDirection) //flips player so they are facing the direction that they are jumping towards
-            {
-                Vector3 localScale = transform.localScale;
-                localScale.x *= -1f;
-                transform.localScale = localScale;
-            }
+         
+            Invoke(nameof(StopWallJumping), wallClimbingDuration); //while we are wall climbing, the player cannot change thier velocity, so after a duration, let the players control the PC again
+        }
+        else if (wallCoyoteCounter > 0 & !IsGrounded() & !facingRight && move.x < 0f) // Wall Climbing when facing left
+        {
+            isWallJumping = true;
+            playerRigid.velocity = new Vector2(-transform.localScale.x * 4, 20);
+            PlayJumpAudio();
+            wallJumpCooldown = 0;
+
+           
+            Invoke(nameof(StopWallJumping), wallClimbingDuration); 
+        }
+        else if (wallCoyoteCounter > 0 & !IsGrounded()) // Wall Jumping / Kicking
+        {
+            isWallJumping = true;
+            playerRigid.velocity = new Vector2(-transform.localScale.x * 12, 20);
+            PlayJumpAudio();
+            wallJumpCooldown = 0;
+
+             if (transform.localScale.x != wallJumpingDirection) //flips player so they are facing the direction that they are jumping towards
+             {
+                 Vector3 localScale = transform.localScale;
+                 localScale.x *= -1f;
+                 transform.localScale = localScale;
+             }
 
             Invoke(nameof(StopWallJumping), wallJumpingDuration); //while we are wall jumping, the player cannot change thier velocity, so after a duration, let the players control the PC again
 
@@ -228,9 +264,17 @@ public class PlayerController : MonoBehaviour
     {
         //flips the player around when moving left or right | Allows us to determine player direction for animating and other stuffs
         if (move.x > 0.01f)
+        {
             transform.localScale = Vector3.one;
+            facingRight = true;
+        }
+           
         else if (move.x < -0.01f)
+        {
             transform.localScale = new Vector3(-1, 1, 1);
+            facingRight = false;
+        }
+         
     }
     private void IceMovement()
     {
@@ -255,7 +299,7 @@ public class PlayerController : MonoBehaviour
         //wall jumping code adapted  from https://www.youtube.com/watch?v=_UBpkdKlJzE and https://www.youtube.com/watch?v=O6VX6Ro7EtA | 
         if (wallJumpCooldown > 0.2f && (!IsOnIce()) && !isWallJumping && !isTeleporting)
         {
-            playerRigid.velocity = new Vector3(move.x * moveForce, playerVelocity.y, 0);
+            playerRigid.velocity = new Vector2(move.x * moveForce, playerVelocity.y);
 
             if (OnStickyWall() && !IsGrounded())
             {
