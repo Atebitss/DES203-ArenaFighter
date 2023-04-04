@@ -65,6 +65,7 @@ public class PlayerController : MonoBehaviour
     //~~~ COMBAT ~~~\\
     [Header("Combat")]
     [SerializeField] private float deflectDuration = 0.5f;
+    [SerializeField] private float deflectForce = 60f;
     [SerializeField] private float attackBuildUp = 0.1f;
     [SerializeField] private float attackTimer = 0.4f;
     [SerializeField] private GameObject attackObject;
@@ -299,7 +300,7 @@ public class PlayerController : MonoBehaviour
         //wall jumping code adapted  from https://www.youtube.com/watch?v=_UBpkdKlJzE and https://www.youtube.com/watch?v=O6VX6Ro7EtA | 
         if (wallJumpCooldown > 0.2f && (!IsOnIce()) && !isWallJumping && !isTeleporting)
         {
-            playerRigid.velocity = new Vector2(move.x * moveForce, playerVelocity.y);
+            //playerRigid.velocity = new Vector2(move.x * moveForce, playerVelocity.y);
 
             if (OnStickyWall() && !IsGrounded())
             {
@@ -361,11 +362,14 @@ public class PlayerController : MonoBehaviour
     private void Deflect(GameObject target)
     {
         Debug.Log(target.name + " deflects " + this.gameObject.name + "'s attack.");
-        //Debug.Log("isDeflecting");
+        Debug.Log("isDeflecting");
         isDeflecting = true;
 
         //Debug.Log("velocity before: " + playerRigid.velocity);
-        //playerRigid.velocity = new Vector2(playerVelocity.x * -10, playerVelocity.y * -10);
+        playerRigid.velocity = new Vector2(deflectForce, deflectForce);
+
+       //ununcomment this to make the other player deflect as well target.GetComponent<PlayerController>().playerRigid.velocity = new Vector2(deflectForce, deflectForce);
+
         //Debug.Log("velocity after: " + playerRigid.velocity);
         Invoke(nameof(StopDeflect), deflectDuration);
     }
@@ -433,7 +437,7 @@ public class PlayerController : MonoBehaviour
 
     private void AttackFinish()
     {
-        //Debug.Log("hitbox off");
+        //Debug.Log("Attack timer over");
         isAttacking = false;   //end attack
     }
 
