@@ -405,6 +405,36 @@ MonoBehaviour:
     pitch: 1.22
     loop: 0
     source: {fileID: 0}
+  - name: DeathCry2
+    clip: {fileID: 8300000, guid: 7b2915e3b1357d943be1d69b5eb874fe, type: 3}
+    volume: 0.6
+    pitch: 1.23
+    loop: 0
+    source: {fileID: 0}
+  - name: DeathCry3
+    clip: {fileID: 8300000, guid: 7a883a823bdd20d4da485f9d92490cae, type: 3}
+    volume: 0.6
+    pitch: 1.13
+    loop: 0
+    source: {fileID: 0}
+  - name: JumpGrunt
+    clip: {fileID: 8300000, guid: 90bf73db36a1c1f43adeb9fc9f39bb75, type: 3}
+    volume: 0.03
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: JumpGrunt2
+    clip: {fileID: 8300000, guid: 5d845d62733a55845a5a6f510709813e, type: 3}
+    volume: 0.03
+    pitch: 0.96
+    loop: 0
+    source: {fileID: 0}
+  - name: JumpWhoosh
+    clip: {fileID: 8300000, guid: 58c4da31c4ecd1f4baaa0251bfb80a7f, type: 3}
+    volume: 0.06
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
   - name: Ice
     clip: {fileID: 8300000, guid: d4695e5feb28dea46af6ac5eff7604f9, type: 3}
     volume: 0.75
@@ -423,18 +453,6 @@ MonoBehaviour:
     pitch: 1
     loop: 1
     source: {fileID: 0}
-  - name: JumpGrunt
-    clip: {fileID: 8300000, guid: 90bf73db36a1c1f43adeb9fc9f39bb75, type: 3}
-    volume: 0.03
-    pitch: 1
-    loop: 0
-    source: {fileID: 0}
-  - name: JumpWhoosh
-    clip: {fileID: 8300000, guid: 58c4da31c4ecd1f4baaa0251bfb80a7f, type: 3}
-    volume: 0.06
-    pitch: 1
-    loop: 0
-    source: {fileID: 0}
   - name: Walk
     clip: {fileID: 8300000, guid: 09190997b4cfcc045bdcbefddcef9129, type: 3}
     volume: 0.215
@@ -447,22 +465,22 @@ MonoBehaviour:
     pitch: 1.24
     loop: 0
     source: {fileID: 0}
-  - name: JumpGrunt2
-    clip: {fileID: 8300000, guid: 5d845d62733a55845a5a6f510709813e, type: 3}
-    volume: 0.03
-    pitch: 0.96
+  - name: SwordSwing1
+    clip: {fileID: 8300000, guid: 1c91e2b01626cb34e97e901e1cc2fb39, type: 3}
+    volume: 0.02
+    pitch: 0.57
     loop: 0
     source: {fileID: 0}
-  - name: DeathCry2
-    clip: {fileID: 8300000, guid: 7b2915e3b1357d943be1d69b5eb874fe, type: 3}
-    volume: 0.6
-    pitch: 1.23
+  - name: SwordSwing2
+    clip: {fileID: 8300000, guid: 75f2c5e743e2adf488d767a2997ce0b2, type: 3}
+    volume: 0.02
+    pitch: 0.52
     loop: 0
     source: {fileID: 0}
-  - name: DeathCry3
-    clip: {fileID: 8300000, guid: 7a883a823bdd20d4da485f9d92490cae, type: 3}
-    volume: 0.6
-    pitch: 1.13
+  - name: SwordSwing3
+    clip: {fileID: 8300000, guid: d4a2d3e458cfc844a84282aa35176201, type: 3}
+    volume: 0.02
+    pitch: 0.57
     loop: 0
     source: {fileID: 0}
 --- !u!4 &191488196

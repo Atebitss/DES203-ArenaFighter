@@ -322,7 +322,9 @@ public class PlayerController : MonoBehaviour
             // float previousYMovement = playerRigid.velocity.y;
             // playerRigid.velocity = new Vector2(playerVelocity.x, -previousYMovement * bounceRebound);
             playerRigid.velocity = new Vector2(playerVelocity.x, jumpForce * bounceRebound);
-            FindObjectOfType<AudioManager>().Play("Bouncy");
+           FindObjectOfType<AudioManager>().Play("Bouncy");
+
+
             print("Yipeeee");
         }
 
@@ -409,6 +411,8 @@ public class PlayerController : MonoBehaviour
                 }*/
 
                 string colTag = collisions[colIndex].gameObject.tag;
+
+             
 
                 switch (colTag)
                 {
@@ -706,7 +710,26 @@ public class PlayerController : MonoBehaviour
         }
 
     }
+    //~~~ SWORD SWING ~~~\\ 
+     public void PlaySwordAudio()
+    {
+        int SoundNo = Random.Range(1, 4);
 
+
+        if (SoundNo == 1)
+        {
+            FindObjectOfType<AudioManager>().Play("SwordSwing1");
+        }
+        if (SoundNo == 2)
+        {
+            FindObjectOfType<AudioManager>().Play("SwordSwing2");
+        }
+        if (SoundNo == 3)
+        {
+            FindObjectOfType<AudioManager>().Play("SwordSwing3");
+        }
+
+    }
 
 
 
