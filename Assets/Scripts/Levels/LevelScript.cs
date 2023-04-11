@@ -84,6 +84,7 @@ public class LevelScript : MonoBehaviour
     {
         //fill spawn point array
         spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoint");
+        //Debug.Log("total spawn points: " + spawnPoints.Length);
 
         //set spawn point order
         //for each spawn point, assign a random number
@@ -91,22 +92,26 @@ public class LevelScript : MonoBehaviour
         //if it is, reroll the number and restart the duplicate check
         for (int spawnIndex = 0; spawnIndex < spawnOrder.Length; spawnIndex++)
         {
-            //Debug.Log("");
-            spawnOrder[spawnIndex] = Random.Range(1, 5);
+            Debug.Log("");
+            spawnOrder[spawnIndex] = Random.Range(1, spawnPoints.Length);
+            Debug.Log("SpawnOrder " + spawnIndex + " given SpawnPoint " + spawnOrder[spawnIndex]);
 
             for (int checkIndex = 0; checkIndex < spawnIndex; checkIndex++)
             {
-                //Debug.Log("Checking Location " + checkIndex);
                 if (spawnOrder[checkIndex] == spawnOrder[spawnIndex] && checkIndex != spawnIndex)
                 {
-                    //Debug.Log("Spawn Point " + spawnOrder[spawnIndex] + " is being used by Spawn Location " + checkIndex);
+                    Debug.Log("SpawnPoint " + spawnOrder[spawnIndex] + " is being used by SpawnOrder " + checkIndex);
                     spawnOrder[spawnIndex] = Random.Range(1, 5);
                     checkIndex = -1;
-                    //Debug.Log("New Spawn Point: " + spawnOrder[spawnIndex]);
+                    Debug.Log("SpawnOrder " + spawnIndex + " given SpawnPoint " + spawnOrder[spawnIndex]);
                 }
             }
+        }
 
-            Debug.Log("spawn " + spawnIndex + ", spawn point " + spawnOrder[spawnIndex]);
+        Debug.Log("");
+        for (int spawnIndex = 0; spawnIndex < spawnOrder.Length; spawnIndex++)
+        {
+            Debug.Log("order " + spawnIndex + ": " + spawnPoints[spawnOrder[spawnIndex] - 1] + "\tspawn location: " + spawnPoints[spawnOrder[spawnIndex]-1].transform.position);
         }
     }
 
@@ -179,13 +184,13 @@ public class LevelScript : MonoBehaviour
             PlayerJoinedGame(playerInput);
         }
 
-        Debug.Log("New player joining");
+        //Debug.Log("New player joining");
         for (int playerCheck = 0; playerCheck < 4; playerCheck++)
         {
-            Debug.Log(playerCheck);
+            //Debug.Log(playerCheck);
             if (playersInput[playerCheck] == null)
             {
-                Debug.Log("player input " + playerCheck + ": " + playersInput[playerCheck]);
+                //Debug.Log("player input " + playerCheck + ": " + playersInput[playerCheck]);
                 playersInput[playerCheck] = playerInput;
                 curPlayerPos = playerCheck;
                 playerCheck = 4;
@@ -201,13 +206,13 @@ public class LevelScript : MonoBehaviour
     void LeaveAction(InputAction.CallbackContext ctx)
     {
         //leaves player
-        Debug.Log("LeaveAction()");
+        //Debug.Log("LeaveAction()");
     }
 
     void OnPlayerLeft(PlayerInput playerInput)
     {
         //player leaving code
-        Debug.Log("OnPlayerLeft()");
+        //Debug.Log("OnPlayerLeft()");
         //Debug.Log("Player left...");
 
         if (PlayerLeftGame != null)
@@ -246,7 +251,7 @@ public class LevelScript : MonoBehaviour
     public void NewPlayer(GameObject newPlayer)
     {
         //Debug.Log("New Player()");
-        Debug.Log("New Player: " + newPlayer.name);
+        //Debug.Log("New Player: " + newPlayer.name);
         players[curPlayerPos] = newPlayer;
         playerScripts[curPlayerPos] = newPlayer.GetComponent<PlayerController>();
 
@@ -256,7 +261,7 @@ public class LevelScript : MonoBehaviour
 
         if (devMode)
         {
-            Debug.Log("Dev mode for " + newPlayer.name);
+            //Debug.Log("Dev mode for " + newPlayer.name);
             DUIM.EnablePlayer(curPlayerPos, newPlayer);
         }
     }
@@ -265,7 +270,7 @@ public class LevelScript : MonoBehaviour
 
     public Vector2 GetNextSpawnPoint()
     {
-        Debug.Log("player " + curPlayerPos + " spawn point is " + spawnPoints[curPlayerPos] + " at " + spawnPoints[curPlayerPos].transform.position);
-        return spawnPoints[curPlayerPos].transform.position;
+        Debug.Log("player " + curPlayerPos + " spawn point is " + spawnOrder[curPlayerPos] + " at " + spawnPoints[spawnOrder[curPlayerPos]-1].transform.position);
+        return spawnPoints[spawnOrder[curPlayerPos]-1].transform.position;
     }
 }

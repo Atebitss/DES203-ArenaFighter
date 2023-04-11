@@ -86,7 +86,11 @@ public class PlayerController : MonoBehaviour
         ls = GameObject.Find("LevelController").GetComponent<LevelScript>();
 
         gameObject.name = "Player" + ls.CurrentPlayer();
+
         Debug.Log("New player awake, " + gameObject.name);
+
+
+        //Debug.Log("New player awake, " + gameObject.name);
 
         ls.NewPlayer(gameObject);
         transform.localScale = startingScale;
@@ -203,7 +207,7 @@ public class PlayerController : MonoBehaviour
         {
             if (IsOnBouncy())
             {
-                print("BIG JUMP");
+                //print("BIG JUMP");
                 playerRigid.velocity = new Vector2(playerVelocity.x, jumpForce * bounceMultiplier); //Bouncy Jump
                 PlayJumpAudio();
 
@@ -338,9 +342,7 @@ public class PlayerController : MonoBehaviour
             // float previousYMovement = playerRigid.velocity.y;
             // playerRigid.velocity = new Vector2(playerVelocity.x, -previousYMovement * bounceRebound);
             playerRigid.velocity = new Vector2(playerVelocity.x, jumpForce * bounceRebound);
-           FindObjectOfType<AudioManager>().Play("Bouncy");
-
-
+            FindObjectOfType<AudioManager>().Play("Bouncy");
             print("Yipeeee");
         }
 
