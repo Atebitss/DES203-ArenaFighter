@@ -123,30 +123,40 @@ public class LevelScript : MonoBehaviour
 
     private void ApplyColour(GameObject newPlayer)
     {
-        SpriteRenderer playerRend = newPlayer.GetComponent<SpriteRenderer>();
+        GameObject playerAura = newPlayer.transform.Find("Player Aura").gameObject;
+        SpriteRenderer playerAuraRend;
+        if (playerAura != null)
+        {
+            playerAuraRend = playerAura.GetComponent<SpriteRenderer>();
+        }
+        else
+        {
+            playerAuraRend = null;
+        }
+        SpriteRenderer playerRend = newPlayer.GetComponentInChildren<SpriteRenderer>();
         //Color newColor = new Color(0.5f, 0.5f, 1f, 1f);
         //playerRend.color = Color.red;
         switch(curPlayerPos)
         {
             case 0:
-                playerRend.sprite = player1sprite;
+                playerAuraRend.color = new Color(1f, 0f, 0f, 0.25f); //red
                 break;
             case 1:
-                playerRend.sprite = player2sprite;
+                playerAuraRend.color = new Color(0f, 0f, 1f, 0.25f); //blue
                 break;
             case 2:
-                playerRend.sprite = player3sprite;
+                playerAuraRend.color = new Color(0f, 1f, 0f, 0.25f); //green
                 break;
             case 3:
-                playerRend.sprite = player4sprite;
+                playerAuraRend.color = new Color(1f, 1f, 0f, 0.25f); //yellow
                 break;
             default:
-                playerRend.color = Color.magenta;
+                playerAuraRend.color = new Color(1f, 1f, 1f, 0.25f); //white, should never appear
                 break;
         }
     }
 
-
+    new
 
     void JoinAction(InputAction.CallbackContext ctx)
     {

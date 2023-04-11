@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     //~~~~~~~ BASE MOVEMENT ~~~~~~~\\
     [SerializeField] private Rigidbody2D playerRigid;
     [SerializeField] private BoxCollider2D boxCollider;
+    [SerializeField] private Animator animator;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask wallLayer;
     private Vector2 move;
@@ -60,6 +61,7 @@ public class PlayerController : MonoBehaviour
 
     //~~~ FLIP ~~~\\
      private bool facingRight;
+     private Vector2 startingScale = new Vector3(1,1,1);
     
 
     //~~~ COMBAT ~~~\\
@@ -82,9 +84,14 @@ public class PlayerController : MonoBehaviour
     {
         //set level script, update in-game object with name, give level script new player object
         ls = GameObject.Find("LevelController").GetComponent<LevelScript>();
+
         gameObject.name = "Player" + ls.CurrentPlayer();
         Debug.Log("New player awake, " + gameObject.name);
+
         ls.NewPlayer(gameObject);
+        transform.localScale = startingScale;
+
+        animator = GetComponent<Animator>();
     }
 
 
@@ -138,6 +145,13 @@ public class PlayerController : MonoBehaviour
         {
             jumpBufferCounter -= Time.deltaTime;
         }
+
+        //Animation checks
+
+        animator.SetBool("isRunning", move.x != 0);
+        animator.SetBool("is", OnStickyWall());
+
+
        
     }
 
@@ -264,15 +278,15 @@ public class PlayerController : MonoBehaviour
     private void Flip()
     {
         //flips the player around when moving left or right | Allows us to determine player direction for animating and other stuffs
-        if (move.x > 0.01f)
+        if (move.x > 0f)
         {
-            transform.localScale = Vector3.one;
+            transform.localScale = startingScale;
             facingRight = true;
         }
            
-        else if (move.x < -0.01f)
+        else if (move.x < 0f)
         {
-            transform.localScale = new Vector3(-1, 1, 1);
+            transform.localScale = new Vector3(-startingScale.x, startingScale.y, 1);
             facingRight = false;
         }
          
@@ -308,6 +322,8 @@ public class PlayerController : MonoBehaviour
                 CancelInvoke(nameof(StopWallJumping));
 
                 playerRigid.velocity = new Vector2(playerRigid.velocity.x, Mathf.Clamp(playerRigid.velocity.y, wallSlideSpeed, float.MaxValue));
+
+                
             }
 
         }
@@ -391,6 +407,7 @@ public class PlayerController : MonoBehaviour
         //Debug.Log("attack begin");
         isAttacking = true;   //begin attack
         Invoke(nameof(Attack), attackBuildUp);   //timer for animation - .1 second
+        animator.SetTrigger("Attacking");
     }
 
     private void Attack()
@@ -443,6 +460,7 @@ public class PlayerController : MonoBehaviour
     {
         //Debug.Log("Attack timer over");
         isAttacking = false;   //end attack
+        
     }
 
 
