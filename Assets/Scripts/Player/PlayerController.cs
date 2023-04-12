@@ -153,7 +153,7 @@ public class PlayerController : MonoBehaviour
         //Animation checks
 
         animator.SetBool("isRunning", move.x != 0);
-        animator.SetBool("is", OnStickyWall());
+        animator.SetBool("isWallSliding", OnStickyWall());
 
 
        
@@ -447,7 +447,7 @@ public class PlayerController : MonoBehaviour
                         //kill other player
                         //Debug.Log(this.gameObject.name + " stabs " + collisions[colIndex].gameObject.transform.parent.gameObject.name + " in the back.");
                         ls.Kill(collisions[colIndex].gameObject.transform.parent.gameObject, this.gameObject);
-                        PlayDeathAudio();
+                        
                         break;
                     default:
                         break;
@@ -464,7 +464,11 @@ public class PlayerController : MonoBehaviour
         isAttacking = false;   //end attack
         
     }
-
+    public void Death() //RIP
+    {
+        animator.SetTrigger("Dying");
+        PlayDeathAudio();
+    }
 
 
 

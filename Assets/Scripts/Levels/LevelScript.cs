@@ -39,6 +39,8 @@ public class LevelScript : MonoBehaviour
     [SerializeField] private Sprite player3sprite;
     [SerializeField] private Sprite player4sprite;
 
+    private GameObject currentTarget; //for delaying DEATH ITSELF
+
 
     private void Awake()
     {
@@ -227,7 +229,7 @@ public class LevelScript : MonoBehaviour
     {
         string targetName = target.name;
         int playerNum = (int)char.GetNumericValue(targetName[6]);
-
+        currentTarget = target;
         //player num out of array
         playerScripts[playerNum] = null;
         playersInput[playerNum] = null;
@@ -237,11 +239,19 @@ public class LevelScript : MonoBehaviour
         {
             DUIM.DisablePlayer(playerNum);
         }
-
-        Destroy(target);
+        target.GetComponent<PlayerController>().Death();
+       
+        Invoke(nameof(KillDelay), 0.25f);
     }
 
-
+    //delays destroying target to allow the death anim to play
+    public void KillDelay()
+    {
+        if (currentTarget != null){
+            Destroy(currentTarget);
+        }
+       
+    }
 
     public int CurrentPlayer()
     {
