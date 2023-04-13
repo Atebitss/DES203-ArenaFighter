@@ -401,6 +401,8 @@ public class PlayerController : MonoBehaviour
         Debug.Log("isDeflecting");
         isDeflecting = true;
 
+         PlayRebound();
+
         //Debug.Log("velocity before: " + playerRigid.velocity);
         playerRigid.velocity = new Vector2(-transform.localScale.x * deflectForce, (0.1F * -transform.localScale.x * deflectForce));
 
@@ -426,6 +428,7 @@ public class PlayerController : MonoBehaviour
         isAttacking = true;   //begin attack
         Invoke(nameof(Attack), attackBuildUp);   //timer for animation - .1 second
         animator.SetTrigger("Attacking");
+        PlaySwordAudio();
     }
 
     private void Attack()
@@ -773,6 +776,26 @@ public class PlayerController : MonoBehaviour
     }
 
 
+        //~~~ REBOUND ~~~\\ 
+     public void PlayRebound()
+    {
+        int SoundNo = Random.Range(1, 4);
+
+
+        if (SoundNo == 1)
+        {
+            FindObjectOfType<AudioManager>().Play("SwordClang");
+        }
+        if (SoundNo == 2)
+        {
+            FindObjectOfType<AudioManager>().Play("SwordClang2");
+        }
+        if (SoundNo == 3)
+        {
+            FindObjectOfType<AudioManager>().Play("SwordClang3");
+        }
+
+    }
 
 
     //~~~~~~~ DEV ~~~~~~~\\

@@ -996,19 +996,19 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: DeathCry1
     clip: {fileID: 8300000, guid: 2eebde3cbcbdd6e488ceb63d87d37aa0, type: 3}
-    volume: 0.6
+    volume: 0.4
     pitch: 1.22
     loop: 0
     source: {fileID: 0}
   - name: DeathCry2
     clip: {fileID: 8300000, guid: 7b2915e3b1357d943be1d69b5eb874fe, type: 3}
-    volume: 0.6
+    volume: 0.4
     pitch: 1.23
     loop: 0
     source: {fileID: 0}
   - name: DeathCry3
     clip: {fileID: 8300000, guid: 7a883a823bdd20d4da485f9d92490cae, type: 3}
-    volume: 0.6
+    volume: 0.4
     pitch: 1.13
     loop: 0
     source: {fileID: 0}
@@ -1044,7 +1044,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: MusicFight
     clip: {fileID: 8300000, guid: dd8529e7be3b0034e9da052ed009c584, type: 3}
-    volume: 0.026
+    volume: 0.02
     pitch: 1
     loop: 1
     source: {fileID: 0}
@@ -1062,20 +1062,38 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: SwordSwing1
     clip: {fileID: 8300000, guid: 1c91e2b01626cb34e97e901e1cc2fb39, type: 3}
-    volume: 0.02
-    pitch: 0.57
+    volume: 0.01
+    pitch: 0.84
     loop: 0
     source: {fileID: 0}
   - name: SwordSwing2
     clip: {fileID: 8300000, guid: 75f2c5e743e2adf488d767a2997ce0b2, type: 3}
-    volume: 0.02
-    pitch: 0.52
+    volume: 0.01
+    pitch: 0.84
     loop: 0
     source: {fileID: 0}
   - name: SwordSwing3
     clip: {fileID: 8300000, guid: d4a2d3e458cfc844a84282aa35176201, type: 3}
-    volume: 0.02
-    pitch: 0.57
+    volume: 0.01
+    pitch: 0.82
+    loop: 0
+    source: {fileID: 0}
+  - name: SwordClang
+    clip: {fileID: 8300000, guid: 534a3fa5f06e151479ff4bc0ee58ad81, type: 3}
+    volume: 0.4
+    pitch: 0.93
+    loop: 0
+    source: {fileID: 0}
+  - name: SwordClang2
+    clip: {fileID: 8300000, guid: 534a3fa5f06e151479ff4bc0ee58ad81, type: 3}
+    volume: 0.4
+    pitch: 0.73
+    loop: 0
+    source: {fileID: 0}
+  - name: SwordClang3
+    clip: {fileID: 8300000, guid: 534a3fa5f06e151479ff4bc0ee58ad81, type: 3}
+    volume: 0.4
+    pitch: 1.15
     loop: 0
     source: {fileID: 0}
 --- !u!4 &191488196
