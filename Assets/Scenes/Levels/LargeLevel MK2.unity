@@ -241,7 +241,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1678745854424780549, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1678745854424780549, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
       propertyPath: m_LocalPosition.x
@@ -871,7 +871,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1678745854424780549, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1678745854424780549, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
       propertyPath: m_LocalPosition.x
@@ -941,10 +941,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Teleporter B
       objectReference: {fileID: 0}
-    - target: {fileID: 6843679558158310825, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
 --- !u!4 &131735088 stripped
@@ -30315,7 +30311,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1678745854424780549, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1678745854424780549, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
       propertyPath: m_LocalPosition.x
@@ -31401,6 +31397,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1009792574202578928, guid: 946b428bc067cc5459454ed534dacaf7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1880654915898877558, guid: 946b428bc067cc5459454ed534dacaf7, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -31446,26 +31446,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -3858063850402955622, guid: 08f079f7e9de91b47b7909cbdfde1362, type: 3}
     - target: {fileID: 5466975082429926607, guid: 946b428bc067cc5459454ed534dacaf7, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
-    - target: {fileID: 5999145588278473023, guid: 946b428bc067cc5459454ed534dacaf7, type: 3}
-      propertyPath: m_Color.a
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5999145588278473023, guid: 946b428bc067cc5459454ed534dacaf7, type: 3}
-      propertyPath: m_Color.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5999145588278473023, guid: 946b428bc067cc5459454ed534dacaf7, type: 3}
-      propertyPath: m_Color.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5999145588278473023, guid: 946b428bc067cc5459454ed534dacaf7, type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5999145588278473023, guid: 946b428bc067cc5459454ed534dacaf7, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
@@ -32651,6 +32631,14 @@ PrefabInstance:
     - target: {fileID: 5649826251163482021, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
       propertyPath: m_Name
       value: Teleporter H
+      objectReference: {fileID: 0}
+    - target: {fileID: 6843679558158310825, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 6372820601545022627, guid: a38cb69408e4e054fb00f2e0239b812a, type: 3}
+    - target: {fileID: 6843679558158310825, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
+      propertyPath: m_SortingLayer
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6843679558158310825, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -34715,7 +34703,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1678745854424780549, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1678745854424780549, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
       propertyPath: m_LocalPosition.x
@@ -34800,7 +34788,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1678745854424780549, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1678745854424780549, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
       propertyPath: m_LocalPosition.x
@@ -34892,6 +34880,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 220159764}
     m_Modifications:
+    - target: {fileID: 1678745854424780549, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 1678745854424780549, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
       propertyPath: m_LocalPosition.x
       value: -31.5
