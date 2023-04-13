@@ -152,7 +152,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 417880748}
-  m_RootOrder: 1
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5759670
 MonoBehaviour:
@@ -494,7 +494,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 417880748}
-  m_RootOrder: 14
+  m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &54913313
 MonoBehaviour:
@@ -655,7 +655,7 @@ GameObject:
   - component: {fileID: 80891241}
   - component: {fileID: 80891242}
   m_Layer: 0
-  m_Name: Light 2D (18)
+  m_Name: Portal Right (Top)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -673,7 +673,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 417880748}
-  m_RootOrder: 18
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &80891242
 MonoBehaviour:
@@ -1325,7 +1325,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 417880748}
-  m_RootOrder: 6
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &267179358
 MonoBehaviour:
@@ -1525,7 +1525,7 @@ GameObject:
   - component: {fileID: 344856029}
   - component: {fileID: 344856030}
   m_Layer: 0
-  m_Name: Light 2D (23)
+  m_Name: Portal Top (Right)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1543,7 +1543,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 417880748}
-  m_RootOrder: 23
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &344856030
 MonoBehaviour:
@@ -1908,6 +1908,14 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 432026697}
+  - {fileID: 2012502576}
+  - {fileID: 889665102}
+  - {fileID: 2085691218}
+  - {fileID: 344856029}
+  - {fileID: 80891241}
+  - {fileID: 1303449754}
+  - {fileID: 1537968733}
+  - {fileID: 941410497}
   - {fileID: 5759669}
   - {fileID: 1654149630}
   - {fileID: 1887922078}
@@ -1917,7 +1925,6 @@ Transform:
   - {fileID: 1306050766}
   - {fileID: 695649181}
   - {fileID: 1149023876}
-  - {fileID: 1303449754}
   - {fileID: 1775679927}
   - {fileID: 783763358}
   - {fileID: 1520963096}
@@ -1925,13 +1932,6 @@ Transform:
   - {fileID: 1753830141}
   - {fileID: 1027554236}
   - {fileID: 2115355296}
-  - {fileID: 80891241}
-  - {fileID: 2012502576}
-  - {fileID: 889665102}
-  - {fileID: 941410497}
-  - {fileID: 1537968733}
-  - {fileID: 344856029}
-  - {fileID: 2085691218}
   - {fileID: 412032363}
   - {fileID: 336630047}
   - {fileID: 972244217}
@@ -2446,7 +2446,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 417880748}
-  m_RootOrder: 8
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &695649182
 MonoBehaviour:
@@ -3960,7 +3960,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 417880748}
-  m_RootOrder: 12
+  m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &783763359
 MonoBehaviour:
@@ -4134,7 +4134,7 @@ GameObject:
   - component: {fileID: 889665102}
   - component: {fileID: 889665103}
   m_Layer: 0
-  m_Name: Light 2D (20)
+  m_Name: Portal Left (Bottom)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4152,7 +4152,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 417880748}
-  m_RootOrder: 20
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &889665103
 MonoBehaviour:
@@ -30099,7 +30099,7 @@ GameObject:
   - component: {fileID: 941410497}
   - component: {fileID: 941410498}
   m_Layer: 0
-  m_Name: Light 2D (21)
+  m_Name: Portal Bottom (Left)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30117,7 +30117,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 417880748}
-  m_RootOrder: 21
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &941410498
 MonoBehaviour:
@@ -30421,7 +30421,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 417880748}
-  m_RootOrder: 16
+  m_RootOrder: 23
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1027554237
 MonoBehaviour:
@@ -30600,7 +30600,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 417880748}
-  m_RootOrder: 9
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1149023877
 MonoBehaviour:
@@ -30932,7 +30932,7 @@ GameObject:
   - component: {fileID: 1303449754}
   - component: {fileID: 1303449755}
   m_Layer: 0
-  m_Name: Light 2D (10)
+  m_Name: Portal Right (Bottom)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30950,7 +30950,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 417880748}
-  m_RootOrder: 10
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1303449755
 MonoBehaviour:
@@ -31059,7 +31059,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 417880748}
-  m_RootOrder: 7
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1306050767
 MonoBehaviour:
@@ -31314,7 +31314,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 417880748}
-  m_RootOrder: 4
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1345312502
 MonoBehaviour:
@@ -32692,7 +32692,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 417880748}
-  m_RootOrder: 13
+  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1520963097
 MonoBehaviour:
@@ -32783,7 +32783,7 @@ GameObject:
   - component: {fileID: 1537968733}
   - component: {fileID: 1537968734}
   m_Layer: 0
-  m_Name: Light 2D (22)
+  m_Name: Portal Bottom (Right)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32801,7 +32801,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 417880748}
-  m_RootOrder: 22
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1537968734
 MonoBehaviour:
@@ -33748,7 +33748,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 417880748}
-  m_RootOrder: 2
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1654149631
 MonoBehaviour:
@@ -33857,7 +33857,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 417880748}
-  m_RootOrder: 5
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1697795831
 MonoBehaviour:
@@ -34109,7 +34109,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 417880748}
-  m_RootOrder: 15
+  m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1753830142
 MonoBehaviour:
@@ -34218,7 +34218,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 417880748}
-  m_RootOrder: 11
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1775679928
 MonoBehaviour:
@@ -34327,7 +34327,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 417880748}
-  m_RootOrder: 3
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1887922079
 MonoBehaviour:
@@ -34608,7 +34608,7 @@ GameObject:
   - component: {fileID: 2012502576}
   - component: {fileID: 2012502577}
   m_Layer: 0
-  m_Name: Light 2D (19)
+  m_Name: Portal Left (Top)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34626,7 +34626,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 417880748}
-  m_RootOrder: 19
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2012502577
 MonoBehaviour:
@@ -35753,7 +35753,7 @@ GameObject:
   - component: {fileID: 2085691218}
   - component: {fileID: 2085691219}
   m_Layer: 0
-  m_Name: Light 2D (24)
+  m_Name: Portal Top (Left)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -35771,7 +35771,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 417880748}
-  m_RootOrder: 24
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2085691219
 MonoBehaviour:
@@ -35791,8 +35791,8 @@ MonoBehaviour:
   m_FalloffIntensity: 0.5
   m_Color: {r: 0.7372549, g: 0.20392159, b: 0.3803922, a: 1}
   m_Intensity: 1.5
-  m_LightVolumeIntensity: 1
-  m_LightVolumeIntensityEnabled: 0
+  m_LightVolumeIntensity: 0.3
+  m_LightVolumeIntensityEnabled: 1
   m_ApplyToSortingLayers: 00000000756c34909d0fc294
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
@@ -35803,8 +35803,8 @@ MonoBehaviour:
   m_UseNormalMap: 0
   m_ShadowIntensityEnabled: 0
   m_ShadowIntensity: 0.75
-  m_ShadowVolumeIntensityEnabled: 0
-  m_ShadowVolumeIntensity: 0.75
+  m_ShadowVolumeIntensityEnabled: 1
+  m_ShadowVolumeIntensity: 0.5
   m_Vertices:
   - position: {x: 0.9985302, y: 0.9985302, z: 0}
     color: {r: 0.70710677, g: 0.70710677, b: 0, a: 0}
@@ -35880,7 +35880,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 417880748}
-  m_RootOrder: 17
+  m_RootOrder: 24
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2115355297
 MonoBehaviour:
