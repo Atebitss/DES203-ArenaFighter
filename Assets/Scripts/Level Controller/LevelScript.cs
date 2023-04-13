@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Experimental.Rendering.Universal;
 
 public class LevelScript : MonoBehaviour
 {
@@ -130,11 +131,12 @@ public class LevelScript : MonoBehaviour
 
     private void ApplyColour(GameObject newPlayer)
     {
-        GameObject playerAura = newPlayer.transform.Find("Player Aura").gameObject;
+        
         SpriteRenderer playerAuraRend;
-        if (playerAura != null)
+        Light2D playerAuraLight = newPlayer.GetComponent<Light2D>();
+        if (newPlayer != null)
         {
-            playerAuraRend = playerAura.GetComponent<SpriteRenderer>();
+            playerAuraRend = newPlayer.GetComponent<SpriteRenderer>();
         }
         else
         {
@@ -146,19 +148,19 @@ public class LevelScript : MonoBehaviour
         switch(curPlayerPos)
         {
             case 0:
-                playerAuraRend.color = new Color(1f, 0f, 0f, 0.25f); //red
+                playerAuraLight.color = new Color(1f, 0f, 0f, 1f); //red
                 break;
             case 1:
-                playerAuraRend.color = new Color(0f, 0f, 1f, 0.25f); //blue
+                playerAuraLight.color = new Color(0f, 0f, 1f, 1f); //blue
                 break;
             case 2:
-                playerAuraRend.color = new Color(0f, 1f, 0f, 0.25f); //green
+                playerAuraLight.color = new Color(0f, 1f, 0f, 1f); //green
                 break;
             case 3:
-                playerAuraRend.color = new Color(1f, 1f, 0f, 0.25f); //yellow
+                playerAuraLight.color = new Color(1f, 1f, 0f, 1f); //yellow
                 break;
             default:
-                playerAuraRend.color = new Color(1f, 1f, 1f, 0.25f); //white, should never appear
+                playerAuraLight.color = new Color(1f, 1f, 1f, 1f); //white, should never appear
                 break;
         }
     }
@@ -240,8 +242,12 @@ public class LevelScript : MonoBehaviour
             DUIM.DisablePlayer(playerNum);
         }
         target.GetComponent<PlayerController>().Death();
-       
-        Invoke(nameof(KillDelay), 0.25f);
+
+        if (currentTarget != null)
+        {
+            Destroy(currentTarget);
+        }
+       // Invoke(nameof(KillDelay), 0.25f);
     }
 
     //delays destroying target to allow the death anim to play

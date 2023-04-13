@@ -402,7 +402,7 @@ public class PlayerController : MonoBehaviour
         isDeflecting = true;
 
         //Debug.Log("velocity before: " + playerRigid.velocity);
-        playerRigid.velocity = new Vector2(deflectForce, deflectForce);
+        playerRigid.velocity = new Vector2(-transform.localScale.x * deflectForce, (0.1F * -transform.localScale.x * deflectForce));
 
        //ununcomment this to make the other player deflect as well target.GetComponent<PlayerController>().playerRigid.velocity = new Vector2(deflectForce, deflectForce);
 
