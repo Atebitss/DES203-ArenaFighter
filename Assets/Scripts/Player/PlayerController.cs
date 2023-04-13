@@ -344,6 +344,22 @@ public class PlayerController : MonoBehaviour
             playerRigid.velocity = new Vector2(playerVelocity.x, jumpForce * bounceRebound);
             FindObjectOfType<AudioManager>().Play("Bouncy");
             print("Yipeeee");
+
+            //animates the mushroom
+            RaycastHit2D mushroom = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, Vector2.down, 50f, groundLayer);
+            if (mushroom.collider != null) {
+                if (mushroom.collider.CompareTag("Bouncy"))
+                {
+                    mushroom.collider.gameObject.GetComponent<Mushroom>().Bounce();
+                    print("shrrom innit");
+                }
+                  
+            }
+            else
+            {
+                print ("whoops");
+            }
+           
         }
 
     }
@@ -581,6 +597,7 @@ public class PlayerController : MonoBehaviour
             if (raycastHit.collider.CompareTag("Bouncy"))
             {
                 return true;
+                
             }
             else
             {
