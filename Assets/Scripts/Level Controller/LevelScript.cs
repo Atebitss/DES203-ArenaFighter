@@ -232,7 +232,10 @@ public class LevelScript : MonoBehaviour
         string targetName = target.name;
         int playerNum = (int)char.GetNumericValue(targetName[6]);
         currentTarget = target;
+
+        target.GetComponent<PlayerController>().Death();
         //player num out of array
+
         playerScripts[playerNum] = null;
         playersInput[playerNum] = null;
         players[playerNum] = null;
@@ -241,22 +244,6 @@ public class LevelScript : MonoBehaviour
         {
             DUIM.DisablePlayer(playerNum);
         }
-        target.GetComponent<PlayerController>().Death();
-
-        if (currentTarget != null)
-        {
-            Destroy(currentTarget);
-        }
-       // Invoke(nameof(KillDelay), 0.25f);
-    }
-
-    //delays destroying target to allow the death anim to play
-    public void KillDelay()
-    {
-        if (currentTarget != null){
-            Destroy(currentTarget);
-        }
-       
     }
 
     public int CurrentPlayer()

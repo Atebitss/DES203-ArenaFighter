@@ -424,11 +424,14 @@ public class PlayerController : MonoBehaviour
     {
         //ADD ANIMATIONS AND SOUND
         //build up timer, enable attack collider, attack timer, disable attack collider
-        //Debug.Log("attack begin");
-        isAttacking = true;   //begin attack
-        Invoke(nameof(Attack), attackBuildUp);   //timer for animation - .1 second
-        animator.SetTrigger("Attacking");
-        PlaySwordAudio();
+        if (!isAttacking)
+        {
+            //Debug.Log("attack begin");
+            isAttacking = true;   //begin attack
+            Invoke(nameof(Attack), attackBuildUp);   //timer for animation - .1 second
+            animator.SetTrigger("Attacking");
+            PlaySwordAudio();
+        }
     }
 
     private void Attack()
@@ -449,9 +452,6 @@ public class PlayerController : MonoBehaviour
                 }*/
 
                 string colTag = collisions[colIndex].gameObject.tag;
-
-             
-
                 switch (colTag)
                 {
                     case "PlayerFront":
@@ -487,6 +487,13 @@ public class PlayerController : MonoBehaviour
     {
         animator.SetTrigger("Dying");
         PlayDeathAudio();
+        Invoke(nameof(KillDelay), 0.5f);
+    }
+
+    //delays destroying target to allow the death anim to play
+    public void KillDelay()
+    {
+        Destroy(this.gameObject);
     }
 
 
