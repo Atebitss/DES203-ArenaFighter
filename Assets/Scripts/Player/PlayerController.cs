@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float coyoteTime;
      private float coyoteCounter;
     [SerializeField] private float jumpBufferTime;
-     private float jumpBufferCounter;
+     private float jumpBufferCounter = 1;
     private bool isJumping;
     [SerializeField] private float fallGravityMult;
     [SerializeField] private float playerGravity = 5;
@@ -207,7 +207,7 @@ public class PlayerController : MonoBehaviour
         {
             if (IsOnBouncy())
             {
-                //print("BIG JUMP");
+                print("BIG JUMP");
                 playerRigid.velocity = new Vector2(playerVelocity.x, jumpForce * bounceMultiplier); //Bouncy Jump
                 PlayJumpAudio();
 
@@ -217,6 +217,7 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
+                Debug.Log("jump");
                 playerRigid.velocity = new Vector2(playerVelocity.x, jumpForce); // Normal Jump
                 PlayJumpAudio();
 
