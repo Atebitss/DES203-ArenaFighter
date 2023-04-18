@@ -83,8 +83,6 @@ public class PlayerController : MonoBehaviour
 
 
 
-    public float GetJumpBufferCounter()
-    { return jumpBufferCounter; }
 
     void Awake()
     {
