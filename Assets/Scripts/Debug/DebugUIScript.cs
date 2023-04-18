@@ -12,8 +12,7 @@ public class DebugUIScript : MonoBehaviour
 
     void Start()
     {
-        //ex. debugText.text = "---THIS IS EMPTY DEBUG TEXT---";
-        debugText.text = "X: \nY: \nVelocity:";
+        debugText.text = "---THIS IS EMPTY DEBUG TEXT---";
     }
 
 
@@ -31,6 +30,7 @@ public class DebugUIScript : MonoBehaviour
                 + "\nisOnIce: " + playerScript.IsOnIce()
                 + "\nisOnBouncy: " + playerScript.IsOnBouncy()
                 + "\nisOnStickyWall: " + playerScript.OnStickyWall()
+                //+ "\n\njumpBufferCounter: " + playerScript.GetJumpBufferCounter()
                 + "\n\nisDeflecting: " + playerScript.IsDeflecting();
         }
     }

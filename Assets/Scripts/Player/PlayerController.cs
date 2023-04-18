@@ -21,19 +21,23 @@ public class PlayerController : MonoBehaviour
 
     //~~~ JUMPING ~~~\\
     [Header("Jumping")]
-    [SerializeField] private float coyoteTime;
-     private float coyoteCounter;
-    [SerializeField] private float jumpBufferTime;
-     private float jumpBufferCounter = 1;
+    private float coyoteCounter;
+    [SerializeField] private float coyoteTime = 0.1f;
+
+    private float jumpBufferCounter;
+    [SerializeField] private float jumpBufferTime = 0.2f;
+
+    [SerializeField] private float playerGravity = 5f;
+    [SerializeField] private float fallGravityMult = 1.4f;
+
     private bool isJumping;
-    [SerializeField] private float fallGravityMult;
-    [SerializeField] private float playerGravity = 5;
 
     //~~~ ICE ~~~\\
     [Header("Ice Movement")]
     [SerializeField] private float IceDecceleration = 0.95f; //must be between 1 and 0
     [SerializeField] private float iceSpeed = 9f;
-     private bool onIce;
+
+    private bool onIce;
 
     //~~~ WALL SLIDE & JUMP ~~~\\
     [Header("Wall Jumps, Climbs and Slides")]
@@ -79,6 +83,8 @@ public class PlayerController : MonoBehaviour
 
 
 
+    public float GetJumpBufferCounter()
+    { return jumpBufferCounter; }
 
     void Awake()
     {
@@ -195,7 +201,7 @@ public class PlayerController : MonoBehaviour
     {
         isJumping = true;
 
-        if (coyoteCounter > 0 && jumpBufferCounter > 0 ) //checking for coyote time and jump buffer
+        if (coyoteCounter > 0 && jumpBufferCounter > 0 || coyoteCounter > 0 && jumpBufferCounter < 0) //checking for coyote time and jump buffer
         {
             if (IsOnBouncy())
             {
