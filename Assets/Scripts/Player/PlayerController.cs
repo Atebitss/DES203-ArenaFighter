@@ -70,7 +70,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float deflectForce = 60f;
     [SerializeField] private float attackBuildUp = 0.1f;
     [SerializeField] private float attackTimer = 0.4f;
-    [SerializeField] private GameObject attackObject;
+    private GameObject attackObject;
     private bool isDeflecting, isAttacking;
 
 
@@ -84,18 +84,14 @@ public class PlayerController : MonoBehaviour
     {
         //set level script, update in-game object with name, give level script new player object
         ls = GameObject.Find("LevelController").GetComponent<LevelScript>();
-
         gameObject.name = "Player" + ls.CurrentPlayer();
-
         Debug.Log("New player awake, " + gameObject.name);
-
-
-        //Debug.Log("New player awake, " + gameObject.name);
 
         ls.NewPlayer(gameObject);
         transform.localScale = startingScale;
 
         animator = GetComponent<Animator>();
+        animator.SetInteger("PlayerNum", ls.CurrentPlayer());
     }
 
 
@@ -151,12 +147,8 @@ public class PlayerController : MonoBehaviour
         }
 
         //Animation checks
-
         animator.SetBool("isRunning", move.x != 0);
         animator.SetBool("isWallSliding", OnStickyWall());
-
-
-       
     }
 
 
