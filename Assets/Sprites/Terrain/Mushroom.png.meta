@@ -1,22 +1,22 @@
 fileFormatVersion: 2
-guid: 41f777f8724451245bd971e3a41dbcae
+guid: a99ada1b7958f544695a5991a598da0d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3610170181971492079
-    second: mushroomTHICC_0
+      213: 4315506946141470425
+    second: Mushroom_0
   - first:
-      213: 415177134217126420
-    second: mushroomTHICC_1
+      213: -8641565482479284267
+    second: Mushroom_1
   - first:
-      213: 7757552800366630334
-    second: mushroomTHICC_2
+      213: -2042072573829909366
+    second: Mushroom_2
   - first:
-      213: 8289623048536411561
-    second: mushroomTHICC_3
+      213: 2509030704489203561
+    second: Mushroom_3
   - first:
-      213: 7151015471910288612
-    second: mushroomTHICC_4
+      213: 9138273002793795528
+    second: Mushroom_4
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -178,12 +178,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: mushroomTHICC_0
+      name: Mushroom_0
       rect:
         serializedVersion: 2
-        x: 1
+        x: 0
         y: 80
-        width: 89
+        width: 90
         height: 80
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -192,19 +192,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 113c1e4d85916edc0800000000000000
-      internalID: -3610170181971492079
+      spriteID: 9de3e76f3b2c3eb30800000000000000
+      internalID: 4315506946141470425
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: mushroomTHICC_1
+      name: Mushroom_1
       rect:
         serializedVersion: 2
         x: 90
         y: 80
-        width: 89
+        width: 90
         height: 80
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -213,19 +213,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 41260e3676103c500800000000000000
-      internalID: 415177134217126420
+      spriteID: 5df8b898afdf21880800000000000000
+      internalID: -8641565482479284267
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: mushroomTHICC_2
+      name: Mushroom_2
       rect:
         serializedVersion: 2
-        x: 179
+        x: 180
         y: 80
-        width: 89
+        width: 90
         height: 80
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -234,19 +234,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: eb59030bb2d58ab60800000000000000
-      internalID: 7757552800366630334
+      spriteID: a84fc4f30d919a3e0800000000000000
+      internalID: -2042072573829909366
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: mushroomTHICC_3
+      name: Mushroom_3
       rect:
         serializedVersion: 2
-        x: 1
+        x: 0
         y: 0
-        width: 89
+        width: 90
         height: 80
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -255,19 +255,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9ad47e90e38aa0370800000000000000
-      internalID: 8289623048536411561
+      spriteID: 96780afd12ed1d220800000000000000
+      internalID: 2509030704489203561
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: mushroomTHICC_4
+      name: Mushroom_4
       rect:
         serializedVersion: 2
         x: 90
         y: 0
-        width: 89
+        width: 90
         height: 80
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -276,8 +276,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4ecf88a1fa28d3360800000000000000
-      internalID: 7151015471910288612
+      spriteID: 8cff01021eaa1de70800000000000000
+      internalID: 9138273002793795528
       vertices: []
       indices: 
       edges: []
