@@ -26,6 +26,7 @@ public class LevelScript : MonoBehaviour
     private int numOfPlayers = 0;
     private int curPlayerPos = 0;
     private int prevPlayerPos = 0;
+    private int leavingPlayerNum = 0;
 
     //important level & multiplayer stuff
     public static LevelScript instance = null;
@@ -244,13 +245,24 @@ public class LevelScript : MonoBehaviour
         //Debug.Log("OnPlayerLeft()");
         //Debug.Log("Player left...");
 
-        if (PlayerLeftGame != null)
+        //remove targeted player from of array
+        playerScripts[leavingPlayerNum] = null;
+        playersInput[leavingPlayerNum] = null;
+        players[leavingPlayerNum] = null;
+
+        if (devMode)
         {
-            PlayerLeftGame(playerInput);
+            DUIM.DisablePlayer(leavingPlayerNum);
         }
 
         //decrease total number of players
         numOfPlayers--;
+
+
+        if (PlayerLeftGame != null)
+        {
+            PlayerLeftGame(playerInput);
+        }
     }
 
 
@@ -259,19 +271,8 @@ public class LevelScript : MonoBehaviour
     public void Kill(GameObject target, GameObject killer)
     {
         //identify the targeted player
-        string targetName = target.name;
-        int playerNum = (int)char.GetNumericValue(targetName[6]);
+        leavingPlayerNum = (int)char.GetNumericValue(target.name[6]);
         target.GetComponent<PlayerController>().Death();
-
-        //remove targeted player from of array
-        playerScripts[playerNum] = null;
-        playersInput[playerNum] = null;
-        players[playerNum] = null;
-
-        if (devMode)
-        {
-            DUIM.DisablePlayer(playerNum);
-        }
     }
 
 
