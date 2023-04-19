@@ -40,11 +40,12 @@ public class LevelScript : MonoBehaviour
     [SerializeField] private Sprite player3sprite;
     [SerializeField] private Sprite player4sprite;
 
-    private GameObject currentTarget; //for delaying DEATH ITSELF
 
 
+    //~~~~~~~ LEVEL BASICS ~~~~~~~\\
     private void Awake()
     {
+        //start level music
         FindObjectOfType<AudioManager>().Play("MusicFight");
 
         //ensure there is only 1 level script
@@ -64,6 +65,7 @@ public class LevelScript : MonoBehaviour
         leaveAction.Enable();
         leaveAction.performed += ctx => LeaveAction(ctx);
 
+        //set spawn point order
         SetSpawnPoints();
 
 
@@ -74,20 +76,25 @@ public class LevelScript : MonoBehaviour
         }
     }
 
+
+
+    //~~~~~~~ REFERENCE PLAYER VIA NUMBER ~~~~~~~\\
     void Update()
     {
+        //update when a player leaves/joins 
         if (prevPlayerPos != curPlayerPos)
         {
-            Debug.Log(curPlayerPos);
+            //Debug.Log(curPlayerPos);
             prevPlayerPos = curPlayerPos;
         }
     }
 
+
+
+    //~~~~~~~ SPAWN POINTS & ORDER ~~~~~~~\\
     private void SetSpawnPoints()
     {
-        //fill spawn point array
-        spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoint");
-        //Debug.Log("total spawn points: " + spawnPoints.Length);
+        spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoint"); //fill spawn point array
 
         //set spawn point order
         //for each spawn point, assign a random number
@@ -95,32 +102,55 @@ public class LevelScript : MonoBehaviour
         //if it is, reroll the number and restart the duplicate check
         for (int spawnIndex = 0; spawnIndex < spawnOrder.Length; spawnIndex++)
         {
-            Debug.Log("");
+            //Debug.Log("");
             spawnOrder[spawnIndex] = Random.Range(1, spawnPoints.Length);
-            Debug.Log("SpawnOrder " + spawnIndex + " given SpawnPoint " + spawnOrder[spawnIndex]);
+            //Debug.Log("SpawnOrder " + spawnIndex + " given SpawnPoint " + spawnOrder[spawnIndex]);
 
             for (int checkIndex = 0; checkIndex < spawnIndex; checkIndex++)
             {
                 if (spawnOrder[checkIndex] == spawnOrder[spawnIndex] && checkIndex != spawnIndex)
                 {
-                    Debug.Log("SpawnPoint " + spawnOrder[spawnIndex] + " is being used by SpawnOrder " + checkIndex);
+                    //Debug.Log("SpawnPoint " + spawnOrder[spawnIndex] + " is being used by SpawnOrder " + checkIndex);
                     spawnOrder[spawnIndex] = Random.Range(1, 5);
                     checkIndex = -1;
-                    Debug.Log("SpawnOrder " + spawnIndex + " given SpawnPoint " + spawnOrder[spawnIndex]);
+                    //Debug.Log("SpawnOrder " + spawnIndex + " given SpawnPoint " + spawnOrder[spawnIndex]);
                 }
             }
         }
 
-        Debug.Log("");
-        for (int spawnIndex = 0; spawnIndex < spawnOrder.Length; spawnIndex++)
+        /*for (int spawnIndex = 0; spawnIndex < spawnOrder.Length; spawnIndex++)
         {
             Debug.Log("order " + spawnIndex + ": " + spawnPoints[spawnOrder[spawnIndex] - 1] + "\tspawn location: " + spawnPoints[spawnOrder[spawnIndex]-1].transform.position);
+        }*/
+    }
+
+
+
+    //~~~~~~~ ADD NEW PLAYER ~~~~~~~\\
+    public void NewPlayer(GameObject newPlayer)
+    {
+        //fills the arrays with the applicable player & script
+        //Debug.Log("New Player: " + newPlayer.name);
+        players[curPlayerPos] = newPlayer;
+        playerScripts[curPlayerPos] = newPlayer.GetComponent<PlayerController>();
+
+        //apply stats
+        ApplyColour(newPlayer);
+        ApplyLevelStats();
+
+        if (devMode)
+        {
+            //Debug.Log("Dev mode for " + newPlayer.name);
+            DUIM.EnablePlayer(curPlayerPos, newPlayer);
         }
     }
 
+
+
+    //~~~~~~~ NEW PLAYER SPECIFICS ~~~~~~~\\
     private void ApplyLevelStats()
     {
-        //applies levels stats to current joining player
+        //applies levels stats to new player
         //Debug.Log("applying stats to " + players[numOfPlayers] + ", " + playerScripts[numOfPlayers]);
         playerScripts[curPlayerPos].SetMoveForce(playerMoveForce);
         playerScripts[curPlayerPos].SetJumpForce(playerJumpForce);
@@ -131,21 +161,14 @@ public class LevelScript : MonoBehaviour
 
     private void ApplyColour(GameObject newPlayer)
     {
-        
-        SpriteRenderer playerAuraRend;
-        Light2D playerAuraLight = newPlayer.GetComponent<Light2D>();
-        if (newPlayer != null)
-        {
-            playerAuraRend = newPlayer.GetComponent<SpriteRenderer>();
-        }
-        else
-        {
-            playerAuraRend = null;
-        }
-        SpriteRenderer playerRend = newPlayer.GetComponentInChildren<SpriteRenderer>();
+        //old sprite colouring
+        //SpriteRenderer playerRend = newPlayer.GetComponent<SpriteRenderer>();
         //Color newColor = new Color(0.5f, 0.5f, 1f, 1f);
         //playerRend.color = Color.red;
-        switch(curPlayerPos)
+
+        //gives the appropriate colour based on player number
+        Light2D playerAuraLight = newPlayer.GetComponent<Light2D>();
+        switch (curPlayerPos)
         {
             case 0:
                 playerAuraLight.color = new Color(1f, 0f, 0f, 1f); //red
@@ -165,11 +188,14 @@ public class LevelScript : MonoBehaviour
         }
     }
 
-    new
 
+
+
+
+    //~~~~~~~ PLAYER JOINED ~~~~~~~\\
     void JoinAction(InputAction.CallbackContext ctx)
     {
-        //joins player
+        //joins player as long as there are less than 4 players
         //Debug.Log("JoinAction()");
         if (numOfPlayers < 4)
         {
@@ -180,15 +206,13 @@ public class LevelScript : MonoBehaviour
     void OnPlayerJoined(PlayerInput playerInput)
     {
         //runs when a player joins
-        //Debug.Log("OnPlayerJoined()");
         //Debug.Log("Player joined..");
-
         if (PlayerJoinedGame != null)
         {
             PlayerJoinedGame(playerInput);
         }
 
-        //Debug.Log("New player joining");
+        //finds the lowest empty element in the players array & updates the current player int
         for (int playerCheck = 0; playerCheck < 4; playerCheck++)
         {
             //Debug.Log(playerCheck);
@@ -202,11 +226,12 @@ public class LevelScript : MonoBehaviour
             }
         }
 
-        numOfPlayers++;
+        numOfPlayers++; //increase total number of players
     }
 
 
 
+    //~~~~~~~ PLAYER LEFT ~~~~~~~\\
     void LeaveAction(InputAction.CallbackContext ctx)
     {
         //leaves player
@@ -224,18 +249,21 @@ public class LevelScript : MonoBehaviour
             PlayerLeftGame(playerInput);
         }
 
+        //decrease total number of players
         numOfPlayers--;
     }
 
+
+
+    //~~~~~~~ KILL PLAYER ~~~~~~~\\
     public void Kill(GameObject target, GameObject killer)
     {
+        //identify the targeted player
         string targetName = target.name;
         int playerNum = (int)char.GetNumericValue(targetName[6]);
-        currentTarget = target;
-
         target.GetComponent<PlayerController>().Death();
-        //player num out of array
 
+        //remove targeted player from of array
         playerScripts[playerNum] = null;
         playersInput[playerNum] = null;
         players[playerNum] = null;
@@ -246,34 +274,20 @@ public class LevelScript : MonoBehaviour
         }
     }
 
+
+
+
+
+    //~~~~~~~ GET CURRENT PLAYER NUMBER ~~~~~~~\\
     public int CurrentPlayer()
     {
         return curPlayerPos;
     }
 
-    public void NewPlayer(GameObject newPlayer)
-    {
-        //Debug.Log("New Player()");
-        //Debug.Log("New Player: " + newPlayer.name);
-        players[curPlayerPos] = newPlayer;
-        playerScripts[curPlayerPos] = newPlayer.GetComponent<PlayerController>();
-
-        //apply stats
-        ApplyColour(newPlayer);
-        ApplyLevelStats();
-
-        if (devMode)
-        {
-            //Debug.Log("Dev mode for " + newPlayer.name);
-            DUIM.EnablePlayer(curPlayerPos, newPlayer);
-        }
-    }
-
-
-
+    //~~~~~~~ GET CURRENT PLAYER SPAWN POINT ~~~~~~~\\
     public Vector2 GetNextSpawnPoint()
     {
-        Debug.Log("player " + curPlayerPos + " spawn point is " + spawnOrder[curPlayerPos] + " at " + spawnPoints[spawnOrder[curPlayerPos]-1].transform.position);
+        //Debug.Log("player " + curPlayerPos + " spawn point is " + spawnOrder[curPlayerPos] + " at " + spawnPoints[spawnOrder[curPlayerPos]-1].transform.position);
         return spawnPoints[spawnOrder[curPlayerPos]-1].transform.position;
     }
 }

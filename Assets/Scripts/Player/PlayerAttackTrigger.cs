@@ -26,10 +26,10 @@ public class PlayerAttackTrigger : MonoBehaviour
                 {
                     cols[colIndex] = collision.gameObject.GetComponent<BoxCollider2D>();
 
-                    if (this.gameObject.transform.parent.name == "Player0")
+                    /*if (this.gameObject.transform.parent.name == "Player0")
                     {
                         Debug.Log(this.gameObject.transform.parent.name + " added " + cols[colIndex].gameObject.name + " to pos " + colIndex);
-                    }
+                    }*/
 
                     colIndex = cols.Length;
                 }

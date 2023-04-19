@@ -18,7 +18,6 @@ public class PlayerController : MonoBehaviour
     private LevelScript ls;
 
     //~~~~~~~ GAMEPLAY ~~~~~~~\\
-
     //~~~ JUMPING ~~~\\
     [Header("Jumping")]
     private float coyoteCounter;
@@ -31,6 +30,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float fallGravityMult = 1.4f;
 
     private bool isJumping;
+
 
     //~~~ ICE ~~~\\
     [Header("Ice Movement")]
@@ -180,7 +180,6 @@ public class PlayerController : MonoBehaviour
             previousXMovement = playerRigid.velocity.x;
         }
        
-
         //if player is moving and on ice
         //or not on ice and not wall jumping and on the ground
         //or is not no the ground and and is not wall jumping and is jumping
@@ -188,9 +187,6 @@ public class PlayerController : MonoBehaviour
         {
             playerRigid.velocity = new Vector2(move.x * moveForce, playerVelocity.y);  
         }
-        
-     
-      
     }
 
 
@@ -221,7 +217,6 @@ public class PlayerController : MonoBehaviour
                 jumpBufferCounter = 0f;
                 isJumping = true;
             }
-
         }
 
         //~~~ WALL JUMP ~~~\\ 
@@ -480,6 +475,10 @@ public class PlayerController : MonoBehaviour
         isAttacking = false;   //end attack
         
     }
+
+
+
+    //~~~ DEATH ~~~\\
     public void Death() //RIP
     {
         animator.SetTrigger("Dying");

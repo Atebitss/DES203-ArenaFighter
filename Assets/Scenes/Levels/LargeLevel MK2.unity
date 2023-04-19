@@ -49362,7 +49362,7 @@ MonoBehaviour:
   playerGravity: 5
   playerMoveForce: 13
   playerJumpForce: 22
-  devMode: 1
+  devMode: 0
   joinAction:
     m_Name: Join
     m_Type: 0
