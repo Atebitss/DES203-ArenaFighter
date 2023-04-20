@@ -20,15 +20,12 @@ public class PlayerController : MonoBehaviour
     //~~~~~~~ GAMEPLAY ~~~~~~~\\
     //~~~ JUMPING ~~~\\
     [Header("Jumping")]
-    private float coyoteCounter;
     [SerializeField] private float coyoteTime = 0.1f;
-
-    private float jumpBufferCounter;
+    private float coyoteCounter;
     [SerializeField] private float jumpBufferTime = 0.2f;
-
+    private float jumpBufferCounter;
     [SerializeField] private float playerGravity = 5f;
     [SerializeField] private float fallGravityMult = 1.4f;
-
     private bool isJumping;
 
 
@@ -150,6 +147,7 @@ public class PlayerController : MonoBehaviour
             jumpBufferCounter -= Time.deltaTime;
         }
 
+        //Jump animation for the player as they approach the zenith of the jump.
         if (!IsGrounded() && playerVelocity.y > 0 && !OnStickyWall())
         {
             animator.SetBool("IsJumping", true);
@@ -180,6 +178,11 @@ public class PlayerController : MonoBehaviour
         move = new Vector3(movement.x, 0, playerVelocity.y);
     }
 
+
+
+    //~~~~~~~ MOVEMENT LOGIC ~~~~~~~\\ 
+    //called by Fixed Update, line 42
+
     private void PlayerMovement()
     {
         playerVelocity = playerRigid.velocity;   //update current velocity Vector2 to players current velocity
@@ -189,100 +192,18 @@ public class PlayerController : MonoBehaviour
             previousXMovement = playerRigid.velocity.x;
         }
        
-        //if player is moving and on ice
-        //or not on ice and not wall jumping and on the ground
-        //or is not no the ground and and is not wall jumping and is jumping
-        if (move.x != 0 && onIce || !onIce && !isWallJumping && !isDeflecting)
+        //player will have normal movement if we arent on Ice, Wall Jumping or Deflecting
+        //player will also have normal movement if there is movement input while on Ice
+        if (!onIce && !isWallJumping && !isDeflecting || move.x != 0 && onIce)
         {
-            playerRigid.velocity = new Vector2(move.x * moveForce, playerVelocity.y);  
+            playerVelocity = new Vector2(move.x * moveForce, playerVelocity.y);  
         }
     }
-
-
-    //~~~ JUMP ~~~\\ 
-    public void OnJump(InputAction.CallbackContext ctx)
-    {
-        isJumping = true;
-
-        if (coyoteCounter > 0 && jumpBufferCounter > 0 || coyoteCounter > 0 && jumpBufferCounter < 0) //checking for coyote time and jump buffer
-        {
-            if (IsOnBouncy())
-            {
-                print("BIG JUMP");
-                playerRigid.velocity = new Vector2(playerVelocity.x, jumpForce * bounceMultiplier); //Bouncy Jump
-                PlayJumpAudio();
-
-                coyoteCounter = 0f;
-                jumpBufferCounter = 0f;
-                isJumping = true;
-            }
-            else
-            {
-                Debug.Log("jump");
-                playerRigid.velocity = new Vector2(playerVelocity.x, jumpForce); // Normal Jump
-                PlayJumpAudio();
-
-                coyoteCounter = 0f;
-                jumpBufferCounter = 0f;
-                isJumping = true;
-            }
-        }
-
-        //~~~ WALL JUMP ~~~\\ 
-
-        else if (wallCoyoteCounter > 0 & !IsGrounded() & facingRight && move.x > 0f) // Wall Climbing when facing right
-        {
-            isWallJumping = true;
-            playerRigid.velocity = new Vector2(-transform.localScale.x * 4, 20);
-            PlayJumpAudio();
-            wallJumpCooldown = 0;
-
-         
-            Invoke(nameof(StopWallJumping), wallClimbingDuration); //while we are wall climbing, the player cannot change thier velocity, so after a duration, let the players control the PC again
-        }
-        else if (wallCoyoteCounter > 0 & !IsGrounded() & !facingRight && move.x < 0f) // Wall Climbing when facing left
-        {
-            isWallJumping = true;
-            playerRigid.velocity = new Vector2(-transform.localScale.x * 4, 20);
-            PlayJumpAudio();
-            wallJumpCooldown = 0;
-
-           
-            Invoke(nameof(StopWallJumping), wallClimbingDuration); 
-        }
-        else if (wallCoyoteCounter > 0 & !IsGrounded()) // Wall Jumping / Kicking
-        {
-            isWallJumping = true;
-            playerRigid.velocity = new Vector2(-transform.localScale.x * 12, 20);
-            PlayJumpAudio();
-            wallJumpCooldown = 0;
-
-             if (transform.localScale.x != wallJumpingDirection) //flips player so they are facing the direction that they are jumping towards
-             {
-                 Vector3 localScale = transform.localScale;
-                 localScale.x *= -1f;
-                 transform.localScale = localScale;
-             }
-
-            Invoke(nameof(StopWallJumping), wallJumpingDuration); //while we are wall jumping, the player cannot change thier velocity, so after a duration, let the players control the PC again
-
-        }
-    }
-
-    private void StopWallJumping()
-    {
-        //Debug.Log("wall jump stop");
-        isWallJumping = false;
-    }
-
-
-    //~~~~~~~ MOVEMENT LOGIC ~~~~~~~\\ 
-    //called by Fixed Update, line 42
 
 
     private void Flip()
     {
-        //flips the player around when moving left or right | Allows us to determine player direction for animating and other stuffs
+        //flips the player around when moving left or right 
         if (move.x > 0f)
         {
             transform.localScale = startingScale;
@@ -300,14 +221,14 @@ public class PlayerController : MonoBehaviour
     {
         if (IsOnIce())
         {
-            if (move.x != 0) //when we have input, move normally (will refine this later)
+            if (move.x != 0) //when we have input, move normally
             {
                 playerRigid.velocity = new Vector3(move.x * iceSpeed, playerVelocity.y, 0);
             }
             else
             {
                
-                playerRigid.velocity = new Vector2(previousXMovement * IceDecceleration, playerVelocity.y); //when no input, slide across|Speed decreases by the rate of IceDecceleration
+                playerRigid.velocity = new Vector2(previousXMovement * IceDecceleration, playerVelocity.y); //when no input, slide across
                 previousXMovement = playerRigid.velocity.x;
             }
 
@@ -363,6 +284,81 @@ public class PlayerController : MonoBehaviour
            
         }
 
+    }
+    //~~~ JUMP ~~~\\ 
+    public void OnJump(InputAction.CallbackContext ctx)
+    {
+        isJumping = true;
+
+        if (coyoteCounter > 0 && jumpBufferCounter > 0 || coyoteCounter > 0 && jumpBufferCounter < 0) //checking for coyote time and jump buffer
+        {
+            if (IsOnBouncy())
+            {
+                print("BIG JUMP");
+                playerRigid.velocity = new Vector2(playerVelocity.x, jumpForce * bounceMultiplier); //Bouncy Jump
+                PlayJumpAudio();
+
+                coyoteCounter = 0f;
+                jumpBufferCounter = 0f;
+                isJumping = true;
+            }
+            else
+            {
+                Debug.Log("jump");
+                playerRigid.velocity = new Vector2(playerVelocity.x, jumpForce); // Normal Jump
+                PlayJumpAudio();
+
+                coyoteCounter = 0f;
+                jumpBufferCounter = 0f;
+                isJumping = true;
+            }
+        }
+
+        //~~~ WALL JUMP ~~~\\ 
+
+        else if (wallCoyoteCounter > 0 & !IsGrounded() & facingRight && move.x > 0f) // Wall Climbing when facing right
+        {
+            isWallJumping = true;
+            playerRigid.velocity = new Vector2(-transform.localScale.x * 4, 20);
+            PlayJumpAudio();
+            wallJumpCooldown = 0;
+
+
+            Invoke(nameof(StopWallJumping), wallClimbingDuration); //while we are wall climbing, the player cannot change thier velocity, so after a duration, let the players control the PC again
+        }
+        else if (wallCoyoteCounter > 0 & !IsGrounded() & !facingRight && move.x < 0f) // Wall Climbing when facing left
+        {
+            isWallJumping = true;
+            playerRigid.velocity = new Vector2(-transform.localScale.x * 4, 20);
+            PlayJumpAudio();
+            wallJumpCooldown = 0;
+
+
+            Invoke(nameof(StopWallJumping), wallClimbingDuration);
+        }
+        else if (wallCoyoteCounter > 0 & !IsGrounded()) // Wall Jumping / Kicking
+        {
+            isWallJumping = true;
+            playerRigid.velocity = new Vector2(-transform.localScale.x * 12, 20);
+            PlayJumpAudio();
+            wallJumpCooldown = 0;
+
+            if (transform.localScale.x != wallJumpingDirection) //flips player so they are facing the direction that they are jumping towards
+            {
+                Vector3 localScale = transform.localScale;
+                localScale.x *= -1f;
+                transform.localScale = localScale;
+            }
+
+            Invoke(nameof(StopWallJumping), wallJumpingDuration); //while we are wall jumping, the player cannot change thier velocity, so after a duration, let the players control the PC again
+
+        }
+    }
+
+    private void StopWallJumping()
+    {
+        //Debug.Log("wall jump stop");
+        isWallJumping = false;
     }
 
 
