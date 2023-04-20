@@ -1,22 +1,16 @@
 fileFormatVersion: 2
-guid: b1c8a2159ca9b2a4b909aaa86ef459ed
+guid: c84fbb526380f2d46b0da74391485d12
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5826632880718346844
-    second: Knight_Attack_Combined-GREEN_0
+      213: -5265408230291681311
+    second: Wall Jump_0
   - first:
-      213: -87105178997702370
-    second: Knight_Attack_Combined-GREEN_1
+      213: 3600324298763840782
+    second: Wall Jump_1
   - first:
-      213: 9034942338845605923
-    second: Knight_Attack_Combined-GREEN_2
-  - first:
-      213: 6110720394037107975
-    second: Knight_Attack_Combined-GREEN_3
-  - first:
-      213: 8258932321827405628
-    second: Knight_Attack_Combined-GREEN_4
+      213: 4280311525759857685
+    second: Wall Jump_2
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -102,29 +96,17 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Windows Store Apps
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Knight_Attack_Combined-GREEN_0
+      name: Wall Jump_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 3075
-        width: 3120
-        height: 3120
+        x: 56
+        y: 152
+        width: 124
+        height: 176
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -132,20 +114,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c5af3d3fbbb5cd050800000000000000
-      internalID: 5826632880718346844
+      spriteID: 1efcb04ac138de6b0800000000000000
+      internalID: -5265408230291681311
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Knight_Attack_Combined-GREEN_1
+      name: Wall Jump_1
       rect:
         serializedVersion: 2
-        x: 3120
-        y: 3120
-        width: 3120
-        height: 3120
+        x: 296
+        y: 152
+        width: 124
+        height: 172
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,20 +135,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e11cebb1d4a8acef0800000000000000
-      internalID: -87105178997702370
+      spriteID: e0da608dfdbe6f130800000000000000
+      internalID: 3600324298763840782
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Knight_Attack_Combined-GREEN_2
+      name: Wall Jump_2
       rect:
         serializedVersion: 2
-        x: 6240
-        y: 3120
-        width: 3120
-        height: 3120
+        x: 536
+        y: 152
+        width: 124
+        height: 168
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -174,29 +156,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 32087012030926d70800000000000000
-      internalID: 9034942338845605923
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Knight_Attack_Combined-GREEN_3
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 3120
-        height: 3075
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 70d115882d3adc450800000000000000
-      internalID: 6110720394037107975
+      spriteID: 5143de497a8b66b30800000000000000
+      internalID: 4280311525759857685
       vertices: []
       indices: 
       edges: []

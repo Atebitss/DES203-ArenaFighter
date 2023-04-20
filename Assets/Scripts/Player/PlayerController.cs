@@ -150,6 +150,15 @@ public class PlayerController : MonoBehaviour
             jumpBufferCounter -= Time.deltaTime;
         }
 
+        if (!IsGrounded() && playerVelocity.y > 0 && !OnStickyWall())
+        {
+            animator.SetBool("IsJumping", true);
+        }
+        else
+        {
+            animator.SetBool("IsJumping", false);
+        }
+
         //Animation checks
         animator.SetBool("isRunning", move.x != 0);
         animator.SetBool("isWallSliding", OnStickyWall());
@@ -511,6 +520,10 @@ public class PlayerController : MonoBehaviour
                     currentTeleporter = collision.gameObject;
                     Teleport();
                 }
+                break;
+            case "PlayerTop": //jump off of players when we land on them
+                playerRigid.velocity = new Vector2(playerVelocity.x, jumpForce);
+                FindObjectOfType<AudioManager>().Play("Bouncy");
                 break;
             default:
                 break;

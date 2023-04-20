@@ -170,8 +170,8 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.6
-  m_Color: {r: 1, g: 0.80358857, b: 0.2783019, a: 0.14901961}
-  m_Intensity: 1.3
+  m_Color: {r: 1, g: 0.82215047, b: 0.27843142, a: 0.2784314}
+  m_Intensity: 1.63
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 1
   m_ApplyToSortingLayers: 00000000756c34909d0fc294
@@ -1771,8 +1771,8 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.6
-  m_Color: {r: 1, g: 0.80358857, b: 0.2783019, a: 0.14901961}
-  m_Intensity: 1.3
+  m_Color: {r: 1, g: 0.82215047, b: 0.27843142, a: 0.2784314}
+  m_Intensity: 1.63
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 1
   m_ApplyToSortingLayers: 00000000756c34909d0fc294
@@ -1963,8 +1963,8 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.6
-  m_Color: {r: 1, g: 0.80358857, b: 0.2783019, a: 0.14901961}
-  m_Intensity: 1.3
+  m_Color: {r: 1, g: 0.82215047, b: 0.27843142, a: 0.2784314}
+  m_Intensity: 1.63
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 1
   m_ApplyToSortingLayers: 00000000756c34909d0fc294
@@ -2223,7 +2223,7 @@ Transform:
   - {fileID: 1143761387}
   - {fileID: 138658653}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &191488194
 GameObject:
@@ -4308,8 +4308,8 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.6
-  m_Color: {r: 1, g: 0.80358857, b: 0.2783019, a: 0.14901961}
-  m_Intensity: 1.3
+  m_Color: {r: 1, g: 0.82215047, b: 0.27843142, a: 0.2784314}
+  m_Intensity: 1.63
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 1
   m_ApplyToSortingLayers: 00000000756c34909d0fc294
@@ -4816,8 +4816,8 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.6
-  m_Color: {r: 1, g: 0.80358857, b: 0.2783019, a: 0.14901961}
-  m_Intensity: 1.3
+  m_Color: {r: 1, g: 0.82215047, b: 0.27843142, a: 0.2784314}
+  m_Intensity: 1.63
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 1
   m_ApplyToSortingLayers: 00000000756c34909d0fc294
@@ -4994,7 +4994,7 @@ Transform:
   - {fileID: 1600621888}
   - {fileID: 2086406730}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &422045882 stripped
 Transform:
@@ -5049,7 +5049,7 @@ MonoBehaviour:
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.3
+  m_Intensity: 0.5
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
   m_ApplyToSortingLayers: 00000000756c34909d0fc294
@@ -5907,8 +5907,8 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.6
-  m_Color: {r: 1, g: 0.80358857, b: 0.2783019, a: 0.14901961}
-  m_Intensity: 1.3
+  m_Color: {r: 1, g: 0.82215047, b: 0.27843142, a: 0.2784314}
+  m_Intensity: 1.63
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 1
   m_ApplyToSortingLayers: 00000000756c34909d0fc294
@@ -10147,7 +10147,7 @@ Transform:
   m_LocalScale: {x: 20, y: 20, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &846752127
 GameObject:
@@ -10232,6 +10232,91 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1001 &855276590
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5466975082429926600, guid: 946b428bc067cc5459454ed534dacaf7, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.x
+      value: 1.24
+      objectReference: {fileID: 0}
+    - target: {fileID: 5466975082429926600, guid: 946b428bc067cc5459454ed534dacaf7, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.y
+      value: 1.68
+      objectReference: {fileID: 0}
+    - target: {fileID: 5466975082429926600, guid: 946b428bc067cc5459454ed534dacaf7, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 1.24
+      objectReference: {fileID: 0}
+    - target: {fileID: 5466975082429926600, guid: 946b428bc067cc5459454ed534dacaf7, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 1.68
+      objectReference: {fileID: 0}
+    - target: {fileID: 5466975082429926603, guid: 946b428bc067cc5459454ed534dacaf7, type: 3}
+      propertyPath: m_Name
+      value: PlayerPrefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 5466975082429926606, guid: 946b428bc067cc5459454ed534dacaf7, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5466975082429926606, guid: 946b428bc067cc5459454ed534dacaf7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 57.896343
+      objectReference: {fileID: 0}
+    - target: {fileID: 5466975082429926606, guid: 946b428bc067cc5459454ed534dacaf7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -21.14501
+      objectReference: {fileID: 0}
+    - target: {fileID: 5466975082429926606, guid: 946b428bc067cc5459454ed534dacaf7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5466975082429926606, guid: 946b428bc067cc5459454ed534dacaf7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5466975082429926606, guid: 946b428bc067cc5459454ed534dacaf7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5466975082429926606, guid: 946b428bc067cc5459454ed534dacaf7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5466975082429926606, guid: 946b428bc067cc5459454ed534dacaf7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5466975082429926606, guid: 946b428bc067cc5459454ed534dacaf7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5466975082429926606, guid: 946b428bc067cc5459454ed534dacaf7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5466975082429926606, guid: 946b428bc067cc5459454ed534dacaf7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5466975082429926607, guid: 946b428bc067cc5459454ed534dacaf7, type: 3}
+      propertyPath: m_Size.x
+      value: 1.24
+      objectReference: {fileID: 0}
+    - target: {fileID: 5466975082429926607, guid: 946b428bc067cc5459454ed534dacaf7, type: 3}
+      propertyPath: m_Size.y
+      value: 1.68
+      objectReference: {fileID: 0}
+    - target: {fileID: 5466975082429926607, guid: 946b428bc067cc5459454ed534dacaf7, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 946b428bc067cc5459454ed534dacaf7, type: 3}
 --- !u!1 &855615624
 GameObject:
   m_ObjectHideFlags: 0
@@ -11001,8 +11086,8 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.6
-  m_Color: {r: 1, g: 0.80358857, b: 0.2783019, a: 0.14901961}
-  m_Intensity: 1.3
+  m_Color: {r: 1, g: 0.82215047, b: 0.27843142, a: 0.2784314}
+  m_Intensity: 1.63
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 1
   m_ApplyToSortingLayers: 00000000756c34909d0fc294
@@ -11219,8 +11304,8 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.6
-  m_Color: {r: 1, g: 0.80358857, b: 0.2783019, a: 0.14901961}
-  m_Intensity: 1.3
+  m_Color: {r: 1, g: 0.82215047, b: 0.27843142, a: 0.2784314}
+  m_Intensity: 1.63
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 1
   m_ApplyToSortingLayers: 00000000756c34909d0fc294
@@ -11494,8 +11579,8 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.6
-  m_Color: {r: 1, g: 0.80358857, b: 0.2783019, a: 0.14901961}
-  m_Intensity: 1.3
+  m_Color: {r: 1, g: 0.82215047, b: 0.27843142, a: 0.2784314}
+  m_Intensity: 1.63
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 1
   m_ApplyToSortingLayers: 00000000756c34909d0fc294
@@ -43857,8 +43942,8 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.6
-  m_Color: {r: 1, g: 0.80358857, b: 0.2783019, a: 0.14901961}
-  m_Intensity: 1.3
+  m_Color: {r: 1, g: 0.82215047, b: 0.27843142, a: 0.2784314}
+  m_Intensity: 1.63
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 1
   m_ApplyToSortingLayers: 00000000756c34909d0fc294
@@ -43966,8 +44051,8 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.6
-  m_Color: {r: 1, g: 0.80358857, b: 0.2783019, a: 0.14901961}
-  m_Intensity: 1.3
+  m_Color: {r: 1, g: 0.82215047, b: 0.27843142, a: 0.2784314}
+  m_Intensity: 1.63
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 1
   m_ApplyToSortingLayers: 00000000756c34909d0fc294
@@ -44560,8 +44645,8 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.6
-  m_Color: {r: 1, g: 0.80358857, b: 0.2783019, a: 0.14901961}
-  m_Intensity: 1.3
+  m_Color: {r: 1, g: 0.82215047, b: 0.27843142, a: 0.2784314}
+  m_Intensity: 1.63
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 1
   m_ApplyToSortingLayers: 00000000756c34909d0fc294
@@ -45610,8 +45695,8 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.6
-  m_Color: {r: 1, g: 0.80358857, b: 0.2783019, a: 0.14901961}
-  m_Intensity: 1.3
+  m_Color: {r: 1, g: 0.82215047, b: 0.27843142, a: 0.2784314}
+  m_Intensity: 1.63
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 1
   m_ApplyToSortingLayers: 00000000756c34909d0fc294
@@ -45946,7 +46031,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1330416178
 GameObject:
@@ -45982,7 +46067,7 @@ Transform:
   - {fileID: 777771588}
   - {fileID: 1322811756}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1334433473
 GameObject:
@@ -48129,7 +48214,7 @@ RectTransform:
   - {fileID: 373611622}
   - {fileID: 251851271}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -49427,7 +49512,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1717366797
 MonoBehaviour:
@@ -49769,8 +49854,8 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.6
-  m_Color: {r: 1, g: 0.80358857, b: 0.2783019, a: 0.14901961}
-  m_Intensity: 1.3
+  m_Color: {r: 1, g: 0.82215047, b: 0.27843142, a: 0.2784314}
+  m_Intensity: 1.63
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 1
   m_ApplyToSortingLayers: 00000000756c34909d0fc294

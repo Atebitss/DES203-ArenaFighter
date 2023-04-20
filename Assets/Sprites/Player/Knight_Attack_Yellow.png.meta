@@ -1,22 +1,22 @@
 fileFormatVersion: 2
-guid: bae24673d5f979142b039fb48a4792b3
+guid: dc4de93a32c68b44cac23ea05c3a6a22
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4714754777648412013
-    second: Knight_Attack_Combined-BLUE_0
+      213: 1787923173311897846
+    second: Knight_Attack Combined-4.png_0
   - first:
-      213: -1738147534975755968
-    second: Knight_Attack_Combined-BLUE_1
+      213: -7805767386614440021
+    second: Knight_Attack Combined-4.png_1
   - first:
-      213: 4532999740308456170
-    second: Knight_Attack_Combined-BLUE_2
+      213: -3177551261893485069
+    second: Knight_Attack Combined-4.png_2
   - first:
-      213: 8491919456584014486
-    second: Knight_Attack_Combined-BLUE_3
+      213: 5178539810867119512
+    second: Knight_Attack Combined-4.png_3
   - first:
-      213: -4200401941140384872
-    second: Knight_Attack_Combined-BLUE_4
+      213: 4626187983378354567
+    second: Knight_Attack Combined-4.png_4
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -102,101 +102,110 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Windows Store Apps
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Knight_Attack_Combined-BLUE_0
+      name: Knight_Attack Combined-4.png_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 3075
-        width: 3120
-        height: 3120
+        y: 240
+        width: 240
+        height: 240
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 39ac0337283d19eb0800000000000000
-      internalID: -4714754777648412013
+      spriteID: 6f0e1fe37aaffc810800000000000000
+      internalID: 1787923173311897846
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Knight_Attack_Combined-BLUE_1
+      name: Knight_Attack Combined-4.png_1
       rect:
         serializedVersion: 2
-        x: 3120
-        y: 3120
-        width: 3120
-        height: 3120
+        x: 240
+        y: 240
+        width: 240
+        height: 240
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0499c8aa60cd0e7e0800000000000000
-      internalID: -1738147534975755968
+      spriteID: baf54892be75ca390800000000000000
+      internalID: -7805767386614440021
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Knight_Attack_Combined-BLUE_2
+      name: Knight_Attack Combined-4.png_2
       rect:
         serializedVersion: 2
-        x: 6240
-        y: 3120
-        width: 3120
-        height: 3120
+        x: 480
+        y: 240
+        width: 240
+        height: 240
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ae206083f3378ee30800000000000000
-      internalID: 4532999740308456170
+      spriteID: 3fd9e3376f117e3d0800000000000000
+      internalID: -3177551261893485069
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Knight_Attack_Combined-BLUE_3
+      name: Knight_Attack Combined-4.png_3
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 3120
-        height: 3075
+        width: 240
+        height: 240
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 69a1beee0cb59d570800000000000000
-      internalID: 8491919456584014486
+      spriteID: 89504f9558eddd740800000000000000
+      internalID: 5178539810867119512
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Knight_Attack Combined-4.png_4
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 0
+        width: 240
+        height: 240
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7819275d575833040800000000000000
+      internalID: 4626187983378354567
       vertices: []
       indices: 
       edges: []

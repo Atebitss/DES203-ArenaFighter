@@ -260,6 +260,7 @@ Transform:
   - {fileID: 8473601938143140183}
   - {fileID: 891550369110636017}
   - {fileID: 7608207645942959005}
+  - {fileID: 6441891608261450993}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -385,8 +386,8 @@ MonoBehaviour:
     m_Bits: 64
   coyoteTime: 0.1
   jumpBufferTime: 0.2
-  fallGravityMult: 1.4
   playerGravity: 5
+  fallGravityMult: 1.4
   IceDecceleration: 0.99
   iceSpeed: 16
   wallSlideSpeed: -3
@@ -400,8 +401,6 @@ MonoBehaviour:
   deflectForce: 30
   attackBuildUp: 0.2
   attackTimer: 0.4
-  attackCooldown: 0.5
-  attackObject: {fileID: 0}
 --- !u!95 &2754353247358211400
 Animator:
   serializedVersion: 3
@@ -569,3 +568,60 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f89eaa2db7d0a9247bbf0a6d6992e6a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &5966848612155313899
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6441891608261450993}
+  - component: {fileID: 6421998025395561331}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: PlayerTop
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6441891608261450993
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5966848612155313899}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5466975082429926606}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &6421998025395561331
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5966848612155313899}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.1339798, y: 0.8433323}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.4948425, y: 0.28199387}
+  m_EdgeRadius: 0
