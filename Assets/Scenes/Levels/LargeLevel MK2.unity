@@ -170,7 +170,7 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.6
-  m_Color: {r: 0.9716981, g: 0.7449732, b: 0.35292807, a: 0.22745098}
+  m_Color: {r: 1, g: 0.80358857, b: 0.2783019, a: 0.14901961}
   m_Intensity: 1.3
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 1
@@ -915,7 +915,7 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.7
-  m_Color: {r: 0.29503974, g: 0, b: 0.4245283, a: 0.72156864}
+  m_Color: {r: 0.7264151, g: 0.0034264945, b: 0.702251, a: 0.45882353}
   m_Intensity: 1.5
   m_LightVolumeIntensity: 0.7
   m_LightVolumeIntensityEnabled: 1
@@ -1525,7 +1525,7 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.825
-  m_Color: {r: 0, g: 0.91458464, b: 1, a: 0.68235296}
+  m_Color: {r: 0.3443396, g: 1, b: 0.97583735, a: 0.6313726}
   m_Intensity: 0.4
   m_LightVolumeIntensity: 0.75
   m_LightVolumeIntensityEnabled: 1
@@ -1771,7 +1771,7 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.6
-  m_Color: {r: 0.9716981, g: 0.7449732, b: 0.35292807, a: 0.22745098}
+  m_Color: {r: 1, g: 0.80358857, b: 0.2783019, a: 0.14901961}
   m_Intensity: 1.3
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 1
@@ -1963,7 +1963,7 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.6
-  m_Color: {r: 0.9716981, g: 0.7449732, b: 0.35292807, a: 0.22745098}
+  m_Color: {r: 1, g: 0.80358857, b: 0.2783019, a: 0.14901961}
   m_Intensity: 1.3
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 1
@@ -3446,7 +3446,7 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.825
-  m_Color: {r: 0, g: 0.91458464, b: 1, a: 0.68235296}
+  m_Color: {r: 0.3443396, g: 1, b: 0.97583735, a: 0.6313726}
   m_Intensity: 0.4
   m_LightVolumeIntensity: 0.75
   m_LightVolumeIntensityEnabled: 1
@@ -3841,7 +3841,7 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.7
-  m_Color: {r: 0.29503974, g: 0, b: 0.4245283, a: 0.72156864}
+  m_Color: {r: 0.7264151, g: 0.0034264945, b: 0.702251, a: 0.45882353}
   m_Intensity: 1.5
   m_LightVolumeIntensity: 0.7
   m_LightVolumeIntensityEnabled: 1
@@ -4033,7 +4033,7 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.825
-  m_Color: {r: 0, g: 0.91458464, b: 1, a: 0.68235296}
+  m_Color: {r: 0.3443396, g: 1, b: 0.97583735, a: 0.6313726}
   m_Intensity: 0.4
   m_LightVolumeIntensity: 0.75
   m_LightVolumeIntensityEnabled: 1
@@ -4308,7 +4308,7 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.6
-  m_Color: {r: 0.9716981, g: 0.7449732, b: 0.35292807, a: 0.22745098}
+  m_Color: {r: 1, g: 0.80358857, b: 0.2783019, a: 0.14901961}
   m_Intensity: 1.3
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 1
@@ -4816,7 +4816,7 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.6
-  m_Color: {r: 0.9716981, g: 0.7449732, b: 0.35292807, a: 0.22745098}
+  m_Color: {r: 1, g: 0.80358857, b: 0.2783019, a: 0.14901961}
   m_Intensity: 1.3
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 1
@@ -5907,7 +5907,7 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.6
-  m_Color: {r: 0.9716981, g: 0.7449732, b: 0.35292807, a: 0.22745098}
+  m_Color: {r: 1, g: 0.80358857, b: 0.2783019, a: 0.14901961}
   m_Intensity: 1.3
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 1
@@ -6888,7 +6888,7 @@ MonoBehaviour:
   m_LightType: 1
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
-  m_Color: {r: 1, g: 1, b: 1, a: 0.42745098}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.3137255}
   m_Intensity: 0.2
   m_LightVolumeIntensity: 0.11
   m_LightVolumeIntensityEnabled: 1
@@ -7600,7 +7600,7 @@ MonoBehaviour:
   m_LightType: 1
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
-  m_Color: {r: 1, g: 1, b: 1, a: 0.42745098}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.3137255}
   m_Intensity: 0.2
   m_LightVolumeIntensity: 0.11
   m_LightVolumeIntensityEnabled: 1
@@ -10362,7 +10362,7 @@ MonoBehaviour:
   m_LightType: 1
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
-  m_Color: {r: 1, g: 1, b: 1, a: 0.42745098}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.3137255}
   m_Intensity: 0.2
   m_LightVolumeIntensity: 0.11
   m_LightVolumeIntensityEnabled: 1
@@ -11001,7 +11001,7 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.6
-  m_Color: {r: 0.9716981, g: 0.7449732, b: 0.35292807, a: 0.22745098}
+  m_Color: {r: 1, g: 0.80358857, b: 0.2783019, a: 0.14901961}
   m_Intensity: 1.3
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 1
@@ -11110,7 +11110,7 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.7
-  m_Color: {r: 0.29503974, g: 0, b: 0.4245283, a: 0.72156864}
+  m_Color: {r: 0.7264151, g: 0.0034264945, b: 0.702251, a: 0.45882353}
   m_Intensity: 1.5
   m_LightVolumeIntensity: 0.7
   m_LightVolumeIntensityEnabled: 1
@@ -11219,7 +11219,7 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.6
-  m_Color: {r: 0.9716981, g: 0.7449732, b: 0.35292807, a: 0.22745098}
+  m_Color: {r: 1, g: 0.80358857, b: 0.2783019, a: 0.14901961}
   m_Intensity: 1.3
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 1
@@ -11494,7 +11494,7 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.6
-  m_Color: {r: 0.9716981, g: 0.7449732, b: 0.35292807, a: 0.22745098}
+  m_Color: {r: 1, g: 0.80358857, b: 0.2783019, a: 0.14901961}
   m_Intensity: 1.3
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 1
@@ -42450,7 +42450,7 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.7
-  m_Color: {r: 0.29503974, g: 0, b: 0.4245283, a: 0.72156864}
+  m_Color: {r: 0.7264151, g: 0.0034264945, b: 0.702251, a: 0.45882353}
   m_Intensity: 1.5
   m_LightVolumeIntensity: 0.7
   m_LightVolumeIntensityEnabled: 1
@@ -43547,7 +43547,7 @@ MonoBehaviour:
   m_LightType: 1
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
-  m_Color: {r: 1, g: 1, b: 1, a: 0.42745098}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.3137255}
   m_Intensity: 0.2
   m_LightVolumeIntensity: 0.11
   m_LightVolumeIntensityEnabled: 1
@@ -43857,7 +43857,7 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.6
-  m_Color: {r: 0.9716981, g: 0.7449732, b: 0.35292807, a: 0.22745098}
+  m_Color: {r: 1, g: 0.80358857, b: 0.2783019, a: 0.14901961}
   m_Intensity: 1.3
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 1
@@ -43966,7 +43966,7 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.6
-  m_Color: {r: 0.9716981, g: 0.7449732, b: 0.35292807, a: 0.22745098}
+  m_Color: {r: 1, g: 0.80358857, b: 0.2783019, a: 0.14901961}
   m_Intensity: 1.3
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 1
@@ -44560,7 +44560,7 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.6
-  m_Color: {r: 0.9716981, g: 0.7449732, b: 0.35292807, a: 0.22745098}
+  m_Color: {r: 1, g: 0.80358857, b: 0.2783019, a: 0.14901961}
   m_Intensity: 1.3
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 1
@@ -45501,7 +45501,7 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.7
-  m_Color: {r: 0.29503974, g: 0, b: 0.4245283, a: 0.72156864}
+  m_Color: {r: 0.7264151, g: 0.0034264945, b: 0.702251, a: 0.45882353}
   m_Intensity: 1.5
   m_LightVolumeIntensity: 0.7
   m_LightVolumeIntensityEnabled: 1
@@ -45610,7 +45610,7 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.6
-  m_Color: {r: 0.9716981, g: 0.7449732, b: 0.35292807, a: 0.22745098}
+  m_Color: {r: 1, g: 0.80358857, b: 0.2783019, a: 0.14901961}
   m_Intensity: 1.3
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 1
@@ -47887,7 +47887,7 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.7
-  m_Color: {r: 0.29503974, g: 0, b: 0.4245283, a: 0.72156864}
+  m_Color: {r: 0.7264151, g: 0.0034264945, b: 0.702251, a: 0.45882353}
   m_Intensity: 1.5
   m_LightVolumeIntensity: 0.7
   m_LightVolumeIntensityEnabled: 1
@@ -49149,7 +49149,7 @@ MonoBehaviour:
   m_LightType: 1
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
-  m_Color: {r: 1, g: 1, b: 1, a: 0.42745098}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.3137255}
   m_Intensity: 0.2
   m_LightVolumeIntensity: 0.11
   m_LightVolumeIntensityEnabled: 1
@@ -49769,7 +49769,7 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.6
-  m_Color: {r: 0.9716981, g: 0.7449732, b: 0.35292807, a: 0.22745098}
+  m_Color: {r: 1, g: 0.80358857, b: 0.2783019, a: 0.14901961}
   m_Intensity: 1.3
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 1
@@ -50543,7 +50543,7 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.825
-  m_Color: {r: 0, g: 0.91458464, b: 1, a: 0.68235296}
+  m_Color: {r: 0.3443396, g: 1, b: 0.97583735, a: 0.6313726}
   m_Intensity: 0.4
   m_LightVolumeIntensity: 0.75
   m_LightVolumeIntensityEnabled: 1
@@ -51424,7 +51424,7 @@ MonoBehaviour:
   m_LightType: 1
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
-  m_Color: {r: 1, g: 1, b: 1, a: 0.42745098}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.3137255}
   m_Intensity: 0.2
   m_LightVolumeIntensity: 0.11
   m_LightVolumeIntensityEnabled: 1
@@ -51818,7 +51818,7 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.7
-  m_Color: {r: 0.29503974, g: 0, b: 0.4245283, a: 0.72156864}
+  m_Color: {r: 0.7264151, g: 0.0034264945, b: 0.702251, a: 0.45882353}
   m_Intensity: 1.5
   m_LightVolumeIntensity: 0.7
   m_LightVolumeIntensityEnabled: 1
@@ -52514,7 +52514,7 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.825
-  m_Color: {r: 0, g: 0.91458464, b: 1, a: 0.68235296}
+  m_Color: {r: 0.3443396, g: 1, b: 0.97583735, a: 0.6313726}
   m_Intensity: 0.4
   m_LightVolumeIntensity: 0.75
   m_LightVolumeIntensityEnabled: 1
@@ -53614,7 +53614,7 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.7
-  m_Color: {r: 0.29503974, g: 0, b: 0.4245283, a: 0.72156864}
+  m_Color: {r: 0.7264151, g: 0.0034264945, b: 0.702251, a: 0.45882353}
   m_Intensity: 1.5
   m_LightVolumeIntensity: 0.7
   m_LightVolumeIntensityEnabled: 1
