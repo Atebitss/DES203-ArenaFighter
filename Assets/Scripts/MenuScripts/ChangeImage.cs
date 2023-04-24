@@ -11,7 +11,7 @@ public class ChangeImage : MonoBehaviour
 
     void Start()
     {
-        
+        FindObjectOfType<AudioManager>().Play("PlayerMusic");
     }
 
     // Update is called once per frame
@@ -22,7 +22,9 @@ public class ChangeImage : MonoBehaviour
 
     public void ImageChange()
     {
+     FindObjectOfType<AudioManager>().Play("Beep");
         oldImage.sprite = newImage;
 
     }
+
 }
