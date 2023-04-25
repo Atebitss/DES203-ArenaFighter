@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Experimental.Rendering.Universal;
+using UnityEngine.SceneManagement;
 
 public class LevelScript : MonoBehaviour
 {
@@ -290,5 +291,11 @@ public class LevelScript : MonoBehaviour
     {
         //Debug.Log("player " + curPlayerPos + " spawn point is " + spawnOrder[curPlayerPos] + " at " + spawnPoints[spawnOrder[curPlayerPos]-1].transform.position);
         return spawnPoints[spawnOrder[curPlayerPos]-1].transform.position;
+    }
+
+    //~~~~~~~ TIME UP ~~~~~~~\\
+    public void TimeUp()
+    {
+        SceneManager.LoadScene(4);
     }
 }

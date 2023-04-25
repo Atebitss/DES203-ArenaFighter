@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MenuController : MonoBehaviour
+public class MainMenuController : MonoBehaviour
 {
 
 private void Start()
@@ -16,7 +16,7 @@ FindObjectOfType<AudioManager>().Play("MusicMenu");
 
      FindObjectOfType<AudioManager>().Play("SelectBeep");
   
-    FindObjectOfType<AudioManager>().StopPlaying("MusicMenu");
+     FindObjectOfType<AudioManager>().StopPlaying("MusicMenu");
 
         SceneManager.LoadScene(1);
     }
@@ -24,11 +24,13 @@ FindObjectOfType<AudioManager>().Play("MusicMenu");
     public void QuitGame() 
     {
 
-     FindObjectOfType<AudioManager>().Play("SelectBeep");
+        FindObjectOfType<AudioManager>().Play("SelectBeep");
   
-    FindObjectOfType<AudioManager>().StopPlaying("MusicMenu");
+        FindObjectOfType<AudioManager>().StopPlaying("MusicMenu");
 
         Application.Quit();
+
+        print("Quit");
     }
 
 
