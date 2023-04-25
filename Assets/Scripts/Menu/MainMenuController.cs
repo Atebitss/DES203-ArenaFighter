@@ -8,7 +8,7 @@ public class MainMenuController : MonoBehaviour
 
 private void Start()
 {
-FindObjectOfType<AudioManager>().Play("MusicMenu");
+FindObjectOfType<AudioManager>().Play("StartMenuMusic");
 }
 
     public void PlayGame()
@@ -16,9 +16,9 @@ FindObjectOfType<AudioManager>().Play("MusicMenu");
 
      FindObjectOfType<AudioManager>().Play("SelectBeep");
   
-     FindObjectOfType<AudioManager>().StopPlaying("MusicMenu");
+     FindObjectOfType<AudioManager>().StopPlaying("StartMenuMusic");
 
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(2);
     }
 
     public void QuitGame() 
@@ -26,7 +26,7 @@ FindObjectOfType<AudioManager>().Play("MusicMenu");
 
         FindObjectOfType<AudioManager>().Play("SelectBeep");
   
-        FindObjectOfType<AudioManager>().StopPlaying("MusicMenu");
+        FindObjectOfType<AudioManager>().StopPlaying("StartMenuMusic");
 
         Application.Quit();
 

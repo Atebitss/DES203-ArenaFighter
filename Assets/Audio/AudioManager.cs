@@ -32,9 +32,13 @@ public Sound[] sounds;
        s.source.loop = s.loop;
         }
     }
+    void Start()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
 
-   
-  public void Play (string name)
+
+    public void Play (string name)
   {
   Sound s = Array.Find(sounds, sound => sound.name == name);
 

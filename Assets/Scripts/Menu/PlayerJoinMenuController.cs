@@ -12,6 +12,6 @@ public class PlayerJoinMenuController : MonoBehaviour
 
         FindObjectOfType<AudioManager>().StopPlaying("MusicMenu");
 
-        SceneManager.LoadScene(3);
+        SceneManager.LoadScene(4);
     }
 }

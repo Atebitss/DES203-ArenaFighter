@@ -1,0 +1,356 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!29 &1
+OcclusionCullingSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_OcclusionBakeSettings:
+    smallestOccluder: 5
+    smallestHole: 0.25
+    backfaceThreshold: 100
+  m_SceneGUID: 00000000000000000000000000000000
+  m_OcclusionCullingData: {fileID: 0}
+--- !u!104 &2
+RenderSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 9
+  m_Fog: 0
+  m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  m_FogMode: 3
+  m_FogDensity: 0.01
+  m_LinearFogStart: 0
+  m_LinearFogEnd: 300
+  m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
+  m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
+  m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
+  m_AmbientIntensity: 1
+  m_AmbientMode: 3
+  m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
+  m_SkyboxMaterial: {fileID: 0}
+  m_HaloStrength: 0.5
+  m_FlareStrength: 1
+  m_FlareFadeSpeed: 3
+  m_HaloTexture: {fileID: 0}
+  m_SpotCookie: {fileID: 10001, guid: 0000000000000000e000000000000000, type: 0}
+  m_DefaultReflectionMode: 0
+  m_DefaultReflectionResolution: 128
+  m_ReflectionBounces: 1
+  m_ReflectionIntensity: 1
+  m_CustomReflection: {fileID: 0}
+  m_Sun: {fileID: 0}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_UseRadianceAmbientProbe: 0
+--- !u!157 &3
+LightmapSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 12
+  m_GIWorkflowMode: 1
+  m_GISettings:
+    serializedVersion: 2
+    m_BounceScale: 1
+    m_IndirectOutputScale: 1
+    m_AlbedoBoost: 1
+    m_EnvironmentLightingMode: 0
+    m_EnableBakedLightmaps: 0
+    m_EnableRealtimeLightmaps: 0
+  m_LightmapEditorSettings:
+    serializedVersion: 12
+    m_Resolution: 2
+    m_BakeResolution: 40
+    m_AtlasSize: 1024
+    m_AO: 0
+    m_AOMaxDistance: 1
+    m_CompAOExponent: 1
+    m_CompAOExponentDirect: 0
+    m_ExtractAmbientOcclusion: 0
+    m_Padding: 2
+    m_LightmapParameters: {fileID: 0}
+    m_LightmapsBakeMode: 1
+    m_TextureCompression: 1
+    m_FinalGather: 0
+    m_FinalGatherFiltering: 1
+    m_FinalGatherRayCount: 256
+    m_ReflectionCompression: 2
+    m_MixedBakeMode: 2
+    m_BakeBackend: 1
+    m_PVRSampling: 1
+    m_PVRDirectSampleCount: 32
+    m_PVRSampleCount: 512
+    m_PVRBounces: 2
+    m_PVREnvironmentSampleCount: 256
+    m_PVREnvironmentReferencePointCount: 2048
+    m_PVRFilteringMode: 1
+    m_PVRDenoiserTypeDirect: 1
+    m_PVRDenoiserTypeIndirect: 1
+    m_PVRDenoiserTypeAO: 1
+    m_PVRFilterTypeDirect: 0
+    m_PVRFilterTypeIndirect: 0
+    m_PVRFilterTypeAO: 0
+    m_PVREnvironmentMIS: 1
+    m_PVRCulling: 1
+    m_PVRFilteringGaussRadiusDirect: 1
+    m_PVRFilteringGaussRadiusIndirect: 5
+    m_PVRFilteringGaussRadiusAO: 2
+    m_PVRFilteringAtrousPositionSigmaDirect: 0.5
+    m_PVRFilteringAtrousPositionSigmaIndirect: 2
+    m_PVRFilteringAtrousPositionSigmaAO: 1
+    m_ExportTrainingData: 0
+    m_TrainingDataDestination: TrainingData
+    m_LightProbeSampleCountMultiplier: 4
+  m_LightingDataAsset: {fileID: 0}
+  m_LightingSettings: {fileID: 0}
+--- !u!196 &4
+NavMeshSettings:
+  serializedVersion: 2
+  m_ObjectHideFlags: 0
+  m_BuildSettings:
+    serializedVersion: 2
+    agentTypeID: 0
+    agentRadius: 0.5
+    agentHeight: 2
+    agentSlope: 45
+    agentClimb: 0.4
+    ledgeDropHeight: 0
+    maxJumpAcrossDistance: 0
+    minRegionArea: 2
+    manualCellSize: 0
+    cellSize: 0.16666667
+    manualTileSize: 0
+    tileSize: 256
+    accuratePlacement: 0
+    maxJobWorkers: 0
+    preserveTilesOutsideBounds: 0
+    debug:
+      m_Flags: 0
+  m_NavMeshData: {fileID: 0}
+--- !u!1 &516737283
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 516737285}
+  - component: {fileID: 516737284}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &516737284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 516737283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea79343c4aa380a4ca20feee45ef5c1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: Teleport
+    clip: {fileID: 8300000, guid: e6ba79ee6aa20bf41a0f3a0d84ba6c88, type: 3}
+    volume: 0.06
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: DeathSound
+    clip: {fileID: 8300000, guid: 7aa391ae9701e7947a1098d2563c36dc, type: 3}
+    volume: 0.22
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: DeathCry1
+    clip: {fileID: 8300000, guid: 2eebde3cbcbdd6e488ceb63d87d37aa0, type: 3}
+    volume: 0.4
+    pitch: 1.22
+    loop: 0
+    source: {fileID: 0}
+  - name: DeathCry2
+    clip: {fileID: 8300000, guid: 7b2915e3b1357d943be1d69b5eb874fe, type: 3}
+    volume: 0.4
+    pitch: 1.23
+    loop: 0
+    source: {fileID: 0}
+  - name: DeathCry3
+    clip: {fileID: 8300000, guid: 7a883a823bdd20d4da485f9d92490cae, type: 3}
+    volume: 0.4
+    pitch: 1.13
+    loop: 0
+    source: {fileID: 0}
+  - name: JumpGrunt
+    clip: {fileID: 8300000, guid: 90bf73db36a1c1f43adeb9fc9f39bb75, type: 3}
+    volume: 0.03
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: JumpGrunt2
+    clip: {fileID: 8300000, guid: 5d845d62733a55845a5a6f510709813e, type: 3}
+    volume: 0.03
+    pitch: 0.96
+    loop: 0
+    source: {fileID: 0}
+  - name: JumpWhoosh
+    clip: {fileID: 8300000, guid: 58c4da31c4ecd1f4baaa0251bfb80a7f, type: 3}
+    volume: 0.06
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Ice
+    clip: {fileID: 8300000, guid: d4695e5feb28dea46af6ac5eff7604f9, type: 3}
+    volume: 0.75
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Bouncy
+    clip: {fileID: 8300000, guid: b97468d247e97e949a584f26d54c6b0a, type: 3}
+    volume: 0.093
+    pitch: 1.27
+    loop: 0
+    source: {fileID: 0}
+  - name: MusicFight
+    clip: {fileID: 8300000, guid: dd8529e7be3b0034e9da052ed009c584, type: 3}
+    volume: 0.04
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: Walk
+    clip: {fileID: 8300000, guid: 09190997b4cfcc045bdcbefddcef9129, type: 3}
+    volume: 0.215
+    pitch: 1.24
+    loop: 0
+    source: {fileID: 0}
+  - name: Landing
+    clip: {fileID: 8300000, guid: 6238404e126d77d4eabed630539ac71a, type: 3}
+    volume: 0.215
+    pitch: 1.24
+    loop: 0
+    source: {fileID: 0}
+  - name: SwordSwing1
+    clip: {fileID: 8300000, guid: 1c91e2b01626cb34e97e901e1cc2fb39, type: 3}
+    volume: 0.01
+    pitch: 0.84
+    loop: 0
+    source: {fileID: 0}
+  - name: SwordSwing2
+    clip: {fileID: 8300000, guid: 75f2c5e743e2adf488d767a2997ce0b2, type: 3}
+    volume: 0.01
+    pitch: 0.84
+    loop: 0
+    source: {fileID: 0}
+  - name: SwordSwing3
+    clip: {fileID: 8300000, guid: d4a2d3e458cfc844a84282aa35176201, type: 3}
+    volume: 0.01
+    pitch: 0.82
+    loop: 0
+    source: {fileID: 0}
+  - name: SwordClang
+    clip: {fileID: 8300000, guid: 534a3fa5f06e151479ff4bc0ee58ad81, type: 3}
+    volume: 0.4
+    pitch: 0.93
+    loop: 0
+    source: {fileID: 0}
+  - name: SwordClang2
+    clip: {fileID: 8300000, guid: 534a3fa5f06e151479ff4bc0ee58ad81, type: 3}
+    volume: 0.4
+    pitch: 0.73
+    loop: 0
+    source: {fileID: 0}
+  - name: SwordClang3
+    clip: {fileID: 8300000, guid: 534a3fa5f06e151479ff4bc0ee58ad81, type: 3}
+    volume: 0.4
+    pitch: 1.15
+    loop: 0
+    source: {fileID: 0}
+  - name: Beep
+    clip: {fileID: 8300000, guid: 1fdc10cc9769d974e9f44cc7f223cba2, type: 3}
+    volume: 0.17
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: SelectBeep
+    clip: {fileID: 8300000, guid: d8430ab40ba86374ab19142446995032, type: 3}
+    volume: 0.17
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: SelectShudder
+    clip: {fileID: 8300000, guid: f20949f881c2f7540a4e8a37fe62be8f, type: 3}
+    volume: 0.4
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: StartMenuMusic
+    clip: {fileID: 8300000, guid: 72ba7e36b8028b845bc9171a01da4499, type: 3}
+    volume: 0.17
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: MusicMenu
+    clip: {fileID: 8300000, guid: 4e52620ef29f12e43934baa3223564ad, type: 3}
+    volume: 0.17
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+--- !u!4 &516737285
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 516737283}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.0271162, y: -2.8738375, z: -75.28471}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1742394817
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1742394818}
+  - component: {fileID: 1742394819}
+  m_Layer: 0
+  m_Name: Initalisation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1742394818
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1742394817}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1742394819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1742394817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eef4fa18f424a584c8c48a9d9b5891fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
