@@ -6,17 +6,18 @@ using UnityEngine.SceneManagement;
 public class MainMenuController : MonoBehaviour
 {
 
-private void Start()
-{
-FindObjectOfType<AudioManager>().Play("StartMenuMusic");
-}
+    private void Start()
+    {
+        FindObjectOfType<AudioManager>().Play("StartMenuMusic");
+        FindObjectOfType<AudioManager>().StopPlaying("MusicFight");
+    }
 
     public void PlayGame()
     {
 
-     FindObjectOfType<AudioManager>().Play("SelectBeep");
+        FindObjectOfType<AudioManager>().Play("SelectBeep");
   
-     FindObjectOfType<AudioManager>().StopPlaying("StartMenuMusic");
+         FindObjectOfType<AudioManager>().StopPlaying("StartMenuMusic");
 
         SceneManager.LoadScene(2);
     }

@@ -30,6 +30,7 @@ public Sound[] sounds;
        s.source.volume = s.volume;
        s.source.pitch = s.pitch;
        s.source.loop = s.loop;
+            s.source.playOnAwake = false;
         }
     }
     void Start()
@@ -40,30 +41,30 @@ public Sound[] sounds;
 
     public void Play (string name)
   {
-  Sound s = Array.Find(sounds, sound => sound.name == name);
+        Sound s = Array.Find(sounds, sound => sound.name == name);
 
-  if (s == null)
-  {
-  Debug.LogWarning("Sound: " + name + " not found");
-   return;
-  }
+            if (s == null)
+                {
+                Debug.LogWarning("Sound: " + name + " not found");
+                 return;
+                }
 
-  s.source.Play();
-  }
+             s.source.Play();
+   }
 
 
     public void PlayOnce (string name)
   {
-  Sound s = Array.Find(sounds, sound => sound.name == name);
+        Sound s = Array.Find(sounds, sound => sound.name == name);
 
-  if (s == null)
-  {
-  Debug.LogWarning("Sound: " + name + " not found");
-   return;
-  }
-  if (!s.source.isPlaying) s.source.Play();
+            if (s == null)
+            {
+                Debug.LogWarning("Sound: " + name + " not found");
+                 return;
+             }
+             if (!s.source.isPlaying) s.source.Play();
  
-  }
+    }
 
 
 

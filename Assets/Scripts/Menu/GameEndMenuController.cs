@@ -8,6 +8,7 @@ public class GameEndMenuController : MonoBehaviour
     private void Start()
     {
         FindObjectOfType<AudioManager>().Play("MusicMenu");
+        FindObjectOfType<AudioManager>().StopPlaying("MusicFight");
     }
 
     public void Replay()

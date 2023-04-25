@@ -11,7 +11,7 @@ public class ChangeImage : MonoBehaviour
 
     void Start()
     {
-        FindObjectOfType<AudioManager>().Play("PlayerMusic");
+        //FindObjectOfType<AudioManager>().Play("PlayerMusic");
     }
 
     // Update is called once per frame

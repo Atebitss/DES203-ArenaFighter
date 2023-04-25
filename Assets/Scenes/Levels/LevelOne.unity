@@ -54303,7 +54303,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e37c70691f36c8d4a886f4d3607163d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  countdownTime: 180
+  countdownTime: 10
   timer: {fileID: 973762943}
   countdownActive: 0
   levelScript: {fileID: 1717366795}

@@ -296,6 +296,6 @@ public class LevelScript : MonoBehaviour
     //~~~~~~~ TIME UP ~~~~~~~\\
     public void TimeUp()
     {
-        SceneManager.LoadScene(4);
+        SceneManager.LoadScene(5);
     }
 }

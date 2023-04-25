@@ -9,7 +9,7 @@ public class LevelMenuController : MonoBehaviour
 
     private void Awake()
     {
-        FindObjectOfType<AudioManager>().Play("LevelMusic");
+        FindObjectOfType<AudioManager>().Play("MusicMenu");
     }
 
     public void Level1()
