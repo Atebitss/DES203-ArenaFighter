@@ -182,7 +182,7 @@ public class LevelScript : MonoBehaviour
                 playerAuraLight.color = new Color(0f, 1f, 0f, 1f); //green
                 break;
             case 3:
-                playerAuraLight.color = new Color(1f, 1f, 0f, 1f); //yellow
+                playerAuraLight.color = new Color(0f, 1f, 1f, 1f); //cyan
                 break;
             default:
                 playerAuraLight.color = new Color(1f, 1f, 1f, 1f); //white, should never appear
