@@ -230,6 +230,8 @@ public class PlayerController : MonoBehaviour
 
         //~~~ WALL JUMP ~~~\\ 
 
+        //wall sliding code adapted  from https://www.youtube.com/watch?v=_UBpkdKlJzE and https://www.youtube.com/watch?v=O6VX6Ro7EtA 
+
         else if (wallCoyoteCounter > 0 & !IsGrounded() & facingRight && move.x > 0f) // Wall Climbing when facing right
         {
             isWallJumping = true;
@@ -316,10 +318,9 @@ public class PlayerController : MonoBehaviour
     }
     private void WallSlide()
     {
-        //wall jumping code adapted  from https://www.youtube.com/watch?v=_UBpkdKlJzE and https://www.youtube.com/watch?v=O6VX6Ro7EtA | 
+        //wall sliding code adapted  from https://www.youtube.com/watch?v=_UBpkdKlJzE and https://www.youtube.com/watch?v=O6VX6Ro7EtA 
         if (wallJumpCooldown > 0.2f && (!IsOnIce()) && !isWallJumping && !isTeleporting)
         {
-            //playerRigid.velocity = new Vector2(move.x * moveForce, playerVelocity.y);
 
             if (OnStickyWall() && !IsGrounded())
             {
@@ -340,8 +341,6 @@ public class PlayerController : MonoBehaviour
         if (IsOnBouncy())
         {
 
-            // float previousYMovement = playerRigid.velocity.y;
-            // playerRigid.velocity = new Vector2(playerVelocity.x, -previousYMovement * bounceRebound);
             playerRigid.velocity = new Vector2(playerVelocity.x, jumpForce * bounceRebound);
             FindObjectOfType<AudioManager>().Play("Bouncy");
             print("Yipeeee");
@@ -356,10 +355,7 @@ public class PlayerController : MonoBehaviour
                 }
                   
             }
-            else
-            {
-                print ("whoops");
-            }
+           
            
         }
 
@@ -370,21 +366,9 @@ public class PlayerController : MonoBehaviour
     private void Teleport()
     {
         isTeleporting = true;
-        Vector2 previousVelocity = playerVelocity;
+       
         transform.position = currentTeleporter.GetComponent<Teleporter>().GetDestination().position;
         FindObjectOfType<AudioManager>().Play("Teleport");
-
-
-        Quaternion destinationRotation = currentTeleporter.GetComponent<Teleporter>().GetDestination().rotation;
-        Quaternion currentRotation = currentTeleporter.GetComponent<Transform>().rotation;
-
-        if (destinationRotation != currentRotation)
-        {
-            //Debug.Log("rotation is different, adding force");
-            //will shoot out portal with the 80% of the velocity it fell into the portal with
-            playerRigid.velocity = new Vector2((-previousVelocity.y) * 0.8f, previousVelocity.x);
-            //will not work when teleporting to teleports facing left due to velocity direction, need to find a fix
-        }
 
         Invoke(nameof(StopTeleporting), teleportingDuration);
     }
