@@ -11,12 +11,9 @@ public class Mushroom : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-   
-
     public void Bounce()
     {
         animator.SetTrigger("Bouncing");
-        print("should be bouncing");
     }
 }
 
