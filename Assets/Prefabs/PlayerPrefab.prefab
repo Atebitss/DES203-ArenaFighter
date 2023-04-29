@@ -399,7 +399,7 @@ MonoBehaviour:
   teleportingDuration: 0.2
   deflectDuration: 0.5
   deflectForce: 30
-  attackBuildUp: 0.2
+  attackBuildUp: 0
   attackTimer: 0.4
 --- !u!95 &2754353247358211400
 Animator:
