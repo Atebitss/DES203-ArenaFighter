@@ -562,23 +562,13 @@ public class PlayerController : MonoBehaviour
         //if we hit something, and that something has the Ice tag, return true, else, return false
         if (raycastHit.collider != null)
         {
-
             if (raycastHit.collider.CompareTag("Ice"))
-            {
                 return true;
-            }
             else
-            {
                 return false;
-            }
-
         }
         else
-        {
             return false;
-        }
-
-
     }
     public bool IsOnBouncy()
     {
@@ -588,22 +578,14 @@ public class PlayerController : MonoBehaviour
         //if we hit something, and that something has the Bouncy tag, return true, else, return false
         if (raycastHit.collider != null)
         {
-
             if (raycastHit.collider.CompareTag("Bouncy"))
-            {
-                return true;
-                
-            }
-            else
-            {
-                return false;
-            }
-
+               return true;
+             else
+               return false;
         }
         else
-        {
             return false;
-        }
+        
 
 
     }

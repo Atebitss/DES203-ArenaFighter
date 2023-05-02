@@ -14,7 +14,7 @@ public class UIController : MonoBehaviour
     public TextMeshProUGUI timer;
     public bool countdownActive;
     [SerializeField] private LevelScript levelScript;
-    public bool runningOutOfTime;
+    private bool runningOutOfTime;
     
     // Start is called before the first frame update
     void Start()
