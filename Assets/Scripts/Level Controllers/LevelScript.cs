@@ -20,14 +20,12 @@ public class LevelScript : MonoBehaviour
     private GameObject[] spawnPoints;
     private int[] spawnOrder = new int[4];
 
-    //playersInput
+    //PlayerData.playerInputs
+    private PlayerJoinHandler pjh;
     private PlayerController[] playerScripts = new PlayerController[4];
-    private PlayerInput[] playersInput = new PlayerInput[4];
     private GameObject[] players = new GameObject[4];
-    private int numOfPlayers = 0;
     private int curPlayerPos = 0;
     private int prevPlayerPos = 0;
-    private int leavingPlayerNum = 0;
 
     //important level & multiplayer stuff
     public static LevelScript instance = null;
@@ -35,6 +33,7 @@ public class LevelScript : MonoBehaviour
     public event System.Action<PlayerInput> PlayerLeftGame;
     [SerializeField] private InputAction joinAction;
     [SerializeField] private InputAction leaveAction;
+    [SerializeField] private GameObject playerPrefab;
 
     //player sprites 
     [SerializeField] private Sprite player1sprite;
@@ -47,9 +46,6 @@ public class LevelScript : MonoBehaviour
     //~~~~~~~ LEVEL BASICS ~~~~~~~\\
     private void Awake()
     {
-        //start level music
-        FindObjectOfType<AudioManager>().Play("MusicFight");
-
         //ensure there is only 1 level script
         if (instance == null)
         {
@@ -60,12 +56,12 @@ public class LevelScript : MonoBehaviour
             Destroy(gameObject);
         }
 
-        //set join/leave actions
-        joinAction.Enable();
-        joinAction.performed += ctx => JoinAction(ctx);
+        //PlayerData.GetPlayers();
+        if (!PlayerData.gameRun) { PlayerData.gameRun = true; }
 
-        leaveAction.Enable();
-        leaveAction.performed += ctx => LeaveAction(ctx);
+        //start level music
+        FindObjectOfType<AudioManager>().Play("MusicFight");
+
 
         //set spawn point order
         SetSpawnPoints();
@@ -75,6 +71,24 @@ public class LevelScript : MonoBehaviour
         if (devMode)
         {
             DUIM = GameObject.Find("DebugUI").GetComponent<DebugUIManager>();
+        }
+    }
+
+
+    private void Start()
+    {
+        for (int player = 0; player < PlayerData.numOfPlayers; player++)
+        {
+            string playerRef = "PlayerJoin" + player;
+            //Debug.Log(playerRef);
+            Destroy(GameObject.Find(playerRef));
+            //Debug.Log("curplayerpos currently " + curPlayerPos);
+            curPlayerPos = player;
+            //Debug.Log("setting curplayerpos to " + player);
+
+            //saviour code from Rene-Damm in the Unity Forum - https://forum.unity.com/threads/local-multiplayer-lobby-scene-gameplay-scene.845044/
+            PlayerInput.Instantiate(playerPrefab, controlScheme: PlayerData.playerControlScheme[curPlayerPos], playerIndex: curPlayerPos, pairWithDevices: PlayerData.playerDevices[curPlayerPos]);
+            NewPlayer();
         }
     }
 
@@ -129,31 +143,31 @@ public class LevelScript : MonoBehaviour
 
 
     //~~~~~~~ ADD NEW PLAYER ~~~~~~~\\
-    public void NewPlayer(GameObject newPlayer)
+    public void NewPlayer()
     {
         //fills the arrays with the applicable player & script
-        //Debug.Log("New Player: " + newPlayer.name);
+        GameObject newPlayer = GameObject.Find("Player" + curPlayerPos);
         players[curPlayerPos] = newPlayer;
         playerScripts[curPlayerPos] = newPlayer.GetComponent<PlayerController>();
+        //Debug.Log("New Player: " + newPlayer.name);
 
         //apply stats
-        ApplyColour(newPlayer);
+        ApplyColour();
         ApplyLevelStats();
 
         if (devMode)
         {
             //Debug.Log("Dev mode for " + newPlayer.name);
-            DUIM.EnablePlayer(curPlayerPos, newPlayer);
+            DUIM.EnablePlayer(curPlayerPos, players[curPlayerPos]);
         }
     }
-
 
 
     //~~~~~~~ NEW PLAYER SPECIFICS ~~~~~~~\\
     private void ApplyLevelStats()
     {
         //applies levels stats to new player
-        //Debug.Log("applying stats to " + players[numOfPlayers] + ", " + playerScripts[numOfPlayers]);
+        //Debug.Log("applying stats to " + players[PlayerData.numOfPlayers] + ", " + playerScripts[PlayerData.numOfPlayers]);
         playerScripts[curPlayerPos].SetMoveForce(playerMoveForce);
         playerScripts[curPlayerPos].SetJumpForce(playerJumpForce);
         playerScripts[curPlayerPos].SetPlayerGravity(playerGravity);
@@ -161,15 +175,16 @@ public class LevelScript : MonoBehaviour
         playerScripts[curPlayerPos].SetDevMode(devMode);
     }
 
-    private void ApplyColour(GameObject newPlayer)
+    private void ApplyColour()
     {
+        //Debug.Log("ApplyColour to " + players[curPlayerPos]);
         //old sprite colouring
         //SpriteRenderer playerRend = newPlayer.GetComponent<SpriteRenderer>();
         //Color newColor = new Color(0.5f, 0.5f, 1f, 1f);
         //playerRend.color = Color.red;
 
         //gives the appropriate colour based on player number
-        Light2D playerAuraLight = newPlayer.GetComponent<Light2D>();
+        Light2D playerAuraLight = players[curPlayerPos].GetComponent<Light2D>();
         switch (curPlayerPos)
         {
             case 0:
@@ -193,90 +208,27 @@ public class LevelScript : MonoBehaviour
 
 
 
-
-    //~~~~~~~ PLAYER JOINED ~~~~~~~\\
-    void JoinAction(InputAction.CallbackContext ctx)
-    {
-        //joins player as long as there are less than 4 players
-        //Debug.Log("JoinAction()");
-        if (numOfPlayers < 4)
-        {
-            PlayerInputManager.instance.JoinPlayerFromActionIfNotAlreadyJoined(ctx);
-        }
-    }
-
-    void OnPlayerJoined(PlayerInput playerInput)
-    {
-        //runs when a player joins
-        //Debug.Log("Player joined..");
-        if (PlayerJoinedGame != null)
-        {
-            PlayerJoinedGame(playerInput);
-        }
-
-        //finds the lowest empty element in the players array & updates the current player int
-        for (int playerCheck = 0; playerCheck < 4; playerCheck++)
-        {
-            //Debug.Log(playerCheck);
-            if (playersInput[playerCheck] == null)
-            {
-                //Debug.Log("player input " + playerCheck + ": " + playersInput[playerCheck]);
-                playersInput[playerCheck] = playerInput;
-                curPlayerPos = playerCheck;
-                playerCheck = 4;
-                //Debug.Log("playersInput: " + playersInput[numOfPlayers]);
-            }
-        }
-
-        numOfPlayers++; //increase total number of players
-    }
-
-
-
-    //~~~~~~~ PLAYER LEFT ~~~~~~~\\
-    void LeaveAction(InputAction.CallbackContext ctx)
-    {
-        //leaves player
-        //Debug.Log("LeaveAction()");
-    }
-
-    void OnPlayerLeft(PlayerInput playerInput)
-    {
-        //player leaving code
-        //Debug.Log("OnPlayerLeft()");
-        //Debug.Log("Player left...");
-
-        //remove targeted player from of array
-        playerScripts[leavingPlayerNum] = null;
-        playersInput[leavingPlayerNum] = null;
-        players[leavingPlayerNum] = null;
-
-        if (devMode)
-        {
-            DUIM.DisablePlayer(leavingPlayerNum);
-        }
-
-        //decrease total number of players
-        numOfPlayers--;
-
-
-        if (PlayerLeftGame != null)
-        {
-            PlayerLeftGame(playerInput);
-        }
-    }
-
-
-
     //~~~~~~~ KILL PLAYER ~~~~~~~\\
     public void Kill(GameObject target, GameObject killer)
     {
-        //identify the targeted player
-        leavingPlayerNum = (int)char.GetNumericValue(target.name[6]);
+        //update scores
+        int killerPlayerNum = (int)char.GetNumericValue(killer.name[6]);
+        PlayerData.playerScores[killerPlayerNum]++;
+        Debug.Log(killer.name + " has " + PlayerData.playerScores[killerPlayerNum] + " kills");
         target.GetComponent<PlayerController>().Death();
     }
 
+    public void Respawn(int playerNum, GameObject player, Animator anim)
+    {
+        //Debug.Log("respawning " + player.name);
+        player.transform.position = spawnPoints[spawnOrder[playerNum] - 1].transform.position;
 
+        if (player.transform.position.x < 0) { player.transform.localScale = new Vector2(1, 1); }
+        else if (player.transform.position.x > 0) { player.transform.localScale = new Vector2(-1, 1); }
+
+        anim.ResetTrigger("Dying");
+        anim.SetTrigger("Respawning");
+    }
 
 
 

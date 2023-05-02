@@ -9,7 +9,5 @@ public class Initalisation : MonoBehaviour
     void Start()
     {
         SceneManager.LoadScene(1);
-    }
-
-    
+    }    
 }

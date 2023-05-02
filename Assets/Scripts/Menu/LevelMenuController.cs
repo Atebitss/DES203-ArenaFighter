@@ -12,6 +12,12 @@ public class LevelMenuController : MonoBehaviour
         FindObjectOfType<AudioManager>().Play("MusicMenu");
     }
 
+    public void Back()
+    {
+        FindObjectOfType<AudioManager>().Play("SelectBeep");
+        SceneManager.LoadScene(1);
+    }
+
     public void Level1()
     {
     FindObjectOfType<AudioManager>().Play("SelectBeep");
@@ -21,9 +27,9 @@ public class LevelMenuController : MonoBehaviour
 
     public void Level2() 
     {
-    FindObjectOfType<AudioManager>().Play("SelectBeep");
-  //  FindObjectOfType<AudioManager>().StopPlaying("LevelMusic");
-        SceneManager.LoadScene(3);
+        FindObjectOfType<AudioManager>().Play("SelectBeep");
+        //FindObjectOfType<AudioManager>().StopPlaying("LevelMusic");
+        //SceneManager.LoadScene(x);
     }
 
 }

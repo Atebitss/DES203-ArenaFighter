@@ -13,24 +13,24 @@ public Sound[] sounds;
     void Awake()
     {
 
-// if (instance == null)
-  //instance = this;
-  //else
-  // {
-   //   Destroy(gameObject);
-   //   return;
- //  }
+     //if (instance == null)
+      //instance = this;
+      //else
+      // {
+       //   Destroy(gameObject);
+       //   return;
+     //  }
 
 
         foreach (Sound s in sounds)
         {
-       s.source = gameObject.AddComponent<AudioSource>();
-       s.source.clip = s.clip;
+           s.source = gameObject.AddComponent<AudioSource>();
+           s.source.clip = s.clip;
 
-       s.source.volume = s.volume;
-       s.source.pitch = s.pitch;
-       s.source.loop = s.loop;
-            s.source.playOnAwake = false;
+           s.source.volume = s.volume;
+           s.source.pitch = s.pitch;
+           s.source.loop = s.loop;
+           s.source.playOnAwake = false;
         }
     }
     void Start()

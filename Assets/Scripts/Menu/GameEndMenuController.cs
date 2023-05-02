@@ -13,25 +13,16 @@ public class GameEndMenuController : MonoBehaviour
 
     public void Replay()
     {
-
         FindObjectOfType<AudioManager>().Play("SelectBeep");
-
         FindObjectOfType<AudioManager>().StopPlaying("MusicMenu");
-
         SceneManager.LoadScene(4);
     }
 
     public void QuitToMenu()
     {
-
         FindObjectOfType<AudioManager>().Play("SelectBeep");
-
         FindObjectOfType<AudioManager>().StopPlaying("MusicMenu");
-
-        SceneManager.LoadScene(1);
-
-      
+        PlayerData.ResetStats();
+        SceneManager.LoadScene(1);      
     }
-
-
 }
