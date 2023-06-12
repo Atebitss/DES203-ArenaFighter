@@ -20,8 +20,8 @@ public class PlayerController : MonoBehaviour
     //~~~~~~~ GAMEPLAY ~~~~~~~\\
     //~~~ JUMPING ~~~\\
     [Header("Jumping")]
-    [SerializeField] private float coyoteTime = 0.1f;
     private float coyoteCounter;
+    [SerializeField] private float coyoteTime = 0.1f;
 
     private float jumpBufferCounter;
     [SerializeField] private float jumpBufferTime = 0.2f;
@@ -40,10 +40,11 @@ public class PlayerController : MonoBehaviour
     private bool onIce;
 
     //~~~ WALL SLIDE & JUMP ~~~\\
-    [Header("Wall Jumping and Sliding")]
+    [Header("Wall Jumps, Climbs and Slides")]
     [SerializeField] private float wallSlideSpeed = -2f;
     [SerializeField] private float wallCoyoteTime;
      private float wallCoyoteCounter;
+     private float wallJumpCooldown;
      private bool onStickyWall;
      private bool isWallJumping;
      private float wallJumpingDirection;
@@ -203,10 +204,11 @@ public class PlayerController : MonoBehaviour
     {
         isJumping = true;
 
-        if (coyoteCounter > 0 && jumpBufferCounter > 0 ) //checking for coyote time and jump buffer
+        if (coyoteCounter > 0 && jumpBufferCounter > 0 || coyoteCounter > 0 && jumpBufferCounter < 0) //checking for coyote time and jump buffer
         {
             if (IsOnBouncy())
             {
+                print("BIG JUMP");
                 playerRigid.velocity = new Vector2(playerVelocity.x, jumpForce * bounceMultiplier); //Bouncy Jump
                 PlayJumpAudio();
 
@@ -216,6 +218,7 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
+                Debug.Log("jump");
                 playerRigid.velocity = new Vector2(playerVelocity.x, jumpForce); // Normal Jump
                 PlayJumpAudio();
 
@@ -227,16 +230,16 @@ public class PlayerController : MonoBehaviour
 
         //~~~ WALL JUMP ~~~\\ 
 
-        //wall jumping code adapted  from https://www.youtube.com/watch?v=_UBpkdKlJzE and https://www.youtube.com/watch?v=O6VX6Ro7EtA 
+        //wall sliding code adapted  from https://www.youtube.com/watch?v=_UBpkdKlJzE and https://www.youtube.com/watch?v=O6VX6Ro7EtA 
 
         else if (wallCoyoteCounter > 0 & !IsGrounded() & facingRight && move.x > 0f) // Wall Climbing when facing right
         {
             isWallJumping = true;
             playerRigid.velocity = new Vector2(-transform.localScale.x * 4, 20);
             PlayJumpAudio();
+            wallJumpCooldown = 0;
 
-            wallCoyoteCounter = 0f;
-
+         
             Invoke(nameof(StopWallJumping), wallClimbingDuration); //while we are wall climbing, the player cannot change thier velocity, so after a duration, let the players control the PC again
         }
         else if (wallCoyoteCounter > 0 & !IsGrounded() & !facingRight && move.x < 0f) // Wall Climbing when facing left
@@ -244,20 +247,19 @@ public class PlayerController : MonoBehaviour
             isWallJumping = true;
             playerRigid.velocity = new Vector2(-transform.localScale.x * 4, 20);
             PlayJumpAudio();
+            wallJumpCooldown = 0;
 
-            wallCoyoteCounter = 0f;
-
-            Invoke(nameof(StopWallJumping), wallClimbingDuration);  //while we are wall climbing, the player cannot change thier velocity, so after a duration, let the players control the PC again
+           
+            Invoke(nameof(StopWallJumping), wallClimbingDuration); 
         }
-        else if (wallCoyoteCounter > 0 & !IsGrounded()) // BIG WALL JUMP / WALL KICK
+        else if (wallCoyoteCounter > 0 & !IsGrounded()) // Wall Jumping / Kicking
         {
             isWallJumping = true;
             playerRigid.velocity = new Vector2(-transform.localScale.x * 12, 20);
             PlayJumpAudio();
+            wallJumpCooldown = 0;
 
-            wallCoyoteCounter = 0f;
-
-            if (transform.localScale.x != wallJumpingDirection) //flips player so they are facing the direction that they are jumping towards
+             if (transform.localScale.x != wallJumpingDirection) //flips player so they are facing the direction that they are jumping towards
              {
                  Vector3 localScale = transform.localScale;
                  localScale.x *= -1f;
@@ -302,7 +304,7 @@ public class PlayerController : MonoBehaviour
         {
             if (move.x != 0) //when we have input, move normally (will refine this later)
             {
-                playerRigid.velocity = new Vector2(move.x * iceSpeed, playerVelocity.y);
+                playerRigid.velocity = new Vector3(move.x * iceSpeed, playerVelocity.y, 0);
             }
             else
             {
@@ -317,7 +319,7 @@ public class PlayerController : MonoBehaviour
     private void WallSlide()
     {
         //wall sliding code adapted  from https://www.youtube.com/watch?v=_UBpkdKlJzE and https://www.youtube.com/watch?v=O6VX6Ro7EtA 
-        if ((!IsOnIce()) && !isWallJumping && !isTeleporting)
+        if (wallJumpCooldown > 0.2f && (!IsOnIce()) && !isWallJumping && !isTeleporting)
         {
 
             if (OnStickyWall() && !IsGrounded())
@@ -326,31 +328,37 @@ public class PlayerController : MonoBehaviour
                 CancelInvoke(nameof(StopWallJumping));
 
                 playerRigid.velocity = new Vector2(playerRigid.velocity.x, Mathf.Clamp(playerRigid.velocity.y, wallSlideSpeed, float.MaxValue));
- 
+
+                
             }
-            
+
         }
-           
+        else
+            wallJumpCooldown += Time.deltaTime;
     }
     private void BounceMovement()
     {
         if (IsOnBouncy())
         {
+
             playerRigid.velocity = new Vector2(playerVelocity.x, jumpForce * bounceRebound);
             FindObjectOfType<AudioManager>().Play("Bouncy");
-     
+            print("Yipeeee");
+
             //animates the mushroom
-            RaycastHit2D mushroom = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, Vector2.down, 10f, groundLayer);
+            RaycastHit2D mushroom = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, Vector2.down, 50f, groundLayer);
             if (mushroom.collider != null) {
                 if (mushroom.collider.CompareTag("Bouncy"))
                 {
                     mushroom.collider.gameObject.GetComponent<Mushroom>().Bounce();
-                   
+                    print("shrrom innit");
                 }
                   
             }
            
+           
         }
+
     }
 
 
