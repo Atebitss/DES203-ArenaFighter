@@ -16,7 +16,7 @@ public class Mushroom : MonoBehaviour
     public void Bounce()
     {
         animator.SetTrigger("Bouncing");
-        print("should be bouncing");
+        //print("should be bouncing");
     }
 }
 

@@ -72,13 +72,10 @@ public class PlayerController : MonoBehaviour
     [Header("Combat")]
     [SerializeField] private float deflectDuration = 0.5f;
     [SerializeField] private float deflectForce = 60f;
-    [SerializeField] private float attackBuildUp = 0.1f;
-    [SerializeField] private float attackTimer = 0.4f;
+    [SerializeField] private float attackBuildUp = 0.0f;
+    [SerializeField] [Range(0.1f, 0.5f)] private float attackTimer = 0.2f;
     private GameObject attackObject;
     private bool isDeflecting, isAttacking;
-
-
-
 
 
 
@@ -89,9 +86,9 @@ public class PlayerController : MonoBehaviour
         //set level script, update in-game object with name, give level script new player object
         ls = GameObject.Find("LevelController").GetComponent<LevelScript>();
         gameObject.name = "Player" + ls.CurrentPlayer();
-        Debug.Log("New player awake, " + gameObject.name);
+        //Debug.Log("New player awake, " + gameObject.name);
 
-        ls.NewPlayer(gameObject);
+        //ls.NewPlayer(gameObject);
         transform.localScale = startingScale;
 
         animator = GetComponent<Animator>();
@@ -208,7 +205,7 @@ public class PlayerController : MonoBehaviour
         {
             if (IsOnBouncy())
             {
-                print("BIG JUMP");
+                //print("BIG JUMP");
                 playerRigid.velocity = new Vector2(playerVelocity.x, jumpForce * bounceMultiplier); //Bouncy Jump
                 PlayJumpAudio();
 
@@ -218,7 +215,7 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                Debug.Log("jump");
+                //Debug.Log("jump");
                 playerRigid.velocity = new Vector2(playerVelocity.x, jumpForce); // Normal Jump
                 PlayJumpAudio();
 
@@ -344,7 +341,7 @@ public class PlayerController : MonoBehaviour
             // playerRigid.velocity = new Vector2(playerVelocity.x, -previousYMovement * bounceRebound);
             playerRigid.velocity = new Vector2(playerVelocity.x, jumpForce * bounceRebound);
             FindObjectOfType<AudioManager>().Play("Bouncy");
-            print("Yipeeee");
+            //print("Yipeeee");
 
             //animates the mushroom
             RaycastHit2D mushroom = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, Vector2.down, 50f, groundLayer);
@@ -352,13 +349,13 @@ public class PlayerController : MonoBehaviour
                 if (mushroom.collider.CompareTag("Bouncy"))
                 {
                     mushroom.collider.gameObject.GetComponent<Mushroom>().Bounce();
-                    print("shrrom innit");
+                    //print("shrrom innit");
                 }
                   
             }
             else
             {
-                print ("whoops");
+                //print ("whoops");
             }
            
         }
@@ -395,30 +392,6 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    //~~~ DEFLECT ~~~\\
-    private void Deflect(GameObject target)
-    {
-        Debug.Log(target.name + " deflects " + this.gameObject.name + "'s attack.");
-        Debug.Log("isDeflecting");
-        isDeflecting = true;
-
-         PlayRebound();
-
-        //Debug.Log("velocity before: " + playerRigid.velocity);
-        playerRigid.velocity = new Vector2(-transform.localScale.x * deflectForce, (0.1F * -transform.localScale.x * deflectForce));
-
-       //ununcomment this to make the other player deflect as well target.GetComponent<PlayerController>().playerRigid.velocity = new Vector2(deflectForce, deflectForce);
-
-        //Debug.Log("velocity after: " + playerRigid.velocity);
-        Invoke(nameof(StopDeflect), deflectDuration);
-    }
-
-    private void StopDeflect()
-    {
-        //Debug.Log("deflect stop");
-        isDeflecting = false;
-    }
-
 
     //~~~ COMBAT ~~~\\
     public void OnAttack(InputAction.CallbackContext ctx)
@@ -441,6 +414,7 @@ public class PlayerController : MonoBehaviour
         //for each collider in the array,
         //if the position isnt null,
         //get the colliders tag & run the appropriate function
+        //Debug.Log("attacking");
         BoxCollider2D[] collisions = this.gameObject.transform.Find("Attack").GetComponent<PlayerAttackTrigger>().GetColliders();
 
         for (int colIndex = 0; colIndex < collisions.Length; colIndex++)
@@ -449,7 +423,7 @@ public class PlayerController : MonoBehaviour
             {
                 /*if (this.gameObject.name == "Player0")
                 {
-                    Debug.Log("index " + colIndex + ": " + collisions[colIndex]);
+                    //Debug.Log("index " + colIndex + ": " + collisions[colIndex]);
                 }*/
 
                 string colTag = collisions[colIndex].gameObject.tag;
@@ -480,9 +454,35 @@ public class PlayerController : MonoBehaviour
 
     private void AttackFinish()
     {
-        //Debug.Log("Attack timer over");
+        //Debug.Log("attack over");
         isAttacking = false;   //end attack
-        
+
+    }
+
+
+
+    //~~~ DEFLECT ~~~\\
+    private void Deflect(GameObject target)
+    {
+        //Debug.Log(target.name + " deflects " + this.gameObject.name + "'s attack.");
+        //Debug.Log("isDeflecting");
+        isDeflecting = true;
+
+        PlayRebound();
+
+        //Debug.Log("velocity before: " + playerRigid.velocity);
+        playerRigid.velocity = new Vector2(-transform.localScale.x * deflectForce, (0.1F * -transform.localScale.x * deflectForce));
+
+        //ununcomment this to make the other player deflect as well target.GetComponent<PlayerController>().playerRigid.velocity = new Vector2(deflectForce, deflectForce);
+
+        //Debug.Log("velocity after: " + playerRigid.velocity);
+        Invoke(nameof(StopDeflect), deflectDuration);
+    }
+
+    private void StopDeflect()
+    {
+        //Debug.Log("deflect stop");
+        isDeflecting = false;
     }
 
 
@@ -490,15 +490,31 @@ public class PlayerController : MonoBehaviour
     //~~~ DEATH ~~~\\
     public void Death() //RIP
     {
+        //Debug.Log(this.gameObject.name + " death");
+
+        //Gets the exact time of the death animation
+        AnimationClip[] clips = animator.runtimeAnimatorController.animationClips;
+        float deathTime = 0;
+
+        for(int i = 0; i < clips.Length; i++)
+        {
+            if(clips[i].name == "Death")
+            {
+                deathTime = clips[i].length;
+                //Debug.Log("death time set to " + deathTime);
+            }
+        }
+
         animator.SetTrigger("Dying");
         PlayDeathAudio();
-        Invoke(nameof(KillDelay), 0.5f);
+        Invoke(nameof(KillDelay), deathTime);
     }
 
     //delays destroying target to allow the death anim to play
     public void KillDelay()
     {
-        Destroy(this.gameObject);
+        //Debug.Log("delay over");
+        ls.Respawn((int)char.GetNumericValue(this.gameObject.name[6]), this.gameObject, animator);
     }
 
 
@@ -509,6 +525,8 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         string colTag = collision.gameObject.tag;
+        Debug.Log(this.name);
+        Debug.Log(collision.gameObject.name);
 
         //ADD COLLECTABLES
         switch (colTag)
@@ -825,9 +843,9 @@ public class PlayerController : MonoBehaviour
     private void HighlightHitboxes()
     {
         //declare variables
-        BoxCollider2D frontCol, backCol, playerCol, attackCol;
-        Vector3 fCenter, bCenter, pCenter, aCenter;
-        Vector3 fSize, fMin, fMax, bSize, bMin, bMax, pSize, pMin, pMax, aSize, aMin, aMax;
+        BoxCollider2D frontCol, backCol, playerCol, attackCol, topCol;
+        Vector3 fCenter, bCenter, pCenter, aCenter, tCenter;
+        Vector3 fSize, fMin, fMax, bSize, bMin, bMax, pSize, pMin, pMax, aSize, aMin, aMax, tSize, tMin, tMax;
 
 
         //~~~ FRONT ~~~\\
@@ -838,10 +856,10 @@ public class PlayerController : MonoBehaviour
         fMin = frontCol.bounds.min;
         fMax = frontCol.bounds.max;
 
-        /*Debug.Log("Collider Center : " + fCenter);
-        Debug.Log("Collider Size : " + fSize);
-        Debug.Log("Collider bound Minimum : " + fMin);
-        Debug.Log("Collider bound Maximum : " + fMax);*/
+        /*//Debug.Log("Collider Center : " + fCenter);
+        //Debug.Log("Collider Size : " + fSize);
+        //Debug.Log("Collider bound Minimum : " + fMin);
+        //Debug.Log("Collider bound Maximum : " + fMax);*/
 
         Debug.DrawLine //front top line
         (new Vector3(fMin.x, fMax.y, 0), //start
@@ -872,10 +890,10 @@ public class PlayerController : MonoBehaviour
         bMin = backCol.bounds.min;
         bMax = backCol.bounds.max;
 
-        /*Debug.Log("Collider Center : " + bCenter);
-        Debug.Log("Collider Size : " + bSize);
-        Debug.Log("Collider bound Minimum : " + bMin);
-        Debug.Log("Collider bound Maximum : " + bMax);*/
+        /*//Debug.Log("Collider Center : " + bCenter);
+        //Debug.Log("Collider Size : " + bSize);
+        //Debug.Log("Collider bound Minimum : " + bMin);
+        //Debug.Log("Collider bound Maximum : " + bMax);*/
 
         Debug.DrawLine //back top line
         (new Vector3(bMin.x, bMax.y, 0), //start
@@ -906,10 +924,10 @@ public class PlayerController : MonoBehaviour
         pMin = playerCol.bounds.min;
         pMax = playerCol.bounds.max;
 
-        /*Debug.Log("Collider Center : " + pCenter);
-        Debug.Log("Collider Size : " + pSize);
-        Debug.Log("Collider bound Minimum : " + pMin);
-        Debug.Log("Collider bound Maximum : " + pMax);*/
+        /*//Debug.Log("Collider Center : " + pCenter);
+        //Debug.Log("Collider Size : " + pSize);
+        //Debug.Log("Collider bound Minimum : " + pMin);
+        //Debug.Log("Collider bound Maximum : " + pMax);*/
 
         Debug.DrawLine //player top line
         (new Vector3(pMin.x, pMax.y, 0), //start
@@ -940,10 +958,10 @@ public class PlayerController : MonoBehaviour
         aMin = attackCol.bounds.min;
         aMax = attackCol.bounds.max;
 
-        /*Debug.Log("Collider Center : " + aCenter);
-        Debug.Log("Collider Size : " + aSize);
-        Debug.Log("Collider bound Minimum : " + aMin);
-        Debug.Log("Collider bound Maximum : " + aMax);*/
+        /*//Debug.Log("Collider Center : " + aCenter);
+        //Debug.Log("Collider Size : " + aSize);
+        //Debug.Log("Collider bound Minimum : " + aMin);
+        //Debug.Log("Collider bound Maximum : " + aMax);*/
 
         Debug.DrawLine //attack top line
         (new Vector3(aMin.x, aMax.y, 0), //start
@@ -964,5 +982,39 @@ public class PlayerController : MonoBehaviour
         (new Vector3(aMax.x, aMin.y, 0), //start
         new Vector3(aMax.x, aMax.y, 0), //end
         Color.red);
+
+
+
+        //~~~ TOP ~~~\\
+        topCol = this.transform.Find("Top").GetComponent<BoxCollider2D>();
+        tCenter = topCol.bounds.center;
+        tSize = topCol.bounds.size;
+        tMin = topCol.bounds.min;
+        tMax = topCol.bounds.max;
+
+        /*//Debug.Log("Collider Center : " + tCenter);
+        //Debug.Log("Collider Size : " + tSize);
+        //Debug.Log("Collider bound Minimum : " + tMin);
+        //Debug.Log("Collider bound Maximum : " + tMax);*/
+
+        Debug.DrawLine //top top line
+        (new Vector3(tMin.x, tMax.y, 0), //start
+        new Vector3(tMax.x, tMax.y, 0), //end
+        Color.green);
+
+        Debug.DrawLine //top bottom line
+        (new Vector3(tMin.x, tMin.y, 0), //start
+        new Vector3(tMax.x, tMin.y, 0), //end
+        Color.green);
+
+        Debug.DrawLine //top left line
+        (new Vector3(tMin.x, tMin.y, 0), //start
+        new Vector3(tMin.x, tMax.y, 0), //end
+        Color.green);
+
+        Debug.DrawLine //top right line
+        (new Vector3(tMax.x, tMin.y, 0), //start
+        new Vector3(tMax.x, tMax.y, 0), //end
+        Color.green);
     }
 }

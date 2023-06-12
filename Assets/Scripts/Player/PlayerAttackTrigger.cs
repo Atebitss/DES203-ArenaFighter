@@ -49,10 +49,10 @@ public class PlayerAttackTrigger : MonoBehaviour
             //Debug.Log("col index " + colIndex + ": " + cols[colIndex]);
             if (cols[colIndex] == collision)
             {
-                if (this.gameObject.transform.parent.name == "Player0")
+                /*if (this.gameObject.transform.parent.name == "Player0")
                 {
                     Debug.Log(this.gameObject.transform.parent.name + " removed " + cols[colIndex].gameObject.name + " from pos " + colIndex);
-                }
+                }*/
                 cols[colIndex] = null;
             }
         }

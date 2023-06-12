@@ -34,5 +34,12 @@ public class MainMenuController : MonoBehaviour
         print("Quit");
     }
 
+    public void OptionsMenu()
+    {
+        Debug.Log("Options menu called");
+        FindObjectOfType<AudioManager>().Play("SelectBeep");
+        FindObjectOfType<AudioManager>().StopPlaying("StartMenuMusic");
 
+        //SceneManager.LoadScene(x);
+    }
 }

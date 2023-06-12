@@ -38,7 +38,7 @@ public class UIController : MonoBehaviour
             else
             {
                 countdownTime = 0;
-                print("Time up");
+                //print("Time up");
 
                 levelScript.GetComponent<LevelScript>().TimeUp();
             }
