@@ -13,13 +13,13 @@ public class ChangeImage : MonoBehaviour
     {
         FindObjectOfType<AudioManager>().Play("Beep");
         imageComponent.sprite = newImage;
-        Debug.Log("updating image");
+        //Debug.Log("updating image");
     }
 
     public void ImageChange(Sprite newSpirte)
     {
         imageComponent.sprite = newSpirte;
-        Debug.Log("updating image with " + newSpirte);
+        //Debug.Log("updating image with " + newSpirte);
     }
 
     public void ResetImage()

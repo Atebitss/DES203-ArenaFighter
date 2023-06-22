@@ -8,8 +8,9 @@ public class PlayerData : MonoBehaviour
     public static PlayerInput[] playerInputs = new PlayerInput[4];
     public static InputDevice[] playerDevices = new InputDevice[4];
     public static string[] playerControlScheme = new string[4];
-    public static int[] playerScores = new int[4];
-    public static int numOfPlayers;
+    public static int[] playerScores = new int[4] { 14, 6, 16, 12 };
+    public static float[] timeSinceLastKill = new float[4] { 1.1f, 0.75f, 1.5f, 0.4f };
+    public static int numOfPlayers = 4;
     public static bool gameRun;
 
     public static void GetPlayers()
@@ -38,12 +39,14 @@ public class PlayerData : MonoBehaviour
 
     public static void ResetStats()
     {
+        numOfPlayers = 0;
+
         for (int p = 0; p < playerScores.Length; p++)
         {
             playerInputs[p] = null;
             playerDevices[p] = null;
             playerControlScheme[p] = null;
-            numOfPlayers = 0;
+            timeSinceLastKill[p] = 0;
         }
     }
 }

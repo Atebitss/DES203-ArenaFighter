@@ -76,6 +76,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] [Range(0.1f, 0.5f)] private float attackTimer = 0.2f;
     private GameObject attackObject;
     private bool isDeflecting, isAttacking;
+    private float timeSinceLastKill = 0;
 
 
 
@@ -159,6 +160,8 @@ public class PlayerController : MonoBehaviour
         //Animation checks
         animator.SetBool("isRunning", move.x != 0);
         animator.SetBool("isWallSliding", OnStickyWall());
+
+        timeSinceLastKill += Time.deltaTime;
     }
 
 
@@ -441,7 +444,9 @@ public class PlayerController : MonoBehaviour
                         //kill other player
                         //Debug.Log(this.gameObject.name + " stabs " + collisions[colIndex].gameObject.transform.parent.gameObject.name + " in the back.");
                         ls.Kill(collisions[colIndex].gameObject.transform.parent.gameObject, this.gameObject);
-                        
+                        int playerNum = (int)this.gameObject.name[6];
+                        PlayerData.timeSinceLastKill[playerNum] = timeSinceLastKill;
+                        timeSinceLastKill = 0;
                         break;
                     default:
                         break;
