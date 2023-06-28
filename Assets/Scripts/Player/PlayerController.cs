@@ -444,7 +444,8 @@ public class PlayerController : MonoBehaviour
                         //kill other player
                         //Debug.Log(this.gameObject.name + " stabs " + collisions[colIndex].gameObject.transform.parent.gameObject.name + " in the back.");
                         ls.Kill(collisions[colIndex].gameObject.transform.parent.gameObject, this.gameObject);
-                        int playerNum = (int)this.gameObject.name[6];
+                        char playerNumChar = this.gameObject.name[6];
+                        int playerNum = playerNumChar - '0';
                         PlayerData.timeSinceLastKill[playerNum] = timeSinceLastKill;
                         timeSinceLastKill = 0;
                         break;
@@ -530,8 +531,8 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         string colTag = collision.gameObject.tag;
-        Debug.Log(this.name);
-        Debug.Log(collision.gameObject.name);
+        //Debug.Log(this.name);
+        //Debug.Log(collision.gameObject.name);
 
         //ADD COLLECTABLES
         switch (colTag)

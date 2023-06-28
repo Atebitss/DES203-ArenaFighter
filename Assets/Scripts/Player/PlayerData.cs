@@ -8,9 +8,9 @@ public class PlayerData : MonoBehaviour
     public static PlayerInput[] playerInputs = new PlayerInput[4];
     public static InputDevice[] playerDevices = new InputDevice[4];
     public static string[] playerControlScheme = new string[4];
-    public static int[] playerScores = new int[4] { 4, 6, 6, 2 };
-    public static float[] timeSinceLastKill = new float[4] { 1.1f, 0.75f, 1.5f, 0.4f };
-    public static int numOfPlayers = 4;
+    public static int[] playerScores = new int[4];// { 4, 6, 6, 2 };
+    public static float[] timeSinceLastKill = new float[4];// { 1.1f, 0.75f, 1.5f, 0.4f };
+    public static int numOfPlayers = 0;
     public static bool gameRun;
 
     public static void GetPlayers()

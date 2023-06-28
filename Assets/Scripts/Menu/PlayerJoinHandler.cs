@@ -32,7 +32,6 @@ public class PlayerJoinHandler : MonoBehaviour
             Destroy(gameObject);
         }
 
-        Debug.Log("");
         Debug.Log("PlayerJoinHandler Awake()");
 
         //set join/leave actions
@@ -49,7 +48,7 @@ public class PlayerJoinHandler : MonoBehaviour
     //~~~~~~~ PLAYER JOINED ~~~~~~~\\
     void JoinAction(InputAction.CallbackContext ctx)
     {
-        //Debug.Log("JoinAction()");
+        Debug.Log("JoinAction()");
         if (SceneManager.GetActiveScene().name == "PlayerJoin")
         {
             //joins player as long as there are less than 4 players
@@ -79,8 +78,8 @@ public class PlayerJoinHandler : MonoBehaviour
     void OnPlayerJoined(PlayerInput playerInput)
     {
         //runs when a player joins
-        //Debug.Log("Player " + curPlayerPos + " joined..");
-        //Debug.Log("Input: " + playerInput);
+        Debug.Log("Player " + curPlayerPos + " joined..");
+        Debug.Log("Input: " + playerInput);
 
         if (PlayerJoinedGame != null)
         {
@@ -93,7 +92,7 @@ public class PlayerJoinHandler : MonoBehaviour
 
         //Debug.Log("increasing player count");
         PlayerData.numOfPlayers++; //increase total number of players
-        //PlayerData.GetPlayers();
+        PlayerData.GetPlayers();
 
         string findRef = "Image" + (curPlayerPos+1);
         Debug.Log(findRef);
@@ -107,7 +106,7 @@ public class PlayerJoinHandler : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "PlayerJoin")
         {
             //leaves player
-            //Debug.Log("LeaveAction()");
+            Debug.Log("LeaveAction()");
 
             if (PlayerData.numOfPlayers > 0)
             {
@@ -117,7 +116,7 @@ public class PlayerJoinHandler : MonoBehaviour
                     {
                         if (device != null && ctx.control.device == device)
                         {
-                            //Debug.Log("running unregister");
+                            Debug.Log("running unregister");
                             UnregisterPlayer(PlayerData.playerInputs[player]);
 
                             //decrease total number of players
@@ -129,12 +128,12 @@ public class PlayerJoinHandler : MonoBehaviour
                             //Debug.Log(playerNum);
                             GameObject.Find(findRef).GetComponent<ChangeImage>().ResetImage();
 
-                            //Debug.Log("removing " + PlayerData.playerInputs[player] + " from list");
+                            Debug.Log("removing " + PlayerData.playerInputs[player] + " from list");
                             PlayerData.playerInputs[player] = null;
                             PlayerData.playerDevices[player] = null;
                             PlayerData.playerControlScheme[player] = null;
 
-                            //PlayerData.GetPlayers();
+                            PlayerData.GetPlayers();
                             return;
                         }
                     }
@@ -145,7 +144,7 @@ public class PlayerJoinHandler : MonoBehaviour
 
     private void UnregisterPlayer(PlayerInput playerInput)
     {
-        //Debug.Log("Unregistering " + playerInput.transform.gameObject.name);
+        Debug.Log("Unregistering " + playerInput.transform.gameObject.name);
 
         if (PlayerLeftGame != null)
         {
@@ -153,7 +152,7 @@ public class PlayerJoinHandler : MonoBehaviour
             PlayerLeftGame(playerInput);
         }
 
-        //Debug.Log("destroying " + playerInput);
+        Debug.Log("destroying " + playerInput);
         Destroy(playerInput.transform.gameObject);
     }
 
@@ -163,10 +162,10 @@ public class PlayerJoinHandler : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name == "PlayerJoin")
         {
-            //Debug.Log("Start action");
+            Debug.Log("Start action");
             if (PlayerData.numOfPlayers >= 2)
             {
-                //Debug.Log("Enough player to start");
+                Debug.Log("Enough player to start");
                 GameObject.Find("PlayerJoinMenu").GetComponent<PlayerJoinMenuController>().StartGame();
             }
             else

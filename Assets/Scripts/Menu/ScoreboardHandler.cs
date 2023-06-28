@@ -102,7 +102,7 @@ public class ScoreboardHandler : MonoBehaviour
 
         for (int i = 0; i < numOfPlayers; i++)
         {
-            Debug.Log("Position " + (i+1) + ": Player " + playerPositions[i] + " with score " + playerScores[i] + " \tTSLK: " + playerTSLKs[i]);
+            Debug.Log("Position " + i + ": Player " + playerPositions[i] + " with score " + playerScores[i] + " \tTSLK: " + playerTSLKs[i]);
         }
     }
 
@@ -118,7 +118,7 @@ public class ScoreboardHandler : MonoBehaviour
             string imgRef = "Image" + (playerPodPos + 1);
             podiumImage[playerPodPos].SetActive(true);
             podiumImage[playerPodPos].GetComponent<ChangeImage>().ImageChange(playerSprites[playerPositions[playerPodPos]-1]);
-            Debug.Log("player " + playerPositions[playerPodPos] + " in position " + (playerPodPos + 1));
+            Debug.Log("player " + playerPodPos + " in position " + (playerPodPos + 1));
             Debug.Log(playerSprites[playerPositions[playerPodPos] - 1]);
 
             //update text
