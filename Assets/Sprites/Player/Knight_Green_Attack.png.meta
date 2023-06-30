@@ -1,22 +1,22 @@
 fileFormatVersion: 2
-guid: fdd7198b63bc0f949b06116079fc9e6a
+guid: b2c5be01b23ed724193400330417bf5a
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5842001994375171850
-    second: Knight_Attack Combined-2.png_0
+      213: 5834725919459071248
+    second: Knight_Green_Attack_0
   - first:
-      213: 2224219067537425343
-    second: Knight_Attack Combined-2.png_1
+      213: 6163928454148415578
+    second: Knight_Green_Attack_1
   - first:
-      213: -1792254976732515594
-    second: Knight_Attack Combined-2.png_2
+      213: 3784158651085562205
+    second: Knight_Green_Attack_2
   - first:
-      213: -1703589589444757135
-    second: Knight_Attack Combined-2.png_3
+      213: 6055349967977739633
+    second: Knight_Green_Attack_3
   - first:
-      213: -8097967930231815189
-    second: Knight_Attack Combined-2.png_4
+      213: -1686259477224009056
+    second: Knight_Attack Combined-3.png_4
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -106,28 +106,28 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Knight_Attack Combined-2.png_0
+      name: Knight_Green_Attack_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 240
+        y: 239
         width: 240
         height: 240
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6f0f42c632a0deea0800000000000000
-      internalID: -5842001994375171850
+      spriteID: 0155f1f5f4c19f050800000000000000
+      internalID: 5834725919459071248
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Knight_Attack Combined-2.png_1
+      name: Knight_Green_Attack_1
       rect:
         serializedVersion: 2
         x: 240
@@ -135,20 +135,20 @@ TextureImporter:
         width: 240
         height: 240
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fb3083f15730ede10800000000000000
-      internalID: 2224219067537425343
+      spriteID: a50607a654caa8550800000000000000
+      internalID: 6163928454148415578
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Knight_Attack Combined-2.png_2
+      name: Knight_Green_Attack_2
       rect:
         serializedVersion: 2
         x: 480
@@ -156,20 +156,20 @@ TextureImporter:
         width: 240
         height: 240
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6f2beec2891a027e0800000000000000
-      internalID: -1792254976732515594
+      spriteID: d512dab6e38048430800000000000000
+      internalID: 3784158651085562205
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Knight_Attack Combined-2.png_3
+      name: Knight_Green_Attack_3
       rect:
         serializedVersion: 2
         x: 0
@@ -177,35 +177,14 @@ TextureImporter:
         width: 240
         height: 240
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 179771e5b42ab58e0800000000000000
-      internalID: -1703589589444757135
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Knight_Attack Combined-2.png_4
-      rect:
-        serializedVersion: 2
-        x: 240
-        y: 0
-        width: 240
-        height: 240
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: be30704821d3e9f80800000000000000
-      internalID: -8097967930231815189
+      spriteID: 1757cf796bce80450800000000000000
+      internalID: 6055349967977739633
       vertices: []
       indices: 
       edges: []

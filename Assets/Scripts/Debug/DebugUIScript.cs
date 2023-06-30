@@ -31,7 +31,8 @@ public class DebugUIScript : MonoBehaviour
                 + "\nisOnBouncy: " + playerScript.IsOnBouncy()
                 + "\nisOnStickyWall: " + playerScript.OnStickyWall()
                 //+ "\n\njumpBufferCounter: " + playerScript.GetJumpBufferCounter()
-                + "\n\nisDeflecting: " + playerScript.IsDeflecting();
+                + "\n\nisDeflecting: " + playerScript.IsDeflecting()
+                + "\ntimeSinceLastKill: " + playerScript.GetTimeSinceLastKill();
         }
     }
 

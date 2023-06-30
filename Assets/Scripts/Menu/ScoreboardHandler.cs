@@ -17,13 +17,16 @@ public class ScoreboardHandler : MonoBehaviour
     void Awake()
     {
         //Debug.Log("ScoreboardHandler Awake()");
+        //Debug.Log(numOfPlayers);
         //assign variables
         for (int i = 0; i < numOfPlayers; i++)
         {
             playerScores[i] = PlayerData.playerScores[i];
             playerTSLKs[i] = PlayerData.timeSinceLastKill[i];
-            //Debug.Log("Position " + (i+1) + ": Player " + playerPositions[i] + " with score " + playerScores[i] + " \tTSLK: " + playerTSLKs[i]);
+            Debug.Log("Position " + (i+1) + ": Player " + playerPositions[i] + " with score " + playerScores[i] + "   TSLK: " + playerTSLKs[i]);
+            Debug.Log(playerSprites[playerPositions[i] - 1]);
         }
+        Debug.Log("~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 
 
         for (int playerPodPos = 0; playerPodPos < 4; playerPodPos++)
@@ -100,10 +103,10 @@ public class ScoreboardHandler : MonoBehaviour
             }
         }
 
-        for (int i = 0; i < numOfPlayers; i++)
+        /*for (int i = 0; i < numOfPlayers; i++)
         {
             Debug.Log("Position " + i + ": Player " + playerPositions[i] + " with score " + playerScores[i] + " \tTSLK: " + playerTSLKs[i]);
-        }
+        }*/
     }
 
 
@@ -118,7 +121,7 @@ public class ScoreboardHandler : MonoBehaviour
             string imgRef = "Image" + (playerPodPos + 1);
             podiumImage[playerPodPos].SetActive(true);
             podiumImage[playerPodPos].GetComponent<ChangeImage>().ImageChange(playerSprites[playerPositions[playerPodPos]-1]);
-            Debug.Log("player " + playerPodPos + " in position " + (playerPodPos + 1));
+            Debug.Log("Position " + (playerPodPos+1) + ": Player " + playerPositions[playerPodPos] + " with score " + playerScores[playerPodPos] + "   TSLK: " + playerTSLKs[playerPodPos]);
             Debug.Log(playerSprites[playerPositions[playerPodPos] - 1]);
 
             //update text

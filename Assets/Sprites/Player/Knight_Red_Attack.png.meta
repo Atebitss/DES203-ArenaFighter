@@ -4,19 +4,19 @@ TextureImporter:
   internalIDToNameTable:
   - first:
       213: -2854625527684031771
-    second: Knight_Attack Combined-1.png (1)_0
+    second: Knight_Red_Attack_0
   - first:
       213: -1031921030098968878
-    second: Knight_Attack Combined-1.png (1)_1
+    second: Knight_Red_Attack_1
   - first:
       213: -3339091792125712760
-    second: Knight_Attack Combined-1.png (1)_2
+    second: Knight_Red_Attack_2
   - first:
       213: 3658728591515297322
-    second: Knight_Attack Combined-1.png (1)_3
+    second: Knight_Red_Attack_3
   - first:
       213: -9106205288965324155
-    second: Knight_Attack Combined-1.png (1)_4
+    second: Knight_Red_Attack_4
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -178,7 +178,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Knight_Attack Combined-1.png (1)_0
+      name: Knight_Red_Attack_0
       rect:
         serializedVersion: 2
         x: 0
@@ -199,7 +199,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Knight_Attack Combined-1.png (1)_1
+      name: Knight_Red_Attack_1
       rect:
         serializedVersion: 2
         x: 240
@@ -220,7 +220,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Knight_Attack Combined-1.png (1)_2
+      name: Knight_Red_Attack_2
       rect:
         serializedVersion: 2
         x: 480
@@ -241,7 +241,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Knight_Attack Combined-1.png (1)_3
+      name: Knight_Red_Attack_3
       rect:
         serializedVersion: 2
         x: 0
@@ -257,27 +257,6 @@ TextureImporter:
       bones: []
       spriteID: a26a5dae44a66c230800000000000000
       internalID: 3658728591515297322
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Knight_Attack Combined-1.png (1)_4
-      rect:
-        serializedVersion: 2
-        x: 240
-        y: 0
-        width: 240
-        height: 240
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5824073598240a180800000000000000
-      internalID: -9106205288965324155
       vertices: []
       indices: 
       edges: []

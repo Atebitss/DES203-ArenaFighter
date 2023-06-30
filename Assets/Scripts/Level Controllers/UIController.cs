@@ -19,7 +19,8 @@ public class UIController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        countdownTime = (levelScript.GetRoundLength())*60;
+        //Debug.Log(countdownTime);
         countdownActive = true;
         runningOutOfTime = false;
         countdownTimeAtStart = countdownTime;

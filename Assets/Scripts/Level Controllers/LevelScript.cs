@@ -34,6 +34,7 @@ public class LevelScript : MonoBehaviour
     [SerializeField] private InputAction joinAction;
     [SerializeField] private InputAction leaveAction;
     [SerializeField] private GameObject playerPrefab;
+    [SerializeField] [Range(1, 5)] private float roundMins = 3;
 
     //player sprites 
     [SerializeField] private Sprite player1sprite;
@@ -248,6 +249,12 @@ public class LevelScript : MonoBehaviour
     //~~~~~~~ TIME UP ~~~~~~~\\
     public void TimeUp()
     {
+        for(int p = 0; p < PlayerData.numOfPlayers; p++){ PlayerData.timeSinceLastKill[p] = playerScripts[p].GetTimeSinceLastKill(); }
         SceneManager.LoadScene(5);
+    }
+
+    public float GetRoundLength()
+    {
+        return roundMins;
     }
 }

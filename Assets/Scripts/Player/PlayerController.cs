@@ -446,7 +446,6 @@ public class PlayerController : MonoBehaviour
                         ls.Kill(collisions[colIndex].gameObject.transform.parent.gameObject, this.gameObject);
                         char playerNumChar = this.gameObject.name[6];
                         int playerNum = playerNumChar - '0';
-                        PlayerData.timeSinceLastKill[playerNum] = timeSinceLastKill;
                         timeSinceLastKill = 0;
                         break;
                     default:
@@ -1022,5 +1021,11 @@ public class PlayerController : MonoBehaviour
         (new Vector3(tMax.x, tMin.y, 0), //start
         new Vector3(tMax.x, tMax.y, 0), //end
         Color.green);
+    }
+
+
+    public float GetTimeSinceLastKill()
+    {
+        return timeSinceLastKill;
     }
 }

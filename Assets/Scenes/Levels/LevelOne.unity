@@ -49403,7 +49403,7 @@ MonoBehaviour:
   playerGravity: 5
   playerMoveForce: 13
   playerJumpForce: 22
-  devMode: 0
+  devMode: 1
   joinAction:
     m_Name: Join
     m_Type: 0
@@ -49453,6 +49453,7 @@ MonoBehaviour:
       m_Action: Leave
       m_Flags: 0
   playerPrefab: {fileID: 2006578335114927435, guid: f5d7baf64116c154f9e667d7790ae77e, type: 3}
+  roundMins: 1
   player1sprite: {fileID: 21300000, guid: 09ed123ed743e4f439b5573857969f7b, type: 3}
   player2sprite: {fileID: 21300000, guid: e34d18eb3d81f334d85ed12963d11f06, type: 3}
   player3sprite: {fileID: 21300000, guid: ed55a094f2be5ad498e42beef55abaaf, type: 3}
