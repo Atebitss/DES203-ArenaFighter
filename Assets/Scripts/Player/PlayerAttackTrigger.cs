@@ -5,10 +5,14 @@ using UnityEngine;
 public class PlayerAttackTrigger : MonoBehaviour
 {
     private BoxCollider2D[] cols = new BoxCollider2D[10];
+    private string triggeringCollider;
 
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        //Debug.Log(this.transform.parent + " attack triggered by " + collision.gameObject.transform.name);
+        triggeringCollider = collision.gameObject.transform.name;
+
         /*if (this.gameObject.transform.parent.name == "Player0")
         {
             Debug.Log(this.transform.parent + " hits " + collision);
@@ -76,5 +80,10 @@ public class PlayerAttackTrigger : MonoBehaviour
         }
 
         return null;
+    }
+
+    public string GetTriggeringCollider()
+    {
+        return triggeringCollider;
     }
 }

@@ -30,6 +30,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float fallGravityMult = 1.4f;
 
     private bool isJumping;
+    private bool topTrigger;
 
 
     //~~~ ICE ~~~\\
@@ -72,7 +73,7 @@ public class PlayerController : MonoBehaviour
     [Header("Combat")]
     [SerializeField] private float deflectDuration = 0.5f;
     [SerializeField] private float deflectForce = 60f;
-    [SerializeField] private float attackBuildUp = 0.0f;
+    [SerializeField] [Range(0f, 0.5f)] private float attackBuildUp = 0.0f;
     [SerializeField] [Range(0.1f, 0.5f)] private float attackTimer = 0.2f;
     private GameObject attackObject;
     private bool isDeflecting, isAttacking;
@@ -544,10 +545,6 @@ public class PlayerController : MonoBehaviour
                     Teleport();
                 }
                 break;
-            case "PlayerTop": //jump off of players when we land on them
-                playerRigid.velocity = new Vector2(playerVelocity.x, jumpForce);
-                FindObjectOfType<AudioManager>().Play("Bouncy");
-                break;
             default:
                 break;
         }
@@ -572,21 +569,11 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    //~~~ FRONT TRIGGER ~~~\\
-    public void FrontTrigger(Collider2D collision)
+    //~~~ TOP TRIGGER ~~~\\
+    public void TopTrigger() //jump off of players when we land on them
     {
-    }
-
-
-    //~~~ BACK TRIGGER ~~~\\
-    public void BackTrigger(Collider2D collision)
-    {
-    }
-
-
-    //~~~ ATTACK TRIGGER ~~~\\
-    public void AttackTrigger(Collider2D collision)
-    {
+        playerRigid.velocity = new Vector2(playerVelocity.x, jumpForce);
+        FindObjectOfType<AudioManager>().Play("Bouncy");
     }
 
 
