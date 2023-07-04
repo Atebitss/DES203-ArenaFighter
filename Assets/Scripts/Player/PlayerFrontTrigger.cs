@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerBackTrigger : MonoBehaviour
+public class PlayerFrontTrigger : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        //Debug.Log(this.transform.parent + " back trigger");
+        //Debug.Log(this.transform.parent + " front trigger");
         PlayerController pc = this.transform.parent.gameObject.GetComponent<PlayerController>();
-        pc.BackTrigger(collision);
+        pc.FrontTrigger(collision);
     }
 }

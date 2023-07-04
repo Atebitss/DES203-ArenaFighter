@@ -20,9 +20,8 @@ public class PlayerController : MonoBehaviour
     //~~~~~~~ GAMEPLAY ~~~~~~~\\
     //~~~ JUMPING ~~~\\
     [Header("Jumping")]
-    private float coyoteCounter;
     [SerializeField] private float coyoteTime = 0.1f;
-
+    private float coyoteCounter;
     private float jumpBufferCounter;
     [SerializeField] private float jumpBufferTime = 0.2f;
 
@@ -30,7 +29,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float fallGravityMult = 1.4f;
 
     private bool isJumping;
-    private bool topTrigger;
 
 
     //~~~ ICE ~~~\\
@@ -73,7 +71,7 @@ public class PlayerController : MonoBehaviour
     [Header("Combat")]
     [SerializeField] private float deflectDuration = 0.5f;
     [SerializeField] private float deflectForce = 60f;
-    [SerializeField] [Range(0f, 0.5f)] private float attackBuildUp = 0.0f;
+    [SerializeField] private float attackBuildUp = 0.0f;
     [SerializeField] [Range(0.1f, 0.5f)] private float attackTimer = 0.2f;
     private GameObject attackObject;
     private bool isDeflecting, isAttacking;
@@ -149,6 +147,7 @@ public class PlayerController : MonoBehaviour
             jumpBufferCounter -= Time.deltaTime;
         }
 
+        //Animation checks
         if (!IsGrounded() && playerVelocity.y > 0 && !OnStickyWall())
         {
             animator.SetBool("IsJumping", true);
@@ -158,7 +157,7 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("IsJumping", false);
         }
 
-        //Animation checks
+        
         animator.SetBool("isRunning", move.x != 0);
         animator.SetBool("isWallSliding", OnStickyWall());
 
@@ -545,6 +544,10 @@ public class PlayerController : MonoBehaviour
                     Teleport();
                 }
                 break;
+            case "PlayerTop": //jump off of players when we land on them
+                playerRigid.velocity = new Vector2(playerVelocity.x, jumpForce);
+                FindObjectOfType<AudioManager>().Play("Bouncy");
+                break;
             default:
                 break;
         }
@@ -569,11 +572,21 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    //~~~ TOP TRIGGER ~~~\\
-    public void TopTrigger() //jump off of players when we land on them
+    //~~~ FRONT TRIGGER ~~~\\
+    public void FrontTrigger(Collider2D collision)
     {
-        playerRigid.velocity = new Vector2(playerVelocity.x, jumpForce);
-        FindObjectOfType<AudioManager>().Play("Bouncy");
+    }
+
+
+    //~~~ BACK TRIGGER ~~~\\
+    public void BackTrigger(Collider2D collision)
+    {
+    }
+
+
+    //~~~ ATTACK TRIGGER ~~~\\
+    public void AttackTrigger(Collider2D collision)
+    {
     }
 
 

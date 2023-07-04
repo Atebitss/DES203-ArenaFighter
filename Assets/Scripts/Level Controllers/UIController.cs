@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class UIController : MonoBehaviour
 {
@@ -19,7 +17,6 @@ public class UIController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        countdownTime = (levelScript.GetRoundLength())*60;
         //Debug.Log(countdownTime);
         countdownActive = true;
         runningOutOfTime = false;

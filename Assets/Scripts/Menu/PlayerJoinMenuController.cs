@@ -16,6 +16,6 @@ public class PlayerJoinMenuController : MonoBehaviour
 
         FindObjectOfType<AudioManager>().StopPlaying("MusicMenu");
 
-        SceneManager.LoadScene(4);
+        GameObject.Find("Loading Screen Manager").GetComponent<LoadScreenManager>().LoadLevel(4);
     }
 }
