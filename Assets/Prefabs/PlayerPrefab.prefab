@@ -383,10 +383,10 @@ MonoBehaviour:
     m_Bits: 72
   wallLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 72
   coyoteTime: 0.1
   jumpBufferTime: 0.2
-  playerGravity: 5
+  playerGravity: 6.7
   fallGravityMult: 1.4
   IceDecceleration: 0.99
   iceSpeed: 16
@@ -398,7 +398,7 @@ MonoBehaviour:
   bounceRebound: 1.25
   teleportingDuration: 0.2
   deflectDuration: 0.5
-  deflectForce: 30
+  deflectForce: 20
   attackBuildUp: 0.1
   attackTimer: 0.4
 --- !u!95 &2754353247358211400

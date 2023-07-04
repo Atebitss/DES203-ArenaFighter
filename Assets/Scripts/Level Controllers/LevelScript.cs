@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 public class LevelScript : MonoBehaviour
 {
     //variable player stats
-    [SerializeField] [Range(1, 5)] private float playerGravity = 2.5f;
+    [SerializeField] [Range(1, 10)] private float playerGravity = 2.5f;
     [SerializeField] [Range(1, 100)] private float playerMoveForce = 25f;
     [SerializeField] [Range(10, 50)] private float playerJumpForce = 25f;
 

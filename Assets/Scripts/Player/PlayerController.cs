@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
     private float jumpBufferCounter;
     [SerializeField] private float jumpBufferTime = 0.2f;
 
-    [SerializeField] private float playerGravity = 5f;
+    [SerializeField] private float playerGravity = 5.5f;
     [SerializeField] private float fallGravityMult = 1.4f;
 
     private bool isJumping;
@@ -159,7 +159,8 @@ public class PlayerController : MonoBehaviour
 
         
         animator.SetBool("isRunning", move.x != 0);
-        animator.SetBool("isWallSliding", OnStickyWall());
+       
+        animator.SetBool("isWallSliding", OnStickyWall() && !IsGrounded());
 
         timeSinceLastKill += Time.deltaTime;
     }

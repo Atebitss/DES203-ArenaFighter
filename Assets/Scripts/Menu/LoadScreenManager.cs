@@ -36,7 +36,8 @@ public class LoadScreenManager : MonoBehaviour
     //Disbaling loading and stuff for now, just pressing button will load the scene
     public void FightButton()
     {
-        SceneManager.LoadScene(4);
+        SceneManager.LoadScene(6);
+       
 
     }
 

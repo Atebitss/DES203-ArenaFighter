@@ -15,7 +15,7 @@ public class GameEndMenuController : MonoBehaviour
     {
         FindObjectOfType<AudioManager>().Play("SelectBeep");
         FindObjectOfType<AudioManager>().StopPlaying("MusicMenu");
-        SceneManager.LoadScene(4);
+        SceneManager.LoadScene(6);
     }
 
     public void QuitToMenu()
