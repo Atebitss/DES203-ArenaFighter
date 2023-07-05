@@ -52,4 +52,13 @@ public class PlayerInputHandler : MonoBehaviour
             playerController.OnAttack(ctx);
         }
     }
+
+    public void OnDash(InputAction.CallbackContext ctx)
+    {
+        if (ctx.started)
+        {
+            playerController.OnDash(ctx);
+        }
+    }
+
 }

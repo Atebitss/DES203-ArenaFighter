@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 891550369110636017}
   - component: {fileID: 4346688113396232699}
   - component: {fileID: 6261133276322896723}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Attack
   m_TagString: PlayerFront
   m_Icon: {fileID: 0}
@@ -30,7 +30,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5466975082429926606}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &4346688113396232699
 BoxCollider2D:
@@ -80,7 +80,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7608207645942959005}
   - component: {fileID: 5999145588278473023}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player Aura
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,7 +99,7 @@ Transform:
   m_LocalScale: {x: 3, y: 3, z: 1}
   m_Children: []
   m_Father: {fileID: 5466975082429926606}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5999145588278473023
 SpriteRenderer:
@@ -164,7 +164,7 @@ GameObject:
   - component: {fileID: 558517706638794217}
   - component: {fileID: 8087533034736346442}
   - component: {fileID: 1312819203288505609}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Front
   m_TagString: PlayerFront
   m_Icon: {fileID: 0}
@@ -238,7 +238,7 @@ GameObject:
   - component: {fileID: 5466975082429926602}
   - component: {fileID: 2754353247358211400}
   - component: {fileID: 7960266896346361892}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlayerPrefab
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -258,9 +258,9 @@ Transform:
   m_Children:
   - {fileID: 558517706638794217}
   - {fileID: 8473601938143140183}
+  - {fileID: 6441891608261450993}
   - {fileID: 891550369110636017}
   - {fileID: 7608207645942959005}
-  - {fileID: 6441891608261450993}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -384,15 +384,19 @@ MonoBehaviour:
   wallLayer:
     serializedVersion: 2
     m_Bits: 72
+  playerTop: {fileID: 5966848612155313899}
   coyoteTime: 0.1
   jumpBufferTime: 0.2
-  playerGravity: 6.7
+  playerGravity: 5.5
   fallGravityMult: 1.4
+  dashSpeed: 40
+  dashDuration: 0.15
+  dashCooldownTime: 0.8
   IceDecceleration: 0.99
   iceSpeed: 16
-  wallSlideSpeed: -3
+  wallSlideSpeed: -3.5
   wallCoyoteTime: 0.1
-  wallJumpingDuration: 0.3
+  wallJumpingDuration: 0.5
   wallClimbingDuration: 0.1
   bounceMultiplier: 1.5
   bounceRebound: 1.25
@@ -509,7 +513,7 @@ GameObject:
   - component: {fileID: 8473601938143140183}
   - component: {fileID: 433300178695652862}
   - component: {fileID: 2459987711321682340}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Back
   m_TagString: PlayerBack
   m_Icon: {fileID: 0}
@@ -578,7 +582,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6441891608261450993}
   - component: {fileID: 6421998025395561331}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Top
   m_TagString: PlayerTop
   m_Icon: {fileID: 0}
@@ -597,7 +601,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5466975082429926606}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &6421998025395561331
 BoxCollider2D:

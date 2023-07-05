@@ -28,6 +28,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Dash",
+                    "type": "Button",
+                    "id": "77dfee3f-5dc1-4ecd-a35c-e29b7f562f22",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -36,7 +44,7 @@
                     "id": "c870972c-a78e-4d63-b4d6-d8ef8c42f32b",
                     "path": "<Gamepad>/leftStick",
                     "interactions": "",
-                    "processors": "",
+                    "processors": "StickDeadzone",
                     "groups": "Xbox",
                     "action": "Move",
                     "isComposite": false,
@@ -116,6 +124,28 @@
                     "processors": "",
                     "groups": "Xbox",
                     "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d5426d61-597e-4f4b-af19-4aae206ddb1e",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Dash",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6b130547-cd92-405a-a7b3-e8a4314d8417",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Xbox",
+                    "action": "Dash",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

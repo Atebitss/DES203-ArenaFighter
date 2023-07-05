@@ -5,38 +5,46 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    //~~~~~~~ BASE MOVEMENT ~~~~~~~\\
+    //~~~~~~~REFRENCES ~~~~~~~\\
     [SerializeField] private Rigidbody2D playerRigid;
     [SerializeField] private BoxCollider2D boxCollider;
     [SerializeField] private Animator animator;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask wallLayer;
+    public GameObject playerTop;
+   
+
+    //~~~~~~~ GAMEPLAY ~~~~~~~\\
+    //~~~ MOVEMENT ~~~\\
     private Vector2 move;
     private Vector2 playerVelocity;
     private bool onGround, devMode;
     private float jumpForce = 15f, moveForce = 5f, previousXMovement;
     private LevelScript ls;
 
-    //~~~~~~~ GAMEPLAY ~~~~~~~\\
     //~~~ JUMPING ~~~\\
     [Header("Jumping")]
     [SerializeField] private float coyoteTime = 0.1f;
     private float coyoteCounter;
     private float jumpBufferCounter;
     [SerializeField] private float jumpBufferTime = 0.2f;
-
     [SerializeField] private float playerGravity = 5.5f;
     [SerializeField] private float fallGravityMult = 1.4f;
 
     private bool isJumping;
-
+    //~~~ DASHING ~~~\\
+    [Header("Dashing")]
+    [SerializeField] private float dashSpeed = 20f;
+    [SerializeField] private float dashDuration = 0f;
+    [SerializeField] private float dashCooldownTime = 0.8f;
+     private float dashCooldown;
+     private bool isDashing;
 
     //~~~ ICE ~~~\\
     [Header("Ice Movement")]
     [SerializeField] private float IceDecceleration = 0.95f; //must be between 1 and 0
     [SerializeField] private float iceSpeed = 9f;
-
-    private bool onIce;
+     private bool onIce;
 
     //~~~ WALL SLIDE & JUMP ~~~\\
     [Header("Wall Jumps, Climbs and Slides")]
@@ -73,9 +81,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float deflectForce = 60f;
     [SerializeField] private float attackBuildUp = 0.0f;
     [SerializeField] [Range(0.1f, 0.5f)] private float attackTimer = 0.2f;
-    private GameObject attackObject;
-    private bool isDeflecting, isAttacking;
-    private float timeSinceLastKill = 0;
+     private GameObject attackObject;
+     private bool isDeflecting, isAttacking;
+     private float timeSinceLastKill = 0;
 
 
 
@@ -112,6 +120,15 @@ public class PlayerController : MonoBehaviour
         if (playerRigid.velocity.y < 0 && !OnStickyWall())
         {
             playerRigid.gravityScale = playerGravity * fallGravityMult;
+        }
+        else
+        {
+            playerRigid.gravityScale = playerGravity;
+        }
+        if (isDashing) //Disables gravity when dashing, dashes in straight line in air
+        {
+            playerRigid.gravityScale = 0;
+           
         }
         else
         {
@@ -157,12 +174,15 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("IsJumping", false);
         }
 
+
         
         animator.SetBool("isRunning", move.x != 0);
        
         animator.SetBool("isWallSliding", OnStickyWall() && !IsGrounded());
 
         timeSinceLastKill += Time.deltaTime;
+
+        dashCooldown += Time.deltaTime;
     }
 
 
@@ -193,7 +213,7 @@ public class PlayerController : MonoBehaviour
         //if player is moving and on ice
         //or not on ice and not wall jumping and on the ground
         //or is not no the ground and and is not wall jumping and is jumping
-        if (move.x != 0 && onIce || !onIce && !isWallJumping && !isDeflecting)
+        if (move.x != 0 && onIce || !onIce && !isWallJumping && !isDeflecting && !isDashing)
         {
             playerRigid.velocity = new Vector2(move.x * moveForce, playerVelocity.y);  
         }
@@ -205,7 +225,7 @@ public class PlayerController : MonoBehaviour
     {
         isJumping = true;
 
-        if (coyoteCounter > 0 && jumpBufferCounter > 0 || coyoteCounter > 0 && jumpBufferCounter < 0) //checking for coyote time and jump buffer
+        if ((coyoteCounter > 0 && jumpBufferCounter > 0 || coyoteCounter > 0 && jumpBufferCounter < 0) && !isDashing) //checking for coyote time and jump buffer
         {
             if (IsOnBouncy())
             {
@@ -366,6 +386,31 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    public void OnDash(InputAction.CallbackContext ctx)
+    {
+        
+        if (dashCooldown > dashCooldownTime) 
+        {
+            isDashing = true;
+            dashCooldown = 0;
+            playerRigid.velocity = new Vector2(transform.localScale.x * dashSpeed, 0);
+            StartCoroutine(IgnorePlayerCollisions());
+        }
+        Invoke(nameof(StopDashing), dashDuration);
+    }
+    private IEnumerator IgnorePlayerCollisions()
+    {
+        gameObject.layer = LayerMask.NameToLayer("IgnoreCollisions");
+        playerTop.gameObject.layer = LayerMask.NameToLayer("IgnoreCollisions");
+        yield return new WaitForSeconds(dashDuration);
+        gameObject.layer = LayerMask.NameToLayer("Player");
+        playerTop.gameObject.layer = LayerMask.NameToLayer("Player");
+    }
+    private void StopDashing()
+    {
+         isDashing = false;
+    }
+ 
 
     //~~~ TELEPORT ~~~\\ 
     private void Teleport()
@@ -545,8 +590,8 @@ public class PlayerController : MonoBehaviour
                     Teleport();
                 }
                 break;
-            case "PlayerTop": //jump off of players when we land on them
-                playerRigid.velocity = new Vector2(playerVelocity.x, jumpForce);
+            case "PlayerTop": //jump off of players when we land on them 
+                playerRigid.velocity = new Vector2(playerVelocity.x,(jumpForce * 0.5f));
                 FindObjectOfType<AudioManager>().Play("Bouncy");
                 break;
             default:
