@@ -12,7 +12,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask wallLayer;
     public GameObject playerTop;
-   
+    public GameObject promptUI;
+
 
     //~~~~~~~ GAMEPLAY ~~~~~~~\\
     //~~~ MOVEMENT ~~~\\
@@ -32,6 +33,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float fallGravityMult = 1.4f;
 
     private bool isJumping;
+    private bool topTrigger;
+
     //~~~ DASHING ~~~\\
     [Header("Dashing")]
     [SerializeField] private float dashSpeed = 20f;
@@ -70,8 +73,19 @@ public class PlayerController : MonoBehaviour
      private GameObject currentTeleporter;
      private bool isTeleporting;
 
+    //~~~ POWERUPS ~~~~//
+    private bool hasIcePower = false;
+    private bool frozen = false;
+    private int breakAmount;
+    private int breakCounter;
+
+    private bool hasInvertPower = false;
+    public bool hasInvertedControls = false;
+
+    private bool hasDashPower = false;
+
     //~~~ FLIP ~~~\\
-     private bool facingRight;
+    private bool facingRight;
      private Vector2 startingScale = new Vector3(1,1,1);
     
 
@@ -163,6 +177,17 @@ public class PlayerController : MonoBehaviour
         {
             jumpBufferCounter -= Time.deltaTime;
         }
+        if (frozen)
+        {
+            promptUI.SetActive(true);
+            animator.SetBool("isFrozen", true);
+        }
+        else
+        {
+            promptUI.SetActive(false);
+            animator.SetBool("isFrozen", false);
+        }
+
 
         //Animation checks
         if (!IsGrounded() && playerVelocity.y > 0 && !OnStickyWall())
@@ -213,7 +238,14 @@ public class PlayerController : MonoBehaviour
         //if player is moving and on ice
         //or not on ice and not wall jumping and on the ground
         //or is not no the ground and and is not wall jumping and is jumping
-        if (move.x != 0 && onIce || !onIce && !isWallJumping && !isDeflecting && !isDashing)
+
+
+        if (hasInvertedControls)
+        {
+            Debug.Log("now has inverted controls");
+            playerRigid.velocity = new Vector2(-move.x * moveForce, playerVelocity.y);
+        }
+        else if ( !onIce && !isWallJumping && !isDeflecting && !isDashing)
         {
             playerRigid.velocity = new Vector2(move.x * moveForce, playerVelocity.y);  
         }
@@ -224,8 +256,22 @@ public class PlayerController : MonoBehaviour
     public void OnJump(InputAction.CallbackContext ctx)
     {
         isJumping = true;
+        Debug.Log("OnJump");
 
-        if ((coyoteCounter > 0 && jumpBufferCounter > 0 || coyoteCounter > 0 && jumpBufferCounter < 0) && !isDashing) //checking for coyote time and jump buffer
+        if (frozen) //code for when frozen, have to jump [breakAmount] of times to escape
+        {
+            breakCounter++;
+
+            if (breakCounter == breakAmount)
+            {
+                playerRigid.constraints = ~RigidbodyConstraints2D.FreezePosition;
+                frozen = false;
+                Debug.Log("Broke free from Ice!!!");
+                
+            }
+
+        }
+        else if ((coyoteCounter > 0 && jumpBufferCounter > 0 || coyoteCounter > 0 && jumpBufferCounter < 0) && !isDashing) //checking for coyote time and jump buffer
         {
             if (IsOnBouncy())
             {
@@ -297,24 +343,34 @@ public class PlayerController : MonoBehaviour
     }
 
 
+    public void TopTrigger()
+    {
+        playerRigid.velocity = new Vector2(playerVelocity.x, jumpForce);
+        FindObjectOfType<AudioManager>().Play("Bounce");
+    }
+
     //~~~~~~~ MOVEMENT LOGIC ~~~~~~~\\ 
     //called by Fixed Update, line 42
 
 
-    private void Flip()
+    private void Flip()  //flips the player around when moving left or right | Allows us to determine player direction for animating and other stuffs
     {
-        //flips the player around when moving left or right | Allows us to determine player direction for animating and other stuffs
-        if (move.x > 0f)
+        if (!frozen) //cannot flip while frozen
         {
-            transform.localScale = startingScale;
-            facingRight = true;
+            if (move.x > 0f)
+            {
+                transform.localScale = startingScale;
+                facingRight = true;
+            }
+
+            else if (move.x < 0f)
+            {
+                transform.localScale = new Vector3(-startingScale.x, startingScale.y, 1);
+                facingRight = false;
+            }
         }
-           
-        else if (move.x < 0f)
-        {
-            transform.localScale = new Vector3(-startingScale.x, startingScale.y, 1);
-            facingRight = false;
-        }
+       
+
          
     }
     private void IceMovement()
@@ -365,7 +421,7 @@ public class PlayerController : MonoBehaviour
             // playerRigid.velocity = new Vector2(playerVelocity.x, -previousYMovement * bounceRebound);
             playerRigid.velocity = new Vector2(playerVelocity.x, jumpForce * bounceRebound);
             FindObjectOfType<AudioManager>().Play("Bouncy");
-            //print("Yipeeee");
+            print("Yipeeee");
 
             //animates the mushroom
             RaycastHit2D mushroom = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, Vector2.down, 50f, groundLayer);
@@ -388,17 +444,20 @@ public class PlayerController : MonoBehaviour
 
     public void OnDash(InputAction.CallbackContext ctx)
     {
-        
-        if (dashCooldown > dashCooldownTime) 
+        if (hasDashPower)
         {
-            isDashing = true;
-            dashCooldown = 0;
-            playerRigid.velocity = new Vector2(transform.localScale.x * dashSpeed, 0);
-            StartCoroutine(IgnorePlayerCollisions());
+            if (dashCooldown > dashCooldownTime)
+            {
+                isDashing = true;
+                dashCooldown = 0;
+                playerRigid.velocity = new Vector2(transform.localScale.x * dashSpeed, 0);
+                StartCoroutine(IgnorePlayerCollisions());
+            }
+            Invoke(nameof(StopDashing), dashDuration);
         }
-        Invoke(nameof(StopDashing), dashDuration);
+      
     }
-    private IEnumerator IgnorePlayerCollisions()
+    private IEnumerator IgnorePlayerCollisions() // for dashDuration we move to IgnoreCollisions layer to dash through players
     {
         gameObject.layer = LayerMask.NameToLayer("IgnoreCollisions");
         playerTop.gameObject.layer = LayerMask.NameToLayer("IgnoreCollisions");
@@ -468,7 +527,7 @@ public class PlayerController : MonoBehaviour
 
         for (int colIndex = 0; colIndex < collisions.Length; colIndex++)
         {
-            if (collisions[colIndex] != null)
+            if (collisions[colIndex] != null && !frozen) //cannot attack while frozen
             {
                 /*if (this.gameObject.name == "Player0")
                 {
@@ -479,20 +538,31 @@ public class PlayerController : MonoBehaviour
                 switch (colTag)
                 {
                     case "PlayerFront":
-                        //deflect player
-                        if (!isDeflecting)
+                        //deflect player if not hitting with Ice attack
+                        if (hasIcePower == true)
                         {
-                            //Debug.Log(this.gameObject.name + " hits a front");
+                            IceAttack(collisions[colIndex].gameObject.transform.parent.gameObject);
+                        }
+                        else if (!isDeflecting)
+                        {
+                           
                             Deflect(collisions[colIndex].gameObject.transform.parent.gameObject);
                         }
                         break;
                     case "PlayerBack":
-                        //kill other player
-                        //Debug.Log(this.gameObject.name + " stabs " + collisions[colIndex].gameObject.transform.parent.gameObject.name + " in the back.");
-                        ls.Kill(collisions[colIndex].gameObject.transform.parent.gameObject, this.gameObject);
-                        char playerNumChar = this.gameObject.name[6];
-                        int playerNum = playerNumChar - '0';
-                        timeSinceLastKill = 0;
+                        //kill other player or Ice attack them
+                        if (hasIcePower == true)
+                        {
+                            IceAttack(collisions[colIndex].gameObject.transform.parent.gameObject);
+                        }
+                        else
+                        {
+                            ls.Kill(collisions[colIndex].gameObject.transform.parent.gameObject, this.gameObject);
+                            char playerNumChar = this.gameObject.name[6];
+                            int playerNum = playerNumChar - '0';
+                            timeSinceLastKill = 0;
+                        }
+
                         break;
                     default:
                         break;
@@ -510,10 +580,32 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    //~~ ICE ATTACK ~~//
+
+    public void IceAttack(GameObject player) //fires when this player is hit with an Ice Attack
+    {
+        if (hasIcePower == true)
+        {
+            Debug.Log("Player Has Attacked with Ice");
+            hasIcePower = false;
+
+            player.GetComponent<PlayerController>().Freeze();
+        }
+    }
+    public void Freeze()
+    {
+        breakAmount = Random.Range(3, 7); //sets the amount of times we need to press jump to escape to a ranodm number between these numbers
+        frozen = true;
+
+        playerRigid.constraints = RigidbodyConstraints2D.FreezeAll;
+        
+    }
 
 
-    //~~~ DEFLECT ~~~\\
-    private void Deflect(GameObject target)
+
+
+        //~~~ DEFLECT ~~~\\
+        private void Deflect(GameObject target)
     {
         //Debug.Log(target.name + " deflects " + this.gameObject.name + "'s attack.");
         //Debug.Log("isDeflecting");
@@ -568,6 +660,12 @@ public class PlayerController : MonoBehaviour
         ls.Respawn((int)char.GetNumericValue(this.gameObject.name[6]), this.gameObject, animator);
     }
 
+    public void Respawn() //deals with changing values once player has already respawned, actual respawning is done in LevelScript
+    {
+        frozen = false;
+        playerRigid.constraints = ~RigidbodyConstraints2D.FreezePosition;
+    }
+
 
 
 
@@ -590,12 +688,44 @@ public class PlayerController : MonoBehaviour
                     Teleport();
                 }
                 break;
-            case "PlayerTop": //jump off of players when we land on them 
-                playerRigid.velocity = new Vector2(playerVelocity.x,(jumpForce * 0.5f));
-                FindObjectOfType<AudioManager>().Play("Bouncy");
+            case "DashCollectable": 
+                Debug.Log("Collected Dash");
+                hasDashPower = true;
+                Destroy(GameObject.FindWithTag("DashCollectable"));
+                break;
+            case "IceCollectable":
+                Debug.Log("Collected Ice");
+                hasIcePower = true;
+                Destroy(GameObject.FindWithTag("IceCollectable"));
+                break;
+            case "InverseCollectable":
+                Debug.Log("Collected Invert");
+                hasInvertPower = true;
+                Destroy(GameObject.FindWithTag("InverseCollectable"));
+                InvertCollected();
                 break;
             default:
                 break;
+        }
+    }
+
+    public void InvertCollected()
+    {
+
+        print("Invert Collected");
+        GameObject[] players = ls.players; //store player list from leverl script
+
+        foreach (GameObject thisPlayer in players)  //search player list for this player
+        {
+            if (thisPlayer.gameObject == gameObject)
+            {
+                ls.InvertControls(thisPlayer); //call Invert Controls passing in this player sp they are exempt
+            }
+            else
+            {
+                print("not this p;layer");
+            }
+
         }
     }
 

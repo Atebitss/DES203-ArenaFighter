@@ -13,6 +13,7 @@ public class LevelScript : MonoBehaviour
     [SerializeField] [Range(10, 50)] private float playerJumpForce = 25f;
 
     //debug
+    [Header("Debug")]
     [SerializeField] private bool devMode = false;
     private DebugUIManager DUIM;
 
@@ -23,24 +24,34 @@ public class LevelScript : MonoBehaviour
     //PlayerData.playerInputs
     private PlayerJoinHandler pjh;
     private PlayerController[] playerScripts = new PlayerController[4];
-    private GameObject[] players = new GameObject[4];
+    public GameObject[] players = new GameObject[4];
     private int curPlayerPos = 0;
     private int prevPlayerPos = 0;
 
     //important level & multiplayer stuff
-    public static LevelScript instance = null;
-    public event System.Action<PlayerInput> PlayerJoinedGame;
-    public event System.Action<PlayerInput> PlayerLeftGame;
+    [Header("Level and Multiplayer")]
     [SerializeField] private InputAction joinAction;
     [SerializeField] private InputAction leaveAction;
     [SerializeField] private GameObject playerPrefab;
+    public static LevelScript instance = null;
+    public event System.Action<PlayerInput> PlayerJoinedGame;
+    public event System.Action<PlayerInput> PlayerLeftGame;
     [SerializeField] [Range(1, 5)] private float roundMins = 3;
 
+    //collectable stuff
+    [Header("Collectables")]
+    [SerializeField] private GameObject[] collectableType;
+     private GameObject[] collectableSpawnPoints;
+    [SerializeField] private float collectableSpawnInterval;
+     private float intervalTime;
+
+
+
     //player sprites 
-    [SerializeField] private Sprite player1sprite;
-    [SerializeField] private Sprite player2sprite;
-    [SerializeField] private Sprite player3sprite;
-    [SerializeField] private Sprite player4sprite;
+    // [SerializeField] private Sprite player1sprite;
+    // [SerializeField] private Sprite player2sprite;
+    // [SerializeField] private Sprite player3sprite;
+    // [SerializeField] private Sprite player4sprite; 
 
 
 
@@ -96,7 +107,7 @@ public class LevelScript : MonoBehaviour
 
 
     //~~~~~~~ REFERENCE PLAYER VIA NUMBER ~~~~~~~\\
-    void Update()
+    void FixedUpdate()
     {
         //update when a player leaves/joins 
         if (prevPlayerPos != curPlayerPos)
@@ -104,6 +115,16 @@ public class LevelScript : MonoBehaviour
             //Debug.Log(curPlayerPos);
             prevPlayerPos = curPlayerPos;
         }
+        if (intervalTime >= collectableSpawnInterval)
+        {
+            Collectable();
+            intervalTime = 0;
+        }
+        else
+        {
+            intervalTime += Time.deltaTime;
+        }
+       
     }
 
 
@@ -205,7 +226,67 @@ public class LevelScript : MonoBehaviour
                 break;
         }
     }
+    public void Collectable()
+    {
+        Debug.Log("Spawn Collectable");
+        Transform chosenSpawn = ChooseCollectableSpawnPoint().transform; //uses ChooseCollectableSpawnPoint() to choose one collectable spawn in the level
+        Vector2 chosenSpawnPos = chosenSpawn.position;
+        Quaternion chosenSpawnRot = chosenSpawn.rotation;
 
+        int randomNo = Random.Range(0, collectableType.Length); //rnadomly chooses a number to randomize what collectable we get
+
+        Instantiate(collectableType[randomNo], chosenSpawnPos, chosenSpawnRot);
+    }
+
+    public GameObject ChooseCollectableSpawnPoint()
+    {
+        collectableSpawnPoints = GameObject.FindGameObjectsWithTag("CollectableSpawn"); //fill spawn point array
+
+        if (collectableSpawnPoints != null) //chooses one spawn point at random
+        {
+            int chosenSpawn = Random.Range(0, collectableSpawnPoints.Length);
+
+            return collectableSpawnPoints[chosenSpawn];
+        }
+        else
+        {
+            return null ;
+        }
+    }
+
+    public void InvertControls(GameObject exemptPlayer)
+    {
+        float invertDuration = 5f;
+
+        Debug.Log("Level script has been called");
+        foreach (GameObject player in players)
+        {
+            if( player != exemptPlayer)
+            {
+                player.GetComponent<PlayerController>().hasInvertedControls = true;
+                InvertDuration(invertDuration);
+
+            }
+           
+        }
+    }
+    private IEnumerator InvertDuration(float invertDuration) // for dashDuration we move to IgnoreCollisions layer to dash through players
+    {
+
+        yield return new WaitForSeconds(invertDuration);
+        UnInvertControls();
+    }
+    public void UnInvertControls()
+    {
+        foreach (GameObject player in players)
+        {
+ 
+            player.GetComponent<PlayerController>().hasInvertedControls = false;
+               
+        }
+
+        
+    }
 
 
 
@@ -223,10 +304,9 @@ public class LevelScript : MonoBehaviour
     {
         //Debug.Log("respawning " + player.name);
         player.transform.position = spawnPoints[spawnOrder[playerNum] - 1].transform.position;
-
         if (player.transform.position.x < 0) { player.transform.localScale = new Vector2(1, 1); }
         else if (player.transform.position.x > 0) { player.transform.localScale = new Vector2(-1, 1); }
-
+        player.GetComponent<PlayerController>().Respawn();
         anim.ResetTrigger("Dying");
         anim.SetTrigger("Respawning");
     }
