@@ -43,7 +43,9 @@ public class LevelScript : MonoBehaviour
     [SerializeField] private GameObject[] collectableType;
      private GameObject[] collectableSpawnPoints;
     [SerializeField] private float collectableSpawnInterval;
-     private float intervalTime;
+    [SerializeField] private float initialCollectableSpawnDelay;
+    private bool collectableCanSpawn;
+    private float intervalTime;
 
 
 
@@ -101,9 +103,16 @@ public class LevelScript : MonoBehaviour
             //saviour code from Rene-Damm in the Unity Forum - https://forum.unity.com/threads/local-multiplayer-lobby-scene-gameplay-scene.845044/
             PlayerInput.Instantiate(playerPrefab, controlScheme: PlayerData.playerControlScheme[curPlayerPos], playerIndex: curPlayerPos, pairWithDevices: PlayerData.playerDevices[curPlayerPos]);
             NewPlayer();
+            StartCoroutine(InitialCollectableSpawnDelay());
         }
-    }
 
+    }
+    private IEnumerator InitialCollectableSpawnDelay()
+    {
+        collectableCanSpawn = false;
+        yield return new WaitForSeconds(initialCollectableSpawnDelay);
+        collectableCanSpawn = true;
+    }
 
 
     //~~~~~~~ REFERENCE PLAYER VIA NUMBER ~~~~~~~\\
@@ -115,7 +124,8 @@ public class LevelScript : MonoBehaviour
             //Debug.Log(curPlayerPos);
             prevPlayerPos = curPlayerPos;
         }
-        if (intervalTime >= collectableSpawnInterval)
+
+        if (intervalTime >= collectableSpawnInterval) //Collectable spawn timer
         {
             Collectable();
             intervalTime = 0;
@@ -228,14 +238,18 @@ public class LevelScript : MonoBehaviour
     }
     public void Collectable()
     {
-        Debug.Log("Spawn Collectable");
-        Transform chosenSpawn = ChooseCollectableSpawnPoint().transform; //uses ChooseCollectableSpawnPoint() to choose one collectable spawn in the level
-        Vector2 chosenSpawnPos = chosenSpawn.position;
-        Quaternion chosenSpawnRot = chosenSpawn.rotation;
+        if (collectableCanSpawn)
+        {
+            Debug.Log("Spawn Collectable");
+            Transform chosenSpawn = ChooseCollectableSpawnPoint().transform; //uses ChooseCollectableSpawnPoint() to choose one collectable spawn in the level
+            Vector2 chosenSpawnPos = chosenSpawn.position;
+            Quaternion chosenSpawnRot = chosenSpawn.rotation;
 
-        int randomNo = Random.Range(0, collectableType.Length); //rnadomly chooses a number to randomize what collectable we get
+            int randomNo = Random.Range(0, collectableType.Length); //rnadomly chooses a number to randomize what collectable we get
 
-        Instantiate(collectableType[randomNo], chosenSpawnPos, chosenSpawnRot);
+            Instantiate(collectableType[randomNo], chosenSpawnPos, chosenSpawnRot);
+        }
+        
     }
 
     public GameObject ChooseCollectableSpawnPoint()

@@ -40,6 +40,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float dashSpeed = 20f;
     [SerializeField] private float dashDuration = 0f;
     [SerializeField] private float dashCooldownTime = 0.8f;
+    [SerializeField] private bool dashEnabled;
      private float dashCooldown;
      private bool isDashing;
 
@@ -256,15 +257,17 @@ public class PlayerController : MonoBehaviour
     public void OnJump(InputAction.CallbackContext ctx)
     {
         isJumping = true;
-        Debug.Log("OnJump");
+        
 
         if (frozen) //code for when frozen, have to jump [breakAmount] of times to escape
         {
+            
             breakCounter++;
-
+           
             if (breakCounter == breakAmount)
             {
                 playerRigid.constraints = ~RigidbodyConstraints2D.FreezePosition;
+                breakCounter = 0;
                 frozen = false;
                 Debug.Log("Broke free from Ice!!!");
                 
@@ -285,10 +288,10 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                //Debug.Log("jump");
-                playerRigid.velocity = new Vector2(playerVelocity.x, jumpForce); // Normal Jump
                 PlayJumpAudio();
 
+                //Debug.Log("jump");
+                playerRigid.velocity = new Vector2(playerVelocity.x, jumpForce); // Normal Jump
                 coyoteCounter = 0f;
                 jumpBufferCounter = 0f;
                 isJumping = true;
@@ -444,7 +447,18 @@ public class PlayerController : MonoBehaviour
 
     public void OnDash(InputAction.CallbackContext ctx)
     {
-        if (hasDashPower)
+        if (dashEnabled)
+        {
+            if (dashCooldown > dashCooldownTime)
+            {
+                isDashing = true;
+                dashCooldown = 0;
+                playerRigid.velocity = new Vector2(transform.localScale.x * dashSpeed, 0);
+                StartCoroutine(IgnorePlayerCollisions());
+            }
+            Invoke(nameof(StopDashing), dashDuration);
+        }
+        else if ((hasDashPower) && !dashEnabled)
         {
             if (dashCooldown > dashCooldownTime)
             {
@@ -546,7 +560,8 @@ public class PlayerController : MonoBehaviour
                         else if (!isDeflecting)
                         {
                            
-                            Deflect(collisions[colIndex].gameObject.transform.parent.gameObject);
+                            Deflect();
+                            collisions[colIndex].gameObject.transform.parent.gameObject.GetComponent<PlayerController>().Deflect();
                         }
                         break;
                     case "PlayerBack":
@@ -594,7 +609,7 @@ public class PlayerController : MonoBehaviour
     }
     public void Freeze()
     {
-        breakAmount = Random.Range(3, 7); //sets the amount of times we need to press jump to escape to a ranodm number between these numbers
+        breakAmount = Random.Range(5, 10); //sets the amount of times we need to press jump to escape to a ranodm number between these numbers
         frozen = true;
 
         playerRigid.constraints = RigidbodyConstraints2D.FreezeAll;
@@ -604,23 +619,21 @@ public class PlayerController : MonoBehaviour
 
 
 
-        //~~~ DEFLECT ~~~\\
-        private void Deflect(GameObject target)
+    //~~~ DEFLECT ~~~\\
+    private void Deflect()
     {
-        //Debug.Log(target.name + " deflects " + this.gameObject.name + "'s attack.");
-        //Debug.Log("isDeflecting");
         isDeflecting = true;
-
         PlayRebound();
+        playerRigid.velocity = new Vector2(-transform.localScale.x * deflectForce, 10);
 
-        //Debug.Log("velocity before: " + playerRigid.velocity);
-        playerRigid.velocity = new Vector2(-transform.localScale.x * deflectForce, (0.1F * -transform.localScale.x * deflectForce));
-
-        //ununcomment this to make the other player deflect as well target.GetComponent<PlayerController>().playerRigid.velocity = new Vector2(deflectForce, deflectForce);
-
-        //Debug.Log("velocity after: " + playerRigid.velocity);
+        
+        
         Invoke(nameof(StopDeflect), deflectDuration);
     }
+    
+
+        
+    
 
     private void StopDeflect()
     {

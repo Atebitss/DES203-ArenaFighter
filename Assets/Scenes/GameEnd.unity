@@ -2028,6 +2028,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a153689e675d1f4cb5f58f1477d2358, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameEndCooldown: 5
+  replayButton: {fileID: 831332345}
 --- !u!4 &1309730966
 Transform:
   m_ObjectHideFlags: 0

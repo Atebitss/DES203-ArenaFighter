@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 891550369110636017}
   - component: {fileID: 4346688113396232699}
   - component: {fileID: 6261133276322896723}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Attack
   m_TagString: PlayerAttack
   m_Icon: {fileID: 0}
@@ -80,7 +80,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7608207645942959005}
   - component: {fileID: 5999145588278473023}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Player Aura
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -163,7 +163,7 @@ GameObject:
   m_Component:
   - component: {fileID: 558517706638794217}
   - component: {fileID: 8087533034736346442}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Front
   m_TagString: PlayerFront
   m_Icon: {fileID: 0}
@@ -225,7 +225,7 @@ GameObject:
   - component: {fileID: 5466975082429926602}
   - component: {fileID: 2754353247358211400}
   - component: {fileID: 7960266896346361892}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: PlayerPrefab
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -381,6 +381,7 @@ MonoBehaviour:
   dashSpeed: 40
   dashDuration: 0.15
   dashCooldownTime: 0.8
+  dashEnabled: 1
   IceDecceleration: 0.99
   iceSpeed: 16
   wallSlideSpeed: -3.5
@@ -390,7 +391,8 @@ MonoBehaviour:
   bounceMultiplier: 1.5
   bounceRebound: 1.25
   teleportingDuration: 0.2
-  deflectDuration: 0.5
+  hasInvertedControls: 0
+  deflectDuration: 0.1
   deflectForce: 20
   attackBuildUp: 0.1
   attackTimer: 0.4
@@ -502,7 +504,7 @@ GameObject:
   - component: {fileID: 8473601938143140183}
   - component: {fileID: 433300178695652862}
   - component: {fileID: 2459987711321682340}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Back
   m_TagString: PlayerBack
   m_Icon: {fileID: 0}
@@ -572,7 +574,7 @@ GameObject:
   - component: {fileID: 6441891608261450993}
   - component: {fileID: 6421998025395561331}
   - component: {fileID: 7986120549317133650}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Top
   m_TagString: PlayerTop
   m_Icon: {fileID: 0}
@@ -642,7 +644,7 @@ GameObject:
   - component: {fileID: 4278034978399358163}
   - component: {fileID: 3833031414853547729}
   - component: {fileID: 3588470128884573072}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Prompt UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
