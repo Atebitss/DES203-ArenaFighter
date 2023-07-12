@@ -132,7 +132,7 @@ public class PlayerController : MonoBehaviour
         IceMovement();
         WallSlide();
         BounceMovement();
-        PlayerStates();
+       
 
         if (devMode) { HighlightHitboxes(); }
 
@@ -197,6 +197,11 @@ public class PlayerController : MonoBehaviour
         {
             promptUI.SetActive(false);
         }
+        if (frozen && hasIcePower) //Disable powerup when frozen
+        {
+            hasIcePower = false;
+
+        }
 
         if (frozen && !hasIcePower) //updates animation for player and Prompt UI when we are frozen
         {
@@ -213,7 +218,7 @@ public class PlayerController : MonoBehaviour
         {
             promptUI.GetComponent<Animator>().SetBool("hasIcePower", true);
 
-            promptUI.GetComponent<Animator>().SetBool("isFrozen", false);
+           
         }
 
         //~~~ ANIMATIONS ~~~\\ 
@@ -234,19 +239,10 @@ public class PlayerController : MonoBehaviour
         timeSinceLastKill += Time.deltaTime;
 
         dashCooldown += Time.deltaTime;
-<<<<<<< Updated upstream
-        
-    }
-    private void PlayerStates() //does basic checks on the players state to make sure nothing overlaps
-    {
-        if (frozen && hasIcePower) //if you are frozen, remove ice powerup || make sure to update with new powerups or states etc
-        {
-            hasIcePower = false;
-        }
-=======
+
 
         if (invincibilityTimer > 0) { invincibilityTimer -= Time.deltaTime; }
->>>>>>> Stashed changes
+
     }
 
     //~~~~~~~ PLAYER CONTROL ~~~~~~~\\

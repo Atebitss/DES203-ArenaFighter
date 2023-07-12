@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2613204082223211450}
   - component: {fileID: 2613204082223211444}
   - component: {fileID: 3135598462561225894}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: Rotating Platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
