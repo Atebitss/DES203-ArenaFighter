@@ -12,6 +12,11 @@ TagManager:
   - PlayerFront
   - PlayerBack
   - PlayerTop
+  - PlayerAttack
+  - DashCollectable
+  - IceCollectable
+  - CollectableSpawn
+  - InverseCollectable
   layers:
   - Default
   - TransparentFX
@@ -20,8 +25,8 @@ TagManager:
   - Water
   - UI
   - Wall
-  - 
-  - 
+  - Player
+  - Ignore Collisions
   - 
   - 
   - 

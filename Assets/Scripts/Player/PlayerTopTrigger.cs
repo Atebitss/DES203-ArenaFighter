@@ -8,11 +8,11 @@ public class PlayerTopTrigger : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log(collision.gameObject.transform);
-        Debug.Log(collision.gameObject.transform.tag);
+        //Debug.Log(collision.gameObject.transform);
+        //Debug.Log(collision.gameObject.transform.tag);
         if (collision.gameObject.transform.tag == "Player")
         {
-            Debug.Log("Top Trigger");
+            //Debug.Log("Top Trigger");
             triggeringCollider = collision.gameObject.transform.name;
             collision.gameObject.transform.GetComponent<PlayerController>().TopTrigger();
         }

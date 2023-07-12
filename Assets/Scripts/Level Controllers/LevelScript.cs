@@ -20,6 +20,7 @@ public class LevelScript : MonoBehaviour
     //spawn points
     private GameObject[] spawnPoints;
     private int[] spawnOrder = new int[4];
+    private int lastUsedSpawn = 0;
 
     //PlayerData.playerInputs
     private PlayerJoinHandler pjh;
@@ -70,7 +71,6 @@ public class LevelScript : MonoBehaviour
             Destroy(gameObject);
         }
 
-        //PlayerData.GetPlayers();
         if (!PlayerData.gameRun) { PlayerData.gameRun = true; }
 
         //start level music
@@ -181,7 +181,8 @@ public class LevelScript : MonoBehaviour
         GameObject newPlayer = GameObject.Find("Player" + curPlayerPos);
         players[curPlayerPos] = newPlayer;
         playerScripts[curPlayerPos] = newPlayer.GetComponent<PlayerController>();
-        //Debug.Log("New Player: " + newPlayer.name);
+        Debug.Log("New Player: " + newPlayer.name);
+        PlayerData.SetPlayers(players[curPlayerPos]);
 
         //apply stats
         ApplyColour();
@@ -307,20 +308,42 @@ public class LevelScript : MonoBehaviour
     //~~~~~~~ KILL PLAYER ~~~~~~~\\
     public void Kill(GameObject target, GameObject killer)
     {
-        //update scores
-        int killerPlayerNum = (int)char.GetNumericValue(killer.name[6]);
-        PlayerData.playerScores[killerPlayerNum]++;
-        Debug.Log(killer.name + " has " + PlayerData.playerScores[killerPlayerNum] + " kills");
-        target.GetComponent<PlayerController>().Death();
+        PlayerController targetPC = target.GetComponent<PlayerController>();
+        if (targetPC.GetInvincibilityTimer() <= 0)
+        {
+            //update scores
+            int killerPlayerNum = (int)char.GetNumericValue(killer.name[6]);
+            PlayerData.playerScores[killerPlayerNum]++;
+            //Debug.Log(killer.name + " has " + PlayerData.playerScores[killerPlayerNum] + " kills");
+            targetPC.Death();
+            PlayerScoreSort.SortPlayers();
+        }
     }
 
     public void Respawn(int playerNum, GameObject player, Animator anim)
     {
+        PlayerController playerPC = player.GetComponent<PlayerController>();
         //Debug.Log("respawning " + player.name);
-        player.transform.position = spawnPoints[spawnOrder[playerNum] - 1].transform.position;
+
+        //spawnpoint 1 pos: -9,13
+        //spawnpoint 2 pos: 7,13
+        //spawnpoint 3 pos: -9,6 but spawns on sp1
+        //spawnpoint 4 pos: 7,6 but bugs out
+        int curSpawnPoint = Random.Range(0, 4);
+        while(curSpawnPoint == lastUsedSpawn) { curSpawnPoint = Random.Range(0, 4); }
+        lastUsedSpawn = curSpawnPoint;
+
+        //Debug.Log("respawn num: " + curSpawnPoint);
+        //Debug.Log("curspawn: " + spawnPoints[curSpawnPoint]);
+        //Debug.Log("curspawn pos: " + spawnPoints[curSpawnPoint].transform.position);
+
+        player.transform.position = spawnPoints[curSpawnPoint].transform.position;
+
         if (player.transform.position.x < 0) { player.transform.localScale = new Vector2(1, 1); }
         else if (player.transform.position.x > 0) { player.transform.localScale = new Vector2(-1, 1); }
-        player.GetComponent<PlayerController>().Respawn();
+
+        playerPC.Respawn();
+        playerPC.ResetInvincibilityTimer();
         anim.ResetTrigger("Dying");
         anim.SetTrigger("Respawning");
     }

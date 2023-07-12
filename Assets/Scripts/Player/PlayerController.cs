@@ -88,6 +88,9 @@ public class PlayerController : MonoBehaviour
 
     private bool hasDashPower = false;
 
+    private float invincibilityTimerDefault = 1f;
+    private float invincibilityTimer = 1f;
+
     //~~~ FLIP ~~~\\
     private bool facingRight;
      private Vector2 startingScale = new Vector3(1,1,1);
@@ -231,6 +234,7 @@ public class PlayerController : MonoBehaviour
         timeSinceLastKill += Time.deltaTime;
 
         dashCooldown += Time.deltaTime;
+<<<<<<< Updated upstream
         
     }
     private void PlayerStates() //does basic checks on the players state to make sure nothing overlaps
@@ -239,6 +243,10 @@ public class PlayerController : MonoBehaviour
         {
             hasIcePower = false;
         }
+=======
+
+        if (invincibilityTimer > 0) { invincibilityTimer -= Time.deltaTime; }
+>>>>>>> Stashed changes
     }
 
     //~~~~~~~ PLAYER CONTROL ~~~~~~~\\
@@ -943,6 +951,17 @@ public class PlayerController : MonoBehaviour
     {
         Vector2 newVel = new Vector2(playerRigid.velocity.x, newYVel);
         playerRigid.velocity = newVel;
+    }
+
+    //~~~ INVINCIBILITY TIMER ~~~\\
+    public float GetInvincibilityTimer()
+    {
+        return invincibilityTimer;
+    }
+
+    public void ResetInvincibilityTimer()
+    {
+        invincibilityTimer = invincibilityTimerDefault;
     }
 
 
