@@ -278,8 +278,8 @@ public class LevelScript : MonoBehaviour
             if( player != exemptPlayer)
             {
                 player.GetComponent<PlayerController>().hasInvertedControls = true;
-                InvertDuration(invertDuration);
-
+               
+                Invoke(nameof(UnInvertControls), invertDuration);
             }
            
         }
@@ -288,7 +288,7 @@ public class LevelScript : MonoBehaviour
     {
 
         yield return new WaitForSeconds(invertDuration);
-        UnInvertControls();
+       
     }
     public void UnInvertControls()
     {
@@ -296,7 +296,7 @@ public class LevelScript : MonoBehaviour
         {
  
             player.GetComponent<PlayerController>().hasInvertedControls = false;
-               
+            
         }
 
         

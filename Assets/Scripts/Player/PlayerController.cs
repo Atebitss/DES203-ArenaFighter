@@ -75,6 +75,9 @@ public class PlayerController : MonoBehaviour
      private bool isTeleporting;
 
     //~~~ POWERUPS ~~~~//
+    [Header("PowerUps")]
+    public Sprite[] floatingPrompts;
+    
     private bool hasIcePower = false;
     private bool frozen = false;
     private int breakAmount;
@@ -126,6 +129,7 @@ public class PlayerController : MonoBehaviour
         IceMovement();
         WallSlide();
         BounceMovement();
+        PlayerStates();
 
         if (devMode) { HighlightHitboxes(); }
 
@@ -178,19 +182,39 @@ public class PlayerController : MonoBehaviour
         {
             jumpBufferCounter -= Time.deltaTime;
         }
-        if (frozen)
+
+        //~~~PROMPT UI AND VFX ~~~\\ 
+
+        if (frozen || hasIcePower) //Activate the Prompt UI above the player
         {
             promptUI.SetActive(true);
-            animator.SetBool("isFrozen", true);
+           
         }
         else
         {
             promptUI.SetActive(false);
-            animator.SetBool("isFrozen", false);
         }
 
+        if (frozen && !hasIcePower) //updates animation for player and Prompt UI when we are frozen
+        {
+            animator.SetBool("isFrozen", true);
+            promptUI.GetComponent<Animator>().SetBool("isFrozen", true);
+        }
+        else
+        {
+            animator.SetBool("isFrozen", false);
+            promptUI.GetComponent<Animator>().SetBool("isFrozen", false);
+        }
 
-        //Animation checks
+        if (hasIcePower && !frozen) //updates animation for player and Prompt UI when we h
+        {
+            promptUI.GetComponent<Animator>().SetBool("hasIcePower", true);
+
+            promptUI.GetComponent<Animator>().SetBool("isFrozen", false);
+        }
+
+        //~~~ ANIMATIONS ~~~\\ 
+
         if (!IsGrounded() && playerVelocity.y > 0 && !OnStickyWall())
         {
             animator.SetBool("IsJumping", true);
@@ -200,8 +224,6 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("IsJumping", false);
         }
 
-
-        
         animator.SetBool("isRunning", move.x != 0);
        
         animator.SetBool("isWallSliding", OnStickyWall() && !IsGrounded());
@@ -209,8 +231,15 @@ public class PlayerController : MonoBehaviour
         timeSinceLastKill += Time.deltaTime;
 
         dashCooldown += Time.deltaTime;
+        
     }
-
+    private void PlayerStates() //does basic checks on the players state to make sure nothing overlaps
+    {
+        if (frozen && hasIcePower) //if you are frozen, remove ice powerup || make sure to update with new powerups or states etc
+        {
+            hasIcePower = false;
+        }
+    }
 
     //~~~~~~~ PLAYER CONTROL ~~~~~~~\\
     //called by Player Input component
@@ -348,8 +377,8 @@ public class PlayerController : MonoBehaviour
 
     public void TopTrigger()
     {
-        playerRigid.velocity = new Vector2(playerVelocity.x, jumpForce);
-        FindObjectOfType<AudioManager>().Play("Bounce");
+        playerRigid.velocity = new Vector2(playerVelocity.x, 0.5f * jumpForce);
+       // FindObjectOfType<AudioManager>().Play("Bounce");
     }
 
     //~~~~~~~ MOVEMENT LOGIC ~~~~~~~\\ 
@@ -704,17 +733,17 @@ public class PlayerController : MonoBehaviour
             case "DashCollectable": 
                 Debug.Log("Collected Dash");
                 hasDashPower = true;
-                Destroy(GameObject.FindWithTag("DashCollectable"));
+                Destroy(collision.gameObject);
                 break;
             case "IceCollectable":
                 Debug.Log("Collected Ice");
                 hasIcePower = true;
-                Destroy(GameObject.FindWithTag("IceCollectable"));
+                Destroy(collision.gameObject);
                 break;
             case "InverseCollectable":
                 Debug.Log("Collected Invert");
                 hasInvertPower = true;
-                Destroy(GameObject.FindWithTag("InverseCollectable"));
+                Destroy(collision.gameObject);
                 InvertCollected();
                 break;
             default:
@@ -846,7 +875,7 @@ public class PlayerController : MonoBehaviour
     public bool OnStickyWall()
     {
         //casts an invisble box from the players center to whichever way the player is facing to see if we are touching a sticky wall
-        RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, new Vector2(transform.localScale.x, 0), 0.2f, wallLayer);
+        RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, new Vector2(transform.localScale.x, 0), 0.3f, wallLayer);
         return raycastHit.collider != null;
     }
 
