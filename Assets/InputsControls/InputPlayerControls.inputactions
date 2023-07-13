@@ -73,6 +73,17 @@
                     "isPartOfComposite": false
                 },
                 {
+                    "name": "",
+                    "id": "2eee529c-d158-4bc2-8a0e-355e5b4aa1cd",
+                    "path": "<SwitchProControllerHID>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Switch",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
                     "name": "Keyboard",
                     "id": "e6d1ca59-c1f6-4e20-9374-5f7ef4b7385e",
                     "path": "2DVector",
@@ -107,6 +118,17 @@
                 },
                 {
                     "name": "",
+                    "id": "b008dc66-67c1-41d6-9d5d-b33ba80e6721",
+                    "path": "<HID::Bensussen Deutsch & Associates,Inc.(BDA) NSW Wired controller>/stick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Switch",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "23c2c9b2-1f55-4a6e-8596-76305d472ef5",
                     "path": "<Keyboard>/s",
                     "interactions": "",
@@ -129,6 +151,17 @@
                 },
                 {
                     "name": "",
+                    "id": "313dfe1b-f702-48af-84d1-6e5b3b830d67",
+                    "path": "<SwitchProControllerHID>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Switch",
+                    "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "d5426d61-597e-4f4b-af19-4aae206ddb1e",
                     "path": "<Keyboard>/q",
                     "interactions": "",
@@ -145,6 +178,17 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Xbox",
+                    "action": "Dash",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7d005f85-6382-49ec-bff5-105bfa7202ba",
+                    "path": "<SwitchProControllerHID>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Switch",
                     "action": "Dash",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -174,6 +218,11 @@
                     "isOR": false
                 }
             ]
+        },
+        {
+            "name": "Switch",
+            "bindingGroup": "Switch",
+            "devices": []
         }
     ]
 }

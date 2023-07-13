@@ -316,7 +316,7 @@ public class LevelScript : MonoBehaviour
             PlayerData.playerScores[killerPlayerNum]++;
             //Debug.Log(killer.name + " has " + PlayerData.playerScores[killerPlayerNum] + " kills");
             targetPC.Death();
-            PlayerScoreSort.SortPlayers();
+            //PlayerScoreSort.SortPlayers();
         }
     }
 
