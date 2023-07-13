@@ -42,7 +42,7 @@ public class LevelScript : MonoBehaviour
     //collectable stuff
     [Header("Collectables")]
     [SerializeField] private GameObject[] collectableType;
-     private GameObject[] collectableSpawnPoints;
+    private GameObject[] collectableSpawnPoints;
     [SerializeField] private float collectableSpawnInterval;
     [SerializeField] private float initialCollectableSpawnDelay;
     private bool collectableCanSpawn;
@@ -84,7 +84,7 @@ public class LevelScript : MonoBehaviour
         //update debug
         if (devMode)
         {
-           DUIM = GameObject.Find("DebugUI").GetComponent<DebugUIManager>();
+            DUIM = GameObject.Find("DebugUI").GetComponent<DebugUIManager>();
         }
     }
 
@@ -134,7 +134,7 @@ public class LevelScript : MonoBehaviour
         {
             intervalTime += Time.deltaTime;
         }
-       
+
     }
 
 
@@ -250,7 +250,7 @@ public class LevelScript : MonoBehaviour
 
             Instantiate(collectableType[randomNo], chosenSpawnPos, chosenSpawnRot);
         }
-        
+
     }
 
     public GameObject ChooseCollectableSpawnPoint()
@@ -265,7 +265,7 @@ public class LevelScript : MonoBehaviour
         }
         else
         {
-            return null ;
+            return null;
         }
     }
 
@@ -276,31 +276,31 @@ public class LevelScript : MonoBehaviour
         Debug.Log("Level script has been called");
         foreach (GameObject player in players)
         {
-            if( player != exemptPlayer)
+            if (player != exemptPlayer)
             {
                 player.GetComponent<PlayerController>().hasInvertedControls = true;
-               
+
                 Invoke(nameof(UnInvertControls), invertDuration);
             }
-           
+
         }
     }
     private IEnumerator InvertDuration(float invertDuration) // for dashDuration we move to IgnoreCollisions layer to dash through players
     {
 
         yield return new WaitForSeconds(invertDuration);
-       
+
     }
     public void UnInvertControls()
     {
         foreach (GameObject player in players)
         {
- 
+
             player.GetComponent<PlayerController>().hasInvertedControls = false;
-            
+
         }
 
-        
+
     }
 
 
@@ -330,7 +330,7 @@ public class LevelScript : MonoBehaviour
         //spawnpoint 3 pos: -9,6 but spawns on sp1
         //spawnpoint 4 pos: 7,6 but bugs out
         int curSpawnPoint = Random.Range(0, 4);
-        while(curSpawnPoint == lastUsedSpawn) { curSpawnPoint = Random.Range(0, 4); }
+        while (curSpawnPoint == lastUsedSpawn) { curSpawnPoint = Random.Range(0, 4); }
         lastUsedSpawn = curSpawnPoint;
 
         //Debug.Log("respawn num: " + curSpawnPoint);
@@ -360,13 +360,13 @@ public class LevelScript : MonoBehaviour
     public Vector2 GetNextSpawnPoint()
     {
         //Debug.Log("player " + curPlayerPos + " spawn point is " + spawnOrder[curPlayerPos] + " at " + spawnPoints[spawnOrder[curPlayerPos]-1].transform.position);
-        return spawnPoints[spawnOrder[curPlayerPos]-1].transform.position;
+        return spawnPoints[spawnOrder[curPlayerPos] - 1].transform.position;
     }
 
     //~~~~~~~ TIME UP ~~~~~~~\\
     public void TimeUp()
     {
-        for(int p = 0; p < PlayerData.numOfPlayers; p++){ PlayerData.timeSinceLastKill[p] = playerScripts[p].GetTimeSinceLastKill(); }
+        for (int p = 0; p < PlayerData.numOfPlayers; p++) { PlayerData.timeSinceLastKill[p] = playerScripts[p].GetTimeSinceLastKill(); }
         SceneManager.LoadScene(5);
     }
 

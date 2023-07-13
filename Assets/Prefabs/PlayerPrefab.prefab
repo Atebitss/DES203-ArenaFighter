@@ -560,8 +560,8 @@ MonoBehaviour:
   hasInvertedControls: 0
   deflectDuration: 0.1
   deflectForce: 20
-  attackBuildUp: 0.1
-  attackTimer: 0.4
+  attackBuildUp: 0
+  attackTimer: 0.2
 --- !u!95 &2754353247358211400
 Animator:
   serializedVersion: 3

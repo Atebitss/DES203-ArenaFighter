@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask wallLayer;
+    private LevelScript ls;
+    private VFXController vfxController;
     public GameObject playerTop;
     public GameObject promptUI;
 
@@ -21,7 +23,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 playerVelocity;
     private bool onGround, devMode;
     private float jumpForce = 15f, moveForce = 5f, previousXMovement;
-    private LevelScript ls;
+    
 
     //~~~ JUMPING ~~~\\
     [Header("Jumping")]
@@ -112,12 +114,12 @@ public class PlayerController : MonoBehaviour
 
     void Awake()
     {
-        //set level script, update in-game object with name, give level script new player object
+       
         ls = GameObject.Find("LevelController").GetComponent<LevelScript>();
-        gameObject.name = "Player" + ls.CurrentPlayer();
-        //Debug.Log("New player awake, " + gameObject.name);
+        vfxController = GameObject.Find("VFXController").GetComponent<VFXController>();
 
-        //ls.NewPlayer(gameObject);
+        gameObject.name = "Player" + ls.CurrentPlayer();
+      
         transform.localScale = startingScale;
 
         animator = GetComponent<Animator>();
@@ -246,7 +248,7 @@ public class PlayerController : MonoBehaviour
     }
 
     //~~~~~~~ PLAYER CONTROL ~~~~~~~\\
-    //called by Player Input component
+  
     //Function(Action Input file's current input)
 
     //~~~ MOVE ~~~\\ 
@@ -269,12 +271,9 @@ public class PlayerController : MonoBehaviour
             previousXMovement = playerRigid.velocity.x;
         }
        
-        //if player is moving and on ice
-        //or not on ice and not wall jumping and on the ground
-        //or is not no the ground and and is not wall jumping and is jumping
+        
 
-
-        if (hasInvertedControls)
+        if (hasInvertedControls) //Basic horizontal movment, and inverted horizontal movement
         {
             Debug.Log("now has inverted controls");
             playerRigid.velocity = new Vector2(-move.x * moveForce, playerVelocity.y);
@@ -599,11 +598,6 @@ public class PlayerController : MonoBehaviour
                         break;
                     case "PlayerBack":
                         //kill other player or Ice attack them
-                        if (hasIcePower == true)
-                        {
-                            IceAttack(collisions[colIndex].gameObject.transform.parent.gameObject);
-                        }
-                        else
                         {
                             ls.Kill(collisions[colIndex].gameObject.transform.parent.gameObject, this.gameObject);
                             char playerNumChar = this.gameObject.name[6];
@@ -697,6 +691,16 @@ public class PlayerController : MonoBehaviour
         animator.SetTrigger("Dying");
         PlayDeathAudio();
         Invoke(nameof(KillDelay), deathTime);
+        if (frozen)
+        {
+            vfxController.GetComponent<VFXController>().PlayVFX(transform, "Ice Death");
+        }
+        else
+        {
+            vfxController.GetComponent<VFXController>().PlayVFX(transform, "Death");
+        }
+        
+
     }
 
     //delays destroying target to allow the death anim to play
@@ -709,6 +713,7 @@ public class PlayerController : MonoBehaviour
     public void Respawn() //deals with changing values once player has already respawned, actual respawning is done in LevelScript
     {
         frozen = false;
+        hasIcePower = false;
         playerRigid.constraints = ~RigidbodyConstraints2D.FreezePosition;
     }
 
