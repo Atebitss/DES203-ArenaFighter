@@ -3618,6 +3618,14 @@ MonoBehaviour:
       m_Groups: 
       m_Action: Start
       m_Flags: 0
+    - m_Name: 
+      m_Id: a7c95840-4a7f-44fd-8fd5-0aaa4993bb36
+      m_Path: <Keyboard>/enter
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Start
+      m_Flags: 0
 --- !u!4 &2038272034
 Transform:
   m_ObjectHideFlags: 0

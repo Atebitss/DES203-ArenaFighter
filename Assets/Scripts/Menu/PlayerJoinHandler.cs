@@ -48,6 +48,7 @@ public class PlayerJoinHandler : MonoBehaviour
     //~~~~~~~ PLAYER JOINED ~~~~~~~\\
     void JoinAction(InputAction.CallbackContext ctx)
     {
+        Debug.Log("Join action attempt");
         if (SceneManager.GetActiveScene().name == "PlayerJoin")
         {
             //joins player as long as there are less than 4 players
@@ -56,7 +57,6 @@ public class PlayerJoinHandler : MonoBehaviour
                 //Debug.Log("JoinAction()");
                 for (int playerCheck = 0; playerCheck < 4; playerCheck++)
                 {
-                    Debug.Log(PlayerData.playerInputs[playerCheck]);
                     if (PlayerData.playerInputs[playerCheck] == null)
                     {
                         curPlayerPos = playerCheck;
@@ -89,6 +89,9 @@ public class PlayerJoinHandler : MonoBehaviour
         //finds the lowest empty element in the players array & updates the current player int
         PlayerData.playerInputs[curPlayerPos] = playerInput;
         PlayerData.playerControlScheme[curPlayerPos] = playerInput.currentControlScheme;
+
+        Debug.Log(playerInput + ": " + PlayerData.playerInputs[curPlayerPos]);
+        Debug.Log(playerInput.currentControlScheme + ": " + PlayerData.playerControlScheme[curPlayerPos]);
 
         //Debug.Log("increasing player count");
         PlayerData.numOfPlayers++; //increase total number of players

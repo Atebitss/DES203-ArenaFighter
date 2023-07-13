@@ -182,7 +182,7 @@ public class LevelScript : MonoBehaviour
         players[curPlayerPos] = newPlayer;
         playerScripts[curPlayerPos] = newPlayer.GetComponent<PlayerController>();
         Debug.Log("New Player: " + newPlayer.name);
-        PlayerData.SetPlayers(players[curPlayerPos]);
+        PlayerData.SetPlayers(players[curPlayerPos], curPlayerPos);
 
         //apply stats
         ApplyColour();

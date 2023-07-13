@@ -14,9 +14,9 @@ public class PlayerData : MonoBehaviour
     public static int numOfPlayers = 0;
     public static bool gameRun;
 
-    public static void SetPlayers(GameObject player)
+    public static void SetPlayers(GameObject player, int playerNum)
     {
-        players[numOfPlayers] = player;
+        players[playerNum] = player;
     }
 
     public static void GetPlayers()
@@ -27,8 +27,8 @@ public class PlayerData : MonoBehaviour
         {
             Debug.Log("Name: " + playerInputs[i]);
             Debug.Log("Player: " + players[i]);
-            //Debug.Log("Device: " + playerDevices[i]);
-            //Debug.Log("Scheme: " + playerControlScheme[i]);
+            Debug.Log("Device: " + playerDevices[i]);
+            Debug.Log("Scheme: " + playerControlScheme[i]);
         }
     }
 
