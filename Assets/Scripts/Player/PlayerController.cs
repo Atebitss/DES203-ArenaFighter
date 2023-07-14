@@ -17,25 +17,29 @@ public class PlayerController : MonoBehaviour
     public GameObject promptUI;
 
 
+
     //~~~~~~~ GAMEPLAY ~~~~~~~\\
     //~~~ MOVEMENT ~~~\\
     private Vector2 move;
     private Vector2 playerVelocity;
     private bool onGround, devMode;
     private float jumpForce = 15f, moveForce = 5f, previousXMovement;
-    
+
 
     //~~~ JUMPING ~~~\\
     [Header("Jumping")]
     [SerializeField] private float coyoteTime = 0.1f;
     private float coyoteCounter;
+
     private float jumpBufferCounter;
     [SerializeField] private float jumpBufferTime = 0.2f;
+
     [SerializeField] private float playerGravity = 5.5f;
     [SerializeField] private float fallGravityMult = 1.4f;
 
     private bool isJumping;
     private bool topTrigger;
+
 
     //~~~ DASHING ~~~\\
     [Header("Dashing")]
@@ -46,21 +50,23 @@ public class PlayerController : MonoBehaviour
      private float dashCooldown;
      private bool isDashing;
 
+
     //~~~ ICE ~~~\\
     [Header("Ice Movement")]
     [SerializeField] private float IceDecceleration = 0.95f; //must be between 1 and 0
     [SerializeField] private float iceSpeed = 9f;
-     private bool onIce;
+    private bool onIce;
+
 
     //~~~ WALL SLIDE & JUMP ~~~\\
     [Header("Wall Jumps, Climbs and Slides")]
     [SerializeField] private float wallSlideSpeed = -2f;
     [SerializeField] private float wallCoyoteTime;
-     private float wallCoyoteCounter;
-     private float wallJumpCooldown;
-     private bool onStickyWall;
-     private bool isWallJumping;
-     private float wallJumpingDirection;
+    private float wallCoyoteCounter;
+    private float wallJumpCooldown;
+    private bool onStickyWall;
+    private bool isWallJumping;
+    private float wallJumpingDirection;
     [SerializeField] private float wallJumpingDuration = 0.4f;
     [SerializeField] private float wallClimbingDuration = 0.1f;
 
@@ -104,9 +110,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float deflectForce = 60f;
     [SerializeField] private float attackBuildUp = 0.0f;
     [SerializeField] [Range(0.1f, 0.5f)] private float attackTimer = 0.2f;
-     private GameObject attackObject;
-     private bool isDeflecting, isAttacking;
-     private float timeSinceLastKill = 0;
+    private GameObject attackObject;
+    private bool isDeflecting, isAttacking, isDying;
+    private float timeSinceLastKill = 0;
 
 
 
@@ -114,7 +120,6 @@ public class PlayerController : MonoBehaviour
 
     void Awake()
     {
-       
         ls = GameObject.Find("LevelController").GetComponent<LevelScript>();
         vfxController = GameObject.Find("VFXController").GetComponent<VFXController>();
 
@@ -224,7 +229,6 @@ public class PlayerController : MonoBehaviour
         }
 
         //~~~ ANIMATIONS ~~~\\ 
-
         if (!IsGrounded() && playerVelocity.y > 0 && !OnStickyWall())
         {
             animator.SetBool("IsJumping", true);
@@ -242,16 +246,14 @@ public class PlayerController : MonoBehaviour
 
         dashCooldown += Time.deltaTime;
 
-
         if (invincibilityTimer > 0) { invincibilityTimer -= Time.deltaTime; }
-
     }
 
-    //~~~~~~~ PLAYER CONTROL ~~~~~~~\\
-  
-    //Function(Action Input file's current input)
 
+
+    //~~~~~~~ PLAYER CONTROL ~~~~~~~\\
     //~~~ MOVE ~~~\\ 
+    //Function(Action Input file's current input)
     public void OnMove(InputAction.CallbackContext ctx)
     {
         //A/D or Thumbstick -1/+1
@@ -262,6 +264,7 @@ public class PlayerController : MonoBehaviour
         move = new Vector3(movement.x, 0, playerVelocity.y);
     }
 
+    //called by FixedUpdate
     private void PlayerMovement()
     {
         playerVelocity = playerRigid.velocity;   //update current velocity Vector2 to players current velocity
@@ -331,7 +334,6 @@ public class PlayerController : MonoBehaviour
         }
 
         //~~~ WALL JUMP ~~~\\ 
-
         else if (wallCoyoteCounter > 0 & !IsGrounded() & facingRight && move.x > 0f) // Wall Climbing when facing right
         {
             isWallJumping = true;
@@ -384,10 +386,12 @@ public class PlayerController : MonoBehaviour
        // FindObjectOfType<AudioManager>().Play("Bounce");
     }
 
+
+
+
+
     //~~~~~~~ MOVEMENT LOGIC ~~~~~~~\\ 
     //called by Fixed Update, line 42
-
-
     private void Flip()  //flips the player around when moving left or right | Allows us to determine player direction for animating and other stuffs
     {
         if (!frozen) //cannot flip while frozen
@@ -408,6 +412,8 @@ public class PlayerController : MonoBehaviour
 
          
     }
+
+    //~~~ ICE ~~~\\
     private void IceMovement()
     {
         if (IsOnIce())
@@ -426,6 +432,8 @@ public class PlayerController : MonoBehaviour
         }
  
     }
+
+    //~~~ WALL SLIDE ~~~\\
     private void WallSlide()
     {
         //wall jumping code adapted  from https://www.youtube.com/watch?v=_UBpkdKlJzE and https://www.youtube.com/watch?v=O6VX6Ro7EtA | 
@@ -447,6 +455,8 @@ public class PlayerController : MonoBehaviour
         else
             wallJumpCooldown += Time.deltaTime;
     }
+
+    //~~~ BOUNCE ~~~\\
     private void BounceMovement()
     {
         if (IsOnBouncy())
@@ -477,6 +487,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    //~~~ DASH ~~~\\
     public void OnDash(InputAction.CallbackContext ctx)
     {
         if (dashEnabled)
@@ -503,6 +514,8 @@ public class PlayerController : MonoBehaviour
         }
       
     }
+
+    //~~~ DASH IGNORE ~~~\\
     private IEnumerator IgnorePlayerCollisions() // for dashDuration we move to IgnoreCollisions layer to dash through players
     {
         gameObject.layer = LayerMask.NameToLayer("IgnoreCollisions");
@@ -511,6 +524,7 @@ public class PlayerController : MonoBehaviour
         gameObject.layer = LayerMask.NameToLayer("Player");
         playerTop.gameObject.layer = LayerMask.NameToLayer("Player");
     }
+
     private void StopDashing()
     {
          isDashing = false;
@@ -622,8 +636,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    //~~ ICE ATTACK ~~//
-
+    //~~ ICE ATTACK ~~\\
     public void IceAttack(GameObject player) //fires when this player is hit with an Ice Attack
     {
         if (hasIcePower == true)
@@ -658,10 +671,6 @@ public class PlayerController : MonoBehaviour
         Invoke(nameof(StopDeflect), deflectDuration);
     }
     
-
-        
-    
-
     private void StopDeflect()
     {
         //Debug.Log("deflect stop");
@@ -674,6 +683,7 @@ public class PlayerController : MonoBehaviour
     public void Death() //RIP
     {
         //Debug.Log(this.gameObject.name + " death");
+        isDying = true;
 
         //Gets the exact time of the death animation
         AnimationClip[] clips = animator.runtimeAnimatorController.animationClips;
@@ -716,6 +726,10 @@ public class PlayerController : MonoBehaviour
         hasIcePower = false;
         playerRigid.constraints = ~RigidbodyConstraints2D.FreezePosition;
     }
+
+
+    public bool GetIsDying() { return isDying; }
+    public void SetIsDying(bool dying) { isDying = dying; }
 
 
 
