@@ -309,7 +309,7 @@ public class LevelScript : MonoBehaviour
     public void Kill(GameObject target, GameObject killer)
     {
         PlayerController targetPC = target.GetComponent<PlayerController>();
-        if (targetPC.GetInvincibilityTimer() <= 0)
+        if (targetPC.GetInvincibilityTimer() <= 0 && !targetPC.GetIsDying())
         {
             //update scores
             int killerPlayerNum = (int)char.GetNumericValue(killer.name[6]);
@@ -346,6 +346,7 @@ public class LevelScript : MonoBehaviour
         playerPC.ResetInvincibilityTimer();
         anim.ResetTrigger("Dying");
         anim.SetTrigger("Respawning");
+        playerPC.SetIsDying(false);
     }
 
 
