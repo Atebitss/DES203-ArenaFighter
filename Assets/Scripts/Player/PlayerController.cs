@@ -99,8 +99,9 @@ public class PlayerController : MonoBehaviour
 
     private bool hasDashPower = false;
 
-    private float invincibilityTimerDefault = 1f;
+    [SerializeField] private float invincibilityTimerDefault = 1f;
     private float invincibilityTimer = 1f;
+    private bool invincible;
 
     //~~~ FLIP ~~~\\
     private bool facingRight;
@@ -139,10 +140,10 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         animator.SetInteger("PlayerNum", ls.CurrentPlayer());
 
-        //controller
         int playerNo = ls.CurrentPlayer();
         controller = (Gamepad)PlayerData.playerDevices[playerNo];
 
+        invincibilityTimer = invincibilityTimerDefault;
     }
 
 
@@ -261,6 +262,7 @@ public class PlayerController : MonoBehaviour
         dashCooldown += Time.deltaTime;
 
         if (invincibilityTimer > 0) { invincibilityTimer -= Time.deltaTime; }
+        else if (invincibilityTimer <= 0 && invincible) { playerRigid.constraints = ~RigidbodyConstraints2D.FreezePosition; invincible = false; }
     }
 
 
@@ -294,7 +296,11 @@ public class PlayerController : MonoBehaviour
         {
             playerRigid.velocity = new Vector2(-move.x * moveForce, playerVelocity.y);
         }
+<<<<<<< Updated upstream
         else if ( IsGrounded() && !onIce && !isWallJumping && !isDeflecting && !isDashing && !frozen)
+=======
+        else if ( !onIce && !isWallJumping && !isDeflecting && !isDashing && !isDying && invincibilityTimer <= 0)
+>>>>>>> Stashed changes
         {
             playerRigid.velocity = new Vector2(move.x * moveForce, playerVelocity.y);  
         }
@@ -670,6 +676,7 @@ public class PlayerController : MonoBehaviour
         breakAmount = Random.Range(5, 10); //sets the amount of times we need to press jump to escape to a ranodm number between these numbers
         frozen = true;
 
+        //RigidbodyConstraints2D.FreezeRotationZ; to freeze flip?
         playerRigid.constraints = RigidbodyConstraints2D.FreezeAll;
         
     }
@@ -702,7 +709,8 @@ public class PlayerController : MonoBehaviour
     {
 
         //Debug.Log(this.gameObject.name + " death");
-        isDying = true;
+        isDying = true;                                                 //dying = true to stop multiple deaths before respawn
+        playerRigid.constraints = RigidbodyConstraints2D.FreezeAll;     //freeze player in current position
 
         //Gets the exact time of the death animation
         AnimationClip[] clips = animator.runtimeAnimatorController.animationClips;
@@ -712,8 +720,13 @@ public class PlayerController : MonoBehaviour
         {
             if(clips[i].name == "Death")
             {
+<<<<<<< Updated upstream
                 deathTime = clips[i].length;
                
+=======
+                deathTime = clips[i].length;    //death delay set to animations length
+                Debug.Log("death time set to " + deathTime);
+>>>>>>> Stashed changes
             }
         }
 
@@ -741,6 +754,12 @@ public class PlayerController : MonoBehaviour
     public void KillDelay()
     {
         //Debug.Log("delay over");
+        animator.ResetTrigger("Dying");
+        Invoke(nameof(RespawnDelay), 2f);
+    }
+
+    public void RespawnDelay()
+    {
         ls.Respawn((int)char.GetNumericValue(this.gameObject.name[6]), this.gameObject, animator);
     }
 
@@ -748,7 +767,6 @@ public class PlayerController : MonoBehaviour
     {
         frozen = false;
         hasIcePower = false;
-        playerRigid.constraints = ~RigidbodyConstraints2D.FreezePosition;
     }
 
 
@@ -1001,6 +1019,7 @@ public class PlayerController : MonoBehaviour
     public void ResetInvincibilityTimer()
     {
         invincibilityTimer = invincibilityTimerDefault;
+        invincible = true;
     }
 
 

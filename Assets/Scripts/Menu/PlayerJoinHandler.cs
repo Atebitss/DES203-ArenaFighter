@@ -48,7 +48,7 @@ public class PlayerJoinHandler : MonoBehaviour
     //~~~~~~~ PLAYER JOINED ~~~~~~~\\
     void JoinAction(InputAction.CallbackContext ctx)
     {
-        Debug.Log("Join action attempt");
+        //Debug.Log("Join action attempt");
         if (SceneManager.GetActiveScene().name == "PlayerJoin")
         {
             //joins player as long as there are less than 4 players

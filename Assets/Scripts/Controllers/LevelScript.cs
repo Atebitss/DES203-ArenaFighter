@@ -31,12 +31,8 @@ public class LevelScript : MonoBehaviour
 
     //important level & multiplayer stuff
     [Header("Level and Multiplayer")]
-    [SerializeField] private InputAction joinAction;
-    [SerializeField] private InputAction leaveAction;
     [SerializeField] private GameObject playerPrefab;
     public static LevelScript instance = null;
-    public event System.Action<PlayerInput> PlayerJoinedGame;
-    public event System.Action<PlayerInput> PlayerLeftGame;
     [SerializeField] [Range(1, 5)] private float roundMins = 3;
 
     //collectable stuff
@@ -344,7 +340,6 @@ public class LevelScript : MonoBehaviour
 
         playerPC.Respawn();
         playerPC.ResetInvincibilityTimer();
-        anim.ResetTrigger("Dying");
         anim.SetTrigger("Respawning");
         playerPC.SetIsDying(false);
     }

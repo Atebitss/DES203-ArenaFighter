@@ -8,7 +8,6 @@ public class SpinningPlatform : MonoBehaviour
 
 
 
-
     void Update()
     {
         transform.Rotate(new Vector3(0, 0, speed * Time.deltaTime));
@@ -16,20 +15,11 @@ public class SpinningPlatform : MonoBehaviour
         if ((transform.eulerAngles.z >= -30 && transform.eulerAngles.z <= 30) || (transform.eulerAngles.z >=150  && transform.eulerAngles.z <= -150))
         {
             gameObject.layer = LayerMask.NameToLayer("Wall");
-            print("Wall");
+            //print("Wall");
         }
         else
         {
             gameObject.layer = LayerMask.NameToLayer("Ground");
-        }
-         
-
-        
-        
-            
-        
+        }        
     }
-    
-
-
 }
