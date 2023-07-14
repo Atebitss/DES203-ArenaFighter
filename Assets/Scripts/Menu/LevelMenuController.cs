@@ -22,7 +22,7 @@ public class LevelMenuController : MonoBehaviour
     {
     FindObjectOfType<AudioManager>().Play("SelectBeep");
   //  FindObjectOfType<AudioManager>().StopPlaying("LevelMusic");
-        SceneManager.LoadScene(6);
+        SceneManager.LoadScene(3);
     }
 
     public void Level2() 
