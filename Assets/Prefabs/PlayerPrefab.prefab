@@ -539,8 +539,9 @@ MonoBehaviour:
   promptUI: {fileID: 7672157447790872604}
   coyoteTime: 0.1
   jumpBufferTime: 0.2
-  playerGravity: 5.5
+  playerGravity: 5.4
   fallGravityMult: 1.4
+  midAirMoveMultiplier: 0.8
   dashSpeed: 35
   dashDuration: 0.1
   dashCooldownTime: 0.4

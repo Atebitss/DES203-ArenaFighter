@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask wallLayer;
+    private Gamepad controller;
+
     private LevelScript ls;
     private VFXController vfxController;
     public GameObject playerTop;
@@ -33,6 +35,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpBufferTime = 0.2f;
     [SerializeField] private float playerGravity = 5.5f;
     [SerializeField] private float fallGravityMult = 1.4f;
+    [SerializeField] private float midAirMoveMultiplier = 0.5f;
 
     private bool isJumping;
     private bool topTrigger;
@@ -107,6 +110,7 @@ public class PlayerController : MonoBehaviour
      private GameObject attackObject;
      private bool isDeflecting, isAttacking;
      private float timeSinceLastKill = 0;
+    
 
 
 
@@ -124,6 +128,11 @@ public class PlayerController : MonoBehaviour
 
         animator = GetComponent<Animator>();
         animator.SetInteger("PlayerNum", ls.CurrentPlayer());
+
+        //controller
+        int playerNo = ls.CurrentPlayer();
+        controller = (Gamepad)PlayerData.playerDevices[playerNo];
+
     }
 
 
@@ -273,14 +282,17 @@ public class PlayerController : MonoBehaviour
        
         
 
-        if (hasInvertedControls) //Basic horizontal movment, and inverted horizontal movement
+        if (hasInvertedControls) //Basic horizontal movment, and inverted horizontal movement, and slowed horizontal movement when in air
         {
-            Debug.Log("now has inverted controls");
             playerRigid.velocity = new Vector2(-move.x * moveForce, playerVelocity.y);
         }
-        else if ( !onIce && !isWallJumping && !isDeflecting && !isDashing)
+        else if ( IsGrounded() && !onIce && !isWallJumping && !isDeflecting && !isDashing && !frozen)
         {
             playerRigid.velocity = new Vector2(move.x * moveForce, playerVelocity.y);  
+        }
+        else if (!IsGrounded() && !isWallJumping && !isDeflecting && !isDashing && !frozen)
+        {
+            playerRigid.velocity = new Vector2(move.x * moveForce * midAirMoveMultiplier, playerVelocity.y);
         }
     }
 
@@ -289,7 +301,8 @@ public class PlayerController : MonoBehaviour
     public void OnJump(InputAction.CallbackContext ctx)
     {
         isJumping = true;
-        
+       
+       
 
         if (frozen) //code for when frozen, have to jump [breakAmount] of times to escape
         {
@@ -355,7 +368,7 @@ public class PlayerController : MonoBehaviour
         else if (wallCoyoteCounter > 0 & !IsGrounded()) // Wall Jumping / Kicking
         {
             isWallJumping = true;
-            playerRigid.velocity = new Vector2(-transform.localScale.x * 12, 20);
+            playerRigid.velocity = new Vector2(-transform.localScale.x * 10, 20);
             PlayJumpAudio();
             wallJumpCooldown = 0;
 
@@ -673,8 +686,6 @@ public class PlayerController : MonoBehaviour
     //~~~ DEATH ~~~\\
     public void Death() //RIP
     {
-        //Debug.Log(this.gameObject.name + " death");
-
         //Gets the exact time of the death animation
         AnimationClip[] clips = animator.runtimeAnimatorController.animationClips;
         float deathTime = 0;
@@ -684,16 +695,21 @@ public class PlayerController : MonoBehaviour
             if(clips[i].name == "Death")
             {
                 deathTime = clips[i].length;
-                //Debug.Log("death time set to " + deathTime);
+               
             }
         }
 
         animator.SetTrigger("Dying");
         PlayDeathAudio();
         Invoke(nameof(KillDelay), deathTime);
-        if (frozen)
+
+        vfxController.GetComponent<HapticController>().PlayHaptics("Death", controller); //play death Controller vibrations
+        
+
+        if (frozen) //play deathVFX
         {
             vfxController.GetComponent<VFXController>().PlayVFX(transform, "Ice Death");
+
         }
         else
         {
