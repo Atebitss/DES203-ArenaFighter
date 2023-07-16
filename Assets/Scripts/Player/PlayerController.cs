@@ -115,15 +115,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float attackBuildUp = 0.0f;
     [SerializeField] [Range(0.1f, 0.5f)] private float attackTimer = 0.2f;
      private GameObject attackObject;
-     private bool isDeflecting, isAttacking;
+     private bool isDeflecting, isAttacking, isDying;
      private float timeSinceLastKill = 0;
-    
-
-    private GameObject attackObject;
-    private bool isDeflecting, isAttacking, isDying;
-    private float timeSinceLastKill = 0;
-
-
 
 
 
@@ -296,11 +289,7 @@ public class PlayerController : MonoBehaviour
         {
             playerRigid.velocity = new Vector2(-move.x * moveForce, playerVelocity.y);
         }
-<<<<<<< Updated upstream
-        else if ( IsGrounded() && !onIce && !isWallJumping && !isDeflecting && !isDashing && !frozen)
-=======
-        else if ( !onIce && !isWallJumping && !isDeflecting && !isDashing && !isDying && invincibilityTimer <= 0)
->>>>>>> Stashed changes
+        else if ( !onIce && !isWallJumping && !isDeflecting && !isDashing && !isDying && !frozen && invincibilityTimer <= 0)
         {
             playerRigid.velocity = new Vector2(move.x * moveForce, playerVelocity.y);  
         }
@@ -720,13 +709,8 @@ public class PlayerController : MonoBehaviour
         {
             if(clips[i].name == "Death")
             {
-<<<<<<< Updated upstream
-                deathTime = clips[i].length;
-               
-=======
                 deathTime = clips[i].length;    //death delay set to animations length
                 Debug.Log("death time set to " + deathTime);
->>>>>>> Stashed changes
             }
         }
 
