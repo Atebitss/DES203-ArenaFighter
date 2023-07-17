@@ -134,7 +134,10 @@ public class PlayerController : MonoBehaviour
         animator.SetInteger("PlayerNum", ls.CurrentPlayer());
 
         int playerNo = ls.CurrentPlayer();
-        controller = (Gamepad)PlayerData.playerDevices[playerNo];
+        string inputDevice = PlayerData.playerDevices[playerNo].name;
+        Debug.Log(inputDevice);
+        if (!inputDevice.Equals("Keyboard")) { controller = (Gamepad)PlayerData.playerDevices[playerNo]; }
+        else { controller = null; }
 
         invincibilityTimer = invincibilityTimerDefault;
     }
@@ -718,7 +721,7 @@ public class PlayerController : MonoBehaviour
         PlayDeathAudio();
         Invoke(nameof(KillDelay), deathTime);
 
-        vfxController.GetComponent<HapticController>().PlayHaptics("Death", controller); //play death Controller vibrations
+        if (controller != null) { vfxController.GetComponent<HapticController>().PlayHaptics("Death", controller); } //play death Controller vibrations
         
 
         if (frozen) //play deathVFX
