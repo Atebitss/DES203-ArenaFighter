@@ -24,6 +24,7 @@ public class DebugUIScript : MonoBehaviour
                     player.name
                 + "\nX: " + playerScript.GetPlayerX().ToString("F2")
                 + "\tY: " + playerScript.GetPlayerY().ToString("F2")
+                + "\tScale: " + playerScript.GetPlayerLocalScale()
                 + "\nVelocity X: " + playerScript.GetPlayerXVelocity().ToString("F2")
                 + "\tVelocity Y: " + playerScript.GetPlayerYVelocity().ToString("F2")
                 + "\n\nisGrounded: " + playerScript.IsGrounded()

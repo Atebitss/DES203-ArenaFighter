@@ -51,13 +51,5 @@
     "com.unity.modules.wind": "1.0.0",
     "com.unity.modules.xr": "1.0.0"
   },
-  "scopedRegistries": [
-    {
-      "name": "Extra Controllers",
-      "url": "https://github.com/popcron/extra-controllers.git",
-      "scopes": [
-        "com.popcron.extra-controllers"
-      ]
-    }
-  ]
+  "scopedRegistries": []
 }

@@ -615,11 +615,14 @@ public class PlayerController : MonoBehaviour
                 {
                     case "PlayerFront":
                         //deflect player if not hitting with Ice attack
+                        //Debug.Log(this.name + ": " + this.gameObject.transform.localScale);
+                        //Debug.Log(collisions[colIndex].transform.parent.name + ": " + collisions[colIndex].gameObject.transform.parent.localScale);
+
                         if (hasIcePower == true)
                         {
                             IceAttack(collisions[colIndex].gameObject.transform.parent.gameObject);
                         }
-                        else if (!isDeflecting)
+                        else if (!isDeflecting && this.gameObject.transform.localScale.x == -collisions[colIndex].gameObject.transform.parent.localScale.x)
                         {
                            
                             Deflect();
@@ -629,10 +632,13 @@ public class PlayerController : MonoBehaviour
                     case "PlayerBack":
                         //kill other player or Ice attack them
                         {
-                            ls.Kill(collisions[colIndex].gameObject.transform.parent.gameObject, this.gameObject);
-                            char playerNumChar = this.gameObject.name[6];
-                            int playerNum = playerNumChar - '0';
-                            timeSinceLastKill = 0;
+                            if (this.gameObject.transform.localScale.x == collisions[colIndex].gameObject.transform.parent.localScale.x)
+                            {
+                                ls.Kill(collisions[colIndex].gameObject.transform.parent.gameObject, this.gameObject);
+                                char playerNumChar = this.gameObject.name[6];
+                                int playerNum = playerNumChar - '0';
+                                timeSinceLastKill = 0;
+                            }
                         }
 
                         break;
@@ -985,6 +991,9 @@ public class PlayerController : MonoBehaviour
         Vector2 newVel = new Vector2(newXVel, playerRigid.velocity.y);
         playerRigid.velocity = newVel;
     }
+
+    public Vector3 GetPlayerLocalScale(){ return playerRigid.transform.localScale; }
+
 
     //~~~ Y VELOCITY ~~~\\ 
     public float GetPlayerYVelocity()

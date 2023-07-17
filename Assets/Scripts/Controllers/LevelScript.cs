@@ -14,7 +14,7 @@ public class LevelScript : MonoBehaviour
 
     //debug
     [Header("Debug")]
-    [SerializeField] private bool devMode = false;
+    private bool devMode = false;
     private DebugUIManager DUIM;
 
     //spawn points
@@ -68,6 +68,7 @@ public class LevelScript : MonoBehaviour
         }
 
         if (!PlayerData.gameRun) { PlayerData.gameRun = true; }
+        devMode = PlayerData.devMode;
 
         //start level music
         FindObjectOfType<AudioManager>().Play("MusicFight");

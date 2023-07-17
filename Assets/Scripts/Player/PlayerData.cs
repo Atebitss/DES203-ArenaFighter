@@ -5,14 +5,16 @@ using UnityEngine.InputSystem;
 
 public class PlayerData : MonoBehaviour
 {
-    static private GameObject[] players = new GameObject[4];
+    public static GameObject[] players = new GameObject[4];
     public static PlayerInput[] playerInputs = new PlayerInput[4];
     public static InputDevice[] playerDevices = new InputDevice[4];
     public static string[] playerControlScheme = new string[4];
     public static int[] playerScores = new int[4];// { 4, 4};
     public static float[] timeSinceLastKill = new float[4];// { 1.1f, 0.75f};
     public static int numOfPlayers = 0;
-    public static bool gameRun;
+    public static bool gameRun, devMode;
+
+
 
     public static void SetPlayers(GameObject player, int playerNum)
     {
