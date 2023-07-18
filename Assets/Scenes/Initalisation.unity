@@ -167,43 +167,37 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: DeathCry1
     clip: {fileID: 8300000, guid: 2eebde3cbcbdd6e488ceb63d87d37aa0, type: 3}
-    volume: 0.4
-    pitch: 1.22
+    volume: 0.2
+    pitch: 0.75
     loop: 0
     source: {fileID: 0}
   - name: DeathCry2
     clip: {fileID: 8300000, guid: 7b2915e3b1357d943be1d69b5eb874fe, type: 3}
-    volume: 0.4
-    pitch: 1.23
+    volume: 0.2
+    pitch: 0.75
     loop: 0
     source: {fileID: 0}
   - name: DeathCry3
     clip: {fileID: 8300000, guid: 7a883a823bdd20d4da485f9d92490cae, type: 3}
-    volume: 0.4
-    pitch: 1.13
+    volume: 0.2
+    pitch: 0.75
     loop: 0
     source: {fileID: 0}
   - name: JumpGrunt
     clip: {fileID: 8300000, guid: 90bf73db36a1c1f43adeb9fc9f39bb75, type: 3}
     volume: 0.03
-    pitch: 1
+    pitch: 0.8
     loop: 0
     source: {fileID: 0}
   - name: JumpGrunt2
     clip: {fileID: 8300000, guid: 5d845d62733a55845a5a6f510709813e, type: 3}
     volume: 0.03
-    pitch: 0.96
+    pitch: 0.7
     loop: 0
     source: {fileID: 0}
   - name: JumpWhoosh
     clip: {fileID: 8300000, guid: 58c4da31c4ecd1f4baaa0251bfb80a7f, type: 3}
     volume: 0.06
-    pitch: 1
-    loop: 0
-    source: {fileID: 0}
-  - name: Ice
-    clip: {fileID: 8300000, guid: d4695e5feb28dea46af6ac5eff7604f9, type: 3}
-    volume: 0.75
     pitch: 1
     loop: 0
     source: {fileID: 0}
@@ -214,15 +208,9 @@ MonoBehaviour:
     loop: 0
     source: {fileID: 0}
   - name: MusicFight
-    clip: {fileID: 8300000, guid: ecbd136916848ef49ba71bfb0fea36af, type: 3}
-    volume: 0.01
+    clip: {fileID: 8300000, guid: 9b14f188ec754954c8036defeca85dcb, type: 3}
+    volume: 0.02
     pitch: 1
-    loop: 1
-    source: {fileID: 0}
-  - name: Walk
-    clip: {fileID: 8300000, guid: 09190997b4cfcc045bdcbefddcef9129, type: 3}
-    volume: 0.215
-    pitch: 1.24
     loop: 0
     source: {fileID: 0}
   - name: Landing
@@ -292,10 +280,40 @@ MonoBehaviour:
     loop: 1
     source: {fileID: 0}
   - name: MusicMenu
-    clip: {fileID: 8300000, guid: 4e52620ef29f12e43934baa3223564ad, type: 3}
-    volume: 0.17
+    clip: {fileID: 8300000, guid: d15a5ff06af63b3468899d6442958038, type: 3}
+    volume: 0.02
     pitch: 1
     loop: 1
+    source: {fileID: 0}
+  - name: SpookyNoise
+    clip: {fileID: 8300000, guid: d1f0a90bf08b64a4c92c13f5df869ad3, type: 3}
+    volume: 0.11
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: Dash
+    clip: {fileID: 8300000, guid: 034f11c18dab5d74392f4a2d6f34b0f9, type: 3}
+    volume: 0.06
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Freeze
+    clip: {fileID: 8300000, guid: 4322a6e206e58f340a23519e39dcae10, type: 3}
+    volume: 0.15
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: BreakFree
+    clip: {fileID: 8300000, guid: 88fb2cb99a6877244b8d513523d74d40, type: 3}
+    volume: 0.15
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Collect
+    clip: {fileID: 8300000, guid: b3242ad2ffcbec246a38fab0f7177790, type: 3}
+    volume: 0.1
+    pitch: 1
+    loop: 0
     source: {fileID: 0}
 --- !u!4 &516737285
 Transform:

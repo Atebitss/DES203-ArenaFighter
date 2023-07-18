@@ -318,7 +318,7 @@ public class PlayerController : MonoBehaviour
                 breakCounter = 0;
                 frozen = false;
                 Debug.Log("Broke free from Ice!!!");
-                
+                 FindObjectOfType<AudioManager>().Play("BreakFree");
             }
 
         }
@@ -511,6 +511,7 @@ public class PlayerController : MonoBehaviour
                 dashCooldown = 0;
                 playerRigid.velocity = new Vector2(transform.localScale.x * dashSpeed, 0);
                 StartCoroutine(IgnorePlayerCollisions());
+                FindObjectOfType<AudioManager>().Play("Dash");
             }
             Invoke(nameof(StopDashing), dashDuration);
         }
@@ -658,6 +659,7 @@ public class PlayerController : MonoBehaviour
             hasIcePower = false;
 
             player.GetComponent<PlayerController>().Freeze();
+             FindObjectOfType<AudioManager>().Play("Freeze");
         }
     }
     public void Freeze()
@@ -788,6 +790,7 @@ public class PlayerController : MonoBehaviour
                 Debug.Log("Collected Ice");
                 hasIcePower = true;
                 Destroy(collision.gameObject);
+                  FindObjectOfType<AudioManager>().Play("Collect");
                 break;
             case "InverseCollectable":
                 Debug.Log("Collected Invert");
