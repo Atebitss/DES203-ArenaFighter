@@ -90,20 +90,20 @@ public class LevelScript : MonoBehaviour
     {
         for (int player = 0; player < PlayerData.numOfPlayers; player++)
         {
-            string playerRef = "PlayerJoin" + player;
-            //Debug.Log(playerRef);
-            Destroy(GameObject.Find(playerRef));
-            //Debug.Log("curplayerpos currently " + curPlayerPos);
-            curPlayerPos = player;
-            //Debug.Log("setting curplayerpos to " + player);
+            curPlayerPos = player;                      //current player ref is the players number (0-3)
+            string playerRef = "PlayerJoin" + player;   //reference player
+            Destroy(GameObject.Find(playerRef));        //destroy any players found in the level
 
+            //create new player
             //saviour code from Rene-Damm in the Unity Forum - https://forum.unity.com/threads/local-multiplayer-lobby-scene-gameplay-scene.845044/
             PlayerInput.Instantiate(playerPrefab, controlScheme: PlayerData.playerControlScheme[curPlayerPos], playerIndex: curPlayerPos, pairWithDevices: PlayerData.playerDevices[curPlayerPos]);
             NewPlayer();
+            
+            //begin collectable spawning
             StartCoroutine(InitialCollectableSpawnDelay());
         }
-
     }
+
     private IEnumerator InitialCollectableSpawnDelay()
     {
         collectableCanSpawn = false;
@@ -174,12 +174,16 @@ public class LevelScript : MonoBehaviour
     //~~~~~~~ ADD NEW PLAYER ~~~~~~~\\
     public void NewPlayer()
     {
-        //fills the arrays with the applicable player & script
+        //reference new player object
         GameObject newPlayer = GameObject.Find("Player" + curPlayerPos);
+        //Debug.Log("New Player: " + newPlayer.name);
+
+        //fills the arrays with the applicable player & script
         players[curPlayerPos] = newPlayer;
         playerScripts[curPlayerPos] = newPlayer.GetComponent<PlayerController>();
-        Debug.Log("New Player: " + newPlayer.name);
-        PlayerData.SetPlayers(players[curPlayerPos], curPlayerPos);
+
+        //update player data with new player
+        PlayerData.SetPlayers(players[curPlayerPos], curPlayerPos, playerScripts[curPlayerPos]);
 
         //apply stats
         ApplyColour();
@@ -238,7 +242,7 @@ public class LevelScript : MonoBehaviour
     {
         if (collectableCanSpawn)
         {
-            Debug.Log("Spawn Collectable");
+            //Debug.Log("Spawn Collectable");
             Transform chosenSpawn = ChooseCollectableSpawnPoint().transform; //uses ChooseCollectableSpawnPoint() to choose one collectable spawn in the level
             Vector2 chosenSpawnPos = chosenSpawn.position;
             Quaternion chosenSpawnRot = chosenSpawn.rotation;
@@ -306,14 +310,51 @@ public class LevelScript : MonoBehaviour
     public void Kill(GameObject target, GameObject killer)
     {
         PlayerController targetPC = target.GetComponent<PlayerController>();
+        PlayerController killerPC = killer.GetComponent<PlayerController>();
+
         if (targetPC.GetInvincibilityTimer() <= 0 && !targetPC.GetIsDying())
         {
-            //update scores
-            int killerPlayerNum = (int)char.GetNumericValue(killer.name[6]);
-            PlayerData.playerScores[killerPlayerNum]++;
-            //Debug.Log(killer.name + " has " + PlayerData.playerScores[killerPlayerNum] + " kills");
+            //update killer info
+            int killerNum = (int)char.GetNumericValue(killer.name[6]);
+            float tslk = killerPC.GetTimeSinceLastKill();
+
+            //update killer score
+            killerPC.IncScore();
+            killerPC.ResetTimeSinceLastKill();
+
+            //kill target
             targetPC.Death();
-            //PlayerScoreSort.SortPlayers();
+
+            //update and then sort player scores
+            PlayerData.UpdateScores();
+            PlayerData.SortScores();
+
+            //playerScripts[(PlayerData.playerPositions[0]-1)].EnableCrown();
+        }
+
+        Debug.Log("");
+        for(int i = 0; i < PlayerData.numOfPlayers; i++)
+        {
+            /*Debug.Log("~~~~~~~" + 
+                "   " + players[i].name +
+                "   kills: " + PlayerData.playerScores[i] +
+                "   tslk: " + PlayerData.playerTSLK[i] + 
+                "   podium: " + PlayerData.playerPositions[i] +
+                "   script: " + playerScripts[i]);*/
+
+            Debug.Log("Position " + i + ": Player " + (PlayerData.playerPositions[i]-1) + " with score " + PlayerData.playerScores[i]);
+            //Debug.Log("player script in ref to podium pos: " + playerScripts[PlayerData.playerPositions[i]-1]);
+
+            if (i == 0 && !playerScripts[PlayerData.playerPositions[i] - 1].GetCrowned())
+            {
+                playerScripts[PlayerData.playerPositions[i] - 1].EnableCrown();
+                Debug.Log("Player " + (PlayerData.playerPositions[i]-1) + " has taken the lead!");
+            }
+            else if(i != 0 && playerScripts[PlayerData.playerPositions[i] - 1].GetCrowned())
+            {
+                playerScripts[PlayerData.playerPositions[i] - 1].DisableCrown();
+                Debug.Log("Player " + (PlayerData.playerPositions[i]-1) + " has lost the lead!");
+            }
         }
     }
 
@@ -363,7 +404,7 @@ public class LevelScript : MonoBehaviour
     //~~~~~~~ TIME UP ~~~~~~~\\
     public void TimeUp()
     {
-        for (int p = 0; p < PlayerData.numOfPlayers; p++) { PlayerData.timeSinceLastKill[p] = playerScripts[p].GetTimeSinceLastKill(); }
+        for (int p = 0; p < PlayerData.numOfPlayers; p++) { PlayerData.playerTSLK[p] = playerScripts[p].GetTimeSinceLastKill(); }
         SceneManager.LoadScene(5);
     }
 
