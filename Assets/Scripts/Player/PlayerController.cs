@@ -119,7 +119,7 @@ public class PlayerController : MonoBehaviour
 
     private GameObject attackObject;
     private bool isDeflecting, isAttacking, isDying, crowned;
-    private int score = 0;
+    private int score;
     private float timeSinceLastKill = 0;
 
 
@@ -150,6 +150,7 @@ public class PlayerController : MonoBehaviour
         invincibilityTimer = invincibilityTimerDefault;
 
         //hide crown
+        DisableCrown();
         DisableCrown();
     }
 
@@ -669,19 +670,16 @@ public class PlayerController : MonoBehaviour
     public void SetScore(int newScore)
     {
         score = newScore;
-        Debug.Log(this.gameObject.name + "'s score set to " + score);
     }
 
     public void IncScore()
     {
         score++;
-        Debug.Log(this.gameObject.name + "'s score increased by 1: " + score);
     }
 
     public void RedScore()
     {
         score--;
-        Debug.Log(this.gameObject.name + "'s score decreased by 1: " + score);
     }
 
     public int GetScore()
