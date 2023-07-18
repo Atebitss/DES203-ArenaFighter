@@ -13,6 +13,7 @@ public class ChangeImage : MonoBehaviour
     {
         FindObjectOfType<AudioManager>().Play("Beep");
         imageComponent.sprite = newImage;
+        imageComponent.color = new Color(imageComponent.color.r, imageComponent.color.g, imageComponent.color.b, 1);
         //Debug.Log("updating image");
     }
 
@@ -26,6 +27,7 @@ public class ChangeImage : MonoBehaviour
     {
         FindObjectOfType<AudioManager>().Play("Beep");
         imageComponent.sprite = emptyImage;
+        imageComponent.color = new Color(imageComponent.color.r, imageComponent.color.g, imageComponent.color.b, 0);
         //Debug.Log("resetting image");
     }
 }

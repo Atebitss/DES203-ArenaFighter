@@ -1,45 +1,75 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 public class LoadScreenManager : MonoBehaviour
 {
-   [SerializeField] private GameObject loadingScreen;
-   [SerializeField] private GameObject menuScreen;
-    private bool buttonPressed = false;
-   [SerializeField] private Slider loadingSlider;
-
-    public void LoadLevel(int levelLoadNo) //disables menu UI and enables loading screen UI
+    public Animator transition;
+    public float transitionTime = 1f;
+    public Button pressStart;
+    public Image loading;
+    private bool isLoading = true;
+    private bool pressedStart;
+    [SerializeField] private float minLoadTime;
+    private float timer;
+    [SerializeField] private InputAction startAction;
+    private void Awake()
     {
-        menuScreen.SetActive(false);
-        loadingScreen.SetActive(true);
-
-       // StartCoroutine(LoadLevelASync(levelLoadNo));
+        startAction.performed += ctx => StartAction(ctx);
+        startAction.Enable();
     }
-
-  //  IEnumerator LoadLevelASync(int levelLoadNo) //Starts loading next level asyncrousnously, updates loading bar sldier with the loading progress
-  //  {
-   //     AsyncOperation loadOperation = SceneManager.LoadSceneAsync(levelLoadNo);
-
-   //     loadOperation.allowSceneActivation = false;
-    //    while (!loadOperation.isDone)
-      //  {
-      //      float progressValue = Mathf.Clamp01(loadOperation.progress / 0.9f);
-     //       loadingSlider.value = progressValue;
-            
-      //      yield return new WaitUntil(() => buttonPressed == true);
-      //  }
- //   }
-
-    //Disbaling loading and stuff for now, just pressing button will load the scene
-    public void FightButton()
+    public void Start()
     {
-        SceneManager.LoadScene(6);
+        FindObjectOfType<AudioManager>().Play("SelectBeep");
+        FindObjectOfType<AudioManager>().StopPlaying("StartMenuMusic");
+
+        StartCoroutine(LoadLevelASync(4));
+    }
+    public void Update()
+    {
        
+        if (isLoading)
+        {
+            loading.gameObject.SetActive(true);
+            pressStart.gameObject.SetActive(false);
+        }
+        else
+        {
+            loading.gameObject.SetActive(false);
+            pressStart.gameObject.SetActive(true);
+        }
+        timer += Time.deltaTime;
 
+        if (timer > minLoadTime)
+        {
+            isLoading = false;
+        }
+        print(pressedStart);
     }
+    void StartAction(InputAction.CallbackContext ctx)
+    {
+        if (!isLoading)
+        {
+            FindObjectOfType<AudioManager>().Play("SelectBeep");
+            FindObjectOfType<AudioManager>().StopPlaying("StartMenuMusic");
+            pressedStart = true;
+        }
+    }
+    IEnumerator LoadLevelASync(int levelIndex)
+    {
+        AsyncOperation operation = SceneManager.LoadSceneAsync(levelIndex);
+        operation.allowSceneActivation = false;
 
-    //https://www.youtube.com/watch?v=NyFYNsC3H8k 
+        while (!operation.isDone)
+        {
+            if (timer > minLoadTime && pressedStart)
+            { 
+                operation.allowSceneActivation = true;
+            }
+            yield return null;
+        }
+    }
+  
 }

@@ -1,38 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
-public class PlayerJoinMenuController : MonoBehaviour
+public class GameEndManager : MonoBehaviour
 {
     public Animator transition;
     public float transitionTime = 1f;
 
-    public Button startButton;
+    [SerializeField] private InputAction continueAction;
 
-
-    public void Update()
+    void Awake()
     {
-        if (PlayerData.numOfPlayers >= 2)
-        {
-            startButton.gameObject.SetActive(true);
-        }
-        else
-        {
-            startButton.gameObject.SetActive(false);
-        }
-
+        continueAction.performed += ctx => Continue(ctx);
+        continueAction.Enable();
     }
-    public void StartGame()
+
+
+    public void Continue(InputAction.CallbackContext ctx)
     {
-       
         FindObjectOfType<AudioManager>().Play("SelectBeep");
 
-        FindObjectOfType<AudioManager>().StopPlaying("MusicMenu");
-
-        StartCoroutine(LoadLevel(3));
+        StartCoroutine(LoadLevel(1));
     }
     IEnumerator LoadLevel(int levelIndex)
     {

@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerJoinHandler : MonoBehaviour
 {
     public event System.Action<PlayerInput> PlayerJoinedGame;
     public event System.Action<PlayerInput> PlayerLeftGame;
+    [SerializeField] private GameObject playerJoinMenuController;
     [SerializeField] private InputAction joinAction;
     [SerializeField] private InputAction leaveAction;
     [SerializeField] private InputAction startAction;
+    
 
     private int curPlayerPos;
     private InputAction.CallbackContext context;
@@ -49,7 +52,7 @@ public class PlayerJoinHandler : MonoBehaviour
     void JoinAction(InputAction.CallbackContext ctx)
     {
         //Debug.Log("Join action attempt");
-        if (SceneManager.GetActiveScene().name == "PlayerJoin")
+        if (SceneManager.GetActiveScene().name == "2PlayerJoin")
         {
             //joins player as long as there are less than 4 players
             if (PlayerData.numOfPlayers < 4)
@@ -106,7 +109,7 @@ public class PlayerJoinHandler : MonoBehaviour
     //~~~~~~~ PLAYER LEFT ~~~~~~~\\
     void LeaveAction(InputAction.CallbackContext ctx)
     {
-        if (SceneManager.GetActiveScene().name == "PlayerJoin")
+        if (SceneManager.GetActiveScene().name == "2PlayerJoin")
         {
             //leaves player
             Debug.Log("LeaveAction()");
@@ -163,13 +166,13 @@ public class PlayerJoinHandler : MonoBehaviour
 
     void StartAction(InputAction.CallbackContext ctx)
     {
-        if (SceneManager.GetActiveScene().name == "PlayerJoin")
+        if (SceneManager.GetActiveScene().name == "2PlayerJoin")
         {
             Debug.Log("Start action");
             if (PlayerData.numOfPlayers >= 2)
             {
                 Debug.Log("Enough player to start");
-                GameObject.Find("PlayerJoinMenu").GetComponent<PlayerJoinMenuController>().StartGame();
+                playerJoinMenuController.GetComponent<PlayerJoinMenuController>().StartGame();
             }
             else
             {

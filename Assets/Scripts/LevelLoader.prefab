@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 457295e2db8b2404fbd02c13acefb26d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transition: {fileID: 0}
+  transition: {fileID: 7669635686518991101, guid: 7575723904653084d99598dbed3405cd, type: 3}
   transitionTime: 1
 --- !u!95 &7664833595826148243
 Animator:
