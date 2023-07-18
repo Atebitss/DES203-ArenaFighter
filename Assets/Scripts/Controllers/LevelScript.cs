@@ -29,11 +29,17 @@ public class LevelScript : MonoBehaviour
     private int curPlayerPos = 0;
     private int prevPlayerPos = 0;
 
+    //intro stuff
+    [Header("Intro")]
+    public bool introIsOver;
+    [SerializeField] private float introTime;
+
     //important level & multiplayer stuff
     [Header("Level and Multiplayer")]
     [SerializeField] private GameObject playerPrefab;
     public static LevelScript instance = null;
     [SerializeField] [Range(1, 5)] private float roundMins = 3;
+    
 
     //collectable stuff
     [Header("Collectables")]
@@ -81,13 +87,15 @@ public class LevelScript : MonoBehaviour
         //update debug
         if (devMode)
         {
-            DUIM = GameObject.Find("DebugUI").GetComponent<DebugUIManager>();
+     //       DUIM = GameObject.Find("DebugUI").GetComponent<DebugUIManager>();
         }
     }
 
 
     private void Start()
     {
+        StartCoroutine(IntroDelay());
+
         for (int player = 0; player < PlayerData.numOfPlayers; player++)
         {
             string playerRef = "PlayerJoin" + player;
@@ -103,6 +111,12 @@ public class LevelScript : MonoBehaviour
             StartCoroutine(InitialCollectableSpawnDelay());
         }
 
+    }
+    private IEnumerator IntroDelay()
+    {
+        introIsOver = false;
+        yield return new WaitForSeconds(introTime);
+        introIsOver = true;
     }
     private IEnumerator InitialCollectableSpawnDelay()
     {
@@ -188,7 +202,7 @@ public class LevelScript : MonoBehaviour
         if (devMode)
         {
             //Debug.Log("Dev mode for " + newPlayer.name);
-            DUIM.EnablePlayer(curPlayerPos, players[curPlayerPos]);
+     //       DUIM.EnablePlayer(curPlayerPos, players[curPlayerPos]);
         }
     }
 

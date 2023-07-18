@@ -156,6 +156,15 @@ public class PlayerController : MonoBehaviour
 
         //~~~MISC CHECKS AND ADJUSTMENTS ~~~\\ 
 
+        if (!ls.introIsOver) //freeze player movement while level intro is playing
+        {
+            playerRigid.constraints = RigidbodyConstraints2D.FreezeAll;
+        }
+        else
+        {
+            playerRigid.constraints = ~RigidbodyConstraints2D.FreezePosition;
+        }
+     
         //Gravity tweaking, we fall faster when we start falling in our jump
         if (playerRigid.velocity.y < 0 && !OnStickyWall())
         {
@@ -165,6 +174,7 @@ public class PlayerController : MonoBehaviour
         {
             playerRigid.gravityScale = playerGravity;
         }
+
         if (isDashing) //Disables gravity when dashing, dashes in straight line in air
         {
             playerRigid.gravityScale = 0;
@@ -184,6 +194,7 @@ public class PlayerController : MonoBehaviour
         {
             coyoteCounter -= Time.deltaTime;
         }
+
         //Adding wall jump coyote time (can wall jump a bit after not being on a wall)
         if (OnStickyWall())
         {
@@ -304,7 +315,7 @@ public class PlayerController : MonoBehaviour
 
 
     //~~~ JUMP ~~~\\ 
-    public void OnJump(InputAction.CallbackContext ctx)
+    public void OnJump(InputAction.CallbackContext ctx) //when A is pressed
     {
         isJumping = true;
        

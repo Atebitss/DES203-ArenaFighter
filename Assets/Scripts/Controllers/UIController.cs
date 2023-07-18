@@ -1,33 +1,35 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
 {
 
-   //Timer and unit conversion code from https://www.youtube.com/watch?v=hxpUk0qiRGs
-
-    
+    //Timer and unit conversion code from https://www.youtube.com/watch?v=hxpUk0qiRGs
+    [Header("Refrences")]
+    [SerializeField] private LevelScript levelScript;
+    public TextMeshProUGUI timer;
+    public Image introCountdown;
+    [Header("Level Timer")]
     [SerializeField] private float countdownTime = 180f;
     private float countdownTimeAtStart;
-    public TextMeshProUGUI timer;
     public bool countdownActive;
-    [SerializeField] private LevelScript levelScript;
     public bool runningOutOfTime;
     
-    // Start is called before the first frame update
     void Start()
     {
-        //Debug.Log(countdownTime);
-        countdownActive = true;
         runningOutOfTime = false;
         countdownTimeAtStart = countdownTime;
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
+        countdownActive = levelScript.GetComponent<LevelScript>().introIsOver; //activates countdown when intro countdown is over
+      
         if (countdownActive == true)
         {
+            introCountdown.gameObject.SetActive(false); // disbales intro timer
+
             if (countdownTime > 0)
             {
                 countdownTime -= Time.deltaTime;
@@ -36,8 +38,6 @@ public class UIController : MonoBehaviour
             else
             {
                 countdownTime = 0;
-                //print("Time up");
-
                 levelScript.GetComponent<LevelScript>().TimeUp();
             }
             
