@@ -309,6 +309,8 @@ public class LevelScript : MonoBehaviour
     //~~~~~~~ KILL PLAYER ~~~~~~~\\
     public void Kill(GameObject target, GameObject killer)
     {
+        Debug.Log("");
+        Debug.Log("Target: " + target.name + "   Killer: " + killer.name);
         PlayerController targetPC = target.GetComponent<PlayerController>();
         PlayerController killerPC = killer.GetComponent<PlayerController>();
 
@@ -328,11 +330,8 @@ public class LevelScript : MonoBehaviour
             //update and then sort player scores
             PlayerData.UpdateScores();
             PlayerData.SortScores();
-
-            //playerScripts[(PlayerData.playerPositions[0]-1)].EnableCrown();
         }
 
-        Debug.Log("");
         for(int i = 0; i < PlayerData.numOfPlayers; i++)
         {
             /*Debug.Log("~~~~~~~" + 
@@ -342,18 +341,18 @@ public class LevelScript : MonoBehaviour
                 "   podium: " + PlayerData.playerPositions[i] +
                 "   script: " + playerScripts[i]);*/
 
-            Debug.Log("Position " + i + ": Player " + (PlayerData.playerPositions[i]-1) + " with score " + PlayerData.playerScores[i]);
+            //Debug.Log("Position " + i + ": Player " + (PlayerData.playerPositions[i]-1) + " with score " + PlayerData.playerScores[i]);
             //Debug.Log("player script in ref to podium pos: " + playerScripts[PlayerData.playerPositions[i]-1]);
 
-            if (i == 0 && !playerScripts[PlayerData.playerPositions[i] - 1].GetCrowned())
+            if (i == 0 && !playerScripts[PlayerData.playerPositions[i]].GetCrowned())
             {
-                playerScripts[PlayerData.playerPositions[i] - 1].EnableCrown();
-                Debug.Log("Player " + (PlayerData.playerPositions[i]-1) + " has taken the lead!");
+                playerScripts[PlayerData.playerPositions[i]].EnableCrown();
+                Debug.Log("Player " + (PlayerData.playerPositions[i]) + " has taken the lead!");
             }
-            else if(i != 0 && playerScripts[PlayerData.playerPositions[i] - 1].GetCrowned())
+            else if(i != 0 && playerScripts[PlayerData.playerPositions[i]].GetCrowned())
             {
-                playerScripts[PlayerData.playerPositions[i] - 1].DisableCrown();
-                Debug.Log("Player " + (PlayerData.playerPositions[i]-1) + " has lost the lead!");
+                playerScripts[PlayerData.playerPositions[i]].DisableCrown();
+                Debug.Log("Player " + (PlayerData.playerPositions[i]) + " has lost the lead!");
             }
         }
     }
