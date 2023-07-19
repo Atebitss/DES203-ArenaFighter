@@ -1386,7 +1386,7 @@ MonoBehaviour:
   transitionTime: 1
   pressStart: {fileID: 1226168848}
   loading: {fileID: 477661542}
-  minLoadTime: 10
+  minLoadTime: 18
   startAction:
     m_Name: Start
     m_Type: 0
