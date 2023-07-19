@@ -6,13 +6,13 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     //~~~~~~~REFRENCES ~~~~~~~\\
+    [Header("References")]
     [SerializeField] private Rigidbody2D playerRigid;
     [SerializeField] private BoxCollider2D boxCollider;
-    [SerializeField] private Animator animator;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask wallLayer;
+    private Animator animator;
     private Gamepad controller;
-
     private LevelScript ls;
     private VFXController vfxController;
     public GameObject playerTop;
@@ -27,6 +27,9 @@ public class PlayerController : MonoBehaviour
     private bool onGround, devMode;
     private float jumpForce = 15f, moveForce = 5f, previousXMovement;
 
+    //~~~ FLIP ~~~\\
+    private bool facingRight;
+    private Vector2 startingScale = new Vector3(1, 1, 1);
 
     //~~~ JUMPING ~~~\\
     [Header("Jumping")]
@@ -50,8 +53,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float dashDuration = 0f;
     [SerializeField] private float dashCooldownTime = 0.8f;
     [SerializeField] private bool dashEnabled;
-     private float dashCooldown;
-     private bool isDashing;
+    private float dashCooldown;
+    private bool isDashing;
 
 
     //~~~ ICE ~~~\\
@@ -77,36 +80,24 @@ public class PlayerController : MonoBehaviour
     [Header("Bouncing")]
     [SerializeField] private float bounceMultiplier = 1.5f;
     [SerializeField] private float bounceRebound = 1.25f;
-     private bool onBouncy;
+    private bool onBouncy;
 
     //~~~ TELEPORT ~~~\\
     [Header("Teleport")]
     [SerializeField] private float teleportingDuration = 0.2f;
-     private GameObject currentTeleporter;
-     private bool isTeleporting;
+    private GameObject currentTeleporter;
+    private bool isTeleporting;
 
     //~~~ POWERUPS ~~~~//
     [Header("PowerUps")]
-    public Sprite[] floatingPrompts;
-    
-    private bool hasIcePower = false;
-    private bool frozen = false;
-    private int breakAmount;
-    private int breakCounter;
-
-    private bool hasInvertPower = false;
-    public bool hasInvertedControls = false;
-
-    private bool hasDashPower = false;
-
-    [SerializeField] private float invincibilityTimerDefault = 1f;
-    private float invincibilityTimer = 1f;
-    private bool invincible;
-
-    //~~~ FLIP ~~~\\
-    private bool facingRight;
-     private Vector2 startingScale = new Vector3(1,1,1);
-    
+     public Sprite[] floatingPrompts;
+     private bool hasIcePower = false;
+     private bool frozen = false;
+     private int breakAmount;
+     private int breakCounter;
+     private bool hasInvertPower = false;
+    [HideInInspector] public bool hasInvertedControls = false;
+     private bool hasDashPower = false;
 
     //~~~ COMBAT ~~~\\
     [Header("Combat")]
@@ -118,6 +109,10 @@ public class PlayerController : MonoBehaviour
      private bool isDeflecting, isAttacking, isDying;
      private float timeSinceLastKill = 0;
 
+    //~~~ MISC ~~~\\
+    [Header("Misc")]
+    [SerializeField] private float invincibilityTime = 1f;
+     private bool invincible;
 
 
 
@@ -139,7 +134,7 @@ public class PlayerController : MonoBehaviour
         if (!inputDevice.Equals("Keyboard")) { controller = (Gamepad)PlayerData.playerDevices[playerNo]; }
         else { controller = null; }
 
-        invincibilityTimer = invincibilityTimerDefault;
+        
     }
 
 
@@ -156,13 +151,15 @@ public class PlayerController : MonoBehaviour
 
         //~~~MISC CHECKS AND ADJUSTMENTS ~~~\\ 
 
-        if (!ls.introIsOver) //freeze player movement while level intro is playing
+        if (!ls.introIsOver || isDying || invincible) //freeze player movement while level intro is playing OR WHEN PLAYER IS DYING 
         {
             playerRigid.constraints = RigidbodyConstraints2D.FreezeAll;
+            playerRigid.isKinematic = true;
         }
-        else
+        else if (!frozen)
         {
             playerRigid.constraints = ~RigidbodyConstraints2D.FreezePosition;
+            playerRigid.isKinematic = false;
         }
      
         //Gravity tweaking, we fall faster when we start falling in our jump
@@ -249,6 +246,17 @@ public class PlayerController : MonoBehaviour
 
            
         }
+        if (invincible)
+        {
+            print("INVINSIBLE!!!!!!!!!");
+        }
+        else
+        {
+            print(" NOTTT INVINSIBLE!!!!!!!!!");
+
+        }
+
+
 
         //~~~ ANIMATIONS ~~~\\ 
         if (!IsGrounded() && playerVelocity.y > 0 && !OnStickyWall())
@@ -268,8 +276,6 @@ public class PlayerController : MonoBehaviour
 
         dashCooldown += Time.deltaTime;
 
-        if (invincibilityTimer > 0) { invincibilityTimer -= Time.deltaTime; }
-        else if (invincibilityTimer <= 0 && invincible) { playerRigid.constraints = ~RigidbodyConstraints2D.FreezePosition; invincible = false; }
     }
 
 
@@ -303,7 +309,7 @@ public class PlayerController : MonoBehaviour
         {
             playerRigid.velocity = new Vector2(-move.x * moveForce, playerVelocity.y);
         }
-        else if ( !onIce && !isWallJumping && !isDeflecting && !isDashing && !isDying && !frozen && invincibilityTimer <= 0)
+        else if ( !onIce && !isWallJumping && !isDeflecting && !isDashing && !isDying && !frozen )
         {
             playerRigid.velocity = new Vector2(move.x * moveForce, playerVelocity.y);  
         }
@@ -329,6 +335,8 @@ public class PlayerController : MonoBehaviour
             if (breakCounter == breakAmount)
             {
                 playerRigid.constraints = ~RigidbodyConstraints2D.FreezePosition;
+                playerRigid.isKinematic = false;
+
                 breakCounter = 0;
                 frozen = false;
                 Debug.Log("Broke free from Ice!!!");
@@ -452,8 +460,8 @@ public class PlayerController : MonoBehaviour
             else
             {
                
-                playerRigid.velocity = new Vector2(previousXMovement * IceDecceleration, playerVelocity.y); //when no input, slide across|Speed decreases by the rate of IceDecceleration
-                previousXMovement = playerRigid.velocity.x;
+              //  playerRigid.velocity = new Vector2(previousXMovement * IceDecceleration, playerVelocity.y); //when no input, slide across|Speed decreases by the rate of IceDecceleration
+              //  previousXMovement = playerRigid.velocity.x;
             }
 
         }
@@ -676,7 +684,7 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("Player Has Attacked with Ice");
             hasIcePower = false;
-
+           
             player.GetComponent<PlayerController>().Freeze();
         }
     }
@@ -685,9 +693,9 @@ public class PlayerController : MonoBehaviour
         breakAmount = Random.Range(5, 10); //sets the amount of times we need to press jump to escape to a ranodm number between these numbers
         frozen = true;
 
-        //RigidbodyConstraints2D.FreezeRotationZ; to freeze flip?
         playerRigid.constraints = RigidbodyConstraints2D.FreezeAll;
-        
+        playerRigid.isKinematic = true;
+
     }
 
 
@@ -716,40 +724,28 @@ public class PlayerController : MonoBehaviour
     //~~~ DEATH ~~~\\
     public void Death() //RIP
     {
+        isDying = true;                                                
+       
+        Invoke(nameof(KillDelay), 0.3f); //set to time of deathAnimation
+        /* AnimationClip[] clips = animator.runtimeAnimatorController.animationClips;
+         float deathTime = 0;
 
-        //Debug.Log(this.gameObject.name + " death");
-        isDying = true;                                                 //dying = true to stop multiple deaths before respawn
-        playerRigid.constraints = RigidbodyConstraints2D.FreezeAll;     //freeze player in current position
-
-        //Gets the exact time of the death animation
-        AnimationClip[] clips = animator.runtimeAnimatorController.animationClips;
-        float deathTime = 0;
-
-        for(int i = 0; i < clips.Length; i++)
-        {
-            if(clips[i].name == "Death")
-            {
-                deathTime = clips[i].length;    //death delay set to animations length
-                Debug.Log("death time set to " + deathTime);
-            }
-        }
-
-        animator.SetTrigger("Dying");
+         for(int i = 0; i < clips.Length; i++)
+         {
+             if(clips[i].name == "Death")
+             {
+                 deathTime = clips[i].length;    //death delay set to animations length
+                 Debug.Log("death time set to " + deathTime);
+             }
+         } */
         PlayDeathAudio();
-        Invoke(nameof(KillDelay), deathTime);
-
-        if (controller != null) { vfxController.GetComponent<HapticController>().PlayHaptics("Death", controller); } //play death Controller vibrations
-        
-
-        if (frozen) //play deathVFX
-        {
-            vfxController.GetComponent<VFXController>().PlayVFX(transform, "Ice Death");
-
-        }
-        else
-        {
-            vfxController.GetComponent<VFXController>().PlayVFX(transform, "Death");
-        }
+        animator.SetTrigger("Dying");
+        if (controller != null)
+            {vfxController.GetComponent<HapticController>().PlayHaptics("Death", controller);} 
+        if (frozen) 
+            {vfxController.GetComponent<VFXController>().PlayVFX(transform, "Ice Death");}
+        else 
+            {vfxController.GetComponent<VFXController>().PlayVFX(transform, "Death");}
         
 
     }
@@ -759,20 +755,24 @@ public class PlayerController : MonoBehaviour
     {
         //Debug.Log("delay over");
         animator.ResetTrigger("Dying");
-        Invoke(nameof(RespawnDelay), 2f);
-    }
-
-    public void RespawnDelay()
-    {
+        
         ls.Respawn((int)char.GetNumericValue(this.gameObject.name[6]), this.gameObject, animator);
     }
 
+   
+
     public void Respawn() //deals with changing values once player has already respawned, actual respawning is done in LevelScript
     {
+        invincible = true;
         frozen = false;
         hasIcePower = false;
+        vfxController.GetComponent<VFXController>().PlayVFX(transform, "Respawn");
+        Invoke(nameof(InvincibilityTimer), invincibilityTime); 
     }
-
+    public void InvincibilityTimer()
+    {
+        invincible = false;
+    }
 
     public bool GetIsDying() { return isDying; }
     public void SetIsDying(bool dying) { isDying = dying; }
@@ -1018,16 +1018,12 @@ public class PlayerController : MonoBehaviour
     }
 
     //~~~ INVINCIBILITY TIMER ~~~\\
-    public float GetInvincibilityTimer()
+    public bool GetInvincibilityStatus()
     {
-        return invincibilityTimer;
+        return invincible;
     }
 
-    public void ResetInvincibilityTimer()
-    {
-        invincibilityTimer = invincibilityTimerDefault;
-        invincible = true;
-    }
+   
 
 
 

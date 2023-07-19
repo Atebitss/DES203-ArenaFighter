@@ -33,7 +33,7 @@ public class DebugUIScript : MonoBehaviour
                 + "\nisOnStickyWall: " + playerScript.OnStickyWall()
                 //+ "\n\njumpBufferCounter: " + playerScript.GetJumpBufferCounter()
                 + "\n\nisDeflecting: " + playerScript.IsDeflecting()
-                + "\n\ninvincibilityTimer: " + playerScript.GetInvincibilityTimer()
+                + "\n\ninvincibilityTimer: " + playerScript.GetInvincibilityStatus()
                 + "\ntimeSinceLastKill: " + playerScript.GetTimeSinceLastKill();
         }
     }
