@@ -309,8 +309,8 @@ public class LevelScript : MonoBehaviour
     //~~~~~~~ KILL PLAYER ~~~~~~~\\
     public void Kill(GameObject target, GameObject killer)
     {
-        Debug.Log("");
-        Debug.Log("Target: " + target.name + "   Killer: " + killer.name);
+        Debug.Log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        //Debug.Log("Target: " + target.name + "   Killer: " + killer.name);
         PlayerController targetPC = target.GetComponent<PlayerController>();
         PlayerController killerPC = killer.GetComponent<PlayerController>();
 
@@ -329,7 +329,7 @@ public class LevelScript : MonoBehaviour
 
             //update and then sort player scores
             PlayerData.UpdateScores();
-            PlayerData.SortScores();
+            PlayerData.SortPlayers();
         }
 
         for(int i = 0; i < PlayerData.numOfPlayers; i++)
@@ -339,10 +339,10 @@ public class LevelScript : MonoBehaviour
                 "   kills: " + PlayerData.playerScores[i] +
                 "   tslk: " + PlayerData.playerTSLK[i] + 
                 "   podium: " + PlayerData.playerPositions[i] +
-                "   script: " + playerScripts[i]);*/
+                "   script: " + playerScripts[i]);
 
             //Debug.Log("Position " + i + ": Player " + (PlayerData.playerPositions[i]-1) + " with score " + PlayerData.playerScores[i]);
-            //Debug.Log("player script in ref to podium pos: " + playerScripts[PlayerData.playerPositions[i]-1]);
+            //Debug.Log("player script in ref to podium pos: " + playerScripts[PlayerData.playerPositions[i]-1]);*/
 
             if (i == 0 && !playerScripts[PlayerData.playerPositions[i]].GetCrowned())
             {

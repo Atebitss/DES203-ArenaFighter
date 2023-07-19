@@ -50,12 +50,11 @@ public class PlayerData : MonoBehaviour
     {
         //Debug.Log("Updating scores in PlayerData");
 
-        for(int player = 0; player < numOfPlayers; player++)
+        for(int position = 0; position < numOfPlayers; position++)
         {
-            Debug.Log("Updating position " + player);
-            Debug.Log("name: " + playerScripts[playerPositions[player]].gameObject.name + "   score: " + playerScripts[playerPositions[player]].GetScore() + "   tslk: " + playerScripts[playerPositions[player]].GetTimeSinceLastKill());
-            playerScores[playerPositions[player]] = playerScripts[playerPositions[player]].GetScore();
-            playerTSLK[playerPositions[player]] = playerScripts[playerPositions[player]].GetTimeSinceLastKill();
+            Debug.Log("Updating position " + position + ": " + playerScripts[playerPositions[position]].gameObject.name + ", score: " + playerScripts[playerPositions[position]].GetScore() + ", tslk: " + playerScripts[playerPositions[position]].GetTimeSinceLastKill());
+            playerScores[position] = playerScripts[playerPositions[position]].GetScore();
+            playerTSLK[position] = playerScripts[playerPositions[position]].GetTimeSinceLastKill();
         }
     }
 
@@ -67,65 +66,74 @@ public class PlayerData : MonoBehaviour
         }
     }
 
-    public static void SortScores()
+    public static void SortPlayers()
     {
-        //for each player in the game[player + 1]
-        for (int check = 0; check < numOfPlayers; check++)
+        bool swapped;
+
+        Debug.Log("____________");
+        for(int check = 0; check < numOfPlayers; check++)
         {
+            swapped = false;
+
+            Debug.Log("_____");
+            for (int i = 0; i < numOfPlayers; i++) { Debug.Log("BEFORE position" + i + ": player " + playerPositions[i] + " - score " + playerScores[i] + ", tslk " + playerTSLK[i]); }
+            Debug.Log("_____");
             for (int position = 0; position < numOfPlayers - check - 1; position++)
             {
-                Debug.Log("___________________________");
-                Debug.Log("position " + position + " v position " + (position + 1));
-                Debug.Log(playerScores[playerPositions[position]] + " v " + playerScores[playerPositions[position + 1]]);
+                Debug.Log("CURRENT position" + position + ": player " + playerPositions[position] + " - score " + playerScores[position] + ", tslk " + playerTSLK[position]);
 
-                if (playerScores[playerPositions[position]] < playerScores[playerPositions[position + 1]])
+                if (playerScores[position] < playerScores[position + 1])
                 {
-                    //if current position score is less than next position score, move position down podium
-                    Debug.Log(playerScores[position] + " is less than " + playerScores[position + 1]);
+                    Debug.Log("player " + playerPositions[position] + " score " + playerScores[position] + "  <  " + "player " + playerPositions[position + 1] + " score " + playerScores[position + 1]);
 
-                    //swap scores
                     int tempScore = playerScores[position];
                     playerScores[position] = playerScores[position + 1];
                     playerScores[position + 1] = tempScore;
 
-                    //swap timers
-                    float tempTimer = playerTSLK[position];
+                    float tempTSLK = playerTSLK[position];
                     playerTSLK[position] = playerTSLK[position + 1];
-                    playerTSLK[position + 1] = tempTimer;
+                    playerTSLK[position + 1] = tempTSLK;
 
-                    //swap positions
-                    int tempPos = playerPositions[position];
+                    int tempPosition = playerPositions[position];
                     playerPositions[position] = playerPositions[position + 1];
-                    playerPositions[position + 1] = tempPos;
+                    playerPositions[position + 1] = tempPosition;
+
+                    swapped = true;
                 }
-                else if (playerScores[playerPositions[position]] == playerScores[playerPositions[position + 1]])
+                else if(playerScores[position] == playerScores[position + 1] && playerTSLK[position] > playerTSLK[position + 1])
                 {
-                    //if current position score equal to next position score
-                    //Debug.Log(playerScores[playerPositions[position]] + " is equal to " + playerScores[playerPositions[position + 1]]);
+                    Debug.Log("player " + playerPositions[position] + " score " + playerScores[position] + "  ==  " + "player " + playerPositions[position + 1] + " score " + playerScores[position + 1]);
+                    Debug.Log("scores equal");
+                    Debug.Log("player " + playerPositions[position] + " tslk " + playerTSLK[position] + "  v  " + "player " + playerPositions[position + 1] + " tslk " + playerTSLK[position + 1]);
 
-                    if (playerTSLK[playerPositions[position]] > playerTSLK[playerPositions[position + 1]])
-                    {
-                        //if current position time since last kill greater than next position TSLK, swap podiums
-                        Debug.Log(playerTSLK[position] + " is greater than " + playerTSLK[position + 1]);
+                    int tempScore = playerScores[position];
+                    playerScores[position] = playerScores[position + 1];
+                    playerScores[position + 1] = tempScore;
 
-                        //swap timers
-                        float tempTimer = playerTSLK[position];
-                        playerTSLK[position] = playerTSLK[position + 1];
-                        playerTSLK[position + 1] = tempTimer;
+                    float tempTSLK = playerTSLK[position];
+                    playerTSLK[position] = playerTSLK[position + 1];
+                    playerTSLK[position + 1] = tempTSLK;
 
-                        //swap positions
-                        int tempPos = playerPositions[position];
-                        playerPositions[position] = playerPositions[position + 1];
-                        playerPositions[position + 1] = tempPos;
-                    }
+                    int tempPosition = playerPositions[position];
+                    playerPositions[position] = playerPositions[position + 1];
+                    playerPositions[position + 1] = tempPosition;
+
+                    swapped = true;
                 }
-                else { Debug.Log(playerScores[playerPositions[position]] + " is the greatest score"); }
+
+                if (swapped) { Debug.Log("UPDATE position" + position + ": player " + playerPositions[position] + " - score " + playerScores[position] + ", tslk " + playerTSLK[position]); }
+                else if(!swapped) { Debug.Log("NO UPDATE"); }
             }
+            Debug.Log("_____");
+            for (int i = 0; i < numOfPlayers; i++) { Debug.Log("AFTER position" + i + ": player " + playerPositions[i] + " - score " + playerScores[i] + ", tslk " + playerTSLK[i]); }
+            if (!swapped) { break; }
         }
 
-        for (int i = 0; i < numOfPlayers; i++)
+
+        Debug.Log("~~~~~~~");
+        for (int position = 0; position < numOfPlayers; position++)
         {
-            Debug.Log("Position " + i + ": Player " + playerPositions[i] + " with score " + playerScores[i]);
+            Debug.Log("position " + position + ": " + playerScripts[playerPositions[position]].gameObject.name + ", score: " + playerScripts[playerPositions[position]].GetScore() + ", tslk: " + playerScripts[playerPositions[position]].GetTimeSinceLastKill());
         }
     }
 
