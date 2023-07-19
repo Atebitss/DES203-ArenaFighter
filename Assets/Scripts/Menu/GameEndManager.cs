@@ -21,9 +21,12 @@ public class GameEndManager : MonoBehaviour
 
     public void Continue(InputAction.CallbackContext ctx)
     {
-        FindObjectOfType<AudioManager>().Play("SelectBeep");
+        if (SceneManager.GetActiveScene().name == "6GameEnd" && this != null)
+        {
+            FindObjectOfType<AudioManager>().Play("SelectBeep");
 
-        StartCoroutine(LoadLevel(1));
+            StartCoroutine(LoadLevel(1));
+        }
     }
     IEnumerator LoadLevel(int levelIndex)
     {

@@ -39,9 +39,13 @@ public class PodiumScreenManager : MonoBehaviour
     }
     public void Continue(InputAction.CallbackContext ctx)
     {
-        FindObjectOfType<AudioManager>().Play("SelectBeep");
+        if (SceneManager.GetActiveScene().name == "5PodiumScreen")
+        {
+            FindObjectOfType<AudioManager>().Play("SelectBeep");
 
-        StartCoroutine(LoadLevel(6));
+            StartCoroutine(LoadLevel(6));
+            continueAction.Disable();
+        }
     }
     IEnumerator LoadLevel(int levelIndex)
     {

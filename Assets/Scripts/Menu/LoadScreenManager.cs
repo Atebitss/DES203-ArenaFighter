@@ -46,7 +46,7 @@ public class LoadScreenManager : MonoBehaviour
         {
             isLoading = false;
         }
-        print(pressedStart);
+        //print(pressedStart);
     }
     void StartAction(InputAction.CallbackContext ctx)
     {

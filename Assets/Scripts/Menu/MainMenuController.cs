@@ -13,6 +13,8 @@ public class MainMenuController : MonoBehaviour
     {
         FindObjectOfType<AudioManager>().Play("StartMenuMusic");
         FindObjectOfType<AudioManager>().StopPlaying("MusicFight");
+
+        PlayerData.ResetStats();
     }
 
     public void PlayGame()
