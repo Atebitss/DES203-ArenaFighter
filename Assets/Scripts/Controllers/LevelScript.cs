@@ -78,7 +78,7 @@ public class LevelScript : MonoBehaviour
 
         //start level music
         FindObjectOfType<AudioManager>().Play("MusicFight");
-
+           FindObjectOfType<AudioManager>().StopPlaying("SpookyNoise");
 
         //set spawn point order
         SetSpawnPoints();

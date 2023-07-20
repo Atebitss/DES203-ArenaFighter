@@ -10,6 +10,7 @@ public class LevelMenuController : MonoBehaviour
     private void Awake()
     {
         FindObjectOfType<AudioManager>().Play("MusicMenu");
+         FindObjectOfType<AudioManager>().Play("SpookyNoise");
     }
 
     public void Back()
