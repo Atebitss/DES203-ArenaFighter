@@ -227,7 +227,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8794310423299754904
 Transform:
   m_ObjectHideFlags: 0
@@ -537,6 +537,7 @@ MonoBehaviour:
     m_Bits: 64
   playerTop: {fileID: 5966848612155313899}
   promptUI: {fileID: 7672157447790872604}
+  crown: {fileID: 5337188745114579590}
   coyoteTime: 0.1
   jumpBufferTime: 0.2
   playerGravity: 5.4

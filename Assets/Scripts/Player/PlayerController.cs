@@ -12,11 +12,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask wallLayer;
     private Gamepad controller;
+    private int playerNum;
 
     private LevelScript ls;
     private VFXController vfxController;
-    public GameObject playerTop;
-    public GameObject promptUI;
+    [SerializeField] private GameObject playerTop;
+    [SerializeField] private GameObject promptUI;
+    [SerializeField] private GameObject crown;
 
 
 
@@ -114,32 +116,41 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float deflectForce = 60f;
     [SerializeField] private float attackBuildUp = 0.0f;
     [SerializeField] [Range(0.1f, 0.5f)] private float attackTimer = 0.2f;
-     private GameObject attackObject;
-     private bool isDeflecting, isAttacking, isDying;
-     private float timeSinceLastKill = 0;
+
+    private GameObject attackObject;
+    private bool isDeflecting, isAttacking, isDying, crowned;
+    private int score = 0;
+    private float timeSinceLastKill = 0;
 
 
 
 
     void Awake()
     {
+        //reference control scripts
         ls = GameObject.Find("LevelController").GetComponent<LevelScript>();
         vfxController = GameObject.Find("VFXController").GetComponent<VFXController>();
 
-        gameObject.name = "Player" + ls.CurrentPlayer();
+        //set player name
+        playerNum = ls.CurrentPlayer();
+        gameObject.name = "Player" + playerNum;
       
         transform.localScale = startingScale;
 
+        //player animator
         animator = GetComponent<Animator>();
-        animator.SetInteger("PlayerNum", ls.CurrentPlayer());
+        animator.SetInteger("PlayerNum", playerNum);
 
-        int playerNo = ls.CurrentPlayer();
-        string inputDevice = PlayerData.playerDevices[playerNo].name;
-        Debug.Log(inputDevice);
-        if (!inputDevice.Equals("Keyboard")) { controller = (Gamepad)PlayerData.playerDevices[playerNo]; }
+        //reference for haptics
+        string inputDevice = PlayerData.playerDevices[playerNum].name;
+        if (!inputDevice.Equals("Keyboard")) { controller = (Gamepad)PlayerData.playerDevices[playerNum]; }
         else { controller = null; }
 
+        //set iframes to default
         invincibilityTimer = invincibilityTimerDefault;
+
+        //hide crown
+        DisableCrown();
     }
 
 
@@ -264,10 +275,13 @@ public class PlayerController : MonoBehaviour
        
         animator.SetBool("isWallSliding", OnStickyWall() && !IsGrounded());
 
+        //increase time since last kill
         timeSinceLastKill += Time.deltaTime;
 
+        //lower dash cooldown
         dashCooldown += Time.deltaTime;
 
+        //lower iframe timer or unfreeze player
         if (invincibilityTimer > 0) { invincibilityTimer -= Time.deltaTime; }
         else if (invincibilityTimer <= 0 && invincible) { playerRigid.constraints = ~RigidbodyConstraints2D.FreezePosition; invincible = false; }
     }
@@ -626,32 +640,24 @@ public class PlayerController : MonoBehaviour
                 {
                     case "PlayerFront":
                         //deflect player if not hitting with Ice attack
-                        //Debug.Log(this.name + ": " + this.gameObject.transform.localScale);
-                        //Debug.Log(collisions[colIndex].transform.parent.name + ": " + collisions[colIndex].gameObject.transform.parent.localScale);
-
                         if (hasIcePower == true)
                         {
+                            //if player attacking has ice power, freeze target
                             IceAttack(collisions[colIndex].gameObject.transform.parent.gameObject);
                         }
                         else if (!isDeflecting && this.gameObject.transform.localScale.x == -collisions[colIndex].gameObject.transform.parent.localScale.x)
                         {
-                           
+                            //deflect if this player isnt being deflected and both players are facing opposite directions  ,0>  <0,
                             Deflect();
                             collisions[colIndex].gameObject.transform.parent.gameObject.GetComponent<PlayerController>().Deflect();
                         }
                         break;
                     case "PlayerBack":
-                        //kill other player or Ice attack them
+                        //kill other player if both facing the same direction ,0> ,0>
+                        if (this.gameObject.transform.localScale.x == collisions[colIndex].gameObject.transform.parent.localScale.x)
                         {
-                            if (this.gameObject.transform.localScale.x == collisions[colIndex].gameObject.transform.parent.localScale.x)
-                            {
-                                ls.Kill(collisions[colIndex].gameObject.transform.parent.gameObject, this.gameObject);
-                                char playerNumChar = this.gameObject.name[6];
-                                int playerNum = playerNumChar - '0';
-                                timeSinceLastKill = 0;
-                            }
+                            ls.Kill(collisions[colIndex].gameObject.transform.parent.gameObject, this.gameObject);
                         }
-
                         break;
                     default:
                         break;
@@ -668,6 +674,33 @@ public class PlayerController : MonoBehaviour
         isAttacking = false;   //end attack
 
     }
+
+
+    //~~~ SCORE ~~~\\
+    public void SetScore(int newScore)
+    {
+        score = newScore;
+        Debug.Log(this.gameObject.name + "'s score set to " + score);
+    }
+
+    public void IncScore()
+    {
+        score++;
+        Debug.Log(this.gameObject.name + "'s score increased by 1: " + score);
+    }
+
+    public void RedScore()
+    {
+        score--;
+        Debug.Log(this.gameObject.name + "'s score decreased by 1: " + score);
+    }
+
+    public int GetScore()
+    {
+        return score;
+    }
+
+
 
     //~~ ICE ATTACK ~~\\
     public void IceAttack(GameObject player) //fires when this player is hit with an Ice Attack
@@ -730,7 +763,7 @@ public class PlayerController : MonoBehaviour
             if(clips[i].name == "Death")
             {
                 deathTime = clips[i].length;    //death delay set to animations length
-                Debug.Log("death time set to " + deathTime);
+                //Debug.Log("death time set to " + deathTime);
             }
         }
 
@@ -875,6 +908,15 @@ public class PlayerController : MonoBehaviour
     public void AttackTrigger(Collider2D collision)
     {
     }
+
+
+
+    //~~~~~~~ CROWN ~~~~~~~\\
+    public void EnableCrown() { crown.SetActive(true); crowned = true; }
+
+    public void DisableCrown() { crown.SetActive(false); crowned = false; }
+
+    public bool GetCrowned() { return crowned; }
 
 
 
@@ -1329,5 +1371,10 @@ public class PlayerController : MonoBehaviour
     public float GetTimeSinceLastKill()
     {
         return timeSinceLastKill;
+    }
+
+    public void ResetTimeSinceLastKill()
+    {
+        timeSinceLastKill = 0;
     }
 }
