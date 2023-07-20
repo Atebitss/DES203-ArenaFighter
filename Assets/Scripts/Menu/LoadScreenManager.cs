@@ -15,6 +15,8 @@ public class LoadScreenManager : MonoBehaviour
     [SerializeField] private float minLoadTime;
     private float timer;
     [SerializeField] private InputAction startAction;
+    [SerializeField] private GameObject boxAnimator;
+
     private void Awake()
     {
         startAction.performed += ctx => StartAction(ctx);
@@ -26,6 +28,7 @@ public class LoadScreenManager : MonoBehaviour
         FindObjectOfType<AudioManager>().StopPlaying("StartMenuMusic");
 
         StartCoroutine(LoadLevelASync(4));
+        boxAnimator.GetComponent<BoxAnimator>().AnimateBoxes();
     }
     public void Update()
     {
