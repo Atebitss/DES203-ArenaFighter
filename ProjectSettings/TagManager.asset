@@ -54,6 +54,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: UI Embers
+    uniqueID: 1056840151
+    locked: 0
+  - name: UI
+    uniqueID: 2052831221
+    locked: 0
   - name: sdgfefg32w
     uniqueID: 2419354741
     locked: 0

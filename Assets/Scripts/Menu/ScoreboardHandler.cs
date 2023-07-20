@@ -22,7 +22,7 @@ public class ScoreboardHandler : MonoBehaviour
         for (int i = 0; i < numOfPlayers; i++)
         {
             playerScores[i] = PlayerData.playerScores[i];
-            playerTSLKs[i] = PlayerData.timeSinceLastKill[i];
+            playerTSLKs[i] = PlayerData.playerTSLK[i];
             Debug.Log("Position " + (i+1) + ": Player " + playerPositions[i] + " with score " + playerScores[i] + "   TSLK: " + playerTSLKs[i]);
             Debug.Log(playerSprites[playerPositions[i] - 1]);
         }

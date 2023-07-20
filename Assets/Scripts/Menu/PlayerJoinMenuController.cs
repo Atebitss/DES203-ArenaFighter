@@ -3,19 +3,44 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerJoinMenuController : MonoBehaviour
 {
-    [SerializeField] private GameObject pjm;
+    public Animator transition;
+    public float transitionTime = 1f;
 
+    public Button startButton;
+
+
+    public void Update()
+    {
+        if (PlayerData.numOfPlayers >= 2)
+        {
+            startButton.gameObject.SetActive(true);
+        }
+        else
+        {
+            startButton.gameObject.SetActive(false);
+        }
+
+    }
     public void StartGame()
     {
-        //Debug.Log("Starting game");
-        //PlayerData.GetPlayers();
+       
         FindObjectOfType<AudioManager>().Play("SelectBeep");
 
         FindObjectOfType<AudioManager>().StopPlaying("MusicMenu");
 
-        GameObject.Find("Loading Screen Manager").GetComponent<LoadScreenManager>().LoadLevel(4);
+        StartCoroutine(LoadLevel(3));
+    }
+    IEnumerator LoadLevel(int levelIndex)
+    {
+        transition.SetTrigger("Start");
+
+        yield return new WaitForSeconds(transitionTime);
+
+        SceneManager.LoadScene(levelIndex);
+
     }
 }
