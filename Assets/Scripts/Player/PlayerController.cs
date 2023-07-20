@@ -6,18 +6,14 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     //~~~~~~~REFRENCES ~~~~~~~\\
-    [Header("References")]
     [SerializeField] private Rigidbody2D playerRigid;
     [SerializeField] private BoxCollider2D boxCollider;
+    [SerializeField] private Animator animator;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask wallLayer;
-    private Animator animator;
     private Gamepad controller;
-<<<<<<< HEAD
-=======
     private int playerNum;
 
->>>>>>> marc.edit/crown-merge
     private LevelScript ls;
     private GameObject vfxController;
     [SerializeField] private GameObject playerTop;
@@ -33,9 +29,6 @@ public class PlayerController : MonoBehaviour
     private bool onGround, devMode;
     private float jumpForce = 15f, moveForce = 5f, previousXMovement;
 
-    //~~~ FLIP ~~~\\
-    private bool facingRight;
-    private Vector2 startingScale = new Vector3(1, 1, 1);
 
     //~~~ JUMPING ~~~\\
     [Header("Jumping")]
@@ -96,31 +89,39 @@ public class PlayerController : MonoBehaviour
 
     //~~~ POWERUPS ~~~~//
     [Header("PowerUps")]
-     public Sprite[] floatingPrompts;
-     private bool hasIcePower = false;
-     private bool frozen = false;
-     private int breakAmount;
-     private int breakCounter;
-     private bool hasInvertPower = false;
-    [HideInInspector] public bool hasInvertedControls = false;
-     private bool hasDashPower = false;
+    public Sprite[] floatingPrompts;
+
+    private bool hasIcePower = false;
+    private bool frozen = false;
+    private int breakAmount;
+    private int breakCounter;
+
+    private bool hasInvertPower = false;
+    public bool hasInvertedControls = false;
+
+    private bool hasDashPower = false;
+
+    [SerializeField] private float invincibilityTimerDefault = 1f;
+    private float invincibilityTimer = 1f;
+    private bool invincible;
+
+    //~~~ FLIP ~~~\\
+    private bool facingRight;
+    private Vector2 startingScale = new Vector3(1, 1, 1);
+
 
     //~~~ COMBAT ~~~\\
     [Header("Combat")]
     [SerializeField] private float deflectDuration = 0.5f;
     [SerializeField] private float deflectForce = 60f;
     [SerializeField] private float attackBuildUp = 0.0f;
-    [SerializeField] [Range(0.1f, 0.5f)] private float attackTimer = 0.2f;
+    [SerializeField][Range(0.1f, 0.5f)] private float attackTimer = 0.2f;
 
     private GameObject attackObject;
     private bool isDeflecting, isAttacking, isDying, crowned;
     private int score = 0;
     private float timeSinceLastKill = 0;
 
-    //~~~ MISC ~~~\\
-    [Header("Misc")]
-    [SerializeField] private float invincibilityTime = 1f;
-     private bool invincible;
 
 
 
@@ -133,7 +134,7 @@ public class PlayerController : MonoBehaviour
         //set player name
         playerNum = ls.CurrentPlayer();
         gameObject.name = "Player" + playerNum;
-      
+
         transform.localScale = startingScale;
 
         //player animator
@@ -146,15 +147,11 @@ public class PlayerController : MonoBehaviour
         if (!inputDevice.Equals("Keyboard")) { controller = (Gamepad)PlayerData.playerDevices[playerNum]; }
         else { controller = null; }
 
-<<<<<<< HEAD
-        
-=======
         //set iframes to default
         invincibilityTimer = invincibilityTimerDefault;
 
         //hide crown
         DisableCrown();
->>>>>>> marc.edit/crown-merge
     }
 
 
@@ -165,23 +162,21 @@ public class PlayerController : MonoBehaviour
         IceMovement();
         WallSlide();
         BounceMovement();
-       
+
 
         if (devMode) { HighlightHitboxes(); }
 
         //~~~MISC CHECKS AND ADJUSTMENTS ~~~\\ 
 
-        if (!ls.introIsOver || isDying || invincible) //freeze player movement while level intro is playing OR WHEN PLAYER IS DYING 
+        if (!ls.introIsOver) //freeze player movement while level intro is playing
         {
             playerRigid.constraints = RigidbodyConstraints2D.FreezeAll;
-            playerRigid.isKinematic = true;
         }
-        else if (!frozen)
+        else
         {
             playerRigid.constraints = ~RigidbodyConstraints2D.FreezePosition;
-            playerRigid.isKinematic = false;
         }
-     
+
         //Gravity tweaking, we fall faster when we start falling in our jump
         if (playerRigid.velocity.y < 0 && !OnStickyWall())
         {
@@ -195,7 +190,7 @@ public class PlayerController : MonoBehaviour
         if (isDashing) //Disables gravity when dashing, dashes in straight line in air
         {
             playerRigid.gravityScale = 0;
-           
+
         }
         else
         {
@@ -237,7 +232,7 @@ public class PlayerController : MonoBehaviour
         if (frozen || hasIcePower) //Activate the Prompt UI above the player
         {
             promptUI.SetActive(true);
-           
+
         }
         else
         {
@@ -264,19 +259,8 @@ public class PlayerController : MonoBehaviour
         {
             promptUI.GetComponent<Animator>().SetBool("hasIcePower", true);
 
-           
-        }
-        if (invincible)
-        {
-            print("INVINSIBLE!!!!!!!!!");
-        }
-        else
-        {
-            print(" NOTTT INVINSIBLE!!!!!!!!!");
 
         }
-
-
 
         //~~~ ANIMATIONS ~~~\\ 
         if (!IsGrounded() && playerVelocity.y > 0 && !OnStickyWall())
@@ -289,7 +273,7 @@ public class PlayerController : MonoBehaviour
         }
 
         animator.SetBool("isRunning", move.x != 0);
-       
+
         animator.SetBool("isWallSliding", OnStickyWall() && !IsGrounded());
 
         //increase time since last kill
@@ -298,12 +282,9 @@ public class PlayerController : MonoBehaviour
         //lower dash cooldown
         dashCooldown += Time.deltaTime;
 
-<<<<<<< HEAD
-=======
         //lower iframe timer or unfreeze player
         if (invincibilityTimer > 0) { invincibilityTimer -= Time.deltaTime; }
         else if (invincibilityTimer <= 0 && invincible) { playerRigid.constraints = ~RigidbodyConstraints2D.FreezePosition; invincible = false; }
->>>>>>> marc.edit/crown-merge
     }
 
 
@@ -330,16 +311,16 @@ public class PlayerController : MonoBehaviour
         {
             previousXMovement = playerRigid.velocity.x;
         }
-       
-        
+
+
 
         if (hasInvertedControls) //Basic horizontal movment, and inverted horizontal movement, and slowed horizontal movement when in air
         {
             playerRigid.velocity = new Vector2(-move.x * moveForce, playerVelocity.y);
         }
-        else if ( !onIce && !isWallJumping && !isDeflecting && !isDashing && !isDying && !frozen )
+        else if (!onIce && !isWallJumping && !isDeflecting && !isDashing && !isDying && !frozen && invincibilityTimer <= 0)
         {
-            playerRigid.velocity = new Vector2(move.x * moveForce, playerVelocity.y);  
+            playerRigid.velocity = new Vector2(move.x * moveForce, playerVelocity.y);
         }
         else if (!IsGrounded() && !isWallJumping && !isDeflecting && !isDashing && !frozen)
         {
@@ -352,23 +333,21 @@ public class PlayerController : MonoBehaviour
     public void OnJump(InputAction.CallbackContext ctx) //when A is pressed
     {
         isJumping = true;
-       
-       
+
+
 
         if (frozen) //code for when frozen, have to jump [breakAmount] of times to escape
         {
-            
+
             breakCounter++;
-           
+
             if (breakCounter == breakAmount)
             {
                 playerRigid.constraints = ~RigidbodyConstraints2D.FreezePosition;
-                playerRigid.isKinematic = false;
-
                 breakCounter = 0;
                 frozen = false;
                 Debug.Log("Broke free from Ice!!!");
-                 FindObjectOfType<AudioManager>().Play("BreakFree");
+                FindObjectOfType<AudioManager>().Play("BreakFree");
             }
 
         }
@@ -404,7 +383,7 @@ public class PlayerController : MonoBehaviour
             PlayJumpAudio();
             wallJumpCooldown = 0;
 
-         
+
             Invoke(nameof(StopWallJumping), wallClimbingDuration); //while we are wall climbing, the player cannot change thier velocity, so after a duration, let the players control the PC again
         }
         else if (wallCoyoteCounter > 0 & !IsGrounded() & !facingRight && move.x < 0f) // Wall Climbing when facing left
@@ -414,8 +393,8 @@ public class PlayerController : MonoBehaviour
             PlayJumpAudio();
             wallJumpCooldown = 0;
 
-           
-            Invoke(nameof(StopWallJumping), wallClimbingDuration); 
+
+            Invoke(nameof(StopWallJumping), wallClimbingDuration);
         }
         else if (wallCoyoteCounter > 0 & !IsGrounded()) // Wall Jumping / Kicking
         {
@@ -424,12 +403,12 @@ public class PlayerController : MonoBehaviour
             PlayJumpAudio();
             wallJumpCooldown = 0;
 
-             if (transform.localScale.x != wallJumpingDirection) //flips player so they are facing the direction that they are jumping towards
-             {
-                 Vector3 localScale = transform.localScale;
-                 localScale.x *= -1f;
-                 transform.localScale = localScale;
-             }
+            if (transform.localScale.x != wallJumpingDirection) //flips player so they are facing the direction that they are jumping towards
+            {
+                Vector3 localScale = transform.localScale;
+                localScale.x *= -1f;
+                transform.localScale = localScale;
+            }
 
             Invoke(nameof(StopWallJumping), wallJumpingDuration); //while we are wall jumping, the player cannot change thier velocity, so after a duration, let the players control the PC again
 
@@ -446,7 +425,7 @@ public class PlayerController : MonoBehaviour
     public void TopTrigger()
     {
         playerRigid.velocity = new Vector2(playerVelocity.x, 0.5f * jumpForce);
-       // FindObjectOfType<AudioManager>().Play("Bounce");
+        // FindObjectOfType<AudioManager>().Play("Bounce");
     }
 
 
@@ -471,9 +450,9 @@ public class PlayerController : MonoBehaviour
                 facingRight = false;
             }
         }
-       
 
-         
+
+
     }
 
     //~~~ ICE ~~~\\
@@ -487,13 +466,13 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-               
-              //  playerRigid.velocity = new Vector2(previousXMovement * IceDecceleration, playerVelocity.y); //when no input, slide across|Speed decreases by the rate of IceDecceleration
-              //  previousXMovement = playerRigid.velocity.x;
+
+                playerRigid.velocity = new Vector2(previousXMovement * IceDecceleration, playerVelocity.y); //when no input, slide across|Speed decreases by the rate of IceDecceleration
+                previousXMovement = playerRigid.velocity.x;
             }
 
         }
- 
+
     }
 
     //~~~ WALL SLIDE ~~~\\
@@ -511,7 +490,7 @@ public class PlayerController : MonoBehaviour
 
                 playerRigid.velocity = new Vector2(playerRigid.velocity.x, Mathf.Clamp(playerRigid.velocity.y, wallSlideSpeed, float.MaxValue));
 
-                
+
             }
 
         }
@@ -533,19 +512,20 @@ public class PlayerController : MonoBehaviour
 
             //animates the mushroom
             RaycastHit2D mushroom = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, Vector2.down, 50f, groundLayer);
-            if (mushroom.collider != null) {
+            if (mushroom.collider != null)
+            {
                 if (mushroom.collider.CompareTag("Bouncy"))
                 {
                     mushroom.collider.gameObject.GetComponent<Mushroom>().Bounce();
                     //print("shrrom innit");
                 }
-                  
+
             }
             else
             {
                 //print ("whoops");
             }
-           
+
         }
 
     }
@@ -576,7 +556,7 @@ public class PlayerController : MonoBehaviour
             }
             Invoke(nameof(StopDashing), dashDuration);
         }
-      
+
     }
 
     //~~~ DASH IGNORE ~~~\\
@@ -591,9 +571,9 @@ public class PlayerController : MonoBehaviour
 
     private void StopDashing()
     {
-         isDashing = false;
+        isDashing = false;
     }
- 
+
 
     //~~~ TELEPORT ~~~\\ 
     private void Teleport()
@@ -732,9 +712,9 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("Player Has Attacked with Ice");
             hasIcePower = false;
-           
+
             player.GetComponent<PlayerController>().Freeze();
-             FindObjectOfType<AudioManager>().Play("Freeze");
+            FindObjectOfType<AudioManager>().Play("Freeze");
         }
     }
     public void Freeze()
@@ -742,8 +722,8 @@ public class PlayerController : MonoBehaviour
         breakAmount = Random.Range(5, 10); //sets the amount of times we need to press jump to escape to a ranodm number between these numbers
         frozen = true;
 
+        //RigidbodyConstraints2D.FreezeRotationZ; to freeze flip?
         playerRigid.constraints = RigidbodyConstraints2D.FreezeAll;
-        playerRigid.isKinematic = true;
 
     }
 
@@ -757,11 +737,11 @@ public class PlayerController : MonoBehaviour
         PlayRebound();
         playerRigid.velocity = new Vector2(-transform.localScale.x * deflectForce, 10);
 
-        
-        
+
+
         Invoke(nameof(StopDeflect), deflectDuration);
     }
-    
+
     private void StopDeflect()
     {
         //Debug.Log("deflect stop");
@@ -773,32 +753,7 @@ public class PlayerController : MonoBehaviour
     //~~~ DEATH ~~~\\
     public void Death() //RIP
     {
-        isDying = true;                                                
-       
-        Invoke(nameof(KillDelay), 0.3f); //set to time of deathAnimation
-        /* AnimationClip[] clips = animator.runtimeAnimatorController.animationClips;
-         float deathTime = 0;
 
-<<<<<<< HEAD
-         for(int i = 0; i < clips.Length; i++)
-         {
-             if(clips[i].name == "Death")
-             {
-                 deathTime = clips[i].length;    //death delay set to animations length
-                 Debug.Log("death time set to " + deathTime);
-             }
-         } */
-        PlayDeathAudio();
-        animator.SetTrigger("Dying");
-        if (controller != null)
-            {vfxController.GetComponent<HapticController>().PlayHaptics("Death", controller);} 
-        if (frozen) 
-            {vfxController.GetComponent<VFXController>().PlayVFX(transform, "Ice Death");}
-        else 
-            {vfxController.GetComponent<VFXController>().PlayVFX(transform, "Death");}
-        
-
-=======
         //Debug.Log(this.gameObject.name + " death");
         isDying = true;                                                 //dying = true to stop multiple deaths before respawn
         playerRigid.constraints = RigidbodyConstraints2D.FreezeAll;     //freeze player in current position
@@ -807,9 +762,9 @@ public class PlayerController : MonoBehaviour
         AnimationClip[] clips = animator.runtimeAnimatorController.animationClips;
         float deathTime = 0;
 
-        for(int i = 0; i < clips.Length; i++)
+        for (int i = 0; i < clips.Length; i++)
         {
-            if(clips[i].name == "Death")
+            if (clips[i].name == "Death")
             {
                 deathTime = clips[i].length;    //death delay set to animations length
                 //Debug.Log("death time set to " + deathTime);
@@ -833,7 +788,6 @@ public class PlayerController : MonoBehaviour
         {
             vfxController.GetComponent<VFXController>().PlayVFX(transform, "Death");
         }*/
->>>>>>> marc.edit/crown-merge
     }
 
     //delays destroying target to allow the death anim to play
@@ -841,24 +795,20 @@ public class PlayerController : MonoBehaviour
     {
         //Debug.Log("delay over");
         animator.ResetTrigger("Dying");
-        
+        Invoke(nameof(RespawnDelay), 2f);
+    }
+
+    public void RespawnDelay()
+    {
         ls.Respawn((int)char.GetNumericValue(this.gameObject.name[6]), this.gameObject, animator);
     }
 
-   
-
     public void Respawn() //deals with changing values once player has already respawned, actual respawning is done in LevelScript
     {
-        invincible = true;
         frozen = false;
         hasIcePower = false;
-        vfxController.GetComponent<VFXController>().PlayVFX(transform, "Respawn");
-        Invoke(nameof(InvincibilityTimer), invincibilityTime); 
     }
-    public void InvincibilityTimer()
-    {
-        invincible = false;
-    }
+
 
     public bool GetIsDying() { return isDying; }
     public void SetIsDying(bool dying) { isDying = dying; }
@@ -885,7 +835,7 @@ public class PlayerController : MonoBehaviour
                     Teleport();
                 }
                 break;
-            case "DashCollectable": 
+            case "DashCollectable":
                 Debug.Log("Collected Dash");
                 hasDashPower = true;
                 Destroy(collision.gameObject);
@@ -894,7 +844,7 @@ public class PlayerController : MonoBehaviour
                 Debug.Log("Collected Ice");
                 hasIcePower = true;
                 Destroy(collision.gameObject);
-                  FindObjectOfType<AudioManager>().Play("Collect");
+                FindObjectOfType<AudioManager>().Play("Collect");
                 break;
             case "InverseCollectable":
                 Debug.Log("Collected Invert");
@@ -932,7 +882,7 @@ public class PlayerController : MonoBehaviour
     {
         string colTag = collision.gameObject.tag;
 
-        switch(colTag)
+        switch (colTag)
         {
             case "Teleporter":
                 if (currentTeleporter == collision.gameObject)
@@ -1022,7 +972,7 @@ public class PlayerController : MonoBehaviour
             if (raycastHit.collider.CompareTag("Bouncy"))
             {
                 return true;
-                
+
             }
             else
             {
@@ -1099,7 +1049,7 @@ public class PlayerController : MonoBehaviour
         playerRigid.velocity = newVel;
     }
 
-    public Vector3 GetPlayerLocalScale(){ return playerRigid.transform.localScale; }
+    public Vector3 GetPlayerLocalScale() { return playerRigid.transform.localScale; }
 
 
     //~~~ Y VELOCITY ~~~\\ 
@@ -1114,12 +1064,16 @@ public class PlayerController : MonoBehaviour
     }
 
     //~~~ INVINCIBILITY TIMER ~~~\\
-    public bool GetInvincibilityStatus()
+    public float GetInvincibilityTimer()
     {
-        return invincible;
+        return invincibilityTimer;
     }
 
-   
+    public void ResetInvincibilityTimer()
+    {
+        invincibilityTimer = invincibilityTimerDefault;
+        invincible = true;
+    }
 
 
 
@@ -1188,7 +1142,7 @@ public class PlayerController : MonoBehaviour
 
     }
     //~~~ SWORD SWING ~~~\\ 
-     public void PlaySwordAudio()
+    public void PlaySwordAudio()
     {
         int SoundNo = Random.Range(1, 4);
 
@@ -1209,8 +1163,8 @@ public class PlayerController : MonoBehaviour
     }
 
 
-        //~~~ REBOUND ~~~\\ 
-     public void PlayRebound()
+    //~~~ REBOUND ~~~\\ 
+    public void PlayRebound()
     {
         int SoundNo = Random.Range(1, 4);
 
