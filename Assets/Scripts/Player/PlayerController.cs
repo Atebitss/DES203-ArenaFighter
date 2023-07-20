@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     private int playerNum;
 
     private LevelScript ls;
-    private VFXController vfxController;
+    private GameObject vfxController;
     [SerializeField] private GameObject playerTop;
     [SerializeField] private GameObject promptUI;
     [SerializeField] private GameObject crown;
@@ -129,7 +129,7 @@ public class PlayerController : MonoBehaviour
     {
         //reference control scripts
         ls = GameObject.Find("LevelController").GetComponent<LevelScript>();
-        vfxController = GameObject.Find("VFXController").GetComponent<VFXController>();
+        vfxController = GameObject.Find("VFXController");
 
         //set player name
         playerNum = ls.CurrentPlayer();
@@ -143,6 +143,7 @@ public class PlayerController : MonoBehaviour
 
         //reference for haptics
         string inputDevice = PlayerData.playerDevices[playerNum].name;
+        Debug.Log(this.gameObject.name + ", " + inputDevice);
         if (!inputDevice.Equals("Keyboard")) { controller = (Gamepad)PlayerData.playerDevices[playerNum]; }
         else { controller = null; }
 
@@ -771,6 +772,7 @@ public class PlayerController : MonoBehaviour
         PlayDeathAudio();
         Invoke(nameof(KillDelay), deathTime);
 
+        /*HAPTICS & VFX ARRAY EMPTY
         if (controller != null) { vfxController.GetComponent<HapticController>().PlayHaptics("Death", controller); } //play death Controller vibrations
         
 
@@ -782,9 +784,7 @@ public class PlayerController : MonoBehaviour
         else
         {
             vfxController.GetComponent<VFXController>().PlayVFX(transform, "Death");
-        }
-        
-
+        }*/
     }
 
     //delays destroying target to allow the death anim to play

@@ -21,6 +21,8 @@ public class LoadScreenManager : MonoBehaviour
     {
         startAction.performed += ctx => StartAction(ctx);
         startAction.Enable();
+
+        if(PlayerData.devMode) { minLoadTime = 1; }
     }
     public void Start()
     {

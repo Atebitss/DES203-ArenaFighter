@@ -19,8 +19,12 @@ public class BoxAnimator : MonoBehaviour
         {
             boxes[i].gameObject.SetActive(true);
             animator.SetTrigger("trigger" + i);
-            print(i);
-            yield return new WaitForSeconds(3);
+            if (PlayerData.devMode)
+            {
+                //print(i);
+                yield return new WaitForSeconds(1);
+            }
+            else { yield return new WaitForSeconds(3); }
         }
     }
 }
