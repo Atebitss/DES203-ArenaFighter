@@ -8,7 +8,6 @@ using UnityEngine.SceneManagement;
 public class LevelScript : MonoBehaviour
 {
     //variable player stats
-    [SerializeField] [Range(1, 10)] private float playerGravity = 2.5f;
     [SerializeField] [Range(1, 100)] private float playerMoveForce = 25f;
     [SerializeField] [Range(10, 50)] private float playerJumpForce = 25f;
 
@@ -219,7 +218,6 @@ public class LevelScript : MonoBehaviour
         //Debug.Log("applying stats to " + players[PlayerData.numOfPlayers] + ", " + playerScripts[PlayerData.numOfPlayers]);
         playerScripts[curPlayerPos].SetMoveForce(playerMoveForce);
         playerScripts[curPlayerPos].SetJumpForce(playerJumpForce);
-        playerScripts[curPlayerPos].SetPlayerGravity(playerGravity);
 
         playerScripts[curPlayerPos].SetDevMode(devMode);
     }
@@ -329,7 +327,7 @@ public class LevelScript : MonoBehaviour
         PlayerController targetPC = target.GetComponent<PlayerController>();
         PlayerController killerPC = killer.GetComponent<PlayerController>();
 
-        if (targetPC.GetInvincibilityTimer() <= 0 && !targetPC.GetIsDying())
+        if ((targetPC.GetInvincibilityStatus() == false) && !targetPC.GetIsDying())
         {
             //update killer info
             int killerNum = (int)char.GetNumericValue(killer.name[6]);
@@ -395,7 +393,6 @@ public class LevelScript : MonoBehaviour
         else if (player.transform.position.x > 0) { player.transform.localScale = new Vector2(-1, 1); }
 
         playerPC.Respawn();
-        playerPC.ResetInvincibilityTimer();
         anim.SetTrigger("Respawning");
         playerPC.SetIsDying(false);
     }

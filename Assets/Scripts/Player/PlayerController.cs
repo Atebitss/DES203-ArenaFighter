@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     //~~~~~~~REFRENCES ~~~~~~~\\
+    [Header("References")]
     [SerializeField] private Rigidbody2D playerRigid;
     [SerializeField] private BoxCollider2D boxCollider;
     [SerializeField] private Animator animator;
@@ -97,13 +98,11 @@ public class PlayerController : MonoBehaviour
     private int breakCounter;
 
     private bool hasInvertPower = false;
-    public bool hasInvertedControls = false;
+    [HideInInspector]public bool hasInvertedControls = false;
 
     private bool hasDashPower = false;
 
-    [SerializeField] private float invincibilityTimerDefault = 1f;
-    private float invincibilityTimer = 1f;
-    private bool invincible;
+   
 
     //~~~ FLIP ~~~\\
     private bool facingRight;
@@ -122,6 +121,10 @@ public class PlayerController : MonoBehaviour
     private int score = 0;
     private float timeSinceLastKill = 0;
 
+    //~~~ MISC ~~~\\
+    [Header("Misc")]
+    [SerializeField] private float invincibilityTime = 1f;
+    private bool invincible;
 
 
 
@@ -147,8 +150,7 @@ public class PlayerController : MonoBehaviour
         if (!inputDevice.Equals("Keyboard")) { controller = (Gamepad)PlayerData.playerDevices[playerNum]; }
         else { controller = null; }
 
-        //set iframes to default
-        invincibilityTimer = invincibilityTimerDefault;
+     
 
         //hide crown
         DisableCrown();
@@ -168,13 +170,15 @@ public class PlayerController : MonoBehaviour
 
         //~~~MISC CHECKS AND ADJUSTMENTS ~~~\\ 
 
-        if (!ls.introIsOver) //freeze player movement while level intro is playing
+        if (!ls.introIsOver || isDying || invincible) //freeze player movement while level intro is playing OR WHEN PLAYER IS DYING 
         {
             playerRigid.constraints = RigidbodyConstraints2D.FreezeAll;
+            playerRigid.isKinematic = true;
         }
-        else
+        else if (!frozen)
         {
             playerRigid.constraints = ~RigidbodyConstraints2D.FreezePosition;
+            playerRigid.isKinematic = false;
         }
 
         //Gravity tweaking, we fall faster when we start falling in our jump
@@ -282,9 +286,7 @@ public class PlayerController : MonoBehaviour
         //lower dash cooldown
         dashCooldown += Time.deltaTime;
 
-        //lower iframe timer or unfreeze player
-        if (invincibilityTimer > 0) { invincibilityTimer -= Time.deltaTime; }
-        else if (invincibilityTimer <= 0 && invincible) { playerRigid.constraints = ~RigidbodyConstraints2D.FreezePosition; invincible = false; }
+        
     }
 
 
@@ -318,7 +320,7 @@ public class PlayerController : MonoBehaviour
         {
             playerRigid.velocity = new Vector2(-move.x * moveForce, playerVelocity.y);
         }
-        else if (!onIce && !isWallJumping && !isDeflecting && !isDashing && !isDying && !frozen && invincibilityTimer <= 0)
+        else if (!onIce && !isWallJumping && !isDeflecting && !isDashing && !isDying && !frozen)
         {
             playerRigid.velocity = new Vector2(move.x * moveForce, playerVelocity.y);
         }
@@ -344,6 +346,8 @@ public class PlayerController : MonoBehaviour
             if (breakCounter == breakAmount)
             {
                 playerRigid.constraints = ~RigidbodyConstraints2D.FreezePosition;
+                playerRigid.isKinematic = false;
+
                 breakCounter = 0;
                 frozen = false;
                 Debug.Log("Broke free from Ice!!!");
@@ -754,40 +758,31 @@ public class PlayerController : MonoBehaviour
     public void Death() //RIP
     {
 
-        //Debug.Log(this.gameObject.name + " death");
-        isDying = true;                                                 //dying = true to stop multiple deaths before respawn
-        playerRigid.constraints = RigidbodyConstraints2D.FreezeAll;     //freeze player in current position
+        isDying = true;
 
-        //Gets the exact time of the death animation
-        AnimationClip[] clips = animator.runtimeAnimatorController.animationClips;
-        float deathTime = 0;
+        Invoke(nameof(KillDelay), 0.3f); //set to time of deathAnimation
 
-        for (int i = 0; i < clips.Length; i++)
-        {
-            if (clips[i].name == "Death")
-            {
-                deathTime = clips[i].length;    //death delay set to animations length
-                //Debug.Log("death time set to " + deathTime);
-            }
-        }
+        /* AnimationClip[] clips = animator.runtimeAnimatorController.animationClips;
+         float deathTime = 0;
 
-        animator.SetTrigger("Dying");
+         for(int i = 0; i < clips.Length; i++)
+         {
+             if(clips[i].name == "Death")
+             {
+                 deathTime = clips[i].length;    //death delay set to animations length
+                 Debug.Log("death time set to " + deathTime);
+             }
+         } */
+
         PlayDeathAudio();
-        Invoke(nameof(KillDelay), deathTime);
-
-        /*HAPTICS & VFX ARRAY EMPTY
-        if (controller != null) { vfxController.GetComponent<HapticController>().PlayHaptics("Death", controller); } //play death Controller vibrations
-        
-
-        if (frozen) //play deathVFX
-        {
-            vfxController.GetComponent<VFXController>().PlayVFX(transform, "Ice Death");
-
-        }
+        animator.SetTrigger("Dying");
+        if (controller != null)
+        { vfxController.GetComponent<HapticController>().PlayHaptics("Death", controller); }
+        if (frozen)
+        { vfxController.GetComponent<VFXController>().PlayVFX(transform, "Ice Death"); }
         else
-        {
-            vfxController.GetComponent<VFXController>().PlayVFX(transform, "Death");
-        }*/
+        { vfxController.GetComponent<VFXController>().PlayVFX(transform, "Death"); }
+
     }
 
     //delays destroying target to allow the death anim to play
@@ -795,11 +790,7 @@ public class PlayerController : MonoBehaviour
     {
         //Debug.Log("delay over");
         animator.ResetTrigger("Dying");
-        Invoke(nameof(RespawnDelay), 2f);
-    }
 
-    public void RespawnDelay()
-    {
         ls.Respawn((int)char.GetNumericValue(this.gameObject.name[6]), this.gameObject, animator);
     }
 
@@ -807,6 +798,14 @@ public class PlayerController : MonoBehaviour
     {
         frozen = false;
         hasIcePower = false;
+        vfxController.GetComponent<VFXController>().PlayVFX(transform, "Respawn");
+
+        invincible = true;
+        Invoke(nameof(InvincibilityTimer), invincibilityTime);
+    }
+    public void InvincibilityTimer()
+    {
+        invincible = false;
     }
 
 
@@ -1063,16 +1062,11 @@ public class PlayerController : MonoBehaviour
         playerRigid.velocity = newVel;
     }
 
-    //~~~ INVINCIBILITY TIMER ~~~\\
-    public float GetInvincibilityTimer()
+    //~~~ INVINCIBILITY STATUS ~~~\\
+   
+    public bool GetInvincibilityStatus()
     {
-        return invincibilityTimer;
-    }
-
-    public void ResetInvincibilityTimer()
-    {
-        invincibilityTimer = invincibilityTimerDefault;
-        invincible = true;
+        return invincible;
     }
 
 
