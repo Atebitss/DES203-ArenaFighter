@@ -46,14 +46,16 @@ public class ScoreboardHandler : MonoBehaviour
         for (int playerPodPos = 0; playerPodPos < 3; playerPodPos++)
         {
             //reference relevant game object associated with scoreboard position i and update image with player sprite in position i 
+            Debug.Log("Position " + (playerPodPos + 1) + ": Player " + PlayerData.playerPositions[playerPodPos] + " with score " + PlayerData.playerScores[playerPodPos] + "   TSLK: " + PlayerData.playerTSLKs[playerPodPos]);
+            Debug.Log(playerSprites[PlayerData.playerPositions[playerPodPos]]);
+
             string imgRef = "Image" + (playerPodPos + 1);
             podiumImage[playerPodPos].GetComponent<ChangeImage>().ImageChange(playerSprites[PlayerData.playerPositions[playerPodPos]]);
-            Debug.Log("Position " + (playerPodPos+1) + ": Player " + PlayerData.playerPositions[playerPodPos] + " with score " + PlayerData.playerScores[playerPodPos] + "   TSLK: " + PlayerData.playerTSLKs[playerPodPos]);
-            Debug.Log(playerSprites[PlayerData.playerPositions[playerPodPos]]);
 
             //update text
             //reference relevant game object associated with scoreboard position i and update text with the number of kills
             string textRef = "Text" + (playerPodPos + 1);
+            //podiumText[playerPodPos].color = new Color32()
             switch (playerPodPos)
             {
                 case 0:
