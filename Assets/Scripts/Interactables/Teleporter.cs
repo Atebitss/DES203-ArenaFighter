@@ -20,7 +20,7 @@ public class Teleporter : MonoBehaviour
 
             return canTeleportTo[Destination];
         }
-        
-        return transform; //if no values assigned, return own transform to stop null errors, should only fire if YOU BROKE SOMETHING 
+
+        return null;
     }
 }

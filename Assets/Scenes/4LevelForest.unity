@@ -1259,10 +1259,14 @@ MonoBehaviour:
   visualEffects:
   - name: Death
     effect: {fileID: 2135522362322436280, guid: c0b5a0881c044b74cbaa9b57786a0fda, type: 3}
+    trackPlayer: 0
   - name: Ice Death
     effect: {fileID: 276769123733686397, guid: a94f7c67417a3874e85c23d2ff188ca8, type: 3}
+    trackPlayer: 0
   - name: Respawn
     effect: {fileID: 3540998808498647275, guid: 38f12c87a3d7aa74c94ae128879098e3, type: 3}
+    trackPlayer: 0
+  levelController: {fileID: 0}
 --- !u!4 &617323059
 Transform:
   m_ObjectHideFlags: 0
@@ -1451,8 +1455,8 @@ MonoBehaviour:
   roundMins: 1
   collectableType:
   - {fileID: 3800346872804229247, guid: f6c1d4bf4027b2c4f9bb22e30ff15620, type: 3}
-  collectableSpawnInterval: 10
-  initialCollectableSpawnDelay: 0
+  collectableSpawnInterval: 15
+  initialCollectableSpawnDelay: 15
 --- !u!4 &763047121
 Transform:
   m_ObjectHideFlags: 0
@@ -1502,7 +1506,7 @@ MonoBehaviour:
   levelScript: {fileID: 763047120}
   timer: {fileID: 901008934}
   introCountdown: {fileID: 1876265295}
-  countdownTime: 5
+  countdownTime: 90
   countdownActive: 0
   runningOutOfTime: 0
 --- !u!114 &772051895

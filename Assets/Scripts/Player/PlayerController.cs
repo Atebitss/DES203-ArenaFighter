@@ -97,6 +97,7 @@ public class PlayerController : MonoBehaviour
     private int breakAmount;
     private int breakCounter;
 
+
     private bool hasInvertPower = false;
     [HideInInspector]public bool hasInvertedControls = false;
 
@@ -844,11 +845,13 @@ public class PlayerController : MonoBehaviour
                 hasIcePower = true;
                 Destroy(collision.gameObject);
                 FindObjectOfType<AudioManager>().Play("Collect");
+                vfxController.GetComponent<VFXController>().PlayPlayerVFX(playerNum, "Snow");
                 break;
             case "InverseCollectable":
                 Debug.Log("Collected Invert");
                 hasInvertPower = true;
                 Destroy(collision.gameObject);
+                FindObjectOfType<AudioManager>().Play("Collect");
                 InvertCollected();
                 break;
             default:
@@ -875,6 +878,7 @@ public class PlayerController : MonoBehaviour
 
         }
     }
+   
 
     //~~~ EXIT ~~~\\ 
     private void OnTriggerExit2D(Collider2D collision)

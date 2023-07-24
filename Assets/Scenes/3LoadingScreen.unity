@@ -218,6 +218,11 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!4 &256506977 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3089924264121125785, guid: 82ea0276000fbc54aadbc687212399c1, type: 3}
+  m_PrefabInstance: {fileID: 2084624900}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &366148897
 GameObject:
   m_ObjectHideFlags: 0
@@ -1033,6 +1038,7 @@ Transform:
   m_LocalPosition: {x: 2.4386797, y: 0.7774978, z: 22021.617}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 256506977}
   - {fileID: 1343584022}
   - {fileID: 1302066502}
   m_Father: {fileID: 0}
@@ -1270,7 +1276,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 7
   m_TargetDisplay: 0
 --- !u!224 &1302066502
 RectTransform:
@@ -1288,7 +1294,7 @@ RectTransform:
   - {fileID: 477661541}
   - {fileID: 1981679154}
   m_Father: {fileID: 1187994338}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1355,10 +1361,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1187994338}
     m_Modifications:
+    - target: {fileID: 6514515040990287430, guid: a890e0e758421bd45bf4fab912134ef1, type: 3}
+      propertyPath: m_SortingOrder
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 6514515041575580753, guid: a890e0e758421bd45bf4fab912134ef1, type: 3}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1521934129}
+    - target: {fileID: 6514515041575580753, guid: a890e0e758421bd45bf4fab912134ef1, type: 3}
+      propertyPath: m_SortingOrder
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 6514515041575580764, guid: a890e0e758421bd45bf4fab912134ef1, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1369,7 +1383,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6514515041575580764, guid: a890e0e758421bd45bf4fab912134ef1, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6514515041575580764, guid: a890e0e758421bd45bf4fab912134ef1, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1446,6 +1460,10 @@ PrefabInstance:
     - target: {fileID: 6514515041575580765, guid: a890e0e758421bd45bf4fab912134ef1, type: 3}
       propertyPath: m_Name
       value: BackgroundCanvas (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7513778871292561230, guid: a890e0e758421bd45bf4fab912134ef1, type: 3}
+      propertyPath: m_SortingOrder
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a890e0e758421bd45bf4fab912134ef1, type: 3}
@@ -1754,3 +1772,80 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 7669635686518991101, guid: 7575723904653084d99598dbed3405cd, type: 3}
   m_PrefabInstance: {fileID: 1981679153}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &2084624900
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1187994338}
+    m_Modifications:
+    - target: {fileID: 3089924264121125785, guid: 82ea0276000fbc54aadbc687212399c1, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3089924264121125785, guid: 82ea0276000fbc54aadbc687212399c1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -675.9822
+      objectReference: {fileID: 0}
+    - target: {fileID: 3089924264121125785, guid: 82ea0276000fbc54aadbc687212399c1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -291.7525
+      objectReference: {fileID: 0}
+    - target: {fileID: 3089924264121125785, guid: 82ea0276000fbc54aadbc687212399c1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 48.091206
+      objectReference: {fileID: 0}
+    - target: {fileID: 3089924264121125785, guid: 82ea0276000fbc54aadbc687212399c1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3089924264121125785, guid: 82ea0276000fbc54aadbc687212399c1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3089924264121125785, guid: 82ea0276000fbc54aadbc687212399c1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3089924264121125785, guid: 82ea0276000fbc54aadbc687212399c1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3089924264121125785, guid: 82ea0276000fbc54aadbc687212399c1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3089924264121125785, guid: 82ea0276000fbc54aadbc687212399c1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3089924264121125785, guid: 82ea0276000fbc54aadbc687212399c1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5369702605806830685, guid: 82ea0276000fbc54aadbc687212399c1, type: 3}
+      propertyPath: m_Name
+      value: ForestBackgroundCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 5403248055531902142, guid: 82ea0276000fbc54aadbc687212399c1, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1521934129}
+    - target: {fileID: 5403248055633396431, guid: 82ea0276000fbc54aadbc687212399c1, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1521934129}
+    - target: {fileID: 5403248056172566092, guid: 82ea0276000fbc54aadbc687212399c1, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1521934129}
+    - target: {fileID: 5403248056421557405, guid: 82ea0276000fbc54aadbc687212399c1, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1521934129}
+    - target: {fileID: 5403248057143749898, guid: 82ea0276000fbc54aadbc687212399c1, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1521934129}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 82ea0276000fbc54aadbc687212399c1, type: 3}
