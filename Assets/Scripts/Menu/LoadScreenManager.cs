@@ -26,8 +26,8 @@ public class LoadScreenManager : MonoBehaviour
     }
     public void Start()
     {
-        FindObjectOfType<AudioManager>().Play("SelectBeep");
-        FindObjectOfType<AudioManager>().StopPlaying("StartMenuMusic");
+        //FindObjectOfType<AudioManager>().Play("SelectBeep");
+        //FindObjectOfType<AudioManager>().StopPlaying("StartMenuMusic");
 
         StartCoroutine(LoadLevelASync(4));
         boxAnimator.GetComponent<BoxAnimator>().AnimateBoxes();
@@ -54,6 +54,15 @@ public class LoadScreenManager : MonoBehaviour
         //print(pressedStart);
     }
     void StartAction(InputAction.CallbackContext ctx)
+    {
+        if (!isLoading)
+        {
+            FindObjectOfType<AudioManager>().Play("SelectBeep");
+            FindObjectOfType<AudioManager>().StopPlaying("StartMenuMusic");
+            pressedStart = true;
+        }
+    }
+    public void OnClick()
     {
         if (!isLoading)
         {
