@@ -415,7 +415,8 @@ public class LevelScript : MonoBehaviour
     //~~~~~~~ TIME UP ~~~~~~~\\
     public void TimeUp()
     {
-        for (int p = 0; p < PlayerData.numOfPlayers; p++) { PlayerData.playerTSLK[p] = playerScripts[p].GetTimeSinceLastKill(); }
+        for (int p = 0; p < PlayerData.numOfPlayers; p++) { PlayerData.playerTSLKs[p] = playerScripts[p].GetTimeSinceLastKill(); }
+        PlayerData.SortPlayers();
         SceneManager.LoadScene(5);
     }
 
