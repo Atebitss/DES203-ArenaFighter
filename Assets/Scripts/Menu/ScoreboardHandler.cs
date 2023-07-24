@@ -55,7 +55,7 @@ public class ScoreboardHandler : MonoBehaviour
             //update text
             //reference relevant game object associated with scoreboard position i and update text with the number of kills
             string textRef = "Text" + (playerPodPos + 1);
-            //podiumText[playerPodPos].color = new Color32()
+            podiumText[playerPodPos].color = new Color32(255, 0, 0, 255);
             switch (playerPodPos)
             {
                 case 0:
