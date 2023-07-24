@@ -279,7 +279,7 @@ public class PlayerController : MonoBehaviour
 
         animator.SetBool("isRunning", move.x != 0);
 
-        animator.SetBool("isWallSliding", OnStickyWall() && !IsGrounded());
+        animator.SetBool("isWallSliding", OnStickyWall() && !IsGrounded() && !frozen);
 
         //increase time since last kill
         timeSinceLastKill += Time.deltaTime;
@@ -720,12 +720,15 @@ public class PlayerController : MonoBehaviour
 
             player.GetComponent<PlayerController>().Freeze();
             FindObjectOfType<AudioManager>().Play("Freeze");
+            vfxController.GetComponent<VFXController>().DeleteVFX(playerNum, "Snow");
         }
     }
     public void Freeze()
     {
         breakAmount = Random.Range(5, 10); //sets the amount of times we need to press jump to escape to a ranodm number between these numbers
         frozen = true;
+
+        vfxController.GetComponent<VFXController>().DeleteVFX(playerNum, "Snow");
 
         //RigidbodyConstraints2D.FreezeRotationZ; to freeze flip?
         playerRigid.constraints = RigidbodyConstraints2D.FreezeAll;
@@ -783,6 +786,8 @@ public class PlayerController : MonoBehaviour
         { vfxController.GetComponent<VFXController>().PlayVFX(transform, "Ice Death"); }
         else
         { vfxController.GetComponent<VFXController>().PlayVFX(transform, "Death"); }
+
+        vfxController.GetComponent<VFXController>().DeleteVFX(playerNum, "Snow");
 
     }
 

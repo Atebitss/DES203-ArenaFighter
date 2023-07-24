@@ -255,6 +255,7 @@ public class LevelScript : MonoBehaviour
     {
         if (collectableCanSpawn)
         {
+            //add a public bool method to check if any collectables exist in the level already
             Debug.Log("Spawn Collectable");
             Transform chosenSpawn = ChooseCollectableSpawnPoint().transform; //uses ChooseCollectableSpawnPoint() to choose one collectable spawn in the level
             Vector2 chosenSpawnPos = chosenSpawn.position;
@@ -266,7 +267,7 @@ public class LevelScript : MonoBehaviour
         }
 
     }
-
+    
     public GameObject ChooseCollectableSpawnPoint()
     {
         collectableSpawnPoints = GameObject.FindGameObjectsWithTag("CollectableSpawn"); //fill spawn point array
