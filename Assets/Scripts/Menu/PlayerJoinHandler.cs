@@ -113,6 +113,12 @@ public class PlayerJoinHandler : MonoBehaviour
 
             headersPlaying[curPlayerPos] = true;
             headerAnimators[curPlayerPos].SetBool("playing", true);
+
+            Debug.Log(PlayerData.playerDevices[curPlayerPos].name);
+            Debug.Log(this.gameObject.GetComponent<HapticController>());
+            if (!PlayerData.playerDevices[curPlayerPos].name.Equals("Keyboard")) { this.gameObject.GetComponent<HapticController>().PlayHaptics("Rumble", (Gamepad)PlayerData.playerDevices[curPlayerPos]); }    
+            
+
             StartCoroutine(AnimDelay(curPlayerPos));
 
             string findRef = "Image" + (curPlayerPos + 1);
