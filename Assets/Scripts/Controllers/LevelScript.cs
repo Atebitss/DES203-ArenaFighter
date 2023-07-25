@@ -8,9 +8,10 @@ using UnityEngine.SceneManagement;
 public class LevelScript : MonoBehaviour
 {
     //variable player stats
+    public CameraShake CameraShake;
     [SerializeField] [Range(1, 100)] private float playerMoveForce = 25f;
     [SerializeField] [Range(10, 50)] private float playerJumpForce = 25f;
-
+    
     //debug
     [Header("Debug")]
     private bool devMode = false;
@@ -125,6 +126,11 @@ public class LevelScript : MonoBehaviour
         yield return new WaitForSeconds(initialCollectableSpawnDelay);
         collectableCanSpawn = true;
     }
+    public void ShakeCamera(float duration, float magnitude)
+    {
+        StartCoroutine(CameraShake.Shake(duration, magnitude));
+    }
+
 
 
     //~~~~~~~ REFERENCE PLAYER VIA NUMBER ~~~~~~~\\
@@ -265,11 +271,7 @@ public class LevelScript : MonoBehaviour
             int randomNo = Random.Range(0, collectableType.Length); //rnadomly chooses a number to randomize what collectable we get
 
             lastSpawnedCollectable = Instantiate(collectableType[randomNo], chosenSpawnPos, chosenSpawnRot);
-           
-            
-           
         }
-
     }
     
     public GameObject ChooseCollectableSpawnPoint()
@@ -293,18 +295,22 @@ public class LevelScript : MonoBehaviour
         float invertDuration = 5f;
 
         Debug.Log("Level script has been called");
-        foreach (GameObject player in players)
+        if (players != null)
         {
-            if (player != exemptPlayer)
+            foreach (GameObject player in players)
             {
-                player.GetComponent<PlayerController>().hasInvertedControls = true;
+                if (player != exemptPlayer)
+                {
+                    player.GetComponent<PlayerController>().InvertControls();
+                    ShakeCamera(0.4f, 0.16f);
+                    Invoke(nameof(UnInvertControls), invertDuration);
+                }
 
-                Invoke(nameof(UnInvertControls), invertDuration);
             }
-
         }
+      
     }
-    private IEnumerator InvertDuration(float invertDuration) // for dashDuration we move to IgnoreCollisions layer to dash through players
+    private IEnumerator InvertDuration(float invertDuration) 
     {
 
         yield return new WaitForSeconds(invertDuration);
@@ -312,14 +318,13 @@ public class LevelScript : MonoBehaviour
     }
     public void UnInvertControls()
     {
-        foreach (GameObject player in players)
+        if (players != null)
         {
-
-            player.GetComponent<PlayerController>().hasInvertedControls = false;
-
+            foreach (GameObject player in players)
+            {
+                player.GetComponent<PlayerController>().UnInvertControls();
+            }
         }
-
-
     }
 
 
@@ -421,6 +426,10 @@ public class LevelScript : MonoBehaviour
     public void TimeUp()
     {
         for (int p = 0; p < PlayerData.numOfPlayers; p++) { PlayerData.playerTSLK[p] = playerScripts[p].GetTimeSinceLastKill(); }
+        Invoke(nameof(RoundOverDelay), 2);
+    }
+    private void RoundOverDelay()
+    {
         SceneManager.LoadScene(5);
     }
 

@@ -174,6 +174,7 @@ public class PlayerController : MonoBehaviour
         if (!ls.introIsOver || isDying || invincible) //freeze player movement while level intro is playing OR WHEN PLAYER IS DYING 
         {
             playerRigid.constraints = RigidbodyConstraints2D.FreezeAll;
+            
             playerRigid.isKinematic = true;
         }
         else if (!frozen)
@@ -894,7 +895,15 @@ public class PlayerController : MonoBehaviour
 
         }
     }
-   
+    public void InvertControls()
+    {
+        hasInvertedControls = true;
+    }
+    public void UnInvertControls()
+    {
+        hasInvertedControls = false;
+    }
+
 
     //~~~ EXIT ~~~\\ 
     private void OnTriggerExit2D(Collider2D collision)
@@ -931,7 +940,7 @@ public class PlayerController : MonoBehaviour
     public void AttackTrigger(Collider2D collision)
     {
     }
-
+    
 
 
     //~~~~~~~ CROWN ~~~~~~~\\
