@@ -13,7 +13,10 @@ public class PlayerJoinHandler : MonoBehaviour
     [SerializeField] private InputAction joinAction;
     [SerializeField] private InputAction leaveAction;
     [SerializeField] private InputAction startAction;
-    
+
+    //header animation
+    [SerializeField] private Animator[] headerAnimators = new Animator[4];
+    private bool[] headersPlaying = new bool[4];
 
     private int curPlayerPos;
     private InputAction.CallbackContext context;
@@ -45,6 +48,12 @@ public class PlayerJoinHandler : MonoBehaviour
         joinAction.Enable();
         leaveAction.Enable();
         startAction.Enable();
+
+
+        for (int i = 0; i < headerAnimators.Length; i++)
+        {
+            headerAnimators[i] = GameObject.Find("Header" + (i + 1)).GetComponent<Animator>();
+        }
     }
 
 
@@ -100,12 +109,23 @@ public class PlayerJoinHandler : MonoBehaviour
 
             //Debug.Log("increasing player count");
             PlayerData.numOfPlayers++; //increase total number of players
-            PlayerData.GetPlayers();
+            //PlayerData.GetPlayers();
+
+            headersPlaying[curPlayerPos] = true;
+            headerAnimators[curPlayerPos].SetBool("playing", true);
+            StartCoroutine(AnimDelay(curPlayerPos));
 
             string findRef = "Image" + (curPlayerPos + 1);
             //Debug.Log(findRef);
             GameObject.Find(findRef).GetComponent<ChangeImage>().ImageChange();
         }
+    }
+
+    private IEnumerator AnimDelay(int curPlayerPos)
+    {
+        yield return new WaitForSeconds(0.2f);
+        headersPlaying[curPlayerPos] = false;
+        headerAnimators[curPlayerPos].SetBool("playing", false);
     }
 
 
