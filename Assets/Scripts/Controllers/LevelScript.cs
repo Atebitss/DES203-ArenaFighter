@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Experimental.Rendering.Universal;
 using UnityEngine.SceneManagement;
+using UnityEngine.U2D.Animation;
 
 public class LevelScript : MonoBehaviour
 {
@@ -30,9 +31,11 @@ public class LevelScript : MonoBehaviour
     private int prevPlayerPos = 0;
 
     //intro stuff
-    [Header("Intro")]
-    public bool introIsOver;
+    [Header("Intro and Outro")]
+    [HideInInspector] public bool introIsOver;
+    [HideInInspector] public bool outroIsOver = true;
     [SerializeField] private float introTime = 4;
+    [SerializeField] private float outroTime = 4;
 
     //important level & multiplayer stuff
     [Header("Level and Multiplayer")]
@@ -54,10 +57,10 @@ public class LevelScript : MonoBehaviour
 
 
     //player sprites 
-    // [SerializeField] private Sprite player1sprite;
-    // [SerializeField] private Sprite player2sprite;
-    // [SerializeField] private Sprite player3sprite;
-    // [SerializeField] private Sprite player4sprite; 
+     [SerializeField] private SpriteLibraryAsset player1Sprites;
+     [SerializeField] private SpriteLibraryAsset player2Sprites;
+     [SerializeField] private SpriteLibraryAsset player3Sprites;
+     [SerializeField] private SpriteLibraryAsset player4Sprites;
 
 
 
@@ -207,7 +210,7 @@ public class LevelScript : MonoBehaviour
         PlayerData.SetPlayers(players[curPlayerPos], curPlayerPos, playerScripts[curPlayerPos]);
 
         //apply stats
-        ApplyColour();
+        ApplySprites();
         ApplyLevelStats();
 
         if (devMode)
@@ -229,7 +232,7 @@ public class LevelScript : MonoBehaviour
         playerScripts[curPlayerPos].SetDevMode(devMode);
     }
 
-    private void ApplyColour()
+    private void ApplySprites()
     {
         //Debug.Log("ApplyColour to " + players[curPlayerPos]);
         //old sprite colouring
@@ -239,22 +242,28 @@ public class LevelScript : MonoBehaviour
 
         //gives the appropriate colour based on player number
         Light2D playerAuraLight = players[curPlayerPos].GetComponent<Light2D>();
+        SpriteLibrary spriteLibary = players[curPlayerPos].GetComponent<SpriteLibrary>();
         switch (curPlayerPos)
         {
             case 0:
                 playerAuraLight.color = new Color(1f, 0f, 0f, 1f); //red
+                spriteLibary.spriteLibraryAsset =  player1Sprites;
                 break;
             case 1:
                 playerAuraLight.color = new Color(0f, 0f, 1f, 1f); //blue
+                spriteLibary.spriteLibraryAsset = player2Sprites;
                 break;
             case 2:
                 playerAuraLight.color = new Color(0f, 1f, 0f, 1f); //green
+                spriteLibary.spriteLibraryAsset = player3Sprites;
                 break;
             case 3:
                 playerAuraLight.color = new Color(0f, 1f, 1f, 1f); //cyan
+                spriteLibary.spriteLibraryAsset = player4Sprites;
                 break;
             default:
                 playerAuraLight.color = new Color(1f, 1f, 1f, 1f); //white, should never appear
+                spriteLibary.spriteLibraryAsset = player1Sprites;
                 break;
         }
     }
@@ -346,7 +355,7 @@ public class LevelScript : MonoBehaviour
             //update killer score
             killerPC.IncScore();
             killerPC.ResetTimeSinceLastKill();
-
+            Debug.Log(target);
             //kill target
             targetPC.Death();
 
@@ -426,12 +435,16 @@ public class LevelScript : MonoBehaviour
     public void TimeUp()
     {
         for (int p = 0; p < PlayerData.numOfPlayers; p++) { PlayerData.playerTSLK[p] = playerScripts[p].GetTimeSinceLastKill(); }
-        Invoke(nameof(RoundOverDelay), 2);
+        StartCoroutine(OutroDelay());
     }
-    private void RoundOverDelay()
+    private IEnumerator OutroDelay()
     {
+        outroIsOver = false;
+        yield return new WaitForSeconds(outroTime);
+        outroIsOver = true;
         SceneManager.LoadScene(5);
     }
+   
 
     public float GetRoundLength()
     {

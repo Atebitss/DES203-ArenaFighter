@@ -1,0 +1,215 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &1
+MonoBehaviour:
+  m_ObjectHideFlags: 36
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5e6fedc2472449cead18ef23b5cb30d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Library:
+  - m_Name: Idle
+    m_Hash: 2081823275
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: fire knight idle_0
+      m_Hash: 794569420
+      m_Sprite: {fileID: 4135883091519116254, guid: 0d4a47ff7c51399449ca1dc8cf9ad04f, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 1065614190303794672, guid: eb0070a1237c45842a56ba20d299e6f0, type: 3}
+    - m_Name: fire knight idle_1
+      m_Hash: 1482365530
+      m_Sprite: {fileID: 7395423827498662753, guid: 0d4a47ff7c51399449ca1dc8cf9ad04f, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: -5065804324518478323, guid: eb0070a1237c45842a56ba20d299e6f0, type: 3}
+    - m_Name: fire knight idle_2
+      m_Hash: -1051571232
+      m_Sprite: {fileID: 5938816678842142326, guid: 0d4a47ff7c51399449ca1dc8cf9ad04f, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 5668951673421221243, guid: eb0070a1237c45842a56ba20d299e6f0, type: 3}
+    - m_Name: fire knight idle_3
+      m_Hash: -1235911818
+      m_Sprite: {fileID: -4448397614738261349, guid: 0d4a47ff7c51399449ca1dc8cf9ad04f, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 3447014311061175048, guid: eb0070a1237c45842a56ba20d299e6f0, type: 3}
+    m_FromMain: 1
+    m_EntryOverrideCount: 4
+  - m_Name: Run
+    m_Hash: 1748754976
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: fire knight walk_0
+      m_Hash: -721491107
+      m_Sprite: {fileID: 3379955664503595753, guid: ce026a7bbcfc4424fbd2ec6c66f027a3, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: -3061957936270633888, guid: 036eef24a807c6e4d8307228550a9044, type: 3}
+    - m_Name: fire knight walk_1
+      m_Hash: -1543906357
+      m_Sprite: {fileID: 927799796070779943, guid: ce026a7bbcfc4424fbd2ec6c66f027a3, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 5166323078861334721, guid: 036eef24a807c6e4d8307228550a9044, type: 3}
+    - m_Name: fire knight walk_2
+      m_Hash: 988842609
+      m_Sprite: {fileID: -2766631709560400354, guid: ce026a7bbcfc4424fbd2ec6c66f027a3, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 1902701720578943360, guid: 036eef24a807c6e4d8307228550a9044, type: 3}
+    - m_Name: fire knight walk_3
+      m_Hash: 1308080871
+      m_Sprite: {fileID: 8513130163827819798, guid: ce026a7bbcfc4424fbd2ec6c66f027a3, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: -6160509729710729677, guid: 036eef24a807c6e4d8307228550a9044, type: 3}
+    - m_Name: fire knight walk_4
+      m_Hash: -745328828
+      m_Sprite: {fileID: -3563481734589539085, guid: ce026a7bbcfc4424fbd2ec6c66f027a3, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: -2829821375174858756, guid: 036eef24a807c6e4d8307228550a9044, type: 3}
+    - m_Name: fire knight walk_5
+      m_Hash: -1533796398
+      m_Sprite: {fileID: -631993612114673879, guid: ce026a7bbcfc4424fbd2ec6c66f027a3, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: -1729946362766346894, guid: 036eef24a807c6e4d8307228550a9044, type: 3}
+    m_FromMain: 1
+    m_EntryOverrideCount: 6
+  - m_Name: Jump
+    m_Hash: 125937960
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: fire knight jump_0
+      m_Hash: 1444536494
+      m_Sprite: {fileID: 1392665888694714177, guid: e3d7a8eeaeb601e4496fb4ada55eeacc, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: -9144437465457761231, guid: 4de1b6fe6fae7484a88ceb82637ae26f, type: 3}
+    - m_Name: fire knight jump_1
+      m_Hash: 555667512
+      m_Sprite: {fileID: -3033562907188483462, guid: e3d7a8eeaeb601e4496fb4ada55eeacc, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: -6661014459038538462, guid: 4de1b6fe6fae7484a88ceb82637ae26f, type: 3}
+    - m_Name: fire knight jump_2
+      m_Hash: -1206419070
+      m_Sprite: {fileID: -3702108664988393574, guid: e3d7a8eeaeb601e4496fb4ada55eeacc, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 4602754533043283527, guid: 4de1b6fe6fae7484a88ceb82637ae26f, type: 3}
+    m_FromMain: 1
+    m_EntryOverrideCount: 3
+  - m_Name: Fall
+    m_Hash: 1533177906
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: fire knight fall_0
+      m_Hash: 423308518
+      m_Sprite: {fileID: 780878694547626147, guid: e35aa6e8d01a73240844f238f31e8619, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: -192283896129563425, guid: 687c004ab5133944c99681d3865126e8, type: 3}
+    - m_Name: fire knight fall_1
+      m_Hash: 1849433200
+      m_Sprite: {fileID: 5440787403732583928, guid: e35aa6e8d01a73240844f238f31e8619, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 7327396478157397709, guid: 687c004ab5133944c99681d3865126e8, type: 3}
+    - m_Name: fire knight fall_2
+      m_Hash: -147501622
+      m_Sprite: {fileID: 8076630699895920952, guid: e35aa6e8d01a73240844f238f31e8619, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 7898585065436093558, guid: 687c004ab5133944c99681d3865126e8, type: 3}
+    - m_Name: fire knight fall_3
+      m_Hash: -2144174756
+      m_Sprite: {fileID: -6454561542621459980, guid: e35aa6e8d01a73240844f238f31e8619, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 7327396478157397709, guid: 687c004ab5133944c99681d3865126e8, type: 3}
+    m_FromMain: 1
+    m_EntryOverrideCount: 4
+  - m_Name: Attack
+    m_Hash: 1080829965
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: fire knight attack_1
+      m_Hash: -436598125
+      m_Sprite: {fileID: -7457084735046278784, guid: 87ab1851183aef2418cad79af6263449, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: -3941613016856883136, guid: 107c86daf4eaf3b418a00e530326a889, type: 3}
+    - m_Name: fire knight attack_0
+      m_Hash: -1828898299
+      m_Sprite: {fileID: 5601841573633594515, guid: 87ab1851183aef2418cad79af6263449, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: -177484865100689986, guid: 107c86daf4eaf3b418a00e530326a889, type: 3}
+    m_FromMain: 1
+    m_EntryOverrideCount: 2
+  - m_Name: Frozen
+    m_Hash: 1668424211
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: FrozenKnight
+      m_Hash: -1237208391
+      m_Sprite: {fileID: 21300000, guid: 609079842cd2ba7439b895bd354fe9ed, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: 609079842cd2ba7439b895bd354fe9ed, type: 3}
+    m_FromMain: 1
+    m_EntryOverrideCount: 0
+  - m_Name: Death
+    m_Hash: 646380074
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: fire knight death_0
+      m_Hash: 534368195
+      m_Sprite: {fileID: -4125848276575616192, guid: 9bb13ce707a86774b8a804cdf4856778, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: -5646725339950355220, guid: 4228949c851bddb4794755bb6c59ff60, type: 3}
+    - m_Name: fire knight death_1
+      m_Hash: 1759444821
+      m_Sprite: {fileID: 6838223020439552223, guid: 9bb13ce707a86774b8a804cdf4856778, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: -7020377730598759317, guid: 4228949c851bddb4794755bb6c59ff60, type: 3}
+    - m_Name: fire knight death_2
+      m_Hash: -237523217
+      m_Sprite: {fileID: -3974943398977983956, guid: 9bb13ce707a86774b8a804cdf4856778, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: -5380369054168640883, guid: 4228949c851bddb4794755bb6c59ff60, type: 3}
+    - m_Name: fire knight death_3
+      m_Hash: -2033148295
+      m_Sprite: {fileID: -7026840988161435079, guid: 9bb13ce707a86774b8a804cdf4856778, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 6445866337102377073, guid: 4228949c851bddb4794755bb6c59ff60, type: 3}
+    m_FromMain: 1
+    m_EntryOverrideCount: 4
+  - m_Name: Dash
+    m_Hash: 995914302
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: fire knight dash
+      m_Hash: 2013258568
+      m_Sprite: {fileID: 21300000, guid: 0ce9ad33467d3494b9e68d41e9c0d051, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: dbd092c134b687b41bdd6ce45622f73c, type: 3}
+    m_FromMain: 1
+    m_EntryOverrideCount: 1
+  - m_Name: Wall Slide
+    m_Hash: 1252573320
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: fire knight wall climb_0
+      m_Hash: -1020119463
+      m_Sprite: {fileID: 6668112539376953756, guid: c214c5d7d8591c944a718cae5fa5c945, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: -710533146906741648, guid: 27a7cf48a700a654c9752433e0c7b99c, type: 3}
+    - m_Name: fire knight wall climb_1
+      m_Hash: -1271593265
+      m_Sprite: {fileID: 2590136077057186580, guid: c214c5d7d8591c944a718cae5fa5c945, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 7856199309487860693, guid: 27a7cf48a700a654c9752433e0c7b99c, type: 3}
+    - m_Name: fire knight wall climb_2
+      m_Hash: 758929269
+      m_Sprite: {fileID: 7301512038846388708, guid: c214c5d7d8591c944a718cae5fa5c945, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: -7259021219689832914, guid: 27a7cf48a700a654c9752433e0c7b99c, type: 3}
+    - m_Name: fire knight wall climb_3
+      m_Hash: 1513842659
+      m_Sprite: {fileID: -6599311525781477782, guid: c214c5d7d8591c944a718cae5fa5c945, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 4388347655285260325, guid: 27a7cf48a700a654c9752433e0c7b99c, type: 3}
+    m_FromMain: 1
+    m_EntryOverrideCount: 4
+  m_PrimaryLibraryGUID: bb8343e299b6afb4390b9dfafd041b8d
