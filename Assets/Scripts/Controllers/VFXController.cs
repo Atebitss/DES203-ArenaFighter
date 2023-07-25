@@ -26,14 +26,8 @@ public class VFXController : MonoBehaviour
     }
     public void DeleteVFX(int playerNum, string name)
     {
-        VFX visualEffect = Array.Find(visualEffects, vfx => vfx.name == name);
-        playerTransform = PlayerData.players[playerNum].transform;
-        if (spawnedEffect != null)
-        {
-            Destroy(spawnedEffect);
-            //getting close but it only desyroys the last spawned effect, need to make an array and index each one or tmh idk
-        }
-     
-    }
+   
 
+    }
 }
+

@@ -47,6 +47,7 @@ public class LevelScript : MonoBehaviour
     [SerializeField] private float collectableSpawnInterval;
     [SerializeField] private float initialCollectableSpawnDelay;
     private bool collectableCanSpawn;
+    private GameObject lastSpawnedCollectable;
     private float intervalTime;
 
 
@@ -253,7 +254,7 @@ public class LevelScript : MonoBehaviour
     }
     public void Collectable()
     {
-        if (collectableCanSpawn)
+        if (collectableCanSpawn && lastSpawnedCollectable == null )
         {
             //add a public bool method to check if any collectables exist in the level already
             Debug.Log("Spawn Collectable");
@@ -263,7 +264,10 @@ public class LevelScript : MonoBehaviour
 
             int randomNo = Random.Range(0, collectableType.Length); //rnadomly chooses a number to randomize what collectable we get
 
-            Instantiate(collectableType[randomNo], chosenSpawnPos, chosenSpawnRot);
+            lastSpawnedCollectable = Instantiate(collectableType[randomNo], chosenSpawnPos, chosenSpawnRot);
+           
+            
+           
         }
 
     }

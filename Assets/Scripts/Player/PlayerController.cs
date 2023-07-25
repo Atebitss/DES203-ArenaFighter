@@ -234,36 +234,28 @@ public class PlayerController : MonoBehaviour
 
         //~~~PROMPT UI AND VFX ~~~\\ 
 
-        if (frozen || hasIcePower) //Activate the Prompt UI above the player
+        if (frozen) //Activate the Prompt UI above the player
         {
             promptUI.SetActive(true);
-
+            animator.SetBool("isFrozen", true);
+            promptUI.GetComponent<Animator>().SetBool("isFrozen", true);
+            DeleteAllVFX();
         }
         else
         {
             promptUI.SetActive(false);
-        }
-        if (frozen && hasIcePower) //Disable powerup when frozen
-        {
-            hasIcePower = false;
-
-        }
-
-        if (frozen && !hasIcePower) //updates animation for player and Prompt UI when we are frozen
-        {
-            animator.SetBool("isFrozen", true);
-            promptUI.GetComponent<Animator>().SetBool("isFrozen", true);
-        }
-        else
-        {
             animator.SetBool("isFrozen", false);
             promptUI.GetComponent<Animator>().SetBool("isFrozen", false);
         }
 
+        if (frozen && hasIcePower) //Disable powerup when frozen
+        {
+            hasIcePower = false;
+           
+        }
         if (hasIcePower && !frozen) //updates animation for player and Prompt UI when we h
         {
-            promptUI.GetComponent<Animator>().SetBool("hasIcePower", true);
-
+          //  promptUI.GetComponent<Animator>().SetBool("hasIcePower", true);
 
         }
 
@@ -717,19 +709,18 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("Player Has Attacked with Ice");
             hasIcePower = false;
-
+            DeleteAllVFX();
             player.GetComponent<PlayerController>().Freeze();
             FindObjectOfType<AudioManager>().Play("Freeze");
-            vfxController.GetComponent<VFXController>().DeleteVFX(playerNum, "Snow");
+            
         }
     }
     public void Freeze()
     {
         breakAmount = Random.Range(5, 10); //sets the amount of times we need to press jump to escape to a ranodm number between these numbers
         frozen = true;
-
-        vfxController.GetComponent<VFXController>().DeleteVFX(playerNum, "Snow");
-
+        hasIcePower = false;
+        DeleteAllVFX();
         //RigidbodyConstraints2D.FreezeRotationZ; to freeze flip?
         playerRigid.constraints = RigidbodyConstraints2D.FreezeAll;
 
@@ -786,8 +777,8 @@ public class PlayerController : MonoBehaviour
         { vfxController.GetComponent<VFXController>().PlayVFX(transform, "Ice Death"); }
         else
         { vfxController.GetComponent<VFXController>().PlayVFX(transform, "Death"); }
+        DeleteAllVFX();
 
-        vfxController.GetComponent<VFXController>().DeleteVFX(playerNum, "Snow");
 
     }
 
@@ -804,8 +795,9 @@ public class PlayerController : MonoBehaviour
     {
         frozen = false;
         hasIcePower = false;
+        DeleteAllVFX();
         vfxController.GetComponent<VFXController>().PlayVFX(transform, "Respawn");
-
+       
         invincible = true;
         Invoke(nameof(InvincibilityTimer), invincibilityTime);
     }
@@ -818,6 +810,18 @@ public class PlayerController : MonoBehaviour
     public bool GetIsDying() { return isDying; }
     public void SetIsDying(bool dying) { isDying = dying; }
 
+    private void DeleteAllVFX() //deletes all children with VFX tag, messy fix but it should work
+    {
+        Transform[] allChildren = GetComponentsInChildren<Transform>();
+        foreach (Transform child in allChildren)
+        {
+            if (child.gameObject == GameObject.FindWithTag("VFX"))
+            {
+                Destroy(child.gameObject);
+            }
+            
+        }
+    }
 
 
 
@@ -847,10 +851,17 @@ public class PlayerController : MonoBehaviour
                 break;
             case "IceCollectable":
                 Debug.Log("Collected Ice");
-                hasIcePower = true;
-                Destroy(collision.gameObject);
-                FindObjectOfType<AudioManager>().Play("Collect");
-                vfxController.GetComponent<VFXController>().PlayPlayerVFX(playerNum, "Snow");
+                if (hasIcePower) //remove collectable if we arady have that one equipped 
+                {
+                    Destroy(collision.gameObject);
+                }
+                else
+                {
+                    hasIcePower = true;
+                    Destroy(collision.gameObject);
+                    FindObjectOfType<AudioManager>().Play("Collect");
+                    vfxController.GetComponent<VFXController>().PlayPlayerVFX(playerNum, "Snow");
+                }
                 break;
             case "InverseCollectable":
                 Debug.Log("Collected Invert");
