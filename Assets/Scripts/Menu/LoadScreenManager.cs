@@ -71,15 +71,10 @@ public class LoadScreenManager : MonoBehaviour
     {
         if (!isLoading)
         {
-<<<<<<< Updated upstream
-            FindObjectOfType<AudioManager>().Play("SelectBeep");
-            FindObjectOfType<AudioManager>().StopPlaying("StartMenuMusic");
-            StartCoroutine(LoadLevel());
-=======
             AM.Play("SelectBeep");
             AM.StopPlaying("StartMenuMusic");
             pressedStart = true;
->>>>>>> Stashed changes
+            StartCoroutine(LoadLevel());
         }
     }
 
