@@ -12,6 +12,12 @@ public class PlayerJoinMenuController : MonoBehaviour
 
     public Button startButton;
 
+    private AudioManager AM;
+
+    void Awake()
+    {
+        AM = FindObjectOfType<AudioManager>();
+    }
 
     public void Update()
     {
@@ -23,21 +29,19 @@ public class PlayerJoinMenuController : MonoBehaviour
         {
             startButton.gameObject.SetActive(false);
         }
-
     }
+
+
     public void StartGame()
     {
-       
-        FindObjectOfType<AudioManager>().Play("SelectBeep");
-
+        AM.Play("SelectBeep");
         StartCoroutine(LoadLevel(3));
     }
+
     IEnumerator LoadLevel(int levelIndex)
     {
         transition.SetTrigger("Start");
-
         yield return new WaitForSeconds(transitionTime);
-
         SceneManager.LoadScene(levelIndex);
 
     }

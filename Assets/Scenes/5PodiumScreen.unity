@@ -1032,6 +1032,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1889523637}
+  - component: {fileID: 1889523638}
   m_Layer: 0
   m_Name: PodiumScreen
   m_TagString: Untagged
@@ -1055,6 +1056,46 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1889523638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1889523636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cfba6962ce58b64eb467ae7418257ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transition: {fileID: 2011385586}
+  transitionTime: 1
+  minLoadTime: 5
+  continueButton: {fileID: 1884408278}
+  continueAction:
+    m_Name: Start
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 0aad9881-5461-48c1-b500-362544eea1bf
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 83fbdb48-66dd-4b22-96dd-526f5dffa8d2
+      m_Path: <Gamepad>/start
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Start
+      m_Flags: 0
+    - m_Name: 
+      m_Id: 0d4cd965-f421-4fde-92ef-310489133554
+      m_Path: <Keyboard>/enter
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Start
+      m_Flags: 0
 --- !u!1 &1890713704
 GameObject:
   m_ObjectHideFlags: 0
@@ -1067,7 +1108,6 @@ GameObject:
   - component: {fileID: 1890713707}
   - component: {fileID: 1890713706}
   - component: {fileID: 1890713705}
-  - component: {fileID: 1890713709}
   - component: {fileID: 1890713710}
   - component: {fileID: 1890713711}
   m_Layer: 5
@@ -1160,46 +1200,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &1890713709
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1890713704}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4cfba6962ce58b64eb467ae7418257ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  transition: {fileID: 2011385586}
-  transitionTime: 1
-  minLoadTime: 5
-  continueButton: {fileID: 1884408278}
-  continueAction:
-    m_Name: Start
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 0aad9881-5461-48c1-b500-362544eea1bf
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 
-      m_Id: 83fbdb48-66dd-4b22-96dd-526f5dffa8d2
-      m_Path: <Gamepad>/start
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Start
-      m_Flags: 0
-    - m_Name: 
-      m_Id: 0d4cd965-f421-4fde-92ef-310489133554
-      m_Path: <Keyboard>/enter
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Start
-      m_Flags: 0
 --- !u!95 &1890713710
 Animator:
   serializedVersion: 3

@@ -155,13 +155,13 @@ MonoBehaviour:
   sounds:
   - name: Teleport
     clip: {fileID: 8300000, guid: e6ba79ee6aa20bf41a0f3a0d84ba6c88, type: 3}
-    volume: 0.06
+    volume: 0.1
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: DeathSound
     clip: {fileID: 8300000, guid: 7aa391ae9701e7947a1098d2563c36dc, type: 3}
-    volume: 0.22
+    volume: 0.1
     pitch: 1
     loop: 0
     source: {fileID: 0}
@@ -185,55 +185,60 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: JumpGrunt
     clip: {fileID: 8300000, guid: 90bf73db36a1c1f43adeb9fc9f39bb75, type: 3}
-    volume: 0.03
+    volume: 0.25
     pitch: 0.8
     loop: 0
     source: {fileID: 0}
   - name: JumpGrunt2
     clip: {fileID: 8300000, guid: 5d845d62733a55845a5a6f510709813e, type: 3}
-    volume: 0.03
+    volume: 0.25
     pitch: 0.7
     loop: 0
     source: {fileID: 0}
   - name: JumpWhoosh
     clip: {fileID: 8300000, guid: 58c4da31c4ecd1f4baaa0251bfb80a7f, type: 3}
-    volume: 0.06
+    volume: 0.1
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: Bouncy
     clip: {fileID: 8300000, guid: b97468d247e97e949a584f26d54c6b0a, type: 3}
-    volume: 0.093
+    volume: 0.025
     pitch: 1.27
     loop: 0
     source: {fileID: 0}
   - name: MusicFight
+<<<<<<< Updated upstream
     clip: {fileID: 8300000, guid: 01427ea5a4d9de74a82fdde0aa963427, type: 3}
     volume: 0.17
+=======
+    clip: {fileID: 8300000, guid: 9b14f188ec754954c8036defeca85dcb, type: 3}
+    volume: 0.025
+>>>>>>> Stashed changes
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: Landing
     clip: {fileID: 8300000, guid: 6238404e126d77d4eabed630539ac71a, type: 3}
-    volume: 0.215
+    volume: 0.5
     pitch: 1.24
     loop: 0
     source: {fileID: 0}
   - name: SwordSwing1
     clip: {fileID: 8300000, guid: 1c91e2b01626cb34e97e901e1cc2fb39, type: 3}
-    volume: 0.01
+    volume: 0.1
     pitch: 0.84
     loop: 0
     source: {fileID: 0}
   - name: SwordSwing2
     clip: {fileID: 8300000, guid: 75f2c5e743e2adf488d767a2997ce0b2, type: 3}
-    volume: 0.01
+    volume: 0.1
     pitch: 0.84
     loop: 0
     source: {fileID: 0}
   - name: SwordSwing3
     clip: {fileID: 8300000, guid: d4a2d3e458cfc844a84282aa35176201, type: 3}
-    volume: 0.01
+    volume: 0.1
     pitch: 0.82
     loop: 0
     source: {fileID: 0}
@@ -257,55 +262,76 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Beep
     clip: {fileID: 8300000, guid: 1fdc10cc9769d974e9f44cc7f223cba2, type: 3}
+<<<<<<< Updated upstream
     volume: 0.1
+=======
+    volume: 0.5
+>>>>>>> Stashed changes
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: SelectBeep
+<<<<<<< Updated upstream
     clip: {fileID: 8300000, guid: d8430ab40ba86374ab19142446995032, type: 3}
     volume: 0.1
+=======
+    clip: {fileID: 8300000, guid: 58ae8333042cff04686a5bbd67a9a6d6, type: 3}
+    volume: 0.5
+>>>>>>> Stashed changes
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: SelectShudder
     clip: {fileID: 8300000, guid: f20949f881c2f7540a4e8a37fe62be8f, type: 3}
-    volume: 0.4
+    volume: 0.5
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: StartMenuMusic
     clip: {fileID: 8300000, guid: d15a5ff06af63b3468899d6442958038, type: 3}
-    volume: 0.17
+    volume: 0.1
     pitch: 1
     loop: 1
     source: {fileID: 0}
   - name: SpookyNoise
     clip: {fileID: 8300000, guid: d1f0a90bf08b64a4c92c13f5df869ad3, type: 3}
-    volume: 0.11
+    volume: 0.5
     pitch: 1
     loop: 1
     source: {fileID: 0}
   - name: Dash
     clip: {fileID: 8300000, guid: 034f11c18dab5d74392f4a2d6f34b0f9, type: 3}
+<<<<<<< Updated upstream
     volume: 0.4
+=======
+    volume: 0.1
+>>>>>>> Stashed changes
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: Freeze
     clip: {fileID: 8300000, guid: 4322a6e206e58f340a23519e39dcae10, type: 3}
+<<<<<<< Updated upstream
     volume: 0.4
+=======
+    volume: 0.25
+>>>>>>> Stashed changes
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: BreakFree
     clip: {fileID: 8300000, guid: 88fb2cb99a6877244b8d513523d74d40, type: 3}
+<<<<<<< Updated upstream
     volume: 0.4
+=======
+    volume: 0.25
+>>>>>>> Stashed changes
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: Collect
     clip: {fileID: 8300000, guid: b3242ad2ffcbec246a38fab0f7177790, type: 3}
-    volume: 0.1
+    volume: 0.05
     pitch: 1
     loop: 0
     source: {fileID: 0}
@@ -435,4 +461,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eef4fa18f424a584c8c48a9d9b5891fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  devMode: 0
+  devMode: 1

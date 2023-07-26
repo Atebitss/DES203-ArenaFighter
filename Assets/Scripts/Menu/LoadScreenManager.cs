@@ -17,20 +17,24 @@ public class LoadScreenManager : MonoBehaviour
     [SerializeField] private InputAction startAction;
     [SerializeField] private GameObject boxAnimator;
 
+    private AudioManager AM;
+
     private void Awake()
     {
         startAction.performed += ctx => StartAction(ctx);
         startAction.Enable();
 
-        if(PlayerData.devMode) { minLoadTime = 1; }
+        AM = FindObjectOfType<AudioManager>();
+
+        if (PlayerData.devMode) { minLoadTime = 1; }
     }
+
     public void Start()
     {
-        FindObjectOfType<AudioManager>().Play("SelectBeep");
-
         StartCoroutine(LoadLevelASync(4));
         boxAnimator.GetComponent<BoxAnimator>().AnimateBoxes();
     }
+
     public void Update()
     {
        
@@ -52,12 +56,14 @@ public class LoadScreenManager : MonoBehaviour
         }
         //print(pressedStart);
     }
+
+
     void StartAction(InputAction.CallbackContext ctx)
     {
         if (!isLoading)
         {
-            FindObjectOfType<AudioManager>().Play("SelectBeep");
-            FindObjectOfType<AudioManager>().StopPlaying("StartMenuMusic");
+            AM.Play("SelectBeep");
+            AM.StopPlaying("StartMenuMusic");
             pressedStart = true;
         }
     }
@@ -65,11 +71,18 @@ public class LoadScreenManager : MonoBehaviour
     {
         if (!isLoading)
         {
+<<<<<<< Updated upstream
             FindObjectOfType<AudioManager>().Play("SelectBeep");
             FindObjectOfType<AudioManager>().StopPlaying("StartMenuMusic");
             StartCoroutine(LoadLevel());
+=======
+            AM.Play("SelectBeep");
+            AM.StopPlaying("StartMenuMusic");
+            pressedStart = true;
+>>>>>>> Stashed changes
         }
     }
+
     IEnumerator LoadLevelASync(int levelIndex)
     {
         AsyncOperation operation = SceneManager.LoadSceneAsync(levelIndex);

@@ -42,7 +42,7 @@ public class LevelScript : MonoBehaviour
     [SerializeField] private GameObject playerPrefab;
     public static LevelScript instance = null;
     [SerializeField] [Range(1, 5)] private float roundMins = 3;
-    private AudioManager am;
+    private AudioManager AM;
     
 
     //collectable stuff
@@ -83,9 +83,15 @@ public class LevelScript : MonoBehaviour
         devMode = PlayerData.devMode;
 
         //find audio manager and start level music
+<<<<<<< Updated upstream
         am = FindObjectOfType<AudioManager>();
         
         am.StopPlaying("SpookyNoise");
+=======
+        AM = FindObjectOfType<AudioManager>();
+        AM.Play("MusicFight");
+        AM.StopPlaying("SpookyNoise");
+>>>>>>> Stashed changes
 
         //set spawn point order
         SetSpawnPoints();

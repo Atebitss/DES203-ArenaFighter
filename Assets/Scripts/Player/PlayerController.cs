@@ -17,9 +17,11 @@ public class PlayerController : MonoBehaviour
 
     private LevelScript ls;
     private GameObject vfxController;
+    private AudioManager AM;
     [SerializeField] private GameObject playerTop;
     [SerializeField] private GameObject promptUI;
     [SerializeField] private GameObject crown;
+
 
 
 
@@ -138,12 +140,11 @@ public class PlayerController : MonoBehaviour
         //reference control scripts
         ls = GameObject.Find("LevelController").GetComponent<LevelScript>();
         vfxController = GameObject.Find("VFXController");
+        AM = FindObjectOfType<AudioManager>();
 
         //set player name
         playerNum = ls.CurrentPlayer();
         gameObject.name = "Player" + playerNum;
-
-       
 
         //player animator
         animator = GetComponent<Animator>();
@@ -151,7 +152,7 @@ public class PlayerController : MonoBehaviour
 
         //reference for haptics
         string inputDevice = PlayerData.playerDevices[playerNum].name;
-        Debug.Log(this.gameObject.name + ", " + inputDevice);
+        //Debug.Log(this.gameObject.name + ", " + inputDevice);
         if (!inputDevice.Equals("Keyboard")) { controller = (Gamepad)PlayerData.playerDevices[playerNum]; }
         else { controller = null; }
 
@@ -160,6 +161,7 @@ public class PlayerController : MonoBehaviour
         //hide crown
         DisableCrown();
     }
+
     private void Start()
     {
         transform.localScale = startingScale;
@@ -359,9 +361,9 @@ public class PlayerController : MonoBehaviour
 
                 breakCounter = 0;
                 frozen = false;
-                Debug.Log("Broke free from Ice!!!");
+                //Debug.Log("Broke free from Ice!!!");
                 vfxController.GetComponent<VFXController>().PlayVFX(transform, "Shatter");
-                FindObjectOfType<AudioManager>().Play("BreakFree");
+                AM.Play("BreakFree");
             }
 
         }
@@ -369,9 +371,9 @@ public class PlayerController : MonoBehaviour
         {
             if (IsOnBouncy())
             {
+                PlayJumpAudio();
                 //print("BIG JUMP");
                 playerRigid.velocity = new Vector2(playerVelocity.x, jumpForce * bounceMultiplier); //Bouncy Jump
-                PlayJumpAudio();
 
                 coyoteCounter = 0f;
                 jumpBufferCounter = 0f;
@@ -392,29 +394,27 @@ public class PlayerController : MonoBehaviour
         //~~~ WALL JUMP ~~~\\ 
         else if (wallCoyoteCounter > 0 & !IsGrounded() & facingRight && move.x > 0f) // Wall Climbing when facing right
         {
+            PlayJumpAudio();
             isWallJumping = true;
             playerRigid.velocity = new Vector2(-transform.localScale.x * wallClimbX, wallClimbY);
-            PlayJumpAudio();
             wallJumpCooldown = 0;
-
 
             Invoke(nameof(StopWallJumping), wallClimbingDuration); //while we are wall climbing, the player cannot change thier velocity, so after a duration, let the players control the PC again
         }
         else if (wallCoyoteCounter > 0 & !IsGrounded() & !facingRight && move.x < 0f) // Wall Climbing when facing left
         {
+            PlayJumpAudio();
             isWallJumping = true;
             playerRigid.velocity = new Vector2(-transform.localScale.x * wallClimbX, wallClimbY);
-            PlayJumpAudio();
             wallJumpCooldown = 0;
-
 
             Invoke(nameof(StopWallJumping), wallClimbingDuration);
         }
         else if (wallCoyoteCounter > 0 & !IsGrounded()) // Wall Jumping / Kicking
         {
+            PlayJumpAudio();
             isWallJumping = true;
             playerRigid.velocity = new Vector2(-transform.localScale.x * wallKickX, wallKickY);
-            PlayJumpAudio();
             wallJumpCooldown = 0;
 
             if (transform.localScale.x != wallJumpingDirection) //flips player so they are facing the direction that they are jumping towards
@@ -439,7 +439,7 @@ public class PlayerController : MonoBehaviour
     public void TopTrigger()
     {
         playerRigid.velocity = new Vector2(playerVelocity.x, 0.5f * jumpForce);
-        // FindObjectOfType<AudioManager>().Play("Bounce");
+        AM.Play("Bouncy");
     }
 
 
@@ -521,7 +521,7 @@ public class PlayerController : MonoBehaviour
             // float previousYMovement = playerRigid.velocity.y;
             // playerRigid.velocity = new Vector2(playerVelocity.x, -previousYMovement * bounceRebound);
             playerRigid.velocity = new Vector2(playerVelocity.x, jumpForce * bounceRebound);
-            FindObjectOfType<AudioManager>().Play("Bouncy");
+            AM.Play("Bouncy");
             print("Yipeeee");
 
             //animates the mushroom
@@ -555,7 +555,7 @@ public class PlayerController : MonoBehaviour
                 dashCooldown = 0;
                 playerRigid.velocity = new Vector2(transform.localScale.x * dashSpeed, 0);
                 StartCoroutine(IgnorePlayerCollisions(dashDuration));
-                FindObjectOfType<AudioManager>().Play("Dash");
+                AM.Play("Dash");
                 animator.SetTrigger("Dashing");
             }
             Invoke(nameof(StopDashing), dashDuration);
@@ -596,7 +596,7 @@ public class PlayerController : MonoBehaviour
         isTeleporting = true;
         Vector2 previousVelocity = playerVelocity;
         transform.position = currentTeleporter.GetComponent<Teleporter>().GetDestination().position;
-        FindObjectOfType<AudioManager>().Play("Teleport");
+        AM.Play("Teleport");
 
 
         Quaternion destinationRotation = currentTeleporter.GetComponent<Teleporter>().GetDestination().rotation;
@@ -729,7 +729,7 @@ public class PlayerController : MonoBehaviour
             hasIcePower = false;
             DeleteAllVFX();
             player.GetComponent<PlayerController>().Freeze();
-            FindObjectOfType<AudioManager>().Play("Freeze");
+            AM.Play("Freeze");
             
         }
     }
@@ -864,7 +864,7 @@ public class PlayerController : MonoBehaviour
                 {
                     hasIcePower = true;
                     Destroy(collision.gameObject);
-                    FindObjectOfType<AudioManager>().Play("Collect");
+                    AM.Play("Collect");
                     vfxController.GetComponent<VFXController>().PlayPlayerVFX(playerNum, "Snow");
                 }
                 break;
@@ -872,7 +872,7 @@ public class PlayerController : MonoBehaviour
                 Debug.Log("Collected Invert");
                 hasInvertPower = true;
                 Destroy(collision.gameObject);
-                FindObjectOfType<AudioManager>().Play("Collect");
+                AM.Play("Collect");
                 InvertCollected();
                 break;
             default:
@@ -1132,17 +1132,17 @@ public class PlayerController : MonoBehaviour
     //~~~ JUMP ~~~\\ 
     public void PlayJumpAudio()
     {
-        int SoundNo = Random.Range(1, 5);
+        int SoundNo = Random.Range(1, 3);
 
-        FindObjectOfType<AudioManager>().Play("JumpWhoosh");
+        AM.Play("JumpWhoosh");
 
         if (SoundNo == 1)
         {
-            FindObjectOfType<AudioManager>().Play("JumpGrunt");
+            AM.Play("JumpGrunt");
         }
         if (SoundNo == 2)
         {
-            FindObjectOfType<AudioManager>().Play("JumpGrunt2");
+            AM.Play("JumpGrunt2");
         }
 
     }
@@ -1152,19 +1152,19 @@ public class PlayerController : MonoBehaviour
     {
         int SoundNo = Random.Range(1, 4);
 
-        FindObjectOfType<AudioManager>().Play("DeathSound");
+        AM.Play("DeathSound");
 
         if (SoundNo == 1)
         {
-            FindObjectOfType<AudioManager>().Play("DeathCry1");
+            AM.Play("DeathCry1");
         }
         if (SoundNo == 2)
         {
-            FindObjectOfType<AudioManager>().Play("DeathCry2");
+            AM.Play("DeathCry2");
         }
         if (SoundNo == 3)
         {
-            FindObjectOfType<AudioManager>().Play("DeathCry3");
+            AM.Play("DeathCry3");
         }
 
     }
@@ -1176,15 +1176,15 @@ public class PlayerController : MonoBehaviour
 
         if (SoundNo == 1)
         {
-            FindObjectOfType<AudioManager>().Play("SwordSwing1");
+            AM.Play("SwordSwing1");
         }
         if (SoundNo == 2)
         {
-            FindObjectOfType<AudioManager>().Play("SwordSwing2");
+            AM.Play("SwordSwing2");
         }
         if (SoundNo == 3)
         {
-            FindObjectOfType<AudioManager>().Play("SwordSwing3");
+            AM.Play("SwordSwing3");
         }
 
     }
@@ -1198,15 +1198,15 @@ public class PlayerController : MonoBehaviour
 
         if (SoundNo == 1)
         {
-            FindObjectOfType<AudioManager>().Play("SwordClang");
+            AM.Play("SwordClang");
         }
         if (SoundNo == 2)
         {
-            FindObjectOfType<AudioManager>().Play("SwordClang2");
+            AM.Play("SwordClang2");
         }
         if (SoundNo == 3)
         {
-            FindObjectOfType<AudioManager>().Play("SwordClang3");
+            AM.Play("SwordClang3");
         }
 
     }

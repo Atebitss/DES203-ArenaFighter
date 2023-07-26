@@ -2,55 +2,52 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 public class MainMenuController : MonoBehaviour
 {
     public Animator transition;
     public float transitionTime = 1f;
+    private AudioManager AM;
 
+    [SerializeField] private InputAction playAction;
+
+    void Awake()
+    {
+        playAction.performed += ctx => Play(ctx);
+        playAction.Enable();
+
+        AM = FindObjectOfType<AudioManager>();
+        AM.StopPlaying("MusicFight");
+    }
 
     private void Start()
     {
-        FindObjectOfType<AudioManager>().Play("StartMenuMusic");
-        FindObjectOfType<AudioManager>().StopPlaying("MusicFight");
-
+        AM.Play("StartMenuMusic");
         PlayerData.ResetStats();
     }
 
+
+
     public void PlayGame()
     {
-        FindObjectOfType<AudioManager>().Play("SelectBeep");
-       
-
+        AM.PlayOneShot("SelectBeep");
         StartCoroutine(LoadLevel(2));
     }
 
-    public void QuitGame() 
+    public void Play(InputAction.CallbackContext ctx)
     {
-
-        FindObjectOfType<AudioManager>().Play("SelectBeep");
-        FindObjectOfType<AudioManager>().StopPlaying("StartMenuMusic");
-
-        Application.Quit();
-
-        print("Quit");
+        if (SceneManager.GetActiveScene().name == "1MainMenu" && this != null)
+        {
+            PlayGame();
+        }
     }
 
-    public void OptionsMenu()
-    {
-        Debug.Log("Options menu called");
-        FindObjectOfType<AudioManager>().Play("SelectBeep");
-        FindObjectOfType<AudioManager>().StopPlaying("StartMenuMusic");
-
-        //SceneManager.LoadScene(x);
-    }
 
     IEnumerator LoadLevel(int levelIndex)
     {
         transition.SetTrigger("Start");
-
         yield return new WaitForSeconds(transitionTime);
-
         SceneManager.LoadScene(levelIndex);
 
     }
