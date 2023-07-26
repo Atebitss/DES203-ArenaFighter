@@ -30,8 +30,6 @@ public class LoadScreenManager : MonoBehaviour
     }
     public void Start()
     {
-        AM.Play("SelectBeep");
-
         StartCoroutine(LoadLevelASync(4));
         boxAnimator.GetComponent<BoxAnimator>().AnimateBoxes();
     }

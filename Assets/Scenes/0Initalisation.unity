@@ -155,13 +155,13 @@ MonoBehaviour:
   sounds:
   - name: Teleport
     clip: {fileID: 8300000, guid: e6ba79ee6aa20bf41a0f3a0d84ba6c88, type: 3}
-    volume: 0.06
+    volume: 0.1
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: DeathSound
     clip: {fileID: 8300000, guid: 7aa391ae9701e7947a1098d2563c36dc, type: 3}
-    volume: 0.22
+    volume: 0.1
     pitch: 1
     loop: 0
     source: {fileID: 0}
@@ -185,55 +185,55 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: JumpGrunt
     clip: {fileID: 8300000, guid: 90bf73db36a1c1f43adeb9fc9f39bb75, type: 3}
-    volume: 0.03
+    volume: 0.1
     pitch: 0.8
     loop: 0
     source: {fileID: 0}
   - name: JumpGrunt2
     clip: {fileID: 8300000, guid: 5d845d62733a55845a5a6f510709813e, type: 3}
-    volume: 0.03
+    volume: 0.1
     pitch: 0.7
     loop: 0
     source: {fileID: 0}
   - name: JumpWhoosh
     clip: {fileID: 8300000, guid: 58c4da31c4ecd1f4baaa0251bfb80a7f, type: 3}
-    volume: 0.06
+    volume: 0.1
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: Bouncy
     clip: {fileID: 8300000, guid: b97468d247e97e949a584f26d54c6b0a, type: 3}
-    volume: 0.093
+    volume: 0.025
     pitch: 1.27
     loop: 0
     source: {fileID: 0}
   - name: MusicFight
     clip: {fileID: 8300000, guid: 01427ea5a4d9de74a82fdde0aa963427, type: 3}
-    volume: 0.17
+    volume: 0.01
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: Landing
     clip: {fileID: 8300000, guid: 6238404e126d77d4eabed630539ac71a, type: 3}
-    volume: 0.215
+    volume: 0.5
     pitch: 1.24
     loop: 0
     source: {fileID: 0}
   - name: SwordSwing1
     clip: {fileID: 8300000, guid: 1c91e2b01626cb34e97e901e1cc2fb39, type: 3}
-    volume: 0.01
+    volume: 0.05
     pitch: 0.84
     loop: 0
     source: {fileID: 0}
   - name: SwordSwing2
     clip: {fileID: 8300000, guid: 75f2c5e743e2adf488d767a2997ce0b2, type: 3}
-    volume: 0.01
+    volume: 0.05
     pitch: 0.84
     loop: 0
     source: {fileID: 0}
   - name: SwordSwing3
     clip: {fileID: 8300000, guid: d4a2d3e458cfc844a84282aa35176201, type: 3}
-    volume: 0.01
+    volume: 0.05
     pitch: 0.82
     loop: 0
     source: {fileID: 0}
@@ -257,13 +257,13 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Beep
     clip: {fileID: 8300000, guid: 1fdc10cc9769d974e9f44cc7f223cba2, type: 3}
-    volume: 0.1
+    volume: 0.25
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: SelectBeep
     clip: {fileID: 8300000, guid: d8430ab40ba86374ab19142446995032, type: 3}
-    volume: 0.1
+    volume: 0.25
     pitch: 1
     loop: 0
     source: {fileID: 0}
@@ -275,7 +275,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: StartMenuMusic
     clip: {fileID: 8300000, guid: d15a5ff06af63b3468899d6442958038, type: 3}
-    volume: 0.17
+    volume: 0.05
     pitch: 1
     loop: 1
     source: {fileID: 0}
@@ -287,25 +287,25 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Dash
     clip: {fileID: 8300000, guid: 034f11c18dab5d74392f4a2d6f34b0f9, type: 3}
-    volume: 0.4
+    volume: 0.1
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: Freeze
     clip: {fileID: 8300000, guid: 4322a6e206e58f340a23519e39dcae10, type: 3}
-    volume: 0.4
+    volume: 0.1
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: BreakFree
     clip: {fileID: 8300000, guid: 88fb2cb99a6877244b8d513523d74d40, type: 3}
-    volume: 0.4
+    volume: 0.1
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: Collect
     clip: {fileID: 8300000, guid: b3242ad2ffcbec246a38fab0f7177790, type: 3}
-    volume: 0.1
+    volume: 0.05
     pitch: 1
     loop: 0
     source: {fileID: 0}
@@ -321,77 +321,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &1714002457
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 858755028514546667, guid: a825087bccdd9fd40a45ad49e5023600, type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 858755028514546667, guid: a825087bccdd9fd40a45ad49e5023600, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -1.9667212
-      objectReference: {fileID: 0}
-    - target: {fileID: 858755028514546667, guid: a825087bccdd9fd40a45ad49e5023600, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -5.6160707
-      objectReference: {fileID: 0}
-    - target: {fileID: 858755028514546667, guid: a825087bccdd9fd40a45ad49e5023600, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 858755028514546667, guid: a825087bccdd9fd40a45ad49e5023600, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 858755028514546667, guid: a825087bccdd9fd40a45ad49e5023600, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 858755028514546667, guid: a825087bccdd9fd40a45ad49e5023600, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 858755028514546667, guid: a825087bccdd9fd40a45ad49e5023600, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 858755028514546667, guid: a825087bccdd9fd40a45ad49e5023600, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 858755028514546667, guid: a825087bccdd9fd40a45ad49e5023600, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 858755028514546667, guid: a825087bccdd9fd40a45ad49e5023600, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3659697337410171052, guid: a825087bccdd9fd40a45ad49e5023600, type: 3}
-      propertyPath: ColorModule.gradient.maxGradient.atime1
-      value: 32575
-      objectReference: {fileID: 0}
-    - target: {fileID: 3659697337410171052, guid: a825087bccdd9fd40a45ad49e5023600, type: 3}
-      propertyPath: ColorModule.gradient.maxGradient.key1.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3659697337410171052, guid: a825087bccdd9fd40a45ad49e5023600, type: 3}
-      propertyPath: ColorModule.gradient.maxGradient.m_NumAlphaKeys
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5417773722678478166, guid: a825087bccdd9fd40a45ad49e5023600, type: 3}
-      propertyPath: m_Name
-      value: Snow_PS
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: a825087bccdd9fd40a45ad49e5023600, type: 3}
 --- !u!1 &1742394817
 GameObject:
   m_ObjectHideFlags: 0
