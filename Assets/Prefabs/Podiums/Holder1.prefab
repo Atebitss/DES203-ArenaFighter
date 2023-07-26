@@ -586,10 +586,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2756477597983848835, guid: 1c2db1be1f5817042adfe9a77c0a1a8d, type: 3}
-      propertyPath: m_SortingOrder
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2756477597983848861, guid: 1c2db1be1f5817042adfe9a77c0a1a8d, type: 3}
       propertyPath: m_Name
       value: Confetti
