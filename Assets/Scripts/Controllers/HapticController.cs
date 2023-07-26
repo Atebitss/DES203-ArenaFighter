@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 using System;
 using UnityEngine.InputSystem;
 
@@ -14,11 +15,14 @@ public class HapticController : MonoBehaviour
         currentGamepad = gamepad;
         gamepad.SetMotorSpeeds(hapticToPlay.leftRumble, hapticToPlay.rightRumble);
 
-        Invoke(nameof(StopHaptics), hapticToPlay.duration);
+        StartCoroutine(StopHaptics(hapticToPlay.duration, gamepad));
+
     }
-    public void StopHaptics()
+    public IEnumerator StopHaptics(float duration, Gamepad gamepad)
     {
-        currentGamepad.SetMotorSpeeds(0f, 0f);
+
+        yield return new WaitForSeconds(duration);
+        gamepad.SetMotorSpeeds(0f, 0f);
     }
 }
 

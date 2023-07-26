@@ -67,7 +67,7 @@ public class LoadScreenManager : MonoBehaviour
         {
             FindObjectOfType<AudioManager>().Play("SelectBeep");
             FindObjectOfType<AudioManager>().StopPlaying("StartMenuMusic");
-            pressedStart = true;
+            StartCoroutine(LoadLevel());
         }
     }
     IEnumerator LoadLevelASync(int levelIndex)
@@ -84,5 +84,11 @@ public class LoadScreenManager : MonoBehaviour
             yield return null;
         }
     }
-  
+    IEnumerator LoadLevel()
+    {
+        transition.SetTrigger("Start");
+        yield return new WaitForSeconds(transitionTime);
+        pressedStart = true;
+    }
+
 }

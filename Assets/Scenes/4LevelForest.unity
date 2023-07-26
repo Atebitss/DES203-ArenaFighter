@@ -1418,7 +1418,7 @@ MonoBehaviour:
     effect: {fileID: 5417773722678478166, guid: a825087bccdd9fd40a45ad49e5023600, type: 3}
     trackPlayer: 1
   - name: Shatter
-    effect: {fileID: 0}
+    effect: {fileID: 6450043829019065129, guid: 87fe5702290cf2641a730d47366f112c, type: 3}
     trackPlayer: 0
   levelController: {fileID: 763047120}
 --- !u!4 &617323059
@@ -1504,7 +1504,7 @@ MonoBehaviour:
   m_NotificationBehavior: 0
   m_MaxPlayerCount: 4
   m_AllowJoining: 1
-  m_JoinBehavior: 0
+  m_JoinBehavior: 2
   m_PlayerJoinedEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -1616,7 +1616,7 @@ MonoBehaviour:
   introCountdown: {fileID: 1876265295}
   finalCountdown: {fileID: 1597534804}
   roundOver: {fileID: 574439648}
-  countdownTime: 15
+  countdownTime: 90
   countdownActive: 0
   runningOutOfTime: 0
 --- !u!114 &772051895

@@ -84,7 +84,7 @@ public class LevelScript : MonoBehaviour
 
         //find audio manager and start level music
         am = FindObjectOfType<AudioManager>();
-        am.Play("MusicFight");
+        
         am.StopPlaying("SpookyNoise");
 
         //set spawn point order
@@ -124,6 +124,7 @@ public class LevelScript : MonoBehaviour
         introIsOver = false;
         yield return new WaitForSeconds(introTime);
         introIsOver = true;
+        am.Play("MusicFight");
         Debug.Log("introIsOver: " + introIsOver);
     }
     private IEnumerator InitialCollectableSpawnDelay()
@@ -455,7 +456,7 @@ public class LevelScript : MonoBehaviour
         yield return new WaitForSeconds(outroTime);
         outroIsOver = true;
         SceneManager.LoadScene(5);
-        FindObjectOfType<AudioManager>().StopPlaying("MusicFight");
+       
     }
    
 
