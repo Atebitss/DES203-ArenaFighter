@@ -26,7 +26,7 @@ public class ScoreboardHandler : MonoBehaviour
         Debug.Log("~~~~~~~~~~~~~~~~~~~~~~~~~~~");*/
 
 
-        for (int playerCheck = 0; playerCheck < 4; playerCheck++)
+        for (int playerCheck = 0; playerCheck < PlayerData.numOfPlayers; playerCheck++)
         {
             Debug.Log("podium: " + playerCheck + ", player: " + (PlayerData.playerPositions[playerCheck]+1) + ", position: " + playerPositions[PlayerData.playerPositions[playerCheck]]);
             Vector2 podiumLocation = playerPositions[PlayerData.playerPositions[playerCheck]].transform.position;
@@ -35,15 +35,18 @@ public class ScoreboardHandler : MonoBehaviour
             Debug.Log(podiums[playerCheck]);
             GameObject refPodium = Instantiate(podiums[playerCheck], podiumLocation, Quaternion.identity);
             refPodium.transform.SetParent(playerPositions[PlayerData.playerPositions[playerCheck]].transform, false);
+        }
 
-            /*string imgRef = "Image" + (playerCheck + 1);
+        for(int playerCheck = 0; playerCheck < PlayerData.numOfPlayers; playerCheck++)
+        {
+            string imgRef = "Image" + (playerCheck + 1);
             podiumImage[playerCheck] = GameObject.Find(imgRef);
 
             string textRef = "Text" + (playerCheck + 1);
-            podiumText[playerCheck] = GameObject.Find(textRef).GetComponent<TMPro.TextMeshProUGUI>();*/
+            podiumText[playerCheck] = GameObject.Find(textRef).GetComponent<TMPro.TextMeshProUGUI>();
         }
 
-        //DisplayPlayers();
+        DisplayPlayers();
         PlayerData.ResetScores();
     }
 
@@ -54,7 +57,7 @@ public class ScoreboardHandler : MonoBehaviour
         //display winners
         //for each player, set the image in the relevant podium space to the character image
         //then raise the character for each of their kills and add a new podium block below them
-        for (int playerCheck = 0; playerCheck < 3; playerCheck++)
+        for (int playerCheck = 0; playerCheck < PlayerData.numOfPlayers; playerCheck++)
         {
             //reference relevant game object associated with scoreboard position i and update image with player sprite in position i 
             //Debug.Log("Position " + (playerCheck + 1) + ": Player " + PlayerData.playerPositions[playerCheck] + " with score " + PlayerData.playerScores[playerCheck] + "   TSLK: " + PlayerData.playerTSLKs[playerCheck]);
