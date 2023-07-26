@@ -13,7 +13,10 @@ public class PlayerJoinHandler : MonoBehaviour
     [SerializeField] private InputAction joinAction;
     [SerializeField] private InputAction leaveAction;
     [SerializeField] private InputAction startAction;
-    
+
+    //header animation
+    [SerializeField] private Animator[] headerAnimators = new Animator[4];
+    private bool[] headersPlaying = new bool[4];
 
     private int curPlayerPos;
     private InputAction.CallbackContext context;
@@ -35,7 +38,7 @@ public class PlayerJoinHandler : MonoBehaviour
             Destroy(gameObject);
         }
 
-        Debug.Log("PlayerJoinHandler Awake()");
+        //Debug.Log("PlayerJoinHandler Awake()");
 
         //set join/leave actions
         joinAction.performed += ctx => JoinAction(ctx);
@@ -45,6 +48,12 @@ public class PlayerJoinHandler : MonoBehaviour
         joinAction.Enable();
         leaveAction.Enable();
         startAction.Enable();
+
+
+        for (int i = 0; i < headerAnimators.Length; i++)
+        {
+            headerAnimators[i] = GameObject.Find("Header" + (i + 1)).GetComponent<Animator>();
+        }
     }
 
 
@@ -68,7 +77,7 @@ public class PlayerJoinHandler : MonoBehaviour
                         //if (!PlayerData.gameRun) { curPlayerPos = playerCheck; }
                         //else if (PlayerData.gameRun) { curPlayerPos = playerCheck-1; }
 
-                        Debug.Log("player input " + curPlayerPos + " empty");
+                        //Debug.Log("player input " + curPlayerPos + " empty");
                         playerCheck = 4;
                     }
                 }
@@ -83,8 +92,8 @@ public class PlayerJoinHandler : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "2PlayerJoin")
         {
             //runs when a player joins
-            Debug.Log("Player " + curPlayerPos + " joined..");
-            Debug.Log("Input: " + playerInput);
+            //Debug.Log("Player " + curPlayerPos + " joined..");
+            //Debug.Log("Input: " + playerInput);
 
             if (PlayerJoinedGame != null)
             {
@@ -95,17 +104,34 @@ public class PlayerJoinHandler : MonoBehaviour
             PlayerData.playerInputs[curPlayerPos] = playerInput;
             PlayerData.playerControlScheme[curPlayerPos] = playerInput.currentControlScheme;
 
-            Debug.Log(playerInput + ": " + PlayerData.playerInputs[curPlayerPos]);
-            Debug.Log(playerInput.currentControlScheme + ": " + PlayerData.playerControlScheme[curPlayerPos]);
+            //Debug.Log(playerInput + ": " + PlayerData.playerInputs[curPlayerPos]);
+            //Debug.Log(playerInput.currentControlScheme + ": " + PlayerData.playerControlScheme[curPlayerPos]);
 
             //Debug.Log("increasing player count");
             PlayerData.numOfPlayers++; //increase total number of players
-            PlayerData.GetPlayers();
+            //PlayerData.GetPlayers();
+
+            headersPlaying[curPlayerPos] = true;
+            headerAnimators[curPlayerPos].SetBool("playing", true);
+
+            Debug.Log(PlayerData.playerDevices[curPlayerPos].name);
+            Debug.Log(this.gameObject.GetComponent<HapticController>());
+            if (!PlayerData.playerDevices[curPlayerPos].name.Equals("Keyboard")) { this.gameObject.GetComponent<HapticController>().PlayHaptics("Rumble", (Gamepad)PlayerData.playerDevices[curPlayerPos]); }    
+            
+
+            StartCoroutine(AnimDelay(curPlayerPos));
 
             string findRef = "Image" + (curPlayerPos + 1);
-            Debug.Log(findRef);
+            //Debug.Log(findRef);
             GameObject.Find(findRef).GetComponent<ChangeImage>().ImageChange();
         }
+    }
+
+    private IEnumerator AnimDelay(int curPlayerPos)
+    {
+        yield return new WaitForSeconds(0.2f);
+        headersPlaying[curPlayerPos] = false;
+        headerAnimators[curPlayerPos].SetBool("playing", false);
     }
 
 
@@ -115,7 +141,7 @@ public class PlayerJoinHandler : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "2PlayerJoin")
         {
             //leaves player
-            Debug.Log("LeaveAction()");
+            //Debug.Log("LeaveAction()");
 
             if (PlayerData.numOfPlayers > 0)
             {
@@ -125,7 +151,7 @@ public class PlayerJoinHandler : MonoBehaviour
                     {
                         if (device != null && ctx.control.device == device)
                         {
-                            Debug.Log("running unregister");
+                            //Debug.Log("running unregister");
                             UnregisterPlayer(PlayerData.playerInputs[player]);
 
                             //decrease total number of players
@@ -137,7 +163,7 @@ public class PlayerJoinHandler : MonoBehaviour
                             //Debug.Log(playerNum);
                             GameObject.Find(findRef).GetComponent<ChangeImage>().ResetImage();
 
-                            Debug.Log("removing " + PlayerData.playerInputs[player] + " from list");
+                            //Debug.Log("removing " + PlayerData.playerInputs[player] + " from list");
                             PlayerData.playerInputs[player] = null;
                             PlayerData.playerDevices[player] = null;
                             PlayerData.playerControlScheme[player] = null;
@@ -153,7 +179,7 @@ public class PlayerJoinHandler : MonoBehaviour
 
     private void UnregisterPlayer(PlayerInput playerInput)
     {
-        Debug.Log("Unregistering " + playerInput.transform.gameObject.name);
+        //Debug.Log("Unregistering " + playerInput.transform.gameObject.name);
 
         if (PlayerLeftGame != null)
         {
@@ -161,7 +187,7 @@ public class PlayerJoinHandler : MonoBehaviour
             PlayerLeftGame(playerInput);
         }
 
-        Debug.Log("destroying " + playerInput);
+        //Debug.Log("destroying " + playerInput);
         Destroy(playerInput.transform.gameObject);
     }
 
@@ -171,15 +197,15 @@ public class PlayerJoinHandler : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name == "2PlayerJoin" && playerJoinMenuController != null)
         {
-            Debug.Log("Start action");
-            if (PlayerData.numOfPlayers >= 2)
+            //Debug.Log("Start action");
+            if (PlayerData.numOfPlayers >= 2 || PlayerData.devMode && PlayerData.numOfPlayers > 0)
             {
-                Debug.Log("Enough player to start");
+                //Debug.Log("Enough player to start");
                 playerJoinMenuController.GetComponent<PlayerJoinMenuController>().StartGame();
             }
             else
             {
-                Debug.Log("Not enough players to start");
+                //Debug.Log("Not enough players to start");
             }
         }
     }

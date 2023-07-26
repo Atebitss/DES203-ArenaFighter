@@ -19,6 +19,8 @@ public class UIController : MonoBehaviour
     void Start()
     {
         runningOutOfTime = false;
+        if (PlayerData.devMode){ countdownTime = 5; }
+        
         countdownTimeAtStart = countdownTime;
     }
 
