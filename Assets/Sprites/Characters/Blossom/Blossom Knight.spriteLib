@@ -144,9 +144,9 @@ MonoBehaviour:
     m_OverrideEntries:
     - m_Name: FrozenKnight
       m_Hash: -1237208391
-      m_Sprite: {fileID: 21300000, guid: 609079842cd2ba7439b895bd354fe9ed, type: 3}
+      m_Sprite: {fileID: 21300000, guid: fae1556666bbb284abc52a2970fd2d22, type: 3}
       m_FromMain: 1
-      m_SpriteOverride: {fileID: 21300000, guid: 609079842cd2ba7439b895bd354fe9ed, type: 3}
+      m_SpriteOverride: {fileID: 21300000, guid: fae1556666bbb284abc52a2970fd2d22, type: 3}
     m_FromMain: 1
     m_EntryOverrideCount: 0
   - m_Name: Death

@@ -622,10 +622,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerSprites:
-  - {fileID: -1031921030098968878, guid: 0edfd27c8d502724ca0347e412a44703, type: 3}
-  - {fileID: -1792254976732515594, guid: fdd7198b63bc0f949b06116079fc9e6a, type: 3}
-  - {fileID: 6055349967977739633, guid: b2c5be01b23ed724193400330417bf5a, type: 3}
-  - {fileID: 1787923173311897846, guid: dc4de93a32c68b44cac23ea05c3a6a22, type: 3}
+  - {fileID: 4135883091519116254, guid: 0d4a47ff7c51399449ca1dc8cf9ad04f, type: 3}
+  - {fileID: 1065614190303794672, guid: eb0070a1237c45842a56ba20d299e6f0, type: 3}
+  - {fileID: -3860403229348205898, guid: 29b2ef53f13a3684bab85eda0bb210b5, type: 3}
+  - {fileID: 685182351002567597, guid: bd17ab300d34ee14c8a684384bcdaa5f, type: 3}
   playerPositions:
   - {fileID: 630453245}
   - {fileID: 296106983}
