@@ -42,6 +42,7 @@ public class LevelScript : MonoBehaviour
     [SerializeField] private GameObject playerPrefab;
     public static LevelScript instance = null;
     [SerializeField] [Range(1, 5)] private float roundMins = 3;
+    private AudioManager am;
     
 
     //collectable stuff
@@ -81,9 +82,10 @@ public class LevelScript : MonoBehaviour
         if (!PlayerData.gameRun) { PlayerData.gameRun = true; }
         devMode = PlayerData.devMode;
 
-        //start level music
-       FindObjectOfType<AudioManager>().Play("MusicFight");
-       FindObjectOfType<AudioManager>().StopPlaying("SpookyNoise");
+        //find audio manager and start level music
+        am = FindObjectOfType<AudioManager>();
+        am.Play("MusicFight");
+        am.StopPlaying("SpookyNoise");
 
         //set spawn point order
         SetSpawnPoints();
@@ -118,11 +120,10 @@ public class LevelScript : MonoBehaviour
 
     private IEnumerator IntroDelay()
     {
-        Debug.Log("intro delay: " + introTime + ", introIsOver: " + introIsOver);
+        //Debug.Log("intro delay: " + introTime + ", introIsOver: " + introIsOver);
         introIsOver = false;
         yield return new WaitForSeconds(introTime);
         introIsOver = true;
-        
         Debug.Log("introIsOver: " + introIsOver);
     }
     private IEnumerator InitialCollectableSpawnDelay()
@@ -343,7 +344,7 @@ public class LevelScript : MonoBehaviour
     //~~~~~~~ KILL PLAYER ~~~~~~~\\
     public void Kill(GameObject target, GameObject killer)
     {
-        Debug.Log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        //Debug.Log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         //Debug.Log("Target: " + target.name + "   Killer: " + killer.name);
         PlayerController targetPC = target.GetComponent<PlayerController>();
         PlayerController killerPC = killer.GetComponent<PlayerController>();
@@ -381,12 +382,12 @@ public class LevelScript : MonoBehaviour
             if (i == 0 && !playerScripts[PlayerData.playerPositions[i]].GetCrowned())
             {
                 playerScripts[PlayerData.playerPositions[i]].EnableCrown();
-                Debug.Log("Player " + (PlayerData.playerPositions[i]) + " has taken the lead!");
+                //Debug.Log("Player " + (PlayerData.playerPositions[i]) + " has taken the lead!");
             }
             else if (i != 0 && playerScripts[PlayerData.playerPositions[i]].GetCrowned())
             {
                 playerScripts[PlayerData.playerPositions[i]].DisableCrown();
-                Debug.Log("Player " + (PlayerData.playerPositions[i]) + " has lost the lead!");
+                //Debug.Log("Player " + (PlayerData.playerPositions[i]) + " has lost the lead!");
             }
         }
     }
@@ -436,9 +437,9 @@ public class LevelScript : MonoBehaviour
     //~~~~~~~ TIME UP ~~~~~~~\\
     public void TimeUp()
     {
-        for (int p = 0; p < PlayerData.numOfPlayers; p++) { PlayerData.playerTSLK[p] = playerScripts[p].GetTimeSinceLastKill(); }
+        for (int p = 0; p < PlayerData.numOfPlayers; p++) { PlayerData.playerTSLKs[p] = playerScripts[p].GetTimeSinceLastKill(); }
         StartCoroutine(OutroDelay());
-       
+        PlayerData.SortPlayers();
     }
     private IEnumerator OutroDelay()
     {
