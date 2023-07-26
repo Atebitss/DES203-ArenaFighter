@@ -34,6 +34,8 @@ public class ScoreboardHandler : MonoBehaviour
             Debug.Log(playerPositions[PlayerData.playerPositions[playerCheck]]);
             Debug.Log(podiums[playerCheck]);
             GameObject refPodium = Instantiate(podiums[playerCheck], podiumLocation, Quaternion.identity);
+           // refPodium.transform.
+                //GetComponent<Animator>().SetInteger("PlayerNum", playerCheck);
             refPodium.transform.SetParent(playerPositions[PlayerData.playerPositions[playerCheck]].transform, false);
         }
 

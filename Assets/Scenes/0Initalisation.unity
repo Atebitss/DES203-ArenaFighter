@@ -209,7 +209,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: MusicFight
     clip: {fileID: 8300000, guid: 01427ea5a4d9de74a82fdde0aa963427, type: 3}
-    volume: 0.01
+    volume: 0.05
     pitch: 1
     loop: 0
     source: {fileID: 0}
@@ -366,4 +366,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eef4fa18f424a584c8c48a9d9b5891fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  devMode: 1
+  devMode: 0

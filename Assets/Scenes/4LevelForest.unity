@@ -1616,7 +1616,7 @@ MonoBehaviour:
   introCountdown: {fileID: 1876265295}
   finalCountdown: {fileID: 1597534804}
   roundOver: {fileID: 574439648}
-  countdownTime: 90
+  countdownTime: 15
   countdownActive: 0
   runningOutOfTime: 0
 --- !u!114 &772051895
