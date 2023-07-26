@@ -425,12 +425,12 @@ GameObject:
   - component: {fileID: 483775659}
   - component: {fileID: 483775658}
   m_Layer: 0
-  m_Name: PlayerJoinManager
+  m_Name: PlayerInputHandler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &483775658
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -494,23 +494,7 @@ MonoBehaviour:
     m_Id: 17b0f57f-002e-4307-bcdb-10be2719bc20
     m_Processors: 
     m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 
-      m_Id: ae047005-848c-43cc-9520-78e37e008c03
-      m_Path: <Keyboard>/space
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Join
-      m_Flags: 0
-    - m_Name: 
-      m_Id: 20946d31-48be-478c-9d4b-e20a8f6555d1
-      m_Path: <Gamepad>/buttonSouth
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Join
-      m_Flags: 0
+    m_SingletonActionBindings: []
   leaveAction:
     m_Name: Leave
     m_Type: 0
@@ -518,23 +502,7 @@ MonoBehaviour:
     m_Id: 378aad29-1f4b-4f8e-ae6e-ffd8a88190fe
     m_Processors: 
     m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 
-      m_Id: 9d23d008-6fa2-4016-830f-e9fd47a6f649
-      m_Path: <Keyboard>/escape
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Leave
-      m_Flags: 0
-    - m_Name: 
-      m_Id: 598a4bbf-d39e-4d07-8aab-23c7213bdc1b
-      m_Path: <Gamepad>/select
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Leave
-      m_Flags: 0
+    m_SingletonActionBindings: []
   startAction:
     m_Name: Start
     m_Type: 0
@@ -994,7 +962,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
+  m_FirstSelected: {fileID: 1226168846}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!4 &1032596206
@@ -1129,7 +1097,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1302066503}
         m_TargetAssemblyTypeName: LoadScreenManager, Assembly-CSharp
-        m_MethodName: PlayGame
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1210,6 +1178,7 @@ GameObject:
   - component: {fileID: 1302066499}
   - component: {fileID: 1302066503}
   - component: {fileID: 1302066504}
+  - component: {fileID: 1302066505}
   m_Layer: 5
   m_Name: UICanvas
   m_TagString: Untagged
@@ -1334,6 +1303,14 @@ MonoBehaviour:
       m_Groups: 
       m_Action: Start
       m_Flags: 0
+    - m_Name: 
+      m_Id: ac23a553-3e1e-4646-bf09-fb476b837ed7
+      m_Path: <Keyboard>/enter
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Start
+      m_Flags: 0
   boxAnimator: {fileID: 1519331734}
 --- !u!95 &1302066504
 Animator:
@@ -1354,6 +1331,49 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1302066505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1302066498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 621567455fd1c4ceb811cc8a00b6a1a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_NotificationBehavior: 0
+  m_MaxPlayerCount: -1
+  m_AllowJoining: 0
+  m_JoinBehavior: 2
+  m_PlayerJoinedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_PlayerLeftEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_JoinAction:
+    m_UseReference: 0
+    m_Action:
+      m_Name: 
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+    m_Reference: {fileID: 0}
+  m_PlayerPrefab: {fileID: 0}
+  m_SplitScreen: 0
+  m_MaintainAspectRatioInSplitScreen: 0
+  m_FixedNumberOfSplitScreens: -1
+  m_SplitScreenRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
 --- !u!1001 &1343584021
 PrefabInstance:
   m_ObjectHideFlags: 0

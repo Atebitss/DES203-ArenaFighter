@@ -134,8 +134,9 @@ GameObject:
   - component: {fileID: 51048529}
   - component: {fileID: 51048531}
   - component: {fileID: 51048530}
+  - component: {fileID: 51048532}
   m_Layer: 5
-  m_Name: Player 1
+  m_Name: Header1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -157,7 +158,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.000015258789}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 422.12183, y: 85.6236}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &51048530
@@ -198,6 +199,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 51048528}
   m_CullTransparentMesh: 1
+--- !u!95 &51048532
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 51048528}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4dae4dc782bc3234ea26d33e933de392, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &51679695
 GameObject:
   m_ObjectHideFlags: 0
@@ -209,8 +229,9 @@ GameObject:
   - component: {fileID: 51679696}
   - component: {fileID: 51679698}
   - component: {fileID: 51679697}
+  - component: {fileID: 51679699}
   m_Layer: 5
-  m_Name: Player 4
+  m_Name: Header4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -273,6 +294,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 51679695}
   m_CullTransparentMesh: 1
+--- !u!95 &51679699
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 51679695}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 91d05fd70c839824bb535f384b799cfd, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &225631429
 GameObject:
   m_ObjectHideFlags: 0
@@ -872,8 +912,9 @@ GameObject:
   - component: {fileID: 749433387}
   - component: {fileID: 749433389}
   - component: {fileID: 749433388}
+  - component: {fileID: 749433390}
   m_Layer: 5
-  m_Name: Player 3
+  m_Name: Header3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -936,6 +977,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 749433386}
   m_CullTransparentMesh: 1
+--- !u!95 &749433390
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 749433386}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8bfd8d9423b966f44a1e84290f7eaaa3, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &773222688
 GameObject:
   m_ObjectHideFlags: 0
@@ -1598,8 +1658,9 @@ GameObject:
   - component: {fileID: 1539954909}
   - component: {fileID: 1539954911}
   - component: {fileID: 1539954910}
+  - component: {fileID: 1539954912}
   m_Layer: 5
-  m_Name: Player 2
+  m_Name: Header2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1621,7 +1682,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 448, y: 0}
+  m_AnchoredPosition: {x: 448, y: 1}
   m_SizeDelta: {x: 422.12183, y: 85.6236}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1539954910
@@ -1662,6 +1723,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1539954908}
   m_CullTransparentMesh: 1
+--- !u!95 &1539954912
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1539954908}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 699e8c96ff99b874c9f87c8144eceb60, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1609097577
 GameObject:
   m_ObjectHideFlags: 0
@@ -2276,6 +2356,7 @@ GameObject:
   - component: {fileID: 2038272034}
   - component: {fileID: 2038272033}
   - component: {fileID: 2038272032}
+  - component: {fileID: 2038272035}
   m_Layer: 0
   m_Name: PlayerJoinManager
   m_TagString: Untagged
@@ -2403,6 +2484,19 @@ MonoBehaviour:
       m_Groups: 
       m_Action: Start
       m_Flags: 0
+    - m_Name: 
+      m_Id: 1226f3c7-e98e-49c6-9af7-dcdf4a0a1188
+      m_Path: <Keyboard>/enter
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Start
+      m_Flags: 0
+  headerAnimators:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!4 &2038272034
 Transform:
   m_ObjectHideFlags: 0
@@ -2417,6 +2511,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2038272035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2038272031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c759971bc70bce241b2b03d3a3e95909, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  haptics:
+  - name: Rumble
+    leftRumble: 1
+    rightRumble: 1
+    duration: 0.25
 --- !u!1 &2064961861
 GameObject:
   m_ObjectHideFlags: 0
