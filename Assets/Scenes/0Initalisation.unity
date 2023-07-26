@@ -167,19 +167,19 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: DeathCry1
     clip: {fileID: 8300000, guid: 2eebde3cbcbdd6e488ceb63d87d37aa0, type: 3}
-    volume: 0.2
+    volume: 0.1
     pitch: 0.75
     loop: 0
     source: {fileID: 0}
   - name: DeathCry2
     clip: {fileID: 8300000, guid: 7b2915e3b1357d943be1d69b5eb874fe, type: 3}
-    volume: 0.2
+    volume: 0.1
     pitch: 0.75
     loop: 0
     source: {fileID: 0}
   - name: DeathCry3
     clip: {fileID: 8300000, guid: 7a883a823bdd20d4da485f9d92490cae, type: 3}
-    volume: 0.2
+    volume: 0.1
     pitch: 0.75
     loop: 0
     source: {fileID: 0}
@@ -209,7 +209,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: MusicFight
     clip: {fileID: 8300000, guid: 9b14f188ec754954c8036defeca85dcb, type: 3}
-    volume: 0.02
+    volume: 0.04
     pitch: 1
     loop: 0
     source: {fileID: 0}
@@ -274,14 +274,8 @@ MonoBehaviour:
     loop: 0
     source: {fileID: 0}
   - name: StartMenuMusic
-    clip: {fileID: 8300000, guid: 72ba7e36b8028b845bc9171a01da4499, type: 3}
-    volume: 0.17
-    pitch: 1
-    loop: 1
-    source: {fileID: 0}
-  - name: MusicMenu
     clip: {fileID: 8300000, guid: d15a5ff06af63b3468899d6442958038, type: 3}
-    volume: 0.02
+    volume: 0.17
     pitch: 1
     loop: 1
     source: {fileID: 0}
@@ -327,8 +321,65 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1087271110
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1064619890715945507, guid: c490adc6b0be5424894a24ee66ace58f, type: 3}
+      propertyPath: m_Name
+      value: Blood_Final_PS
+      objectReference: {fileID: 0}
+    - target: {fileID: 4995283011655371072, guid: c490adc6b0be5424894a24ee66ace58f, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4995283011655371072, guid: c490adc6b0be5424894a24ee66ace58f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.6959524
+      objectReference: {fileID: 0}
+    - target: {fileID: 4995283011655371072, guid: c490adc6b0be5424894a24ee66ace58f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.94769865
+      objectReference: {fileID: 0}
+    - target: {fileID: 4995283011655371072, guid: c490adc6b0be5424894a24ee66ace58f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4995283011655371072, guid: c490adc6b0be5424894a24ee66ace58f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4995283011655371072, guid: c490adc6b0be5424894a24ee66ace58f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4995283011655371072, guid: c490adc6b0be5424894a24ee66ace58f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4995283011655371072, guid: c490adc6b0be5424894a24ee66ace58f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4995283011655371072, guid: c490adc6b0be5424894a24ee66ace58f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 4995283011655371072, guid: c490adc6b0be5424894a24ee66ace58f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4995283011655371072, guid: c490adc6b0be5424894a24ee66ace58f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c490adc6b0be5424894a24ee66ace58f, type: 3}
 --- !u!1 &1742394817
 GameObject:
   m_ObjectHideFlags: 0
@@ -372,4 +423,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eef4fa18f424a584c8c48a9d9b5891fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  devMode: 0
+  devMode: 1

@@ -4,13 +4,15 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Experimental.Rendering.Universal;
 using UnityEngine.SceneManagement;
+using UnityEngine.U2D.Animation;
 
 public class LevelScript : MonoBehaviour
 {
     //variable player stats
+    public CameraShake CameraShake;
     [SerializeField] [Range(1, 100)] private float playerMoveForce = 25f;
     [SerializeField] [Range(10, 50)] private float playerJumpForce = 25f;
-
+    
     //debug
     [Header("Debug")]
     private bool devMode = false;
@@ -29,9 +31,11 @@ public class LevelScript : MonoBehaviour
     private int prevPlayerPos = 0;
 
     //intro stuff
-    [Header("Intro")]
-    public bool introIsOver;
+    [Header("Intro and Outro")]
+    [HideInInspector] public bool introIsOver;
+    [HideInInspector] public bool outroIsOver = true;
     [SerializeField] private float introTime = 4;
+    [SerializeField] private float outroTime = 4;
 
     //important level & multiplayer stuff
     [Header("Level and Multiplayer")]
@@ -47,16 +51,18 @@ public class LevelScript : MonoBehaviour
     [SerializeField] private float collectableSpawnInterval;
     [SerializeField] private float initialCollectableSpawnDelay;
     private bool collectableCanSpawn;
+    private GameObject lastSpawnedCollectable;
     private float intervalTime;
 
 
 
     //player sprites 
-    // [SerializeField] private Sprite player1sprite;
-    // [SerializeField] private Sprite player2sprite;
-    // [SerializeField] private Sprite player3sprite;
-    // [SerializeField] private Sprite player4sprite; 
+     [SerializeField] private SpriteLibraryAsset player1Sprites;
+     [SerializeField] private SpriteLibraryAsset player2Sprites;
+     [SerializeField] private SpriteLibraryAsset player3Sprites;
+     [SerializeField] private SpriteLibraryAsset player4Sprites;
 
+    private bool hasBeenShook = false;
 
 
     //~~~~~~~ LEVEL BASICS ~~~~~~~\\
@@ -76,8 +82,8 @@ public class LevelScript : MonoBehaviour
         devMode = PlayerData.devMode;
 
         //start level music
-        FindObjectOfType<AudioManager>().Play("MusicFight");
-           FindObjectOfType<AudioManager>().StopPlaying("SpookyNoise");
+       FindObjectOfType<AudioManager>().Play("MusicFight");
+       FindObjectOfType<AudioManager>().StopPlaying("SpookyNoise");
 
         //set spawn point order
         SetSpawnPoints();
@@ -116,6 +122,7 @@ public class LevelScript : MonoBehaviour
         introIsOver = false;
         yield return new WaitForSeconds(introTime);
         introIsOver = true;
+        
         Debug.Log("introIsOver: " + introIsOver);
     }
     private IEnumerator InitialCollectableSpawnDelay()
@@ -124,6 +131,11 @@ public class LevelScript : MonoBehaviour
         yield return new WaitForSeconds(initialCollectableSpawnDelay);
         collectableCanSpawn = true;
     }
+    public void ShakeCamera(float duration, float magnitude)
+    {
+        StartCoroutine(CameraShake.Shake(duration, magnitude));
+    }
+
 
 
     //~~~~~~~ REFERENCE PLAYER VIA NUMBER ~~~~~~~\\
@@ -200,7 +212,7 @@ public class LevelScript : MonoBehaviour
         PlayerData.SetPlayers(players[curPlayerPos], curPlayerPos, playerScripts[curPlayerPos]);
 
         //apply stats
-        ApplyColour();
+        ApplySprites();
         ApplyLevelStats();
 
         if (devMode)
@@ -222,7 +234,7 @@ public class LevelScript : MonoBehaviour
         playerScripts[curPlayerPos].SetDevMode(devMode);
     }
 
-    private void ApplyColour()
+    private void ApplySprites()
     {
         //Debug.Log("ApplyColour to " + players[curPlayerPos]);
         //old sprite colouring
@@ -232,29 +244,36 @@ public class LevelScript : MonoBehaviour
 
         //gives the appropriate colour based on player number
         Light2D playerAuraLight = players[curPlayerPos].GetComponent<Light2D>();
+        SpriteLibrary spriteLibary = players[curPlayerPos].GetComponent<SpriteLibrary>();
         switch (curPlayerPos)
         {
             case 0:
                 playerAuraLight.color = new Color(1f, 0f, 0f, 1f); //red
+                spriteLibary.spriteLibraryAsset =  player1Sprites;
                 break;
             case 1:
-                playerAuraLight.color = new Color(0f, 0f, 1f, 1f); //blue
+                playerAuraLight.color = new Color(0f, 1f, 0f, 1f); //green
+                spriteLibary.spriteLibraryAsset = player2Sprites;
                 break;
             case 2:
-                playerAuraLight.color = new Color(0f, 1f, 0f, 1f); //green
+                playerAuraLight.color = new Color(1f, 0f, 1f, 1f); //pink
+                spriteLibary.spriteLibraryAsset = player3Sprites;
                 break;
             case 3:
-                playerAuraLight.color = new Color(0f, 1f, 1f, 1f); //cyan
+                playerAuraLight.color = new Color(0.5f, 1f, 0.75f, 1f); //teal
+                spriteLibary.spriteLibraryAsset = player4Sprites;
                 break;
             default:
                 playerAuraLight.color = new Color(1f, 1f, 1f, 1f); //white, should never appear
+                spriteLibary.spriteLibraryAsset = player1Sprites;
                 break;
         }
     }
     public void Collectable()
     {
-        if (collectableCanSpawn)
+        if (collectableCanSpawn && lastSpawnedCollectable == null )
         {
+            //add a public bool method to check if any collectables exist in the level already
             Debug.Log("Spawn Collectable");
             Transform chosenSpawn = ChooseCollectableSpawnPoint().transform; //uses ChooseCollectableSpawnPoint() to choose one collectable spawn in the level
             Vector2 chosenSpawnPos = chosenSpawn.position;
@@ -262,11 +281,10 @@ public class LevelScript : MonoBehaviour
 
             int randomNo = Random.Range(0, collectableType.Length); //rnadomly chooses a number to randomize what collectable we get
 
-            Instantiate(collectableType[randomNo], chosenSpawnPos, chosenSpawnRot);
+            lastSpawnedCollectable = Instantiate(collectableType[randomNo], chosenSpawnPos, chosenSpawnRot);
         }
-
     }
-
+    
     public GameObject ChooseCollectableSpawnPoint()
     {
         collectableSpawnPoints = GameObject.FindGameObjectsWithTag("CollectableSpawn"); //fill spawn point array
@@ -288,18 +306,22 @@ public class LevelScript : MonoBehaviour
         float invertDuration = 5f;
 
         Debug.Log("Level script has been called");
-        foreach (GameObject player in players)
+        if (players != null)
         {
-            if (player != exemptPlayer)
+            foreach (GameObject player in players)
             {
-                player.GetComponent<PlayerController>().hasInvertedControls = true;
+                if (player != exemptPlayer)
+                {
+                    player.GetComponent<PlayerController>().InvertControls();
+                    ShakeCamera(0.4f, 0.16f);
+                    Invoke(nameof(UnInvertControls), invertDuration);
+                }
 
-                Invoke(nameof(UnInvertControls), invertDuration);
             }
-
         }
+      
     }
-    private IEnumerator InvertDuration(float invertDuration) // for dashDuration we move to IgnoreCollisions layer to dash through players
+    private IEnumerator InvertDuration(float invertDuration) 
     {
 
         yield return new WaitForSeconds(invertDuration);
@@ -307,14 +329,13 @@ public class LevelScript : MonoBehaviour
     }
     public void UnInvertControls()
     {
-        foreach (GameObject player in players)
+        if (players != null)
         {
-
-            player.GetComponent<PlayerController>().hasInvertedControls = false;
-
+            foreach (GameObject player in players)
+            {
+                player.GetComponent<PlayerController>().UnInvertControls();
+            }
         }
-
-
     }
 
 
@@ -336,7 +357,7 @@ public class LevelScript : MonoBehaviour
             //update killer score
             killerPC.IncScore();
             killerPC.ResetTimeSinceLastKill();
-
+            Debug.Log(target);
             //kill target
             targetPC.Death();
 
@@ -416,8 +437,26 @@ public class LevelScript : MonoBehaviour
     public void TimeUp()
     {
         for (int p = 0; p < PlayerData.numOfPlayers; p++) { PlayerData.playerTSLK[p] = playerScripts[p].GetTimeSinceLastKill(); }
-        SceneManager.LoadScene(5);
+        StartCoroutine(OutroDelay());
+       
     }
+    private IEnumerator OutroDelay()
+    {
+        
+        if (!hasBeenShook)
+        {
+            ShakeCamera(0.4f, 0.2f);
+            hasBeenShook = true;
+        }
+       
+       
+        outroIsOver = false;
+        yield return new WaitForSeconds(outroTime);
+        outroIsOver = true;
+        SceneManager.LoadScene(5);
+        FindObjectOfType<AudioManager>().StopPlaying("MusicFight");
+    }
+   
 
     public float GetRoundLength()
     {

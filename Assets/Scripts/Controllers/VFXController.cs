@@ -26,10 +26,8 @@ public class VFXController : MonoBehaviour
     }
     public void DeleteVFX(int playerNum, string name)
     {
-        VFX visualEffect = Array.Find(visualEffects, vfx => vfx.name == name);
-        playerTransform = PlayerData.players[playerNum].transform;
-        Destroy(playerTransform.Find(visualEffect.effect.name));
-        
-    }
+   
 
+    }
 }
+

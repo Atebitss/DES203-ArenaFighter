@@ -20,7 +20,7 @@ public class MainMenuController : MonoBehaviour
     public void PlayGame()
     {
         FindObjectOfType<AudioManager>().Play("SelectBeep");
-        FindObjectOfType<AudioManager>().StopPlaying("StartMenuMusic");
+       
 
         StartCoroutine(LoadLevel(2));
     }
