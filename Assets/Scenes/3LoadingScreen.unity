@@ -519,6 +519,11 @@ MonoBehaviour:
       m_Groups: 
       m_Action: Start
       m_Flags: 0
+  headerAnimators:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!4 &483775660
 Transform:
   m_ObjectHideFlags: 0
@@ -1261,7 +1266,7 @@ RectTransform:
   - {fileID: 1226168847}
   - {fileID: 1519331735}
   - {fileID: 477661541}
-  - {fileID: 1981679154}
+  - {fileID: 2053725287}
   m_Father: {fileID: 1187994338}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1282,7 +1287,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d097f9d52fdd2f4cbe53b81f5f1a295, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transition: {fileID: 1981679155}
+  transition: {fileID: 2053725288}
   transitionTime: 1
   pressStart: {fileID: 1226168848}
   loading: {fileID: 477661542}
@@ -1685,7 +1690,7 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
---- !u!1001 &1981679153
+--- !u!1001 &2053725286
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -1706,7 +1711,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7669635686518991099, guid: 7575723904653084d99598dbed3405cd, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7669635686518991099, guid: 7575723904653084d99598dbed3405cd, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1782,15 +1787,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7575723904653084d99598dbed3405cd, type: 3}
---- !u!224 &1981679154 stripped
+--- !u!224 &2053725287 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7669635686518991099, guid: 7575723904653084d99598dbed3405cd, type: 3}
-  m_PrefabInstance: {fileID: 1981679153}
+  m_PrefabInstance: {fileID: 2053725286}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &1981679155 stripped
+--- !u!95 &2053725288 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 7669635686518991101, guid: 7575723904653084d99598dbed3405cd, type: 3}
-  m_PrefabInstance: {fileID: 1981679153}
+  m_PrefabInstance: {fileID: 2053725286}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2084624900
 PrefabInstance:
