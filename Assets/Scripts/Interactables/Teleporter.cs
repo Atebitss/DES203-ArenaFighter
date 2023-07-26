@@ -9,7 +9,6 @@ public class Teleporter : MonoBehaviour
 
     [SerializeField] private Transform[] canTeleportTo;
     
-
     public Transform GetDestination()
     {
         if (canTeleportTo != null)

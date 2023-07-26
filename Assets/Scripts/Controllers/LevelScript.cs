@@ -93,7 +93,7 @@ public class LevelScript : MonoBehaviour
         //update debug
         if (devMode)
         {
-            DUIM = GameObject.Find("DebugUI").GetComponent<DebugUIManager>();
+         //   DUIM = GameObject.Find("DebugUI").GetComponent<DebugUIManager>();
         }
     }
 
@@ -219,7 +219,7 @@ public class LevelScript : MonoBehaviour
         if (devMode)
         {
             //Debug.Log("Dev mode for " + newPlayer.name);
-            DUIM.EnablePlayer(curPlayerPos, players[curPlayerPos]);
+       //     DUIM.EnablePlayer(curPlayerPos, players[curPlayerPos]);
         }
     }
 
