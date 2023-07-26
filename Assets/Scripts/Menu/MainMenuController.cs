@@ -34,7 +34,7 @@ public class MainMenuController : MonoBehaviour
 
     public void Play(InputAction.CallbackContext ctx)
     {
-        if (SceneManager.GetActiveScene().name == "2MainMenu")
+        if (SceneManager.GetActiveScene().name == "1MainMenu")
         {
             PlayGame();
         }
