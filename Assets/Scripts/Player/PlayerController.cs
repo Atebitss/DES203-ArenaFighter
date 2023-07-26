@@ -360,6 +360,7 @@ public class PlayerController : MonoBehaviour
                 breakCounter = 0;
                 frozen = false;
                 Debug.Log("Broke free from Ice!!!");
+                vfxController.GetComponent<VFXController>().PlayVFX(transform, "Shatter");
                 FindObjectOfType<AudioManager>().Play("BreakFree");
             }
 
