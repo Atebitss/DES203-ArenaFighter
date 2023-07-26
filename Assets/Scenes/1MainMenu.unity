@@ -446,30 +446,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transition: {fileID: 7669635685935734673}
   transitionTime: 1
-  playAction:
-    m_Name: Play
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 09cc2d8d-a46a-47d1-8f3e-30fb6d1c7df6
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 
-      m_Id: eadda2ea-ed59-4991-ac98-f431d2dfd910
-      m_Path: <Gamepad>/buttonSouth
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Play
-      m_Flags: 0
-    - m_Name: 
-      m_Id: cd4c8d8c-79e5-4894-bcf2-fedf66e8d006
-      m_Path: <Keyboard>/enter
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Play
-      m_Flags: 0
 --- !u!4 &1108278123
 Transform:
   m_ObjectHideFlags: 0

@@ -16,13 +16,11 @@ public class PodiumScreenManager : MonoBehaviour
     public Image continueButton;
 
     [SerializeField] private InputAction continueAction;
-    private AudioManager AM;
 
     void Awake()
     {
         continueAction.performed += ctx => Continue(ctx);
         continueAction.Enable();
-        AM = FindObjectOfType<AudioManager>();
     }
 
     
@@ -43,7 +41,7 @@ public class PodiumScreenManager : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name == "5PodiumScreen")
         {
-            AM.Play("SelectBeep");
+            FindObjectOfType<AudioManager>().Play("SelectBeep");
 
             StartCoroutine(LoadLevel(6));
             continueAction.Disable();

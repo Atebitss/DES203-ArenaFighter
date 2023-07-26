@@ -5,36 +5,31 @@ using UnityEngine.SceneManagement;
 
 public class LevelMenuController : MonoBehaviour
 {
-    private AudioManager AM;
+    // Start is called before the first frame update
 
     private void Awake()
     {
-        AM = FindObjectOfType<AudioManager>();
-    }
-
-    private void Start()
-    { 
-        AM.Play("MusicMenu");
-        AM.Play("SpookyNoise");
+        FindObjectOfType<AudioManager>().Play("MusicMenu");
+         FindObjectOfType<AudioManager>().Play("SpookyNoise");
     }
 
     public void Back()
     {
-        AM.Play("SelectBeep");
+        FindObjectOfType<AudioManager>().Play("SelectBeep");
         SceneManager.LoadScene(1);
     }
 
     public void Level1()
     {
-        AM.Play("SelectBeep");
-  //  AM.StopPlaying("LevelMusic");
+    FindObjectOfType<AudioManager>().Play("SelectBeep");
+  //  FindObjectOfType<AudioManager>().StopPlaying("LevelMusic");
         SceneManager.LoadScene(3);
     }
 
     public void Level2() 
     {
-        AM.Play("SelectBeep");
-        //AM.StopPlaying("LevelMusic");
+        FindObjectOfType<AudioManager>().Play("SelectBeep");
+        //FindObjectOfType<AudioManager>().StopPlaying("LevelMusic");
         //SceneManager.LoadScene(x);
     }
 

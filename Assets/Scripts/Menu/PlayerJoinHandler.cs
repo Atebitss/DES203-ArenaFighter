@@ -9,6 +9,7 @@ public class PlayerJoinHandler : MonoBehaviour
 {
     public event System.Action<PlayerInput> PlayerJoinedGame;
     public event System.Action<PlayerInput> PlayerLeftGame;
+    [SerializeField] private GameObject playerJoinMenuController;
     [SerializeField] private InputAction joinAction;
     [SerializeField] private InputAction leaveAction;
     [SerializeField] private InputAction startAction;
@@ -113,8 +114,8 @@ public class PlayerJoinHandler : MonoBehaviour
             headersPlaying[curPlayerPos] = true;
             headerAnimators[curPlayerPos].SetBool("playing", true);
 
-            //Debug.Log(PlayerData.playerDevices[curPlayerPos].name);
-            //Debug.Log(this.gameObject.GetComponent<HapticController>());
+            Debug.Log(PlayerData.playerDevices[curPlayerPos].name);
+            Debug.Log(this.gameObject.GetComponent<HapticController>());
             if (!PlayerData.playerDevices[curPlayerPos].name.Equals("Keyboard")) { this.gameObject.GetComponent<HapticController>().PlayHaptics("Rumble", (Gamepad)PlayerData.playerDevices[curPlayerPos]); }    
             
 
@@ -194,13 +195,13 @@ public class PlayerJoinHandler : MonoBehaviour
 
     void StartAction(InputAction.CallbackContext ctx)
     {
-        if (SceneManager.GetActiveScene().name == "2PlayerJoin")
+        if (SceneManager.GetActiveScene().name == "2PlayerJoin" && playerJoinMenuController != null)
         {
             //Debug.Log("Start action");
             if (PlayerData.numOfPlayers >= 2 || PlayerData.devMode && PlayerData.numOfPlayers > 0)
             {
                 //Debug.Log("Enough player to start");
-                this.gameObject.GetComponent<PlayerJoinMenuController>().StartGame();
+                playerJoinMenuController.GetComponent<PlayerJoinMenuController>().StartGame();
             }
             else
             {

@@ -8,16 +8,10 @@ public class ChangeImage : MonoBehaviour
     public Image imageComponent;
     public Sprite newImage;
     public Sprite emptyImage;
-    private AudioManager AM;
-
-    void Awake()
-    {
-        AM = FindObjectOfType<AudioManager>();
-    }
 
     public void ImageChange()
     {
-        AM.Play("Beep");
+        FindObjectOfType<AudioManager>().Play("Beep");
         imageComponent.sprite = newImage;
         imageComponent.color = new Color(imageComponent.color.r, imageComponent.color.g, imageComponent.color.b, 1);
         //Debug.Log("updating image");
@@ -31,7 +25,7 @@ public class ChangeImage : MonoBehaviour
 
     public void ResetImage()
     {
-        AM.Play("Beep");
+        FindObjectOfType<AudioManager>().Play("Beep");
         imageComponent.sprite = emptyImage;
         imageComponent.color = new Color(imageComponent.color.r, imageComponent.color.g, imageComponent.color.b, 0);
         //Debug.Log("resetting image");

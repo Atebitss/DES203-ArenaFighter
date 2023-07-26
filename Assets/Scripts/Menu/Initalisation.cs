@@ -12,5 +12,6 @@ public class Initalisation : MonoBehaviour
     {
         PlayerData.devMode = devMode;
         SceneManager.LoadScene(1);
+        
     }    
 }
