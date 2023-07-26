@@ -167,19 +167,19 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: DeathCry1
     clip: {fileID: 8300000, guid: 2eebde3cbcbdd6e488ceb63d87d37aa0, type: 3}
-    volume: 0.2
+    volume: 0.1
     pitch: 0.75
     loop: 0
     source: {fileID: 0}
   - name: DeathCry2
     clip: {fileID: 8300000, guid: 7b2915e3b1357d943be1d69b5eb874fe, type: 3}
-    volume: 0.2
+    volume: 0.1
     pitch: 0.75
     loop: 0
     source: {fileID: 0}
   - name: DeathCry3
     clip: {fileID: 8300000, guid: 7a883a823bdd20d4da485f9d92490cae, type: 3}
-    volume: 0.2
+    volume: 0.1
     pitch: 0.75
     loop: 0
     source: {fileID: 0}
@@ -209,7 +209,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: MusicFight
     clip: {fileID: 8300000, guid: 9b14f188ec754954c8036defeca85dcb, type: 3}
-    volume: 0.02
+    volume: 0.04
     pitch: 1
     loop: 0
     source: {fileID: 0}
@@ -274,14 +274,8 @@ MonoBehaviour:
     loop: 0
     source: {fileID: 0}
   - name: StartMenuMusic
-    clip: {fileID: 8300000, guid: 72ba7e36b8028b845bc9171a01da4499, type: 3}
-    volume: 0.17
-    pitch: 1
-    loop: 1
-    source: {fileID: 0}
-  - name: MusicMenu
     clip: {fileID: 8300000, guid: d15a5ff06af63b3468899d6442958038, type: 3}
-    volume: 0.02
+    volume: 0.17
     pitch: 1
     loop: 1
     source: {fileID: 0}

@@ -30,8 +30,6 @@ public class PlayerJoinMenuController : MonoBehaviour
        
         FindObjectOfType<AudioManager>().Play("SelectBeep");
 
-        FindObjectOfType<AudioManager>().StopPlaying("MusicMenu");
-
         StartCoroutine(LoadLevel(3));
     }
     IEnumerator LoadLevel(int levelIndex)

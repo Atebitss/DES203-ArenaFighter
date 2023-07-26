@@ -67,6 +67,10 @@ public class PlayerController : MonoBehaviour
     //~~~ WALL SLIDE & JUMP ~~~\\
     [Header("Wall Jumps, Climbs and Slides")]
     [SerializeField] private float wallSlideSpeed = -2f;
+    [SerializeField] private float wallClimbX = 4f;
+    [SerializeField] private float wallClimbY = 16f;
+    [SerializeField] private float wallKickX = 4f;
+    [SerializeField] private float wallKickY = 16f;
     [SerializeField] private float wallCoyoteTime;
     private float wallCoyoteCounter;
     private float wallJumpCooldown;
@@ -388,7 +392,7 @@ public class PlayerController : MonoBehaviour
         else if (wallCoyoteCounter > 0 & !IsGrounded() & facingRight && move.x > 0f) // Wall Climbing when facing right
         {
             isWallJumping = true;
-            playerRigid.velocity = new Vector2(-transform.localScale.x * 4, 16);
+            playerRigid.velocity = new Vector2(-transform.localScale.x * wallClimbX, wallClimbY);
             PlayJumpAudio();
             wallJumpCooldown = 0;
 
@@ -398,7 +402,7 @@ public class PlayerController : MonoBehaviour
         else if (wallCoyoteCounter > 0 & !IsGrounded() & !facingRight && move.x < 0f) // Wall Climbing when facing left
         {
             isWallJumping = true;
-            playerRigid.velocity = new Vector2(-transform.localScale.x * 4, 16);
+            playerRigid.velocity = new Vector2(-transform.localScale.x * wallClimbX, wallClimbY);
             PlayJumpAudio();
             wallJumpCooldown = 0;
 
@@ -408,7 +412,7 @@ public class PlayerController : MonoBehaviour
         else if (wallCoyoteCounter > 0 & !IsGrounded()) // Wall Jumping / Kicking
         {
             isWallJumping = true;
-            playerRigid.velocity = new Vector2(-transform.localScale.x * 4, 16);
+            playerRigid.velocity = new Vector2(-transform.localScale.x * wallKickX, wallKickY);
             PlayJumpAudio();
             wallJumpCooldown = 0;
 
@@ -549,7 +553,7 @@ public class PlayerController : MonoBehaviour
                 isDashing = true;
                 dashCooldown = 0;
                 playerRigid.velocity = new Vector2(transform.localScale.x * dashSpeed, 0);
-                StartCoroutine(IgnorePlayerCollisions());
+                StartCoroutine(IgnorePlayerCollisions(dashDuration));
                 FindObjectOfType<AudioManager>().Play("Dash");
                 animator.SetTrigger("Dashing");
             }
@@ -562,19 +566,19 @@ public class PlayerController : MonoBehaviour
                 isDashing = true;
                 dashCooldown = 0;
                 playerRigid.velocity = new Vector2(transform.localScale.x * dashSpeed, 0);
-                StartCoroutine(IgnorePlayerCollisions());
+                StartCoroutine(IgnorePlayerCollisions(dashDuration));
             }
             Invoke(nameof(StopDashing), dashDuration);
         }
 
     }
 
-    //~~~ DASH IGNORE ~~~\\
-    private IEnumerator IgnorePlayerCollisions() // for dashDuration we move to IgnoreCollisions layer to dash through players
+    //~~~IGNORE COLLISIONS ~~~\\
+    private IEnumerator IgnorePlayerCollisions(float duration) // for duration we move to IgnoreCollisions layer 
     {
         gameObject.layer = LayerMask.NameToLayer("IgnoreCollisions");
         playerTop.gameObject.layer = LayerMask.NameToLayer("IgnoreCollisions");
-        yield return new WaitForSeconds(dashDuration);
+        yield return new WaitForSeconds(duration);
         gameObject.layer = LayerMask.NameToLayer("Player");
         playerTop.gameObject.layer = LayerMask.NameToLayer("Player");
     }
@@ -765,42 +769,28 @@ public class PlayerController : MonoBehaviour
     //~~~ DEATH ~~~\\
     public void Death() //RIP
     {
-
         isDying = true;
 
         Invoke(nameof(KillDelay), 0.4f); //set to time of deathAnimation
 
-        /* AnimationClip[] clips = animator.runtimeAnimatorController.animationClips;
-         float deathTime = 0;
-
-         for(int i = 0; i < clips.Length; i++)
-         {
-             if(clips[i].name == "Death")
-             {
-                 deathTime = clips[i].length;    //death delay set to animations length
-                 Debug.Log("death time set to " + deathTime);
-             }
-         } */
-
         PlayDeathAudio();
         animator.SetTrigger("Dying");
+
+        StartCoroutine(IgnorePlayerCollisions(0.4f)); //stops players colliding with eachother after one has died for a duration
+
         if (controller != null)
         { vfxController.GetComponent<HapticController>().PlayHaptics("Death", controller); }
         if (frozen)
         { vfxController.GetComponent<VFXController>().PlayVFX(transform, "Ice Death"); }
         else
         { vfxController.GetComponent<VFXController>().PlayVFX(this.gameObject.transform, "Death"); }
+
         DeleteAllVFX();
-
-
     }
 
     //delays destroying target to allow the death anim to play
     public void KillDelay()
     {
-        //Debug.Log("delay over");
-       // animator.ResetTrigger("Dying");
-
         ls.Respawn((int)char.GetNumericValue(this.gameObject.name[6]), this.gameObject, animator);
     }
 

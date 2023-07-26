@@ -62,6 +62,7 @@ public class LevelScript : MonoBehaviour
      [SerializeField] private SpriteLibraryAsset player3Sprites;
      [SerializeField] private SpriteLibraryAsset player4Sprites;
 
+    private bool hasBeenShook = false;
 
 
     //~~~~~~~ LEVEL BASICS ~~~~~~~\\
@@ -81,8 +82,8 @@ public class LevelScript : MonoBehaviour
         devMode = PlayerData.devMode;
 
         //start level music
-        FindObjectOfType<AudioManager>().Play("MusicFight");
-           FindObjectOfType<AudioManager>().StopPlaying("SpookyNoise");
+       FindObjectOfType<AudioManager>().Play("MusicFight");
+       FindObjectOfType<AudioManager>().StopPlaying("SpookyNoise");
 
         //set spawn point order
         SetSpawnPoints();
@@ -121,6 +122,7 @@ public class LevelScript : MonoBehaviour
         introIsOver = false;
         yield return new WaitForSeconds(introTime);
         introIsOver = true;
+        
         Debug.Log("introIsOver: " + introIsOver);
     }
     private IEnumerator InitialCollectableSpawnDelay()
@@ -250,15 +252,15 @@ public class LevelScript : MonoBehaviour
                 spriteLibary.spriteLibraryAsset =  player1Sprites;
                 break;
             case 1:
-                playerAuraLight.color = new Color(0f, 0f, 1f, 1f); //blue
+                playerAuraLight.color = new Color(0f, 1f, 0f, 1f); //green
                 spriteLibary.spriteLibraryAsset = player2Sprites;
                 break;
             case 2:
-                playerAuraLight.color = new Color(0f, 1f, 0f, 1f); //green
+                playerAuraLight.color = new Color(1f, 0f, 1f, 1f); //pink
                 spriteLibary.spriteLibraryAsset = player3Sprites;
                 break;
             case 3:
-                playerAuraLight.color = new Color(0f, 1f, 1f, 1f); //cyan
+                playerAuraLight.color = new Color(0.5f, 1f, 0.75f, 1f); //teal
                 spriteLibary.spriteLibraryAsset = player4Sprites;
                 break;
             default:
@@ -436,13 +438,23 @@ public class LevelScript : MonoBehaviour
     {
         for (int p = 0; p < PlayerData.numOfPlayers; p++) { PlayerData.playerTSLK[p] = playerScripts[p].GetTimeSinceLastKill(); }
         StartCoroutine(OutroDelay());
+       
     }
     private IEnumerator OutroDelay()
     {
+        
+        if (!hasBeenShook)
+        {
+            ShakeCamera(0.4f, 0.2f);
+            hasBeenShook = true;
+        }
+       
+       
         outroIsOver = false;
         yield return new WaitForSeconds(outroTime);
         outroIsOver = true;
         SceneManager.LoadScene(5);
+        FindObjectOfType<AudioManager>().StopPlaying("MusicFight");
     }
    
 
