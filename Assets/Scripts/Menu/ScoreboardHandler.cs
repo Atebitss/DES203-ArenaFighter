@@ -26,21 +26,24 @@ public class ScoreboardHandler : MonoBehaviour
         Debug.Log("~~~~~~~~~~~~~~~~~~~~~~~~~~~");*/
 
 
-        for (int playerPodPos = 0; playerPodPos < 4; playerPodPos++)
+        for (int playerCheck = 0; playerCheck < 4; playerCheck++)
         {
-            Debug.Log(PlayerData.playerPositions[playerPodPos]);
-            Debug.Log(playerPositions[PlayerData.playerPositions[playerPodPos]]);
-            Vector2 podiumLocation = playerPositions[PlayerData.playerPositions[playerPodPos]].transform.position;
-            Debug.Log(podiumLocation);
+            Debug.Log("podium: " + playerCheck + ", player: " + (PlayerData.playerPositions[playerCheck]+1) + ", position: " + playerPositions[PlayerData.playerPositions[playerCheck]]);
+            Vector2 podiumLocation = playerPositions[PlayerData.playerPositions[playerCheck]].transform.position;
 
-            /*string imgRef = "Image" + (playerPodPos + 1);
-            podiumImage[playerPodPos] = GameObject.Find(imgRef);
+            Debug.Log(playerPositions[PlayerData.playerPositions[playerCheck]]);
+            Debug.Log(podiums[playerCheck]);
+            GameObject refPodium = Instantiate(podiums[playerCheck], podiumLocation, Quaternion.identity);
+            refPodium.transform.SetParent(playerPositions[PlayerData.playerPositions[playerCheck]].transform, false);
 
-            string textRef = "Text" + (playerPodPos + 1);
-            podiumText[playerPodPos] = GameObject.Find(textRef).GetComponent<TMPro.TextMeshProUGUI>();*/
+            /*string imgRef = "Image" + (playerCheck + 1);
+            podiumImage[playerCheck] = GameObject.Find(imgRef);
+
+            string textRef = "Text" + (playerCheck + 1);
+            podiumText[playerCheck] = GameObject.Find(textRef).GetComponent<TMPro.TextMeshProUGUI>();*/
         }
 
-        DisplayPlayers();
+        //DisplayPlayers();
         PlayerData.ResetScores();
     }
 
@@ -51,32 +54,32 @@ public class ScoreboardHandler : MonoBehaviour
         //display winners
         //for each player, set the image in the relevant podium space to the character image
         //then raise the character for each of their kills and add a new podium block below them
-        for (int playerPodPos = 0; playerPodPos < 3; playerPodPos++)
+        for (int playerCheck = 0; playerCheck < 3; playerCheck++)
         {
             //reference relevant game object associated with scoreboard position i and update image with player sprite in position i 
-            //Debug.Log("Position " + (playerPodPos + 1) + ": Player " + PlayerData.playerPositions[playerPodPos] + " with score " + PlayerData.playerScores[playerPodPos] + "   TSLK: " + PlayerData.playerTSLKs[playerPodPos]);
-            //Debug.Log(playerSprites[PlayerData.playerPositions[playerPodPos]]);
+            //Debug.Log("Position " + (playerCheck + 1) + ": Player " + PlayerData.playerPositions[playerCheck] + " with score " + PlayerData.playerScores[playerCheck] + "   TSLK: " + PlayerData.playerTSLKs[playerCheck]);
+            //Debug.Log(playerSprites[PlayerData.playerPositions[playerCheck]]);
 
-            string imgRef = "Image" + (playerPodPos + 1);
-            podiumImage[playerPodPos].GetComponent<ChangeImage>().ImageChange(playerSprites[PlayerData.playerPositions[playerPodPos]]);
+            string imgRef = "Image" + (playerCheck + 1);
+            podiumImage[playerCheck].GetComponent<ChangeImage>().ImageChange(playerSprites[PlayerData.playerPositions[playerCheck]]);
 
             //update text
             //reference relevant game object associated with scoreboard position i and update text with the number of kills
-            string textRef = "Text" + (playerPodPos + 1);
-            podiumText[playerPodPos].color = new Color32(255, 0, 0, 255);
-            switch (playerPodPos)
+            string textRef = "Text" + (playerCheck + 1);
+            podiumText[playerCheck].color = new Color32(255, 0, 0, 255);
+            switch (playerCheck)
             {
                 case 0:
-                    podiumText[playerPodPos].text = "KILLS: " + PlayerData.playerScores[playerPodPos];
+                    podiumText[playerCheck].text = "KILLS: " + PlayerData.playerScores[playerCheck];
                     break;
                 case 1:
-                    podiumText[playerPodPos].text = "KILLS: " + PlayerData.playerScores[playerPodPos];
+                    podiumText[playerCheck].text = "KILLS: " + PlayerData.playerScores[playerCheck];
                     break;
                 case 2:
-                    podiumText[playerPodPos].text = "KILLS: " + PlayerData.playerScores[playerPodPos];
+                    podiumText[playerCheck].text = "KILLS: " + PlayerData.playerScores[playerCheck];
                     break;
                 case 3:
-                    podiumText[playerPodPos].text = "KILLS: " + PlayerData.playerScores[playerPodPos];
+                    podiumText[playerCheck].text = "KILLS: " + PlayerData.playerScores[playerCheck];
                     break;
             }
         }
