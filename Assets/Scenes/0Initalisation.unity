@@ -185,19 +185,19 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: JumpGrunt
     clip: {fileID: 8300000, guid: 90bf73db36a1c1f43adeb9fc9f39bb75, type: 3}
-    volume: 1
+    volume: 0.5
     pitch: 0.8
     loop: 0
     source: {fileID: 0}
   - name: JumpGrunt2
     clip: {fileID: 8300000, guid: 5d845d62733a55845a5a6f510709813e, type: 3}
-    volume: 1
+    volume: 0.5
     pitch: 0.7
     loop: 0
     source: {fileID: 0}
   - name: JumpWhoosh
     clip: {fileID: 8300000, guid: 58c4da31c4ecd1f4baaa0251bfb80a7f, type: 3}
-    volume: 1
+    volume: 0.75
     pitch: 1
     loop: 0
     source: {fileID: 0}
@@ -209,7 +209,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: MusicFight
     clip: {fileID: 8300000, guid: 01427ea5a4d9de74a82fdde0aa963427, type: 3}
-    volume: 0.25
+    volume: 0.5
     pitch: 1
     loop: 0
     source: {fileID: 0}
@@ -221,19 +221,19 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: SwordSwing1
     clip: {fileID: 8300000, guid: 1c91e2b01626cb34e97e901e1cc2fb39, type: 3}
-    volume: 0.5
+    volume: 0.3
     pitch: 0.84
     loop: 0
     source: {fileID: 0}
   - name: SwordSwing2
     clip: {fileID: 8300000, guid: 75f2c5e743e2adf488d767a2997ce0b2, type: 3}
-    volume: 0.5
+    volume: 0.3
     pitch: 0.84
     loop: 0
     source: {fileID: 0}
   - name: SwordSwing3
     clip: {fileID: 8300000, guid: d4a2d3e458cfc844a84282aa35176201, type: 3}
-    volume: 0.5
+    volume: 0.3
     pitch: 0.82
     loop: 0
     source: {fileID: 0}
