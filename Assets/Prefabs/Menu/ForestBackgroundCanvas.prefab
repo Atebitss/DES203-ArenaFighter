@@ -133,6 +133,42 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3089924264121125785}
     m_Modifications:
+    - target: {fileID: 1210169007622610738, guid: a890e0e758421bd45bf4fab912134ef1, type: 3}
+      propertyPath: m_Color.b
+      value: 0.8750798
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210169007622610738, guid: a890e0e758421bd45bf4fab912134ef1, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210169007622610738, guid: a890e0e758421bd45bf4fab912134ef1, type: 3}
+      propertyPath: m_Color.r
+      value: 0.6839622
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210169007622610738, guid: a890e0e758421bd45bf4fab912134ef1, type: 3}
+      propertyPath: m_Intensity
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210169007622610738, guid: a890e0e758421bd45bf4fab912134ef1, type: 3}
+      propertyPath: m_LightOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210169007622610738, guid: a890e0e758421bd45bf4fab912134ef1, type: 3}
+      propertyPath: m_PointLightInnerRadius
+      value: 91.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210169007622610738, guid: a890e0e758421bd45bf4fab912134ef1, type: 3}
+      propertyPath: m_PointLightOuterRadius
+      value: 275.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3661000057108857816, guid: a890e0e758421bd45bf4fab912134ef1, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3661000057108857816, guid: a890e0e758421bd45bf4fab912134ef1, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -98
+      objectReference: {fileID: 0}
     - target: {fileID: 6514515040990287430, guid: a890e0e758421bd45bf4fab912134ef1, type: 3}
       propertyPath: m_SortingOrder
       value: 5
