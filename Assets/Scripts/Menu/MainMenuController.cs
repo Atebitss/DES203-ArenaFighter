@@ -11,11 +11,22 @@ public class MainMenuController : MonoBehaviour
 
     [SerializeField] private InputAction playAction;
 
+    public static MainMenuController instance = null;
+
 
     void Awake()
     {
         playAction.performed += ctx => Play(ctx);
         playAction.Enable();
+
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != null)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void Start()

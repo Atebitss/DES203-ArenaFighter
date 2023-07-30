@@ -109,13 +109,13 @@ public class PlayerJoinHandler : MonoBehaviour
 
             //Debug.Log("increasing player count");
             PlayerData.numOfPlayers++; //increase total number of players
-            //PlayerData.GetPlayers();
 
             headersPlaying[curPlayerPos] = true;
             headerAnimators[curPlayerPos].SetBool("playing", true);
 
-            Debug.Log(PlayerData.playerDevices[curPlayerPos].name);
-            Debug.Log(this.gameObject.GetComponent<HapticController>());
+            //Debug.Log("playerjoinhandler onplayerjoin curpos: " + curPlayerPos);
+            //Debug.Log(PlayerData.playerDevices[curPlayerPos].name);
+            //Debug.Log(this.gameObject.GetComponent<HapticController>());
             if (!PlayerData.playerDevices[curPlayerPos].name.Equals("Keyboard")) { this.gameObject.GetComponent<HapticController>().PlayHaptics("Rumble", (Gamepad)PlayerData.playerDevices[curPlayerPos]); }    
             
 

@@ -140,6 +140,7 @@ public class PlayerController : MonoBehaviour
         vfxController = GameObject.Find("VFXController");
 
         //set player name
+        //Debug.Log("PC.A, playerNum: " + ls.CurrentPlayer());
         playerNum = ls.CurrentPlayer();
         gameObject.name = "Player" + playerNum;
 
@@ -147,11 +148,11 @@ public class PlayerController : MonoBehaviour
 
         //player animator
         animator = GetComponent<Animator>();
-        animator.SetInteger("PlayerNum", playerNum);
+        //animator.SetInteger("PlayerNum", playerNum);
 
         //reference for haptics
         string inputDevice = PlayerData.playerDevices[playerNum].name;
-        Debug.Log(this.gameObject.name + ", " + inputDevice);
+        //Debug.Log(this.gameObject.name + ", " + inputDevice);
         if (!inputDevice.Equals("Keyboard")) { controller = (Gamepad)PlayerData.playerDevices[playerNum]; }
         else { controller = null; }
 

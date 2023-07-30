@@ -27,6 +27,7 @@ public class PlayerData : MonoBehaviour
 
     public static void SetPlayers(GameObject player, int playerNum, PlayerController playerScript)
     {
+        Debug.Log("PD.SetPlayers");
         players[playerNum] = player;
         playerScripts[playerNum] = playerScript;
     }
@@ -52,7 +53,7 @@ public class PlayerData : MonoBehaviour
 
         for(int position = 0; position < numOfPlayers; position++)
         {
-            Debug.Log("Updating position " + position + ": " + playerScripts[playerPositions[position]].gameObject.name + ", score: " + playerScripts[playerPositions[position]].GetScore() + ", tslk: " + playerScripts[playerPositions[position]].GetTimeSinceLastKill());
+            //Debug.Log("Updating position " + position + ": " + playerScripts[playerPositions[position]].gameObject.name + ", score: " + playerScripts[playerPositions[position]].GetScore() + ", tslk: " + playerScripts[playerPositions[position]].GetTimeSinceLastKill());
             playerScores[position] = playerScripts[playerPositions[position]].GetScore();
             playerTSLKs[position] = playerScripts[playerPositions[position]].GetTimeSinceLastKill();
         }

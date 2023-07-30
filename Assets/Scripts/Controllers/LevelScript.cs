@@ -106,10 +106,15 @@ public class LevelScript : MonoBehaviour
             string playerRef = "PlayerJoin" + player;   //reference player
             Destroy(GameObject.Find(playerRef));        //destroy any players found in the level
 
+            //Debug.Log(curPlayerPos);
+            //PlayerData.GetPlayers();
+
             //create new player
             //saviour code from Rene-Damm in the Unity Forum - https://forum.unity.com/threads/local-multiplayer-lobby-scene-gameplay-scene.845044/
             PlayerInput.Instantiate(playerPrefab, controlScheme: PlayerData.playerControlScheme[curPlayerPos], playerIndex: curPlayerPos, pairWithDevices: PlayerData.playerDevices[curPlayerPos]);
             NewPlayer();
+
+            //PlayerData.GetPlayers();
 
             //begin collectable spawning
             StartCoroutine(InitialCollectableSpawnDelay());
@@ -124,7 +129,7 @@ public class LevelScript : MonoBehaviour
         yield return new WaitForSeconds(introTime);
         introIsOver = true;
         AM.Play("MusicFight");
-        Debug.Log("introIsOver: " + introIsOver);
+        //Debug.Log("introIsOver: " + introIsOver);
     }
     private IEnumerator InitialCollectableSpawnDelay()
     {
@@ -158,7 +163,6 @@ public class LevelScript : MonoBehaviour
         {
             intervalTime += Time.deltaTime;
         }
-
     }
 
 
@@ -202,14 +206,17 @@ public class LevelScript : MonoBehaviour
     public void NewPlayer()
     {
         //reference new player object
+        Debug.Log("LS.NP, curPlayerPos: " + curPlayerPos);
         GameObject newPlayer = GameObject.Find("Player" + curPlayerPos);
-        //Debug.Log("New Player: " + newPlayer.name);
+        //Debug.Log("New Player: " + newPlayer);
 
         //fills the arrays with the applicable player & script
         players[curPlayerPos] = newPlayer;
         playerScripts[curPlayerPos] = newPlayer.GetComponent<PlayerController>();
 
         //update player data with new player
+        Debug.Log("LS.NP, players[cPP]: " + players[curPlayerPos]);
+        Debug.Log("LS.NP, playerScripts[cPP]: " + playerScripts[curPlayerPos]);
         PlayerData.SetPlayers(players[curPlayerPos], curPlayerPos, playerScripts[curPlayerPos]);
 
         //apply stats
@@ -379,6 +386,7 @@ public class LevelScript : MonoBehaviour
             //Debug.Log("Position " + i + ": Player " + (PlayerData.playerPositions[i]-1) + " with score " + PlayerData.playerScores[i]);
             //Debug.Log("player script in ref to podium pos: " + playerScripts[PlayerData.playerPositions[i]-1]);*/
 
+            Debug.Log(playerScripts[PlayerData.playerPositions[i]-1]);
             if (i == 0 && !playerScripts[PlayerData.playerPositions[i]].GetCrowned())
             {
                 playerScripts[PlayerData.playerPositions[i]].EnableCrown();
