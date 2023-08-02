@@ -196,7 +196,7 @@ public class LevelScript : MonoBehaviour
 
         /*for (int spawnIndex = 0; spawnIndex < spawnOrder.Length; spawnIndex++)
         {
-            Debug.Log("order " + spawnIndex + ": " + spawnPoints[spawnOrder[spawnIndex] - 1] + "\tspawn location: " + spawnPoints[spawnOrder[spawnIndex]-1].transform.position);
+            //Debug.Log("order " + spawnIndex + ": " + spawnPoints[spawnOrder[spawnIndex] - 1] + "\tspawn location: " + spawnPoints[spawnOrder[spawnIndex]-1].transform.position);
         }*/
     }
 
@@ -206,7 +206,7 @@ public class LevelScript : MonoBehaviour
     public void NewPlayer()
     {
         //reference new player object
-        Debug.Log("LS.NP, curPlayerPos: " + curPlayerPos);
+        //Debug.Log("LS.NP, curPlayerPos: " + curPlayerPos);
         GameObject newPlayer = GameObject.Find("Player" + curPlayerPos);
         //Debug.Log("New Player: " + newPlayer);
 
@@ -215,8 +215,8 @@ public class LevelScript : MonoBehaviour
         playerScripts[curPlayerPos] = newPlayer.GetComponent<PlayerController>();
 
         //update player data with new player
-        Debug.Log("LS.NP, players[cPP]: " + players[curPlayerPos]);
-        Debug.Log("LS.NP, playerScripts[cPP]: " + playerScripts[curPlayerPos]);
+        //Debug.Log("LS.NP, players[cPP]: " + players[curPlayerPos]);
+        //Debug.Log("LS.NP, playerScripts[cPP]: " + playerScripts[curPlayerPos]);
         PlayerData.SetPlayers(players[curPlayerPos], curPlayerPos, playerScripts[curPlayerPos]);
 
         //apply stats
@@ -282,7 +282,7 @@ public class LevelScript : MonoBehaviour
         if (collectableCanSpawn && lastSpawnedCollectable == null )
         {
             //add a public bool method to check if any collectables exist in the level already
-            Debug.Log("Spawn Collectable");
+            //Debug.Log("Spawn Collectable");
             Transform chosenSpawn = ChooseCollectableSpawnPoint().transform; //uses ChooseCollectableSpawnPoint() to choose one collectable spawn in the level
             Vector2 chosenSpawnPos = chosenSpawn.position;
             Quaternion chosenSpawnRot = chosenSpawn.rotation;
@@ -313,7 +313,7 @@ public class LevelScript : MonoBehaviour
     {
         float invertDuration = 5f;
 
-        Debug.Log("Level script has been called");
+        //Debug.Log("Level script has been called");
         if (players != null)
         {
             foreach (GameObject player in players)
@@ -365,7 +365,7 @@ public class LevelScript : MonoBehaviour
             //update killer score
             killerPC.IncScore();
             killerPC.ResetTimeSinceLastKill();
-            Debug.Log(target);
+            //Debug.Log(target);
             //kill target
             targetPC.Death();
 
@@ -376,7 +376,7 @@ public class LevelScript : MonoBehaviour
 
         for (int i = 0; i < PlayerData.numOfPlayers; i++)
         {
-            /*Debug.Log("~~~~~~~" + 
+            /*//Debug.Log("~~~~~~~" + 
                 "   " + players[i].name +
                 "   kills: " + PlayerData.playerScores[i] +
                 "   tslk: " + PlayerData.playerTSLK[i] + 
@@ -386,16 +386,18 @@ public class LevelScript : MonoBehaviour
             //Debug.Log("Position " + i + ": Player " + (PlayerData.playerPositions[i]-1) + " with score " + PlayerData.playerScores[i]);
             //Debug.Log("player script in ref to podium pos: " + playerScripts[PlayerData.playerPositions[i]-1]);*/
 
-            Debug.Log(playerScripts[PlayerData.playerPositions[i]-1]);
+            //Debug.Log("i: " + i);
+            //Debug.Log("PD.playerPositions[i]: " + PlayerData.playerPositions[i]);
+            //Debug.Log("playerScripts[PD.playerPositions[i]]: " + playerScripts[PlayerData.playerPositions[i]]);
             if (i == 0 && !playerScripts[PlayerData.playerPositions[i]].GetCrowned())
             {
                 playerScripts[PlayerData.playerPositions[i]].EnableCrown();
-                //Debug.Log("Player " + (PlayerData.playerPositions[i]) + " has taken the lead!");
+                //Debug.Log("Player " + PlayerData.playerPositions[i] + " has taken the lead!");
             }
             else if (i != 0 && playerScripts[PlayerData.playerPositions[i]].GetCrowned())
             {
                 playerScripts[PlayerData.playerPositions[i]].DisableCrown();
-                //Debug.Log("Player " + (PlayerData.playerPositions[i]) + " has lost the lead!");
+                //Debug.Log("Player " + PlayerData.playerPositions[i] + " has lost the lead!");
             }
         }
     }

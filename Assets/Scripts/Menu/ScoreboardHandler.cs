@@ -28,11 +28,11 @@ public class ScoreboardHandler : MonoBehaviour
 
         for (int playerCheck = 0; playerCheck < PlayerData.numOfPlayers; playerCheck++)
         {
-            Debug.Log("podium: " + playerCheck + ", player: " + (PlayerData.playerPositions[playerCheck]+1) + ", position: " + playerPositions[PlayerData.playerPositions[playerCheck]]);
+            //Debug.Log("podium: " + playerCheck + ", player: " + (PlayerData.playerPositions[playerCheck]+1) + ", position: " + playerPositions[PlayerData.playerPositions[playerCheck]]);
             Vector2 podiumLocation = playerPositions[PlayerData.playerPositions[playerCheck]].transform.position;
 
-            Debug.Log(playerPositions[PlayerData.playerPositions[playerCheck]]);
-            Debug.Log(podiums[playerCheck]);
+            //Debug.Log(playerPositions[PlayerData.playerPositions[playerCheck]]);
+            //Debug.Log(podiums[playerCheck]);
             GameObject refPodium = Instantiate(podiums[playerCheck], podiumLocation, Quaternion.identity);
            // refPodium.transform.
                 //GetComponent<Animator>().SetInteger("PlayerNum", playerCheck);

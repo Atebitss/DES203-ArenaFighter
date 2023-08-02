@@ -16,17 +16,21 @@ public class MainMenuController : MonoBehaviour
 
     void Awake()
     {
-        playAction.performed += ctx => Play(ctx);
-        playAction.Enable();
-
+        Debug.Log("MMC Awake");
         if (instance == null)
         {
+            Debug.Log("instance was null");
             instance = this;
         }
         else if (instance != null)
         {
+            Debug.Log("instance was not null");
             Destroy(gameObject);
+            instance = this;
         }
+
+        playAction.performed += ctx => Play(ctx);
+        playAction.Enable();
     }
 
     private void Start()
@@ -59,12 +63,12 @@ public class MainMenuController : MonoBehaviour
 
         Application.Quit();
 
-        print("Quit");
+        //print("Quit");
     }
 
     public void OptionsMenu()
     {
-        Debug.Log("Options menu called");
+        //Debug.Log("Options menu called");
         FindObjectOfType<AudioManager>().Play("SelectBeep");
         FindObjectOfType<AudioManager>().StopPlaying("StartMenuMusic");
 

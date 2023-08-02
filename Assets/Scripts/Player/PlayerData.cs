@@ -27,7 +27,7 @@ public class PlayerData : MonoBehaviour
 
     public static void SetPlayers(GameObject player, int playerNum, PlayerController playerScript)
     {
-        Debug.Log("PD.SetPlayers");
+        //Debug.Log("PD.SetPlayers");
         players[playerNum] = player;
         playerScripts[playerNum] = playerScript;
     }
@@ -146,10 +146,16 @@ public class PlayerData : MonoBehaviour
 
         for (int p = 0; p < playerScores.Length; p++)
         {
+            players[p] = null;
+            playerScripts[p] = null;
+
             playerInputs[p] = null;
             playerDevices[p] = null;
             playerControlScheme[p] = null;
+
+            playerScores[p] = 0;
             playerTSLKs[p] = 0;
+            playerPositions[p] = p;
         }
     }
 }
