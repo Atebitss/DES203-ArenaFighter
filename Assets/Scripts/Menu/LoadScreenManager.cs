@@ -11,10 +11,12 @@ public class LoadScreenManager : MonoBehaviour
     public Button pressStart;
     public Image loading;
     private bool isLoading = true;
+    private bool skipping = false;
     private bool pressedStart;
     [SerializeField] private float minLoadTime;
     private float timer;
     [SerializeField] private InputAction startAction;
+    [SerializeField] private InputAction skipAction;
     [SerializeField] private GameObject boxAnimator;
 
     private AudioManager AM;
@@ -23,6 +25,9 @@ public class LoadScreenManager : MonoBehaviour
     {
         startAction.performed += ctx => StartAction(ctx);
         startAction.Enable();
+
+        skipAction.performed += ctx => SkipAction(ctx);
+        skipAction.Enable();
 
         AM = FindObjectOfType<AudioManager>();
 
@@ -46,7 +51,8 @@ public class LoadScreenManager : MonoBehaviour
             loading.gameObject.SetActive(false);
             pressStart.gameObject.SetActive(true);
         }
-        timer += Time.deltaTime;
+
+        timer += Time.deltaTime;        
 
         if (timer > minLoadTime)
         {
@@ -63,6 +69,13 @@ public class LoadScreenManager : MonoBehaviour
             pressedStart = true;
         }
     }
+
+    private void SkipAction(InputAction.CallbackContext ctx)
+    {
+        //Debug.Log("Skip Action called");
+        if(ctx.performed && !skipping) { minLoadTime = 2; skipping = true; boxAnimator.GetComponent<BoxAnimator>().SetWaitTime(0.5f); Debug.Log("Skipping"); }
+    }
+
     public void OnClick()
     {
         if (!isLoading)

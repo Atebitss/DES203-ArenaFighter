@@ -7,6 +7,7 @@ public class BoxAnimator : MonoBehaviour
 {
     public Animator animator;
     public Image[] boxes;
+    private float waitTime = 3;
 
     public void AnimateBoxes()
     {
@@ -24,7 +25,13 @@ public class BoxAnimator : MonoBehaviour
                 //print(i);
                 yield return new WaitForSeconds(1);
             }
-            else { yield return new WaitForSeconds(3); }
+            else { yield return new WaitForSeconds(waitTime); }
         }
+    }
+
+    public void SetWaitTime(float newTime)
+    {
+        waitTime = newTime;
+        StartCoroutine(AnimateBoxesPrivate());
     }
 }
