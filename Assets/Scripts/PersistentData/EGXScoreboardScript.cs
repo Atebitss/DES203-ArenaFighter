@@ -4,16 +4,57 @@ using UnityEngine.UI;
 using UnityEngine;
 using TMPro;
 
-public class EGXScoreboardScript : MonoBehaviour
+public class EGXScoreboardScript : MonoBehaviour, EGXPersistenceInterface
 {
-    [SerializeField] private TextMeshProUGUI[] positionTexts = new TextMeshProUGUI[8];      //holds position text
-    [SerializeField] private Image[] positionImages = new Image[8];                         //holds position image
-    [SerializeField] private Sprite[] characterSprites = new Sprite[4];                        //holds possible sprites
+    [SerializeField] private Sprite[] characterSprites = new Sprite[4];                     //holds possible sprites
 
-    public int[] playerScores = new int[8];                                  //holds players total kills
-    public float[] playerTSLKs = new float[8];                               //holds players time since last kill
-    public int[] playerSpriteIDs = new int[8];                                 //holds players time since last kill
 
+    [SerializeField] private TextMeshProUGUI[] positionTexts = new TextMeshProUGUI[5];      //holds position text
+    [SerializeField] private Image[] positionImages = new Image[5];                         //holds position image
+
+    private int[] playerScores = new int[5];                                                //holds players total kills
+    private int[] playerSpriteIDs = new int[5];                                             //holds players sprites
+    private float[] playerTSLKs = new float[5];                                             //holds players time since last kill
+
+
+    [SerializeField] private TextMeshProUGUI curText;                                       //holds cur player text
+    [SerializeField] private Image curImage;                                                //holds cur player image
+
+    private int playerScore;                                                                //holds cur player total kills
+    private int playerSpriteID;                                                             //holds cur player sprites
+    private float playerTSLK;                                                               //holds cur player time since last kill
+
+
+
+    void Awake()
+    {
+        playerScore = PlayerData.playerScores[0];
+        playerSpriteID = PlayerData.playerScores[0];
+        playerTSLK = PlayerData.playerTSLKs[0];
+    }
+
+
+    //
+    public void LoadData(EGXData data)
+    {
+        for(int i = 0; i < playerScores.Length; i++)
+        {
+            playerScores[i] = data.playerScores[i];
+            playerSpriteIDs[i] = data.playerSpriteIDs[i];
+            playerTSLKs[i] = data.playerTSLKs[i];
+        }
+    }
+
+    public void SaveData(ref EGXData data)
+    {
+        for (int i = 0; i < playerScores.Length; i++)
+        {
+            data.playerScores[i] = playerScores[i];
+            data.playerSpriteIDs[i] = playerSpriteIDs[i];
+            data.playerTSLKs[i] = playerTSLKs[i];
+        }
+    }
+    //
 
 
     public void UpdateScoreboard(int newScore, float newTSLK, int newSpriteID)
@@ -95,6 +136,9 @@ public class EGXScoreboardScript : MonoBehaviour
         {
             Debug.Log("position " + position + " - score: " + playerScores[position] + ", tslk: " + playerTSLKs[position]);
         }
+
+        //SavePrefs
+        //for playerscores.length, string scoreRef = "score" + x, PlayerPrefs.SetInt(scoreRef, playerscores[x]), PlayerPrefs.Save()
     }
 
 
