@@ -22,7 +22,7 @@ public class UIController : MonoBehaviour
     {
         runningOutOfTime = false;
         finalCountdown.gameObject.SetActive(false);
-        if (PlayerData.devMode){ countdownTime = 60; }
+        if (PlayerData.GetDevMode()){ countdownTime = 60; }
         countdownTimeAtStart = countdownTime;
     }
 

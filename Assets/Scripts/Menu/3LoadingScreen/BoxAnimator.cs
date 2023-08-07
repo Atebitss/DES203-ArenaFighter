@@ -20,7 +20,7 @@ public class BoxAnimator : MonoBehaviour
         {
             boxes[i].gameObject.SetActive(true);
             animator.SetTrigger("trigger" + i);
-            if (PlayerData.devMode)
+            if (PlayerData.GetDevMode())
             {
                 //print(i);
                 yield return new WaitForSeconds(1);

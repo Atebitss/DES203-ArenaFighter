@@ -26,18 +26,26 @@ public class EGXScoreboardScript : MonoBehaviour, EGXPersistenceInterface
 
 
 
-    void Awake()
+    void Start()
     {
+        Debug.Log("EGX scoreboard script awake");
+
         playerScore = PlayerData.playerScores[0];
         playerSpriteID = PlayerData.playerScores[0];
         playerTSLK = PlayerData.playerTSLKs[0];
+
+        Debug.Log("score: " + playerScore + ", spriteID: " + playerSpriteID + ", tslk: " + playerTSLK);
+
+        UpdateScoreboard();
+        PlayerData.ResetScores();
     }
 
 
     //
     public void LoadData(EGXData data)
     {
-        for(int i = 0; i < playerScores.Length; i++)
+        Debug.Log("EGX scoreboard script load data");
+        for(int i = 0; i < data.playerScores.Length; i++)
         {
             playerScores[i] = data.playerScores[i];
             playerSpriteIDs[i] = data.playerSpriteIDs[i];
@@ -45,9 +53,10 @@ public class EGXScoreboardScript : MonoBehaviour, EGXPersistenceInterface
         }
     }
 
-    public void SaveData(ref EGXData data)
+    public void SaveData(EGXData data)
     {
-        for (int i = 0; i < playerScores.Length; i++)
+        Debug.Log("EGX scoreboard script save data");
+        for (int i = 0; i < data.playerScores.Length; i++)
         {
             data.playerScores[i] = playerScores[i];
             data.playerSpriteIDs[i] = playerSpriteIDs[i];
@@ -57,12 +66,13 @@ public class EGXScoreboardScript : MonoBehaviour, EGXPersistenceInterface
     //
 
 
-    public void UpdateScoreboard(int newScore, float newTSLK, int newSpriteID)
+    public void UpdateScoreboard()
     {
+        Debug.Log("updating EGX scoreboard");
         //if new score is greater than a current score, replace lowest score and run sort
         for(int i = 0; i < playerScores.Length; i++)
         {
-            if(newScore > playerScores[i]) { playerScores[9] = newScore; playerTSLKs[9] = newTSLK; playerSpriteIDs[9] = newSpriteID; SortScoreboard(); break; }
+            if(playerScore > playerScores[i]){ Debug.Log("players score greater than scoreboard position " + i); playerScores[4] = playerScore; playerTSLKs[4] = playerTSLK; playerSpriteIDs[4] = playerSpriteID; SortScoreboard(); break; }
         }
     }
 
@@ -136,9 +146,6 @@ public class EGXScoreboardScript : MonoBehaviour, EGXPersistenceInterface
         {
             Debug.Log("position " + position + " - score: " + playerScores[position] + ", tslk: " + playerTSLKs[position]);
         }
-
-        //SavePrefs
-        //for playerscores.length, string scoreRef = "score" + x, PlayerPrefs.SetInt(scoreRef, playerscores[x]), PlayerPrefs.Save()
     }
 
 

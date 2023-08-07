@@ -64,7 +64,7 @@ public class PlayerJoinHandler : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "2PlayerJoin")
         {
             //joins player as long as there are less than 4 players
-            if (PlayerData.numOfPlayers < 4)
+            if (PlayerData.GetNumOfPlayers() < 4)
             {
                 //Debug.Log("JoinAction()");
                 for (int playerCheck = 0; playerCheck < 4; playerCheck++)
@@ -108,7 +108,7 @@ public class PlayerJoinHandler : MonoBehaviour
             //Debug.Log(playerInput.currentControlScheme + ": " + PlayerData.playerControlScheme[curPlayerPos]);
 
             //Debug.Log("increasing player count");
-            PlayerData.numOfPlayers++; //increase total number of players
+            PlayerData.SetNumOfPlayers((PlayerData.GetNumOfPlayers()+1)); //increase total number of players
 
             headersPlaying[curPlayerPos] = true;
             headerAnimators[curPlayerPos].SetBool("playing", true);
@@ -143,7 +143,7 @@ public class PlayerJoinHandler : MonoBehaviour
             //leaves player
             //Debug.Log("LeaveAction()");
 
-            if (PlayerData.numOfPlayers > 0)
+            if (PlayerData.GetNumOfPlayers() > 0)
             {
                 for (int player = 0; player < PlayerData.playerInputs.Length; player++)
                 {
@@ -156,7 +156,7 @@ public class PlayerJoinHandler : MonoBehaviour
 
                             //decrease total number of players
                             //Debug.Log("lowering player count");
-                            PlayerData.numOfPlayers--;
+                            PlayerData.SetNumOfPlayers((PlayerData.GetNumOfPlayers()-1));
 
                             int playerNum = (int)char.GetNumericValue(PlayerData.playerInputs[player].name[10]) + 1;
                             string findRef = "Image" + playerNum;
@@ -198,7 +198,7 @@ public class PlayerJoinHandler : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "2PlayerJoin" && playerJoinMenuController != null)
         {
             //Debug.Log("Start action");
-            if (PlayerData.numOfPlayers >= 2 || PlayerData.devMode && PlayerData.numOfPlayers > 0)
+            if (PlayerData.GetNumOfPlayers() >= 2 || PlayerData.GetDevMode() && PlayerData.GetNumOfPlayers() > 0)
             {
                 //Debug.Log("Enough player to start");
                 playerJoinMenuController.GetComponent<PlayerJoinMenuController>().StartGame();

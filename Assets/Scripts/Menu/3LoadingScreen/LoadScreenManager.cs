@@ -31,7 +31,7 @@ public class LoadScreenManager : MonoBehaviour
 
         AM = FindObjectOfType<AudioManager>();
 
-        if (PlayerData.devMode) { minLoadTime = 1; }
+        if (PlayerData.GetDevMode()) { minLoadTime = 1; }
     }
     public void Start()
     {
@@ -73,7 +73,7 @@ public class LoadScreenManager : MonoBehaviour
     private void SkipAction(InputAction.CallbackContext ctx)
     {
         //Debug.Log("Skip Action called");
-        if(ctx.performed && !skipping) { minLoadTime = 2; skipping = true; boxAnimator.GetComponent<BoxAnimator>().SetWaitTime(0.5f); Debug.Log("Skipping"); }
+        if(ctx.performed && !skipping && SceneManager.GetActiveScene().name == "3LoadingScreen") { minLoadTime = 2; skipping = true; boxAnimator.GetComponent<BoxAnimator>().SetWaitTime(0.5f); }
     }
 
     public void OnClick()
@@ -102,6 +102,9 @@ public class LoadScreenManager : MonoBehaviour
     }
     IEnumerator LoadLevel()
     {
+        startAction.Disable();
+        skipAction.Disable();
+
         transition.SetTrigger("Start");
         yield return new WaitForSeconds(transitionTime);
         pressedStart = true;

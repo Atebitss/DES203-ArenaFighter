@@ -79,8 +79,8 @@ public class LevelScript : MonoBehaviour
             Destroy(gameObject);
         }
 
-        if (!PlayerData.gameRun) { PlayerData.gameRun = true; }
-        devMode = PlayerData.devMode;
+        if (!PlayerData.GetGameRun()) { PlayerData.SetGameRun(true); }
+        devMode = PlayerData.GetDevMode();
 
         //find audio manager and start level music
         AM = FindObjectOfType<AudioManager>();
@@ -100,7 +100,7 @@ public class LevelScript : MonoBehaviour
 
     private void Start()
     {
-        for (int player = 0; player < PlayerData.numOfPlayers; player++)
+        for (int player = 0; player < PlayerData.GetNumOfPlayers(); player++)
         {
             curPlayerPos = player;                      //current player ref is the players number (0-3)
             string playerRef = "PlayerJoin" + player;   //reference player
@@ -374,7 +374,7 @@ public class LevelScript : MonoBehaviour
             PlayerData.SortPlayers();
         }
 
-        for (int i = 0; i < PlayerData.numOfPlayers; i++)
+        for (int i = 0; i < PlayerData.GetNumOfPlayers(); i++)
         {
             /*//Debug.Log("~~~~~~~" + 
                 "   " + players[i].name +
@@ -447,7 +447,7 @@ public class LevelScript : MonoBehaviour
     //~~~~~~~ TIME UP ~~~~~~~\\
     public void TimeUp()
     {
-        for (int p = 0; p < PlayerData.numOfPlayers; p++) { PlayerData.playerTSLKs[p] = playerScripts[p].GetTimeSinceLastKill(); }
+        for (int p = 0; p < PlayerData.GetNumOfPlayers(); p++) { PlayerData.playerTSLKs[p] = playerScripts[p].GetTimeSinceLastKill(); }
         StartCoroutine(OutroDelay());
         PlayerData.SortPlayers();
     }

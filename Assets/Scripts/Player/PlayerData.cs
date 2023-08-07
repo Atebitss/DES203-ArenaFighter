@@ -5,13 +5,14 @@ using UnityEngine.InputSystem;
 
 public class PlayerData : MonoBehaviour
 {
-    public static int numOfPlayers = 4;
-    public static bool gameRun, devMode;
+    private static int numOfPlayers = 4;
+    private static bool gameRun, devMode;
 
 
     //player in-game
     public static GameObject[] players = new GameObject[4];             //reference player game objects
     public static PlayerController[] playerScripts = new PlayerController[4]; //reference player control scripts
+    public static int[] playerSpriteIDs = new int[4];
 
     //player constants
     public static PlayerInput[] playerInputs = new PlayerInput[4];      //reference player input components
@@ -23,6 +24,17 @@ public class PlayerData : MonoBehaviour
     public static float[] playerTSLKs = new float[4];                    //holds players time since last kill
     public static int[] playerPositions = new int[] { 0, 1, 2, 3 };     //holds players current podium position
 
+
+
+
+    public static bool GetDevMode() { return devMode; }
+    public static void SetDevMode(bool update) { devMode = update; }
+
+    public static bool GetGameRun() { return gameRun; }
+    public static void SetGameRun(bool update) { gameRun = update; }
+
+    public static int GetNumOfPlayers() { return numOfPlayers; }
+    public static void SetNumOfPlayers(int update) { numOfPlayers = update; }
 
 
     public static void SetPlayers(GameObject player, int playerNum, PlayerController playerScript)

@@ -30,6 +30,7 @@ public class GameEndManager : MonoBehaviour
     }
     IEnumerator LoadLevel(int levelIndex)
     {
+        continueAction.Disable();
         transition.SetTrigger("Start");
 
         yield return new WaitForSeconds(transitionTime);

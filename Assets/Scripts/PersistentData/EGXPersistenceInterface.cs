@@ -5,5 +5,5 @@ using UnityEngine;
 public interface EGXPersistenceInterface
 {
     void LoadData(EGXData data);        //read EGXData.cs scores
-    void SaveData(ref EGXData data);    //write EGXData.cs scores
+    void SaveData(EGXData data);    //write EGXData.cs scores
 }

@@ -15,7 +15,7 @@ public class PlayerJoinMenuController : MonoBehaviour
 
     public void Update()
     {
-        if (PlayerData.numOfPlayers >= 2)
+        if (PlayerData.GetNumOfPlayers() >= 2)
         {
             startButton.gameObject.SetActive(true);
         }

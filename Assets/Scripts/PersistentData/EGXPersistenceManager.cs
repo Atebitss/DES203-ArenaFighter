@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 using System.Linq;
 
@@ -7,8 +8,12 @@ using System.Linq;
 public class EGXPersistenceManager : MonoBehaviour
 {
     private EGXData data;
+    private FileDataHandler dataHandler;
+
     private List<EGXPersistenceInterface> dataPersistenceObjects;
     public static EGXPersistenceManager instance { get; private set; }
+
+    [SerializeField] private string fileName;
 
     private void Awake()
     {
@@ -23,7 +28,9 @@ public class EGXPersistenceManager : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log("game stated");
+        Debug.Log("game started");
+        Debug.Log("Data path: " + Application.persistentDataPath);
+        this.dataHandler = new FileDataHandler(Application.persistentDataPath, fileName);
         this.dataPersistenceObjects = FindAlldataPersistenceObjects();
         LoadGame();
     }
@@ -42,6 +49,12 @@ public class EGXPersistenceManager : MonoBehaviour
         SaveGame();
     }
 
+    private void OnDestroy()
+    {
+        Debug.Log("EGX persistence manager destroyed");
+        SaveGame();
+    }
+
 
     public void NewGame() //rename ResetScore or ResetData
     {
@@ -53,6 +66,8 @@ public class EGXPersistenceManager : MonoBehaviour
     public void LoadGame() //rename LoadScore or LoadData
     {
         Debug.Log("loading game state");
+        this.data = dataHandler.Load();
+
         if(this.data == null)
         {
             Debug.Log("no egx data found");
@@ -63,7 +78,7 @@ public class EGXPersistenceManager : MonoBehaviour
         foreach (EGXPersistenceInterface dataPersistenceOBJ in dataPersistenceObjects){ dataPersistenceOBJ.LoadData(data); }
 
 
-        for(int i = 0; i < data.playerScores.Length; i++)
+        for (int i = 0; i < data.playerScores.Length; i++)
         {
             Debug.Log("Loaded pos" + i + " - Score: " + data.playerScores[i] + ", TSLK: " + data.playerTSLKs[i] + ", spriteID: " + data.playerSpriteIDs[i]);
         }
@@ -74,12 +89,14 @@ public class EGXPersistenceManager : MonoBehaviour
     {
         Debug.Log("saving game state");
         //update EGXData with each script referencing EGXPersistenceInterface relevant game data
-        foreach (EGXPersistenceInterface dataPersistenceOBJ in dataPersistenceObjects) { dataPersistenceOBJ.SaveData(ref data); }
+        foreach (EGXPersistenceInterface dataPersistenceOBJ in dataPersistenceObjects) { dataPersistenceOBJ.SaveData(data); }
 
 
         for (int i = 0; i < data.playerScores.Length; i++)
         {
             Debug.Log("Saved pos" + i + " - Score: " + data.playerScores[i] + ", TSLK: " + data.playerTSLKs[i] + ", spriteID: " + data.playerSpriteIDs[i]);
         }
+
+        dataHandler.Save(data);
     }
 }

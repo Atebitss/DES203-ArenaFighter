@@ -16,15 +16,15 @@ public class MainMenuController : MonoBehaviour
 
     void Awake()
     {
-        Debug.Log("MMC Awake");
+        //Debug.Log("MMC Awake");
         if (instance == null)
         {
-            Debug.Log("instance was null");
+            //Debug.Log("instance was null");
             instance = this;
         }
         else if (instance != null)
         {
-            Debug.Log("instance was not null");
+            //Debug.Log("instance was not null");
             Destroy(gameObject);
             instance = this;
         }
@@ -77,6 +77,7 @@ public class MainMenuController : MonoBehaviour
 
     IEnumerator LoadLevel(int levelIndex)
     {
+        playAction.Disable();
         transition.SetTrigger("Start");
 
         yield return new WaitForSeconds(transitionTime);

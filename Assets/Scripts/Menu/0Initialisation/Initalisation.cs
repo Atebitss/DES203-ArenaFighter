@@ -10,7 +10,7 @@ public class Initalisation : MonoBehaviour
    //instantly loads up the main menu scene, this scene exits to instantiate the audio manager and thats it
     void Start()
     {
-        PlayerData.devMode = devMode;
+        PlayerData.SetDevMode(devMode);
         SceneManager.LoadScene(1);
         
     }    
