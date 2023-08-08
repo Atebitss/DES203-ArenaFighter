@@ -11181,6 +11181,9 @@ MonoBehaviour:
   - name: Shatter
     effect: {fileID: 6450043829019065129, guid: 87fe5702290cf2641a730d47366f112c, type: 3}
     trackPlayer: 0
+  - name: Dash
+    effect: {fileID: 3801535387976930421, guid: e30cb5ada9d45c641968852a3fdf3d88, type: 3}
+    trackPlayer: 1
   levelController: {fileID: 763047120}
 --- !u!4 &617323059
 Transform:
@@ -32009,6 +32012,7 @@ GameObject:
   - component: {fileID: 1876265296}
   - component: {fileID: 1876265295}
   - component: {fileID: 1876265294}
+  - component: {fileID: 1876265297}
   m_Layer: 5
   m_Name: IntroCountdown
   m_TagString: Untagged
@@ -32092,6 +32096,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1876265292}
   m_CullTransparentMesh: 1
+--- !u!114 &1876265297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1876265292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9b8b1ed02c3b4e45be830e61dc0a5ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CameraShake: {fileID: 72813653}
 --- !u!1 &1959753263
 GameObject:
   m_ObjectHideFlags: 0

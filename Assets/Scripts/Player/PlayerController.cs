@@ -557,6 +557,7 @@ public class PlayerController : MonoBehaviour
                 playerRigid.velocity = new Vector2(transform.localScale.x * dashSpeed, 0);
                 StartCoroutine(IgnorePlayerCollisions(dashDuration));
                 FindObjectOfType<AudioManager>().Play("Dash");
+                vfxController.GetComponent<VFXController>().PlayPlayerVFX(playerNum, "Dash");
                 animator.SetTrigger("Dashing");
             }
             Invoke(nameof(StopDashing), dashDuration);

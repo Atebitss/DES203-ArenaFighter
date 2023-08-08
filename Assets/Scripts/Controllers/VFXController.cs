@@ -21,7 +21,16 @@ public class VFXController : MonoBehaviour
         VFX visualEffect = Array.Find(visualEffects, vfx => vfx.name == name);
 
         playerTransform = PlayerData.players[playerNum].transform; //gets players position
+
         spawnedEffect = Instantiate(visualEffect.effect, playerTransform.position, Quaternion.identity, playerTransform);
+
+        Vector3 particleScale = spawnedEffect.transform.localScale;
+
+        if (playerTransform.localScale.x < 0) //invert particle direction if player is facing left
+        {
+            spawnedEffect.transform.localScale = new Vector3(-particleScale.x, particleScale.y, particleScale.z);
+        }
+       
 
     }
     public void DeleteVFX(int playerNum, string name)
