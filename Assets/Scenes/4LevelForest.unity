@@ -11153,6 +11153,10 @@ MonoBehaviour:
     leftRumble: 0.125
     rightRumble: 0.375
     duration: 0.5
+  - name: Kill
+    leftRumble: 0.125
+    rightRumble: 0.375
+    duration: 0.5
 --- !u!114 &617323058
 MonoBehaviour:
   m_ObjectHideFlags: 0
