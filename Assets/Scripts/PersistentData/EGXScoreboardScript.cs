@@ -16,6 +16,9 @@ public class EGXScoreboardScript : MonoBehaviour, EGXPersistenceInterface
     private int[] playerSpriteIDs = new int[5];                                             //holds players sprites
     private float[] playerTSLKs = new float[5];                                             //holds players time since last kill
 
+    private int[] storedScores;                                                             //holds players total kills
+    private float[] storedTSLKs;                                                            //holds players time since last kill
+
 
     [SerializeField] private TextMeshProUGUI curText;                                       //holds cur player text
     [SerializeField] private Image curImage;                                                //holds cur player image
@@ -28,15 +31,16 @@ public class EGXScoreboardScript : MonoBehaviour, EGXPersistenceInterface
 
     void Start()
     {
-        Debug.Log("EGX scoreboard script awake");
+        //Debug.Log("EGX scoreboard script awake");
 
         playerScore = PlayerData.playerScores[0];
         playerSpriteID = PlayerData.playerScores[0];
         playerTSLK = PlayerData.playerTSLKs[0];
 
-        Debug.Log("score: " + playerScore + ", spriteID: " + playerSpriteID + ", tslk: " + playerTSLK);
+        //Debug.Log("score: " + playerScore + ", spriteID: " + playerSpriteID + ", tslk: " + playerTSLK);
 
         UpdateScoreboard();
+        DisplayScoreboard();
         PlayerData.ResetScores();
     }
 
@@ -44,7 +48,9 @@ public class EGXScoreboardScript : MonoBehaviour, EGXPersistenceInterface
     //
     public void LoadData(EGXData data)
     {
-        Debug.Log("EGX scoreboard script load data");
+        //Debug.Log("EGX scoreboard script load data");
+        storedScores = new int[data.storedPositions];
+
         for(int i = 0; i < data.playerScores.Length; i++)
         {
             playerScores[i] = data.playerScores[i];
@@ -55,7 +61,7 @@ public class EGXScoreboardScript : MonoBehaviour, EGXPersistenceInterface
 
     public void SaveData(EGXData data)
     {
-        Debug.Log("EGX scoreboard script save data");
+        //Debug.Log("EGX scoreboard script save data");
         for (int i = 0; i < data.playerScores.Length; i++)
         {
             data.playerScores[i] = playerScores[i];
@@ -68,11 +74,19 @@ public class EGXScoreboardScript : MonoBehaviour, EGXPersistenceInterface
 
     public void UpdateScoreboard()
     {
-        Debug.Log("updating EGX scoreboard");
+        //Debug.Log("updating EGX scoreboard");
         //if new score is greater than a current score, replace lowest score and run sort
         for(int i = 0; i < playerScores.Length; i++)
         {
-            if(playerScore > playerScores[i]){ Debug.Log("players score greater than scoreboard position " + i); playerScores[4] = playerScore; playerTSLKs[4] = playerTSLK; playerSpriteIDs[4] = playerSpriteID; SortScoreboard(); break; }
+            if(playerScore > playerScores[i])
+            { 
+                //Debug.Log("players score greater than scoreboard position " + i); 
+                playerScores[4] = playerScore; 
+                playerTSLKs[4] = playerTSLK; 
+                playerSpriteIDs[4] = playerSpriteID; 
+                SortScoreboard(); 
+                break; 
+            }
         }
     }
 
@@ -87,7 +101,7 @@ public class EGXScoreboardScript : MonoBehaviour, EGXPersistenceInterface
             swapped = false;
 
             //Debug.Log("_____");
-            //for (int i = 0; i < numOfPlayers; i++) { Debug.Log("BEFORE position" + i + ": player " + playerPositions[i] + " - score " + playerScores[i] + ", tslk " + playerTSLKs[i]); }
+            //for (int i = 0; i < numOfPlayers; i++) { //Debug.Log("BEFORE position" + i + ": player " + playerPositions[i] + " - score " + playerScores[i] + ", tslk " + playerTSLKs[i]); }
             //Debug.Log("_____");
             for (int position = 0; position < playerScores.Length - check - 1; position++)
             {
@@ -132,11 +146,11 @@ public class EGXScoreboardScript : MonoBehaviour, EGXPersistenceInterface
                     swapped = true;
                 }
 
-                //if (swapped) { Debug.Log("UPDATE position" + position + ": player " + playerPositions[position] + " - score " + playerScores[position] + ", tslk " + playerTSLKs[position]); }
-                //else if(!swapped) { Debug.Log("NO UPDATE"); }
+                //if (swapped) { //Debug.Log("UPDATE position" + position + ": player " + playerPositions[position] + " - score " + playerScores[position] + ", tslk " + playerTSLKs[position]); }
+                //else if(!swapped) { //Debug.Log("NO UPDATE"); }
             }
             //Debug.Log("_____");
-            //for (int i = 0; i < numOfPlayers; i++) { Debug.Log("AFTER position" + i + ": player " + playerPositions[i] + " - score " + playerScores[i] + ", tslk " + playerTSLKs[i]); }
+            //for (int i = 0; i < numOfPlayers; i++) { //Debug.Log("AFTER position" + i + ": player " + playerPositions[i] + " - score " + playerScores[i] + ", tslk " + playerTSLKs[i]); }
             if (!swapped) { break; }
         }
 
@@ -144,7 +158,7 @@ public class EGXScoreboardScript : MonoBehaviour, EGXPersistenceInterface
         //Debug.Log("~~~~~~~");
         for (int position = 0; position < playerScores.Length; position++)
         {
-            Debug.Log("position " + position + " - score: " + playerScores[position] + ", tslk: " + playerTSLKs[position]);
+            //Debug.Log("position " + position + " - score: " + playerScores[position] + ", tslk: " + playerTSLKs[position]);
         }
     }
 
@@ -155,8 +169,13 @@ public class EGXScoreboardScript : MonoBehaviour, EGXPersistenceInterface
         {
             //update relevant position image with sprite related to sprite ID of current position
             //update relevant position text with position and score of current position
-            positionImages[position].sprite = characterSprites[playerSpriteIDs[position]];
-            positionTexts[position].text = "        Position " + position + ": ___     Score: " + playerScores[position];
+
+            //positionImages[position].sprite = characterSprites[playerSpriteIDs[position]];
+            positionTexts[position].text = "        Position " + (position+1) + ": ___     Score: " + playerScores[position] + "     TSLK: " + playerTSLKs[position].ToString("F2");
         }
+
+
+        //curImage.sprite = characterSprites[playerSpriteID];
+        curText.text = "        Position " + "" + ": ___     Score: " + playerScore + "     TSLK: " + playerTSLK.ToString("F2");
     }
 }
