@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class PlayerData : MonoBehaviour
 {
     private static int numOfPlayers = 4;
+    private static float devRoundTime = 1;
     private static bool gameRun, devMode;
 
 
@@ -35,6 +36,10 @@ public class PlayerData : MonoBehaviour
 
     public static int GetNumOfPlayers() { return numOfPlayers; }
     public static void SetNumOfPlayers(int update) { numOfPlayers = update; }
+
+    public static float GetDevRoundTime() { return devRoundTime; }
+    public static void SetDevRoundTime(float update) { devRoundTime = update; }
+
 
 
     public static void SetPlayers(GameObject player, int playerNum, PlayerController playerScript)
@@ -71,13 +76,38 @@ public class PlayerData : MonoBehaviour
         }
     }
 
-    public static void ResetScores()
+    public static void ResetRound()
     {
         for (int p = 0; p < playerScores.Length; p++)
         {
+            players[p] = null;
             playerScores[p] = 0;
+            playerTSLKs[p] = 0;
+            playerPositions[p] = p;
         }
     }
+
+
+    public static void ResetStats()
+    {
+        numOfPlayers = 0;
+
+        for (int p = 0; p < playerScores.Length; p++)
+        {
+            players[p] = null;
+            playerScripts[p] = null;
+
+            playerInputs[p] = null;
+            playerDevices[p] = null;
+            playerControlScheme[p] = null;
+
+            playerScores[p] = 0;
+            playerTSLKs[p] = 0;
+            playerPositions[p] = p;
+        }
+    }
+
+
 
     public static void SortPlayers()
     {
@@ -147,27 +177,6 @@ public class PlayerData : MonoBehaviour
         for (int position = 0; position < numOfPlayers; position++)
         {
             //Debug.Log("position " + position + ": " + playerScripts[playerPositions[position]].gameObject.name + ", score: " + playerScripts[playerPositions[position]].GetScore() + ", tslk: " + playerScripts[playerPositions[position]].GetTimeSinceLastKill());
-        }
-    }
-
-
-    
-    public static void ResetStats()
-    {
-        numOfPlayers = 0;
-
-        for (int p = 0; p < playerScores.Length; p++)
-        {
-            players[p] = null;
-            playerScripts[p] = null;
-
-            playerInputs[p] = null;
-            playerDevices[p] = null;
-            playerControlScheme[p] = null;
-
-            playerScores[p] = 0;
-            playerTSLKs[p] = 0;
-            playerPositions[p] = p;
         }
     }
 }

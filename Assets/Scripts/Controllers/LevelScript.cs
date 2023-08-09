@@ -93,7 +93,7 @@ public class LevelScript : MonoBehaviour
         //update debug
         if (devMode)
         {
-         //   DUIM = GameObject.Find("DebugUI").GetComponent<DebugUIManager>();
+            DUIM = GameObject.Find("DebugUI").GetComponent<DebugUIManager>();
         }
     }
 
