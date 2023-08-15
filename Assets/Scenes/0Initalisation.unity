@@ -309,6 +309,18 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     source: {fileID: 0}
+  - name: Collect
+    clip: {fileID: 8300000, guid: b3242ad2ffcbec246a38fab0f7177790, type: 3}
+    volume: 0.25
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Collect
+    clip: {fileID: 8300000, guid: b3242ad2ffcbec246a38fab0f7177790, type: 3}
+    volume: 0.25
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
 --- !u!4 &516737285
 Transform:
   m_ObjectHideFlags: 0
