@@ -23,7 +23,7 @@ public class BoxAnimator : MonoBehaviour
             if (PlayerData.GetDevMode())
             {
                 //print(i);
-                yield return new WaitForSeconds(1);
+                yield return new WaitForSeconds(1.75f);
             }
             else { yield return new WaitForSeconds(waitTime); }
         }
