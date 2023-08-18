@@ -370,38 +370,6 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1386576701588106502}
         m_TargetAssemblyTypeName: SelectHandler, Assembly-CSharp
-        m_MethodName: OnUpDown
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: be1a4009-608f-4afb-a059-3c91709c951b
-    m_ActionName: EGXInput/Up[/XInputControllerWindows/leftStick/up,/XInputControllerWindows/rightStick/up,/XInputControllerWindows/dpad/up,/Keyboard/w]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1386576701588106502}
-        m_TargetAssemblyTypeName: SelectHandler, Assembly-CSharp
-        m_MethodName: OnUpDown
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 38ffd910-34c4-4c8c-b51e-180e52efbd52
-    m_ActionName: EGXInput/Down[/XInputControllerWindows/leftStick/down,/XInputControllerWindows/rightStick/down,/XInputControllerWindows/dpad/down,/Keyboard/s]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1386576701588106502}
-        m_TargetAssemblyTypeName: SelectHandler, Assembly-CSharp
         m_MethodName: OnConfirm
         m_Mode: 0
         m_Arguments:
@@ -430,6 +398,38 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 77c149b7-07c7-487e-9269-61749db47152
     m_ActionName: EGXInput/Back[/XInputControllerWindows/buttonEast,/Keyboard/a,/Keyboard/leftArrow]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1386576701588106502}
+        m_TargetAssemblyTypeName: SelectHandler, Assembly-CSharp
+        m_MethodName: OnUp
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 4af3861b-1a0c-4305-a69c-7c61191a96ae
+    m_ActionName: EGXInput/Up[/XInputControllerWindows/leftStick/up,/XInputControllerWindows/rightStick/up,/XInputControllerWindows/dpad/up,/Keyboard/w]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1386576701588106502}
+        m_TargetAssemblyTypeName: SelectHandler, Assembly-CSharp
+        m_MethodName: OnDown
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: ba138a1c-9106-4f63-b917-9292599f35e8
+    m_ActionName: EGXInput/Down[/XInputControllerWindows/leftStick/down,/XInputControllerWindows/rightStick/down,/XInputControllerWindows/dpad/down,/Keyboard/s]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: EGXInput
@@ -533,6 +533,7 @@ GameObject:
   - component: {fileID: 2691815580135883475}
   - component: {fileID: 620620757571174826}
   - component: {fileID: 893828809199408597}
+  - component: {fileID: 1020277048027385484}
   m_Layer: 5
   m_Name: Input2
   m_TagString: Untagged
@@ -603,6 +604,19 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Y
+--- !u!114 &1020277048027385484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4212418671242209076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1468b99de5ce0f049903dece6b20ce6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  display: {fileID: 893828809199408597}
 --- !u!1 &5169266331369220443
 GameObject:
   m_ObjectHideFlags: 0
@@ -764,6 +778,7 @@ GameObject:
   - component: {fileID: 4227943777628700051}
   - component: {fileID: 6152826450065382024}
   - component: {fileID: 8599224313822159535}
+  - component: {fileID: 6290543229508920624}
   m_Layer: 5
   m_Name: Input3
   m_TagString: Untagged
@@ -834,6 +849,19 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Z
+--- !u!114 &6290543229508920624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5512767279407889177}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1468b99de5ce0f049903dece6b20ce6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  display: {fileID: 8599224313822159535}
 --- !u!1 &7096515207815818135
 GameObject:
   m_ObjectHideFlags: 0
