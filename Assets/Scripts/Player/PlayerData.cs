@@ -23,6 +23,7 @@ public class PlayerData : MonoBehaviour
     public static int[] playerScores = new int[4];                      //holds players total kills
     public static float[] playerTSLKs = new float[4];                    //holds players time since last kill
     public static int[] playerPositions = new int[] { 0, 1, 2, 3 };     //holds players current podium position
+    public static string playerName;
 
 
 

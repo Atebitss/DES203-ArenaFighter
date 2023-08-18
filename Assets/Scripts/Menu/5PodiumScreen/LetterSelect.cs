@@ -55,4 +55,11 @@ public class LetterSelect : MonoBehaviour
         if (PlayerData.GetDevMode()) { display.text = "" + devChars[charIndex]; }
         else { display.text = "" + chars[charIndex]; }
     }
+
+
+    public char GetChar() 
+    {
+        if (PlayerData.GetDevMode()) { return devChars[charIndex]; }
+        else { return chars[charIndex]; }
+    }
 }

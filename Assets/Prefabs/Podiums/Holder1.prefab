@@ -370,7 +370,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1386576701588106502}
         m_TargetAssemblyTypeName: SelectHandler, Assembly-CSharp
-        m_MethodName: OnConfirm
+        m_MethodName: OnForward
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -430,6 +430,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: ba138a1c-9106-4f63-b917-9292599f35e8
     m_ActionName: EGXInput/Down[/XInputControllerWindows/leftStick/down,/XInputControllerWindows/rightStick/down,/XInputControllerWindows/dpad/down,/Keyboard/s]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1386576701588106502}
+        m_TargetAssemblyTypeName: SelectHandler, Assembly-CSharp
+        m_MethodName: OnContinue
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: de2d3e3b-79c8-42c6-a223-9cc4e3ef2849
+    m_ActionName: EGXInput/Continue[/XInputControllerWindows/start,/Keyboard/enter]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: EGXInput

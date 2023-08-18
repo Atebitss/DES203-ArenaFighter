@@ -32,9 +32,9 @@ public class SelectHandler : MonoBehaviour
     }
 
 
-    public void OnConfirm(InputAction.CallbackContext ctx)
+    public void OnForward(InputAction.CallbackContext ctx)
     {
-        Debug.Log("SelectHandler OnConfirm");
+        Debug.Log("SelectHandler OnForward");
         if (ctx.started && selectorIndex < (selectors.Length - 1)) { selectorIndex++; }
     }
 
@@ -42,5 +42,16 @@ public class SelectHandler : MonoBehaviour
     {
         Debug.Log("SelectHandler OnBack");
         if (ctx.started && selectorIndex > 0) { selectorIndex--; }
+    }
+
+
+    public void OnContinue(InputAction.CallbackContext ctx)
+    {
+        Debug.Log("SelectHandler OnContinue");
+        if (ctx.started) 
+        {
+            string selectorChars = "" + selectors[0].GetChar() + selectors[1].GetChar() + selectors[2].GetChar();
+            PlayerData.playerName = selectorChars;
+        }
     }
 }

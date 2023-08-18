@@ -57,7 +57,7 @@ public class EGXScoreboardScript : MonoBehaviour, EGXPersistenceInterface
         playerScore = PlayerData.playerScores[0];
         playerTSLK = PlayerData.playerTSLKs[0];
         playerSpriteID = PlayerData.playerPositions[0];
-        playerName = "AAA";
+        playerName = PlayerData.playerName;
 
         //Debug.Log("score: " + playerScore + ", spriteID: " + playerSpriteID + ", tslk: " + playerTSLK);
         //increase stored positions by 1 and fill array
