@@ -13,7 +13,6 @@ public class PlayerData : MonoBehaviour
     //player in-game
     public static GameObject[] players = new GameObject[4];             //reference player game objects
     public static PlayerController[] playerScripts = new PlayerController[4]; //reference player control scripts
-    public static int[] playerSpriteIDs = new int[4];
 
     //player constants
     public static PlayerInput[] playerInputs = new PlayerInput[4];      //reference player input components
@@ -41,6 +40,11 @@ public class PlayerData : MonoBehaviour
     public static void SetDevRoundTime(float update) { devRoundTime = update; }
 
 
+
+    public static void GetTopPlayer()
+    {
+        Debug.Log("PlayerData.TopPlayer = score:" + playerScores[0] + ", TSLK: " + playerTSLKs[0] + ", spriteID: " + playerPositions[0]);
+    }
 
     public static void SetPlayers(GameObject player, int playerNum, PlayerController playerScript)
     {
@@ -70,7 +74,7 @@ public class PlayerData : MonoBehaviour
 
         for(int position = 0; position < numOfPlayers; position++)
         {
-            //Debug.Log("Updating position " + position + ": " + playerScripts[playerPositions[position]].gameObject.name + ", score: " + playerScripts[playerPositions[position]].GetScore() + ", tslk: " + playerScripts[playerPositions[position]].GetTimeSinceLastKill());
+            if (GetDevMode()) { Debug.Log("UpdatingScores - position " + position + ": " + playerScripts[playerPositions[position]].gameObject.name + ", score: " + playerScripts[playerPositions[position]].GetScore() + ", tslk: " + playerScripts[playerPositions[position]].GetTimeSinceLastKill()); }
             playerScores[position] = playerScripts[playerPositions[position]].GetScore();
             playerTSLKs[position] = playerScripts[playerPositions[position]].GetTimeSinceLastKill();
         }
@@ -168,15 +172,8 @@ public class PlayerData : MonoBehaviour
                 //else if(!swapped) { Debug.Log("NO UPDATE"); }
             }
             //Debug.Log("_____");
-            //for (int i = 0; i < numOfPlayers; i++) { Debug.Log("AFTER position" + i + ": player " + playerPositions[i] + " - score " + playerScores[i] + ", tslk " + playerTSLKs[i]); }
+            if (GetDevMode()) { for (int i = 0; i < numOfPlayers; i++) { Debug.Log("AFTER position" + i + ": player " + playerPositions[i] + " - score " + playerScores[i] + ", tslk " + playerTSLKs[i]); } }
             if (!swapped) { break; }
-        }
-
-
-        //Debug.Log("~~~~~~~");
-        for (int position = 0; position < numOfPlayers; position++)
-        {
-            //Debug.Log("position " + position + ": " + playerScripts[playerPositions[position]].gameObject.name + ", score: " + playerScripts[playerPositions[position]].GetScore() + ", tslk: " + playerScripts[playerPositions[position]].GetTimeSinceLastKill());
         }
     }
 }

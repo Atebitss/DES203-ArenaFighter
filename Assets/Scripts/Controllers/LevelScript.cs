@@ -226,7 +226,7 @@ public class LevelScript : MonoBehaviour
         if (devMode)
         {
             //Debug.Log("Dev mode for " + newPlayer.name);
-       //     DUIM.EnablePlayer(curPlayerPos, players[curPlayerPos]);
+            DUIM.EnablePlayer(curPlayerPos, players[curPlayerPos]);
         }
     }
 
@@ -447,25 +447,22 @@ public class LevelScript : MonoBehaviour
     //~~~~~~~ TIME UP ~~~~~~~\\
     public void TimeUp()
     {
-        for (int p = 0; p < PlayerData.GetNumOfPlayers(); p++) { PlayerData.playerTSLKs[p] = playerScripts[p].GetTimeSinceLastKill(); }
-        StartCoroutine(OutroDelay());
+        for (int p = 0; p < PlayerData.GetNumOfPlayers(); p++) { PlayerData.playerTSLKs[p] = playerScripts[PlayerData.playerPositions[p]].GetTimeSinceLastKill(); }
         PlayerData.SortPlayers();
+        StartCoroutine(OutroDelay());
     }
     private IEnumerator OutroDelay()
     {
-        
         if (!hasBeenShook)
         {
             ShakeCamera(0.4f, 0.2f);
             hasBeenShook = true;
         }
        
-       
         outroIsOver = false;
         yield return new WaitForSeconds(outroTime);
         outroIsOver = true;
         SceneManager.LoadScene(5);
-       
     }
    
 

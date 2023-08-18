@@ -75,12 +75,12 @@ public class EGXPersistenceManager : MonoBehaviour
         {
             for (int i = 0; i < data.playerScores.Length; i++)
             {
-                Debug.Log("Loaded pos" + i + " - Score: " + data.playerScores[i] + ", TSLK: " + data.playerTSLKs[i] + ", spriteID: " + data.playerSpriteIDs[i]);
+                Debug.Log("Loaded pos" + i + " - Score: " + data.playerScores[i] + ", TSLK: " + data.playerTSLKs[i] + ", SpriteID: " + data.playerSpriteIDs[i] + ", Name: " + data.playerNames[i]);
             }
 
             for (int i = 0; i < data.storedPositions; i++)
             {
-                Debug.Log("Loaded pos" + i + " - Score: " + data.storedScores[i] + ", TSLK: " + data.storedTSLKs[i]);
+                Debug.Log("Loaded pos" + i + " - Score: " + data.storedScores[i] + ", TSLK: " + data.storedTSLKs[i] + ", SpriteID: " + data.storedSpriteIDs[i] + ", Name: " + data.storedNames[i]);
             }
         }
     }
@@ -98,12 +98,12 @@ public class EGXPersistenceManager : MonoBehaviour
         {
             for (int i = 0; i < data.playerScores.Length; i++)
             {
-                Debug.Log("Saved pos" + i + " - Score: " + data.playerScores[i] + ", TSLK: " + data.playerTSLKs[i] + ", spriteID: " + data.playerSpriteIDs[i]);
+                Debug.Log("Saved pos" + i + " - Score: " + data.playerScores[i] + ", TSLK: " + data.playerTSLKs[i] + ", SpriteID: " + data.playerSpriteIDs[i] + ", Name: " + data.playerNames[i]);
             }
 
             for (int i = 0; i < data.storedPositions; i++)
             {
-                Debug.Log("Saved pos" + i + " - Score: " + data.storedScores[i] + ", TSLK: " + data.storedTSLKs[i]);
+                Debug.Log("Saved pos" + i + " - Score: " + data.storedScores[i] + ", TSLK: " + data.storedTSLKs[i] + ", SpriteID: " + data.storedSpriteIDs[i] + ", Name: " + data.storedNames[i]);
             }
         }
 

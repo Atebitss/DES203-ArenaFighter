@@ -28,7 +28,7 @@ public class UIController : MonoBehaviour
 
     void FixedUpdate()
     {
-        countdownActive = levelScript.GetComponent<LevelScript>().introIsOver; //activates countdown when intro countdown is over
+        if (!countdownActive && countdownTime > 0) { countdownActive = levelScript.introIsOver; } //activates countdown when intro countdown is over
 
         if (countdownActive == true)
         {
@@ -42,7 +42,8 @@ public class UIController : MonoBehaviour
             else
             {
                 countdownTime = 0;
-                levelScript.GetComponent<LevelScript>().TimeUp();
+                countdownActive = false;
+                levelScript.TimeUp();
 
                 finalCountdown.gameObject.SetActive(false);
                 roundOver.gameObject.SetActive(true);

@@ -13,6 +13,7 @@ public class DebugUIScript : MonoBehaviour
     void Start()
     {
         debugText.text = "---THIS IS EMPTY DEBUG TEXT---";
+        debugText.color = new Color32(255, 255, 255, 255);
     }
 
 
@@ -35,7 +36,7 @@ public class DebugUIScript : MonoBehaviour
                 //+ "\n\nisDeflecting: " + playerScript.IsDeflecting()
                 //+ "\n\ninvincibilityTimer: " + playerScript.GetInvincibilityTimer()
                 + "\n\nkills: " + playerScript.GetScore()
-                + "\ntimeSinceLastKill: " + playerScript.GetTimeSinceLastKill();
+                + "\ntimeSinceLastKill: " + playerScript.GetTimeSinceLastKill().ToString("F2");
         }
     }
 
