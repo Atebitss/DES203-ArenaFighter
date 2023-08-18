@@ -60,6 +60,8 @@ public class LoadScreenManager : MonoBehaviour
         {
             AM.Play("SelectBeep");
             AM.StopPlaying("StartMenuMusic");
+            AM.StopPlaying("SoundTrees");
+            AM.StopPlaying("SoundZaps");
             pressedStart = true;
         }
     }
@@ -69,6 +71,8 @@ public class LoadScreenManager : MonoBehaviour
         {
             AM.Play("SelectBeep");
             AM.StopPlaying("StartMenuMusic");
+            AM.StopPlaying("SoundTrees");
+            AM.StopPlaying("SoundZaps");
             pressedStart = true;
             StartCoroutine(LoadLevel());
         }

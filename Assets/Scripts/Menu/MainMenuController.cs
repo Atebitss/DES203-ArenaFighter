@@ -36,6 +36,8 @@ public class MainMenuController : MonoBehaviour
     private void Start()
     {
         FindObjectOfType<AudioManager>().Play("StartMenuMusic");
+        FindObjectOfType<AudioManager>().Play("SoundTrees");
+        FindObjectOfType<AudioManager>().Play("SoundZaps");
         FindObjectOfType<AudioManager>().StopPlaying("MusicFight");
 
         PlayerData.ResetStats();
@@ -60,6 +62,8 @@ public class MainMenuController : MonoBehaviour
 
         FindObjectOfType<AudioManager>().Play("SelectBeep");
         FindObjectOfType<AudioManager>().StopPlaying("StartMenuMusic");
+        FindObjectOfType<AudioManager>().StopPlaying("SoundTrees");
+        FindObjectOfType<AudioManager>().StopPlaying("SoundZaps");
 
         Application.Quit();
 
@@ -71,6 +75,8 @@ public class MainMenuController : MonoBehaviour
         //Debug.Log("Options menu called");
         FindObjectOfType<AudioManager>().Play("SelectBeep");
         FindObjectOfType<AudioManager>().StopPlaying("StartMenuMusic");
+        FindObjectOfType<AudioManager>().StopPlaying("SoundTrees");
+        FindObjectOfType<AudioManager>().StopPlaying("SoundZaps");
 
         //SceneManager.LoadScene(x);
     }
