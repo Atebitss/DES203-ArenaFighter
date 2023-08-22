@@ -35,6 +35,7 @@ public class LoadScreenManager : MonoBehaviour
     }
     public void Start()
     {
+
         StartCoroutine(LoadLevelASync(4));
         boxAnimator.GetComponent<BoxAnimator>().AnimateBoxes();
     }
@@ -66,6 +67,8 @@ public class LoadScreenManager : MonoBehaviour
         {
             AM.Play("SelectBeep");
             AM.StopPlaying("StartMenuMusic");
+            AM.StopPlaying("SoundTrees");
+            AM.StopPlaying("SoundZaps");
             pressedStart = true;
         }
     }
@@ -82,6 +85,8 @@ public class LoadScreenManager : MonoBehaviour
         {
             AM.Play("SelectBeep");
             AM.StopPlaying("StartMenuMusic");
+            AM.StopPlaying("SoundTrees");
+            AM.StopPlaying("SoundZaps");
             pressedStart = true;
             StartCoroutine(LoadLevel());
         }

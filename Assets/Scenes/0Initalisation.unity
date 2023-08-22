@@ -318,7 +318,7 @@ MonoBehaviour:
     loop: 0
     source: {fileID: 0}
   - name: StartMenuMusic
-    clip: {fileID: 8300000, guid: d15a5ff06af63b3468899d6442958038, type: 3}
+    clip: {fileID: 8300000, guid: c1de2d972a9fd3a489f0508acd2f4044, type: 3}
     volume: 0.75
     pitch: 1
     loop: 1
@@ -352,6 +352,30 @@ MonoBehaviour:
     volume: 0.25
     pitch: 1
     loop: 0
+    source: {fileID: 0}
+  - name: SoundTrees
+    clip: {fileID: 8300000, guid: ff6ebe8e8ecd6724db72212f38b53542, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: SoundRain
+    clip: {fileID: 8300000, guid: 652bb2ed2d4bd79438bb4546d6087fbc, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: SoundZaps
+    clip: {fileID: 8300000, guid: 31b49e06f47cebf4b94e1b7aff7bee75, type: 3}
+    volume: 0.372
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: TitleScreenMusic
+    clip: {fileID: 8300000, guid: 4074e1393caca0b438204e938e189d95, type: 3}
+    volume: 0.75
+    pitch: 1
+    loop: 1
     source: {fileID: 0}
 --- !u!4 &516737285
 Transform:
