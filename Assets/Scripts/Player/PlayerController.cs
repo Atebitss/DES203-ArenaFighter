@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     [Header("References")]
     [SerializeField] private Rigidbody2D playerRigid;
     [SerializeField] private BoxCollider2D boxCollider;
+    [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Animator animator;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask wallLayer;
@@ -42,6 +43,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float playerGravity = 5.5f;
     [SerializeField] private float fallGravityMult = 1.4f;
     [SerializeField] private float midAirMoveMultiplier = 0.5f;
+    [SerializeField] private float maxFallSpeed;
 
     private bool isJumping;
     private bool topTrigger;
@@ -239,6 +241,11 @@ public class PlayerController : MonoBehaviour
         else
         {
             jumpBufferCounter -= Time.deltaTime;
+        }
+        // max fall speed
+        if (playerVelocity.y > maxFallSpeed)
+        {
+            playerVelocity.y = maxFallSpeed;
         }
 
         //~~~PROMPT UI AND VFX ~~~\\ 
@@ -557,6 +564,7 @@ public class PlayerController : MonoBehaviour
                 playerRigid.velocity = new Vector2(transform.localScale.x * dashSpeed, 0);
                 StartCoroutine(IgnorePlayerCollisions(dashDuration));
                 FindObjectOfType<AudioManager>().Play("Dash");
+                vfxController.GetComponent<VFXController>().PlayPlayerVFX(playerNum, "Dash");
                 animator.SetTrigger("Dashing");
             }
             Invoke(nameof(StopDashing), dashDuration);
@@ -676,6 +684,8 @@ public class PlayerController : MonoBehaviour
                         if (this.gameObject.transform.localScale.x == collisions[colIndex].gameObject.transform.parent.localScale.x)
                         {
                             ls.Kill(collisions[colIndex].gameObject.transform.parent.gameObject, this.gameObject);
+                            vfxController.GetComponent<HapticController>().PlayHaptics("Kill", controller);
+           
                         }
                         break;
                     default:
@@ -773,10 +783,10 @@ public class PlayerController : MonoBehaviour
     {
         isDying = true;
 
-        Invoke(nameof(KillDelay), 0.4f); //set to time of deathAnimation
-
-        PlayDeathAudio();
         animator.SetTrigger("Dying");
+        spriteRenderer.sortingOrder = 4;
+        PlayDeathAudio();
+        Invoke(nameof(KillDelay), 0.6f); //set to time of deathAnimation
 
         StartCoroutine(IgnorePlayerCollisions(0.4f)); //stops players colliding with eachother after one has died for a duration
 
@@ -800,10 +810,11 @@ public class PlayerController : MonoBehaviour
     {
         frozen = false;
         hasIcePower = false;
+
         transform.localScale = startingScale;
         DeleteAllVFX();
         vfxController.GetComponent<VFXController>().PlayVFX(transform, "Respawn");
-       
+        spriteRenderer.sortingOrder = 3;
         invincible = true;
         Invoke(nameof(InvincibilityTimer), invincibilityTime);
     }
@@ -1151,6 +1162,9 @@ public class PlayerController : MonoBehaviour
     //~~~ DEATH ~~~\\ 
     public void PlayDeathAudio()
     {
+        // TODO 1.Change audio dpeending on what player has died
+        //      2.random change of pitch
+
         int SoundNo = Random.Range(1, 4);
 
         FindObjectOfType<AudioManager>().Play("DeathSound");

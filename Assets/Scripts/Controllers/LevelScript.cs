@@ -251,24 +251,29 @@ public class LevelScript : MonoBehaviour
         //playerRend.color = Color.red;
 
         //gives the appropriate colour based on player number
-        Light2D playerAuraLight = players[curPlayerPos].GetComponent<Light2D>();
+        Light2D playerAuraLight = players[curPlayerPos].transform.Find("Light").GetComponent<Light2D>();
+        ParticleSystem.MainModule playerAuraParticles = playerAuraLight.GetComponent <ParticleSystem>().main;
         SpriteLibrary spriteLibary = players[curPlayerPos].GetComponent<SpriteLibrary>();
         switch (curPlayerPos)
         {
             case 0:
                 playerAuraLight.color = new Color(1f, 0f, 0f, 1f); //red
+                playerAuraParticles.startColor = new Color(1f, 0f, 0f, 1f); //red
                 spriteLibary.spriteLibraryAsset =  player1Sprites;
                 break;
             case 1:
                 playerAuraLight.color = new Color(0f, 1f, 0f, 1f); //green
+                playerAuraParticles.startColor = new Color(0f, 1f, 0f, 1f);
                 spriteLibary.spriteLibraryAsset = player2Sprites;
                 break;
             case 2:
                 playerAuraLight.color = new Color(1f, 0f, 1f, 1f); //pink
+                playerAuraParticles.startColor = new Color(1f, 0f, 1f, 1f);
                 spriteLibary.spriteLibraryAsset = player3Sprites;
                 break;
             case 3:
                 playerAuraLight.color = new Color(0.5f, 1f, 0.75f, 1f); //teal
+                playerAuraParticles.startColor = new Color(0.5f, 1f, 0.75f, 1f);
                 spriteLibary.spriteLibraryAsset = player4Sprites;
                 break;
             default:

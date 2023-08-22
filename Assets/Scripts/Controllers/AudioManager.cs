@@ -52,6 +52,20 @@ public Sound[] sounds;
              s.source.Play();
    }
 
+    public void PlayWithPitch(string name, float pitch )
+    {
+        Sound s = Array.Find(sounds, sound => sound.name == name);
+
+        if (s == null)
+        {
+            Debug.LogWarning("Sound: " + name + " not found");
+            return;
+        }
+        s.pitch = Mathf.Clamp(pitch, 0.1f, 3f);
+        s.source.Play();
+        
+    }
+
 
     public void PlayOnce (string name)
   {
