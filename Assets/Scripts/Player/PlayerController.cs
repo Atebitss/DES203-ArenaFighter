@@ -242,7 +242,7 @@ public class PlayerController : MonoBehaviour
         {
             jumpBufferCounter -= Time.deltaTime;
         }
-
+        // max fall speed
         if (playerVelocity.y > maxFallSpeed)
         {
             playerVelocity.y = maxFallSpeed;
@@ -1162,6 +1162,9 @@ public class PlayerController : MonoBehaviour
     //~~~ DEATH ~~~\\ 
     public void PlayDeathAudio()
     {
+        // TODO 1.Change audio dpeending on what player has died
+        //      2.random change of pitch
+
         int SoundNo = Random.Range(1, 4);
 
         FindObjectOfType<AudioManager>().Play("DeathSound");
