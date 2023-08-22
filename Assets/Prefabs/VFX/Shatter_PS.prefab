@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 2748726493246020185}
   - component: {fileID: 7396072312998422427}
   - component: {fileID: 2951765540071416011}
+  - component: {fileID: 3539491316430508329}
   m_Layer: 0
   m_Name: Shatter_PS
-  m_TagString: Untagged
+  m_TagString: VFX
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4815,3 +4816,16 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!114 &3539491316430508329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6450043829019065129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1a53212dcbe76e44ab44ed5e0cb1dc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  duration: 5

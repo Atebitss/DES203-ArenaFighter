@@ -21,6 +21,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject playerTop;
     [SerializeField] private GameObject promptUI;
     [SerializeField] private GameObject crown;
+    [SerializeField] private Transform deflectRef;
+    [SerializeField] private Transform landandSprintRef;
+
 
 
 
@@ -30,6 +33,9 @@ public class PlayerController : MonoBehaviour
     private Vector2 playerVelocity;
     private bool onGround, devMode;
     private float jumpForce = 15f, moveForce = 5f, previousXMovement;
+    private bool isRunning;
+    private bool wasInAir;
+
 
 
     //~~~ JUMPING ~~~\\
@@ -44,6 +50,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float fallGravityMult = 1.4f;
     [SerializeField] private float midAirMoveMultiplier = 0.5f;
     [SerializeField] private float maxFallSpeed;
+    private bool isFalling;
+    private bool isLanding;
 
     private bool isJumping;
     private bool topTrigger;
@@ -242,12 +250,7 @@ public class PlayerController : MonoBehaviour
         {
             jumpBufferCounter -= Time.deltaTime;
         }
-        // max fall speed
-        if (playerVelocity.y > maxFallSpeed)
-        {
-            playerVelocity.y = maxFallSpeed;
-        }
-
+   
         //~~~PROMPT UI AND VFX ~~~\\ 
 
         if (frozen) //Activate the Prompt UI above the player
@@ -275,7 +278,19 @@ public class PlayerController : MonoBehaviour
 
         }
 
-        //~~~ ANIMATIONS ~~~\\ 
+        //~~~ STATES ~~~\\ 
+
+        if(move.x != 0 && IsGrounded())
+        {
+            animator.SetBool("isRunning", true);
+            StartRunTrigger();
+        }
+        else
+        {
+            animator.SetBool("isRunning", false);
+            isRunning = false;
+        }
+
         if (!IsGrounded() && playerVelocity.y > 0 && !OnStickyWall())
         {
             animator.SetBool("IsJumping", true);
@@ -284,27 +299,40 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetBool("IsJumping", false);
         }
+
         if (!IsGrounded() && playerVelocity.y < 0 && !OnStickyWall())
         {
             animator.SetBool("isFalling", true);
+            isFalling = true;
         }
         else
         {
             animator.SetBool("isFalling", false);
+            isFalling = false;
         }
-       
-        animator.SetBool("isRunning", move.x != 0 && IsGrounded());
 
+        if (!IsGrounded())
+        {
+            wasInAir = true;
+        }
+     
+        if (wasInAir && IsGrounded())
+        {
+            LandingTrigger();
+            wasInAir = false;
+        }
+        else
+        {
+            isLanding = false;
+        }
+
+        
         animator.SetBool("isWallSliding", OnStickyWall() && !IsGrounded() && !frozen);
         
-        //increase time since last kill
         timeSinceLastKill += Time.deltaTime;
-
-        //lower dash cooldown
         dashCooldown += Time.deltaTime;
-
-        
     }
+
 
 
 
@@ -347,6 +375,24 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void StartRunTrigger() //to trigger sprint effect only once
+    {
+        if (!isRunning)
+        {
+            isRunning = true;
+            if (facingRight) { vfxController.GetComponent<VFXController>().PlayVFXwithDirection(transform, "Sprint", 1); }
+            else { vfxController.GetComponent<VFXController>().PlayVFXwithDirection(transform, "Sprint", -1); }
+        }
+    }
+    public void LandingTrigger() //to trigger sprint effect only once
+    {
+        if (!isLanding)
+        {
+            isLanding = true;
+            if (facingRight) { vfxController.GetComponent<VFXController>().PlayVFXwithDirection(transform, "Sprint", 1); }
+            else { vfxController.GetComponent<VFXController>().PlayVFXwithDirection(transform, "Sprint", -1); }
+        }
+    }
 
     //~~~ JUMP ~~~\\ 
     public void OnJump(InputAction.CallbackContext ctx) //when A is pressed
@@ -563,8 +609,14 @@ public class PlayerController : MonoBehaviour
                 dashCooldown = 0;
                 playerRigid.velocity = new Vector2(transform.localScale.x * dashSpeed, 0);
                 StartCoroutine(IgnorePlayerCollisions(dashDuration));
+
                 FindObjectOfType<AudioManager>().Play("Dash");
                 vfxController.GetComponent<VFXController>().PlayPlayerVFX(playerNum, "Dash");
+                //change direction of effect whether facing right or left
+                if (facingRight) { vfxController.GetComponent<VFXController>().PlayVFXwithDirection(transform, "DashEffect", 1);}
+                else { vfxController.GetComponent<VFXController>().PlayVFXwithDirection(transform, "DashEffect", -1); }
+               
+
                 animator.SetTrigger("Dashing");
             }
             Invoke(nameof(StopDashing), dashDuration);
@@ -676,7 +728,9 @@ public class PlayerController : MonoBehaviour
                         {
                             //deflect if this player isnt being deflected and both players are facing opposite directions  ,0>  <0,
                             Deflect();
-                            collisions[colIndex].gameObject.transform.parent.gameObject.GetComponent<PlayerController>().Deflect();
+                            vfxController.GetComponent<VFXController>().PlayVFX(deflectRef, "Deflect");
+                        
+                        collisions[colIndex].gameObject.transform.parent.gameObject.GetComponent<PlayerController>().Deflect();
                         }
                         break;
                     case "PlayerBack":
