@@ -35,9 +35,8 @@ public class MainMenuController : MonoBehaviour
 
     private void Start()
     {
-        FindObjectOfType<AudioManager>().Play("StartMenuMusic");
+        FindObjectOfType<AudioManager>().Play("TitleScreenMusic");
         FindObjectOfType<AudioManager>().Play("SoundTrees");
-        FindObjectOfType<AudioManager>().Play("SoundZaps");
         FindObjectOfType<AudioManager>().StopPlaying("MusicFight");
 
         PlayerData.ResetStats();

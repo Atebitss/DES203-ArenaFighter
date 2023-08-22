@@ -274,7 +274,7 @@ MonoBehaviour:
     loop: 0
     source: {fileID: 0}
   - name: StartMenuMusic
-    clip: {fileID: 8300000, guid: 8f3f40cdc7211584386cad08ccfd61af, type: 3}
+    clip: {fileID: 8300000, guid: c1de2d972a9fd3a489f0508acd2f4044, type: 3}
     volume: 0.75
     pitch: 1
     loop: 1
@@ -324,6 +324,12 @@ MonoBehaviour:
   - name: SoundZaps
     clip: {fileID: 8300000, guid: 31b49e06f47cebf4b94e1b7aff7bee75, type: 3}
     volume: 0.372
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: TitleScreenMusic
+    clip: {fileID: 8300000, guid: 4074e1393caca0b438204e938e189d95, type: 3}
+    volume: 0.75
     pitch: 1
     loop: 1
     source: {fileID: 0}

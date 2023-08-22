@@ -30,6 +30,12 @@ public class LoadScreenManager : MonoBehaviour
     }
     public void Start()
     {
+
+    FindObjectOfType<AudioManager>().Play("StartMenuMusic");
+        FindObjectOfType<AudioManager>().Play("SoundTrees");
+        FindObjectOfType<AudioManager>().Play("SoundZaps");
+        FindObjectOfType<AudioManager>().StopPlaying("TitleScreenMusic");
+
         StartCoroutine(LoadLevelASync(4));
         boxAnimator.GetComponent<BoxAnimator>().AnimateBoxes();
     }
