@@ -128,7 +128,7 @@ public class LevelScript : MonoBehaviour
         introIsOver = false;
         yield return new WaitForSeconds(introTime);
         introIsOver = true;
-        AM.Play("MusicFight");
+        AM.Play("MusicFight"); //TODO : CHANGE THIS BACK TO BEGIN AT START OF LEVEL ONCE COUNTDOWN IS ADDED TO SONG
         //Debug.Log("introIsOver: " + introIsOver);
     }
     private IEnumerator InitialCollectableSpawnDelay()
@@ -137,10 +137,7 @@ public class LevelScript : MonoBehaviour
         yield return new WaitForSeconds(initialCollectableSpawnDelay);
         collectableCanSpawn = true;
     }
-    public void ShakeCamera(float duration, float magnitude)
-    {
-        StartCoroutine(CameraShake.Shake(duration, magnitude));
-    }
+    
 
 
 
@@ -432,6 +429,11 @@ public class LevelScript : MonoBehaviour
         playerPC.Respawn();
         anim.SetTrigger("Respawning");
         playerPC.SetIsDying(false);
+    }
+
+    public void ShakeCamera(float duration, float magnitude)
+    {
+        StartCoroutine(CameraShake.Shake(duration, magnitude));
     }
 
 

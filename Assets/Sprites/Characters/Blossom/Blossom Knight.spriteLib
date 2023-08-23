@@ -212,4 +212,25 @@ MonoBehaviour:
       m_SpriteOverride: {fileID: -88912440204360748, guid: 1095b9b814f10ef429c59a648e68544d, type: 3}
     m_FromMain: 1
     m_EntryOverrideCount: 4
+  - m_Name: Land
+    m_Hash: 137525990
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: fire knight land_0
+      m_Hash: 481990323
+      m_Sprite: {fileID: -1847616361409557125, guid: d5d271e3455f4404080d33191aabba60, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 4655249116273682835, guid: 36d66646465bd4b439eea74c1ae9a923, type: 3}
+    - m_Name: fire knight land_1
+      m_Hash: 1807590949
+      m_Sprite: {fileID: 6174961265738549496, guid: d5d271e3455f4404080d33191aabba60, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: -993880310127089022, guid: 36d66646465bd4b439eea74c1ae9a923, type: 3}
+    - m_Name: fire knight land_2
+      m_Hash: -223021153
+      m_Sprite: {fileID: 2125511229100242539, guid: d5d271e3455f4404080d33191aabba60, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: -4197641457621192786, guid: 36d66646465bd4b439eea74c1ae9a923, type: 3}
+    m_FromMain: 1
+    m_EntryOverrideCount: 3
   m_PrimaryLibraryGUID: bb8343e299b6afb4390b9dfafd041b8d

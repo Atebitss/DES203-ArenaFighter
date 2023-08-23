@@ -15,14 +15,17 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask wallLayer;
     private Gamepad controller;
     private int playerNum;
-
     private LevelScript ls;
     private GameObject vfxController;
     [SerializeField] private GameObject playerTop;
+    [SerializeField] private Transform playerLight;
     [SerializeField] private GameObject promptUI;
     [SerializeField] private GameObject crown;
     [SerializeField] private Transform deflectRef;
-    [SerializeField] private Transform landandSprintRef;
+
+    [Header("Materials")]
+    [SerializeField] private Material whiteMaterial;
+    [SerializeField] private Material defaultMaterial;
 
 
 
@@ -121,7 +124,7 @@ public class PlayerController : MonoBehaviour
 
     //~~~ FLIP ~~~\\
     private bool facingRight;
-    private Vector2 startingScale = new Vector3(4, 4, 1);
+    private Vector3 startingScale = new Vector3(4, 4, 1);
 
 
     //~~~ COMBAT ~~~\\
@@ -173,8 +176,18 @@ public class PlayerController : MonoBehaviour
     }
     private void Start()
     {
-        transform.localScale = startingScale;
-    }
+        //all players shpuld now face center on start
+        if (transform.position.x > 0)
+        {
+            transform.localScale = new Vector3(-startingScale.x, startingScale.y, startingScale.z);
+        }
+        else
+        {
+            transform.localScale = startingScale;
+        }
+
+    }  
+      
 
     void FixedUpdate()
     {
@@ -332,7 +345,24 @@ public class PlayerController : MonoBehaviour
         timeSinceLastKill += Time.deltaTime;
         dashCooldown += Time.deltaTime;
     }
-
+    public void StartRunTrigger() //to trigger sprint effect only once
+    {
+        if (!isRunning)
+        {
+            isRunning = true;
+            PlayTriggeredEffect("Sprint");
+        }
+    }
+    public void LandingTrigger() //to trigger landing effect only once
+    {
+        if (!isLanding)
+        {
+            isLanding = true;
+            animator.SetTrigger("Landing");
+            PlayTriggeredEffect("Land");
+        }
+    }
+    
 
 
 
@@ -375,31 +405,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void StartRunTrigger() //to trigger sprint effect only once
-    {
-        if (!isRunning)
-        {
-            isRunning = true;
-            if (facingRight) { vfxController.GetComponent<VFXController>().PlayVFXwithDirection(transform, "Sprint", 1); }
-            else { vfxController.GetComponent<VFXController>().PlayVFXwithDirection(transform, "Sprint", -1); }
-        }
-    }
-    public void LandingTrigger() //to trigger sprint effect only once
-    {
-        if (!isLanding)
-        {
-            isLanding = true;
-            if (facingRight) { vfxController.GetComponent<VFXController>().PlayVFXwithDirection(transform, "Sprint", 1); }
-            else { vfxController.GetComponent<VFXController>().PlayVFXwithDirection(transform, "Sprint", -1); }
-        }
-    }
+   
 
     //~~~ JUMP ~~~\\ 
     public void OnJump(InputAction.CallbackContext ctx) //when A is pressed
     {
         isJumping = true;
 
-
+       
 
         if (frozen) //code for when frozen, have to jump [breakAmount] of times to escape
         {
@@ -558,13 +571,22 @@ public class PlayerController : MonoBehaviour
 
                 playerRigid.velocity = new Vector2(playerRigid.velocity.x, Mathf.Clamp(playerRigid.velocity.y, wallSlideSpeed, float.MaxValue));
 
+                //flip player light around when sliding down a wall
+                playerLight.localRotation = Quaternion.Euler(0, 0, 270);
+                playerLight.localPosition = new Vector2(-0.2f, -0.05f);
 
+            }
+            else
+            {
+                playerLight.localRotation = Quaternion.Euler(0, 0, 90);
+                playerLight.localPosition = new Vector2(0.2f, -0.05f);
             }
 
         }
         else
             wallJumpCooldown += Time.deltaTime;
     }
+  
 
     //~~~ BOUNCE ~~~\\
     private void BounceMovement()
@@ -613,8 +635,7 @@ public class PlayerController : MonoBehaviour
                 FindObjectOfType<AudioManager>().Play("Dash");
                 vfxController.GetComponent<VFXController>().PlayPlayerVFX(playerNum, "Dash");
                 //change direction of effect whether facing right or left
-                if (facingRight) { vfxController.GetComponent<VFXController>().PlayVFXwithDirection(transform, "DashEffect", 1);}
-                else { vfxController.GetComponent<VFXController>().PlayVFXwithDirection(transform, "DashEffect", -1); }
+                PlayTriggeredEffect("DashEffect");
                
 
                 animator.SetTrigger("Dashing");
@@ -715,6 +736,7 @@ public class PlayerController : MonoBehaviour
                 }*/
 
                 string colTag = collisions[colIndex].gameObject.tag;
+                PlayerController otherPlayer = collisions[colIndex].gameObject.transform.parent.gameObject.GetComponent<PlayerController>();
                 switch (colTag)
                 {
                     case "PlayerFront":
@@ -722,23 +744,31 @@ public class PlayerController : MonoBehaviour
                         if (hasIcePower == true)
                         {
                             //if player attacking has ice power, freeze target
-                            IceAttack(collisions[colIndex].gameObject.transform.parent.gameObject);
+                            IceAttack(otherPlayer);
                         }
                         else if (!isDeflecting && this.gameObject.transform.localScale.x == -collisions[colIndex].gameObject.transform.parent.localScale.x)
                         {
                             //deflect if this player isnt being deflected and both players are facing opposite directions  ,0>  <0,
                             Deflect();
                             vfxController.GetComponent<VFXController>().PlayVFX(deflectRef, "Deflect");
-                        
-                        collisions[colIndex].gameObject.transform.parent.gameObject.GetComponent<PlayerController>().Deflect();
+
+                            otherPlayer.Deflect();
                         }
                         break;
                     case "PlayerBack":
                         //kill other player if both facing the same direction ,0> ,0>
                         if (this.gameObject.transform.localScale.x == collisions[colIndex].gameObject.transform.parent.localScale.x)
                         {
-                            ls.Kill(collisions[colIndex].gameObject.transform.parent.gameObject, this.gameObject);
-                            vfxController.GetComponent<HapticController>().PlayHaptics("Kill", controller);
+                            if (otherPlayer.OnStickyWall())
+                            {
+                                Deflect();
+                            }
+                            else
+                            {
+                                ls.Kill(collisions[colIndex].gameObject.transform.parent.gameObject, this.gameObject);
+                                vfxController.GetComponent<HapticController>().PlayHaptics("Kill", controller);
+                            }
+                            
            
                         }
                         break;
@@ -786,14 +816,14 @@ public class PlayerController : MonoBehaviour
 
 
     //~~ ICE ATTACK ~~\\
-    public void IceAttack(GameObject player) //fires when this player is hit with an Ice Attack
+    public void IceAttack(PlayerController otherPlayer) //when player attacks otherPlayer with an ice attack
     {
         if (hasIcePower == true)
         {
             Debug.Log("Player Has Attacked with Ice");
             hasIcePower = false;
             DeleteAllVFX();
-            player.GetComponent<PlayerController>().Freeze();
+            otherPlayer.Freeze();
             FindObjectOfType<AudioManager>().Play("Freeze");
             
         }
@@ -844,8 +874,8 @@ public class PlayerController : MonoBehaviour
 
         StartCoroutine(IgnorePlayerCollisions(0.4f)); //stops players colliding with eachother after one has died for a duration
 
-        if (controller != null)
-        { vfxController.GetComponent<HapticController>().PlayHaptics("Death", controller); }
+       // if (controller != null) RENABLE TO CAUSE HAPTICS ON PLAYER DEATH
+       // { vfxController.GetComponent<HapticController>().PlayHaptics("Death", controller); }
         if (frozen)
         { vfxController.GetComponent<VFXController>().PlayVFX(transform, "Ice Death"); }
         else
@@ -868,15 +898,19 @@ public class PlayerController : MonoBehaviour
         transform.localScale = startingScale;
         DeleteAllVFX();
         vfxController.GetComponent<VFXController>().PlayVFX(transform, "Respawn");
+        
         spriteRenderer.sortingOrder = 3;
         invincible = true;
+        spriteRenderer.material = whiteMaterial;
+       
         Invoke(nameof(InvincibilityTimer), invincibilityTime);
     }
     public void InvincibilityTimer()
     {
         invincible = false;
+        spriteRenderer.material = defaultMaterial;
     }
-
+  
 
     public bool GetIsDying() { return isDying; }
     public void SetIsDying(bool dying) { isDying = dying; }
@@ -1020,7 +1054,11 @@ public class PlayerController : MonoBehaviour
 
     public bool GetCrowned() { return crowned; }
 
-
+    public void PlayTriggeredEffect(string effectName)
+    {
+        if (facingRight) { vfxController.GetComponent<VFXController>().PlayVFXwithDirection(transform, effectName, 1); }
+        else { vfxController.GetComponent<VFXController>().PlayVFXwithDirection(transform, effectName, -1); }
+    }
 
 
 
@@ -1029,7 +1067,7 @@ public class PlayerController : MonoBehaviour
     public bool IsGrounded()
     {
         //casts an invisble box from the players center down to see if the player is touching the ground
-        RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, Vector2.down, 0.5f, groundLayer);
+        RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, Vector2.down, 0.2f, groundLayer);
         return raycastHit.collider != null;
     }
     public bool IsOnIce()
@@ -1088,7 +1126,7 @@ public class PlayerController : MonoBehaviour
     public bool OnStickyWall()
     {
         //casts an invisble box from the players center to whichever way the player is facing to see if we are touching a sticky wall
-        RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, new Vector2(transform.localScale.x, 0), 0.3f, wallLayer);
+        RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, new Vector2(transform.localScale.x, 0), 0.2f, wallLayer);
         return raycastHit.collider != null;
     }
 
