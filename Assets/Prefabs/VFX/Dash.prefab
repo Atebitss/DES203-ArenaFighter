@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3801535387976930411}
   - component: {fileID: 3801535387976930410}
   - component: {fileID: -8636723429370147214}
+  - component: {fileID: 1860276973405912724}
   m_Layer: 0
   m_Name: Dash
   m_TagString: VFX
@@ -4820,3 +4821,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   duration: 5
+--- !u!114 &1860276973405912724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3801535387976930421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a776fc434999b94b8beab0ab7219542, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fireKnight: {fileID: 2100000, guid: 93f7c59238eb2cc46be9f942148bd85c, type: 2}
+  hornKnight: {fileID: 2100000, guid: 5feb6f4c8ca87fc42bdd9b542e3392c8, type: 2}
+  blossomKnight: {fileID: 2100000, guid: b47a9325ea3fc5443871df380c8bb8cc, type: 2}
+  copperKnight: {fileID: 2100000, guid: ac477103f1ae6794fa69d49a1ef7d2fb, type: 2}
+  particleSys: {fileID: 3801535387976930411}

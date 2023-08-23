@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask wallLayer;
     private Gamepad controller;
-    private int playerNum;
+    [HideInInspector] public int playerNum;
     private LevelScript ls;
     private GameObject vfxController;
     [SerializeField] private GameObject playerTop;
@@ -725,7 +725,7 @@ public class PlayerController : MonoBehaviour
         //get the colliders tag & run the appropriate function
         //Debug.Log("attacking");
         BoxCollider2D[] collisions = this.gameObject.transform.Find("Attack").GetComponent<PlayerAttackTrigger>().GetColliders();
-
+       
         for (int colIndex = 0; colIndex < collisions.Length; colIndex++)
         {
             if (collisions[colIndex] != null && !frozen) //cannot attack while frozen
@@ -903,6 +903,7 @@ public class PlayerController : MonoBehaviour
         invincible = true;
         spriteRenderer.material = whiteMaterial;
        
+        
         Invoke(nameof(InvincibilityTimer), invincibilityTime);
     }
     public void InvincibilityTimer()
