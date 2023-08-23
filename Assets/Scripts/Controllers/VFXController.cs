@@ -16,6 +16,17 @@ public class VFXController : MonoBehaviour
 
         Instantiate(visualEffect.effect, location.position, Quaternion.identity);
     }
+    public void PlayVFXwithDirection(Transform location, string name, int directionMult)
+    {
+        VFX visualEffect = Array.Find(visualEffects, vfx => vfx.name == name);
+
+       GameObject newEffect = Instantiate(visualEffect.effect, location.position, Quaternion.identity);
+       Vector3 effectScale = newEffect.transform.localScale;
+
+       newEffect.transform.localScale = new Vector3(effectScale.x * directionMult, effectScale.y, effectScale.z);
+     
+
+    }
     public void PlayPlayerVFX(int playerNum, string name)
     {
         VFX visualEffect = Array.Find(visualEffects, vfx => vfx.name == name);

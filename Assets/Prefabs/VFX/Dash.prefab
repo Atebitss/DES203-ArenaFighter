@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 3801535387976930408}
   - component: {fileID: 3801535387976930411}
   - component: {fileID: 3801535387976930410}
+  - component: {fileID: -8636723429370147214}
   m_Layer: 0
   m_Name: Dash
-  m_TagString: Untagged
+  m_TagString: VFX
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4806,3 +4807,16 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!114 &-8636723429370147214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3801535387976930421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1a53212dcbe76e44ab44ed5e0cb1dc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  duration: 5

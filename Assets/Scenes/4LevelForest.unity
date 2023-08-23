@@ -11188,6 +11188,18 @@ MonoBehaviour:
   - name: Dash
     effect: {fileID: 3801535387976930421, guid: e30cb5ada9d45c641968852a3fdf3d88, type: 3}
     trackPlayer: 1
+  - name: Deflect
+    effect: {fileID: 1909863093482724304, guid: 9dfbd906d1214d74d934aa5a1f02ad42, type: 3}
+    trackPlayer: 0
+  - name: DashEffect
+    effect: {fileID: 8024845321081894961, guid: 38dbcff08ab3d5645a7e583cee5aa0df, type: 3}
+    trackPlayer: 0
+  - name: Sprint
+    effect: {fileID: 7272764717443408694, guid: ab92215f33b08bd46909d936dc5bb976, type: 3}
+    trackPlayer: 0
+  - name: Land
+    effect: {fileID: 5546599668508724201, guid: 5e33c7898e6b0bc4c834451e46c206c6, type: 3}
+    trackPlayer: 0
   levelController: {fileID: 763047120}
 --- !u!4 &617323059
 Transform:
