@@ -34,7 +34,7 @@ public class LevelScript : MonoBehaviour
     [Header("Intro and Outro")]
     [HideInInspector] public bool introIsOver;
     [HideInInspector] public bool outroIsOver = true;
-    [SerializeField] private float introTime = 4;
+    [SerializeField] private float introTime = 5;
     [SerializeField] private float outroTime = 4;
 
     //important level & multiplayer stuff
@@ -100,6 +100,8 @@ public class LevelScript : MonoBehaviour
 
     private void Start()
     {
+
+    AM.Play("MusicFight");
         for (int player = 0; player < PlayerData.GetNumOfPlayers(); player++)
         {
             curPlayerPos = player;                      //current player ref is the players number (0-3)
@@ -128,7 +130,7 @@ public class LevelScript : MonoBehaviour
         introIsOver = false;
         yield return new WaitForSeconds(introTime);
         introIsOver = true;
-        AM.Play("MusicFight");
+        //AM.Play("MusicFight");
         //Debug.Log("introIsOver: " + introIsOver);
     }
     private IEnumerator InitialCollectableSpawnDelay()
