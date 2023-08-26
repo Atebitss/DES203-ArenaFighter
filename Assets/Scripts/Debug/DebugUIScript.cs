@@ -26,15 +26,15 @@ public class DebugUIScript : MonoBehaviour
                 + "\nX: " + playerScript.GetPlayerX().ToString("F2")
                 + "\tY: " + playerScript.GetPlayerY().ToString("F2")
                 //+ "\tScale: " + playerScript.GetPlayerLocalScale()
-                //+ "\nVelocity X: " + playerScript.GetPlayerXVelocity().ToString("F2")
-                //+ "\tVelocity Y: " + playerScript.GetPlayerYVelocity().ToString("F2")
+                + "\nVelocity X: " + playerScript.GetPlayerXVelocity().ToString("F2")
+                + "\nVelocity Y: " + playerScript.GetPlayerYVelocity().ToString("F2")
                 //+ "\n\nisGrounded: " + playerScript.IsGrounded()
                 //+ "\nisOnIce: " + playerScript.IsOnIce()
                 //+ "\nisOnBouncy: " + playerScript.IsOnBouncy()
                 //+ "\nisOnStickyWall: " + playerScript.OnStickyWall()
                 //+ "\n\njumpBufferCounter: " + playerScript.GetJumpBufferCounter()
                 //+ "\n\nisDeflecting: " + playerScript.IsDeflecting()
-                //+ "\n\ninvincibilityTimer: " + playerScript.GetInvincibilityTimer()
+                + "\n\ninvincibile: " + playerScript.GetIsInvincible()
                 + "\n\nkills: " + playerScript.GetScore()
                 + "\ntimeSinceLastKill: " + playerScript.GetTimeSinceLastKill().ToString("F2");
         }
