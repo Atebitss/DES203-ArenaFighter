@@ -130,7 +130,9 @@ public class PlayerController : MonoBehaviour
     private float timeSinceLastKill = 0;
 
     //~~~ MISC ~~~\\
-    [Header("Misc")]
+    [Header("Invincibility")]
+    [SerializeField] private Material originMat;
+    [SerializeField] private Material invincibilityMat;
     [SerializeField] private float invincibilityTime = 1f;
     private bool invincible;
 
@@ -685,8 +687,7 @@ public class PlayerController : MonoBehaviour
                         if (this.gameObject.transform.localScale.x == collisions[colIndex].gameObject.transform.parent.localScale.x)
                         {
                             ls.Kill(collisions[colIndex].gameObject.transform.parent.gameObject, this.gameObject);
-                            vfxController.GetComponent<HapticController>().PlayHaptics("Kill", controller);
-           
+                            if (controller != null) { vfxController.GetComponent<HapticController>().PlayHaptics("Kill", controller); }
                         }
                         break;
                     default:
@@ -826,6 +827,7 @@ public class PlayerController : MonoBehaviour
 
     public void Respawn() //deals with changing values once player has already respawned, actual respawning is done in LevelScript
     {
+        invincible = true;
         frozen = false;
         hasIcePower = false;
 
@@ -833,7 +835,9 @@ public class PlayerController : MonoBehaviour
         DeleteAllVFX();
         vfxController.GetComponent<VFXController>().PlayVFX(transform, "Respawn");
         spriteRenderer.sortingOrder = 3;
-        invincible = true;
+
+        StartCoroutine(InvincibilityFlash());
+
         Invoke(nameof(InvincibilityTimer), invincibilityTime);
     }
     public void InvincibilityTimer()
@@ -841,12 +845,33 @@ public class PlayerController : MonoBehaviour
         invincible = false;
     }
     public bool GetIsInvincible() { return invincible; }
-    //~~~ INVINCIBILITY STATUS ~~~\\
 
-    public bool GetInvincibilityStatus()
+    private IEnumerator InvincibilityFlash()
     {
-        Debug.Log("GetInvincibilityStatus");
-        return invincible;
+        Debug.Log("InvincibilityFlash");
+        //flashing duration and interval
+        float flashDuration = invincibilityTime;
+        float flashInterval = invincibilityTime / 5;
+        Debug.Log("Dur: " + flashDuration + "/Int: " + flashInterval);
+
+        while (flashDuration > 0)
+        {
+            //set renderer material to flash, wait, set back
+
+            Debug.Log("on");
+            spriteRenderer.material = invincibilityMat;
+            yield return new WaitForSeconds(flashInterval);
+            flashDuration -= flashInterval;
+
+            Debug.Log("off");
+            spriteRenderer.material = originMat;
+            yield return new WaitForSeconds(flashInterval);
+            flashDuration -= flashInterval;
+        }
+
+        //set renderer material to origin on flash end
+        spriteRenderer.material = originMat;
+        Debug.Log("finished");
     }
 
 

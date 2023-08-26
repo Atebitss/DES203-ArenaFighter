@@ -412,6 +412,8 @@ MonoBehaviour:
   deflectForce: 15
   attackBuildUp: 0
   attackTimer: 0.2
+  originMat: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  invincibilityMat: {fileID: 2100000, guid: 30d2a81a2f0660f48b668245b900a2b1, type: 2}
   invincibilityTime: 1
 --- !u!114 &1821414771621719917
 MonoBehaviour:

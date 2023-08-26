@@ -361,7 +361,7 @@ public class LevelScript : MonoBehaviour
         PlayerController targetPC = target.GetComponent<PlayerController>();
         PlayerController killerPC = killer.GetComponent<PlayerController>();
 
-        if ((targetPC.GetInvincibilityStatus() == false) && !targetPC.GetIsDying())
+        if ((targetPC.GetIsInvincible() == false) && !targetPC.GetIsDying())
         {
             //update killer info
             int killerNum = (int)char.GetNumericValue(killer.name[6]);
