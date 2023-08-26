@@ -37266,5 +37266,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: centre spinner
       objectReference: {fileID: 0}
+    - target: {fileID: 5727212119436966876, guid: f69eae07df1b9244cb3f1563f39c7afe, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f69eae07df1b9244cb3f1563f39c7afe, type: 3}

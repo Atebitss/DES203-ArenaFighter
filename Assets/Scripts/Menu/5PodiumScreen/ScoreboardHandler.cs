@@ -6,7 +6,6 @@ using TMPro;
 
 public class ScoreboardHandler : MonoBehaviour
 {
-    [SerializeField] private Sprite[] playerSprites = new Sprite[4];
     [SerializeField] private GameObject[] playerPositions = new GameObject[4];
     [SerializeField] private GameObject[] podiums = new GameObject[4];
     private GameObject[] podiumImage = new GameObject[4];
@@ -58,7 +57,7 @@ public class ScoreboardHandler : MonoBehaviour
         //then raise the character for each of their kills and add a new podium block below them
         for (int playerCheck = 0; playerCheck < PlayerData.GetNumOfPlayers(); playerCheck++)
         {
-            podiumImage[playerCheck].GetComponent<ChangeImage>().ImageChange(playerSprites[PlayerData.playerPositions[playerCheck]]);
+            podiumImage[playerCheck].GetComponent<ChangeImage>().ImageChange(PlayerData.GetSprite(PlayerData.playerPositions[playerCheck]));
 
             podiumText[playerCheck].color = new Color32(0, 0, 0, 255);
             podiumText[playerCheck].text = "KILLS: " + PlayerData.playerScores[playerCheck];

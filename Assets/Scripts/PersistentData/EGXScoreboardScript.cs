@@ -6,10 +6,6 @@ using TMPro;
 
 public class EGXScoreboardScript : MonoBehaviour, EGXPersistenceInterface
 {
-    //character sprite references
-    [SerializeField] private Sprite[] characterSprites = new Sprite[4];                     //holds possible sprites
-
-
     //scoreboard text & image references
     [SerializeField] private TextMeshProUGUI[] positionTexts = new TextMeshProUGUI[5];      //holds position text
     [SerializeField] private Image[] positionImages = new Image[5];                         //holds position image
@@ -400,12 +396,12 @@ public class EGXScoreboardScript : MonoBehaviour, EGXPersistenceInterface
             //update relevant position image with sprite related to sprite ID of current position
             //update relevant position text with position and score of current position
 
-            positionImages[position].sprite = characterSprites[playerSpriteIDs[position]];
+            positionImages[position].sprite = PlayerData.GetSprite(playerSpriteIDs[position]);
             positionTexts[position].text = "        Position " + (position+1) + ": " + playerNames[position] + "     Score: " + playerScores[position] + "     TSLK: " + playerTSLKs[position].ToString("F2");
         }
 
 
-        curImage.sprite = characterSprites[playerSpriteID];
+        curImage.sprite = PlayerData.GetSprite(playerSpriteID);
         curText.text = "        Position " + (playerStatsPosition + 1) + ": " + playerName + "     Score: " + playerScore + "     TSLK: " + playerTSLK.ToString("F2");
     }
 }

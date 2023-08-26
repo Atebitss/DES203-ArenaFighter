@@ -9,6 +9,9 @@ public class PlayerData : MonoBehaviour
     private static float devRoundTime = 1;
     private static bool gameRun, devMode;
 
+    //character sprite references
+    private static Sprite[] characterSprites = new Sprite[4];//holds possible sprites
+
 
     //player in-game
     public static GameObject[] players = new GameObject[4];             //reference player game objects
@@ -39,6 +42,10 @@ public class PlayerData : MonoBehaviour
 
     public static float GetDevRoundTime() { return devRoundTime; }
     public static void SetDevRoundTime(float update) { devRoundTime = update; }
+
+    public static void SetSprites(Sprite[] sprites) { characterSprites = sprites; }
+    public static Sprite GetSprite(int spriteNum) { return characterSprites[spriteNum]; }
+    public static Sprite[] GetSprites() { return characterSprites; }
 
 
 

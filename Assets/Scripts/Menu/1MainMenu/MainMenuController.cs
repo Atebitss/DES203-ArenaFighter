@@ -9,6 +9,8 @@ public class MainMenuController : MonoBehaviour
     public Animator transition;
     public float transitionTime = 1f;
 
+    private AudioManager AM;
+
     [SerializeField] private InputAction playAction;
 
     public static MainMenuController instance = null;
@@ -31,20 +33,22 @@ public class MainMenuController : MonoBehaviour
 
         playAction.performed += ctx => Play(ctx);
         playAction.Enable();
+
+        AM = FindObjectOfType<AudioManager>();
     }
 
     private void Start()
     {
-        FindObjectOfType<AudioManager>().Play("TitleScreenMusic");
-        FindObjectOfType<AudioManager>().Play("SoundTrees");
-        FindObjectOfType<AudioManager>().StopPlaying("MusicFight");
+        AM.Play("TitleScreenMusic");
+        AM.Play("SoundTrees");
+        AM.StopPlaying("MusicFight");
 
         PlayerData.ResetStats();
     }
 
     public void PlayGame()
     {
-        FindObjectOfType<AudioManager>().Play("SelectBeep");
+        AM.Play("SelectBeep");
         StartCoroutine(LoadLevel(2));
     }
 
@@ -59,10 +63,10 @@ public class MainMenuController : MonoBehaviour
     public void QuitGame() 
     {
 
-        FindObjectOfType<AudioManager>().Play("SelectBeep");
-        FindObjectOfType<AudioManager>().StopPlaying("StartMenuMusic");
-        FindObjectOfType<AudioManager>().StopPlaying("SoundTrees");
-        FindObjectOfType<AudioManager>().StopPlaying("SoundZaps");
+        AM.Play("SelectBeep");
+        AM.StopPlaying("StartMenuMusic");
+        AM.StopPlaying("SoundTrees");
+        AM.StopPlaying("SoundZaps");
 
         Application.Quit();
 
@@ -72,10 +76,10 @@ public class MainMenuController : MonoBehaviour
     public void OptionsMenu()
     {
         //Debug.Log("Options menu called");
-        FindObjectOfType<AudioManager>().Play("SelectBeep");
-        FindObjectOfType<AudioManager>().StopPlaying("StartMenuMusic");
-        FindObjectOfType<AudioManager>().StopPlaying("SoundTrees");
-        FindObjectOfType<AudioManager>().StopPlaying("SoundZaps");
+        AM.Play("SelectBeep");
+        AM.StopPlaying("StartMenuMusic");
+        AM.StopPlaying("SoundTrees");
+        AM.StopPlaying("SoundZaps");
 
         //SceneManager.LoadScene(x);
     }
@@ -84,6 +88,7 @@ public class MainMenuController : MonoBehaviour
     {
         playAction.Disable();
         transition.SetTrigger("Start");
+        AM.VolumeFadeOut("TitleScreenMusic");
 
         yield return new WaitForSeconds(transitionTime);
 

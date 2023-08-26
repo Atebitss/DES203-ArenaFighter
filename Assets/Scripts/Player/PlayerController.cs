@@ -102,6 +102,7 @@ public class PlayerController : MonoBehaviour
     private bool frozen = false;
     private int breakAmount;
     private int breakCounter;
+    [SerializeField] private float stunTime = 1f;
 
 
     private bool hasInvertPower = false;
@@ -755,6 +756,23 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    //~~~ STUN ~~~\\
+    public void Stun()      //CURRENTLY USES FROZEN ANIM
+    {
+        Debug.Log("Stun started on " + this.gameObject.transform.name);
+        //start stun animation & freeze player for 1 second
+        frozen = true;
+        Invoke(nameof(StunEnd), stunTime);
+    }
+
+    public void StunEnd()
+    {
+        Debug.Log("Stun ended on " + this.gameObject.transform.name);
+        playerRigid.constraints = ~RigidbodyConstraints2D.FreezePosition;
+        playerRigid.isKinematic = false;
+        frozen = false;
+    }
+
 
 
 
@@ -822,6 +840,14 @@ public class PlayerController : MonoBehaviour
     {
         invincible = false;
     }
+    public bool GetIsInvincible() { return invincible; }
+    //~~~ INVINCIBILITY STATUS ~~~\\
+
+    public bool GetInvincibilityStatus()
+    {
+        Debug.Log("GetInvincibilityStatus");
+        return invincible;
+    }
 
 
     public bool GetIsDying() { return isDying; }
@@ -862,12 +888,12 @@ public class PlayerController : MonoBehaviour
                 }
                 break;
             case "DashCollectable":
-                Debug.Log("Collected Dash");
+                //Debug.Log("Collected Dash");
                 hasDashPower = true;
                 Destroy(collision.gameObject);
                 break;
             case "IceCollectable":
-                Debug.Log("Collected Ice");
+                //Debug.Log("Collected Ice");
                 if (hasIcePower) //remove collectable if we arady have that one equipped 
                 {
                     Destroy(collision.gameObject);
@@ -881,7 +907,7 @@ public class PlayerController : MonoBehaviour
                 }
                 break;
             case "InverseCollectable":
-                Debug.Log("Collected Invert");
+                //Debug.Log("Collected Invert");
                 hasInvertPower = true;
                 Destroy(collision.gameObject);
                 FindObjectOfType<AudioManager>().Play("Collect");
@@ -1107,12 +1133,6 @@ public class PlayerController : MonoBehaviour
         playerRigid.velocity = newVel;
     }
 
-    //~~~ INVINCIBILITY STATUS ~~~\\
-   
-    public bool GetInvincibilityStatus()
-    {
-        return invincible;
-    }
 
 
 
