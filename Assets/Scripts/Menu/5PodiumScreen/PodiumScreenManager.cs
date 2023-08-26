@@ -21,6 +21,12 @@ public class PodiumScreenManager : MonoBehaviour
     {
         continueAction.performed += ctx => Continue(ctx);
         continueAction.Enable();
+
+        FindObjectOfType<AudioManager>().Play("PodiumMusic");
+        FindObjectOfType<AudioManager>().Play("SoundTrees");
+        FindObjectOfType<AudioManager>().Play("SoundZaps");
+        FindObjectOfType<AudioManager>().StopPlaying("MusicFight");
+
     }
 
     

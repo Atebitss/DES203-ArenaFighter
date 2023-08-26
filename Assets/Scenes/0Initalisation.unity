@@ -367,13 +367,19 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: SoundZaps
     clip: {fileID: 8300000, guid: 31b49e06f47cebf4b94e1b7aff7bee75, type: 3}
-    volume: 0.372
+    volume: 0.15
     pitch: 1
     loop: 1
     source: {fileID: 0}
   - name: TitleScreenMusic
     clip: {fileID: 8300000, guid: 4074e1393caca0b438204e938e189d95, type: 3}
     volume: 0.75
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: PodiumMusic
+    clip: {fileID: 8300000, guid: 4949cbbd95268424c84fb385c233b487, type: 3}
+    volume: 0.5
     pitch: 1
     loop: 1
     source: {fileID: 0}
