@@ -419,6 +419,8 @@ public class PlayerController : MonoBehaviour
 
             breakCounter++;
 
+            Shake(0.1f, 0.1f);
+
             if (breakCounter == breakAmount)
             {
                 playerRigid.constraints = ~RigidbodyConstraints2D.FreezePosition;
@@ -508,7 +510,32 @@ public class PlayerController : MonoBehaviour
         playerRigid.velocity = new Vector2(playerVelocity.x, 0.5f * jumpForce);
         // FindObjectOfType<AudioManager>().Play("Bounce");
     }
+    public IEnumerator Shake(float duration, float magnitude)
+    {
+        Vector3 originalPos;
 
+        originalPos = transform.localPosition;
+
+        float elapsed = 0.0f;
+
+        while (elapsed < duration)
+        {
+
+            float x = Random.Range(-1 * originalPos.x, 1f * originalPos.x) * magnitude;
+           // float y = Random.Range(-1f * originalPos.y, 1f * originalPos.y) * magnitude;
+          
+
+            transform.localPosition = new Vector3(x, originalPos.y, originalPos.z);
+
+            elapsed += Time.deltaTime;
+
+            yield return null;
+
+        }
+
+        transform.localPosition = originalPos;
+
+    }
 
 
 
@@ -736,7 +763,13 @@ public class PlayerController : MonoBehaviour
                 }*/
 
                 string colTag = collisions[colIndex].gameObject.tag;
-                PlayerController otherPlayer = collisions[colIndex].gameObject.transform.parent.gameObject.GetComponent<PlayerController>();
+                PlayerController otherPlayer = null;
+
+                if (colTag == "PlayerFront" || colTag == "PlayerBack")
+                {
+                    otherPlayer = collisions[colIndex].gameObject.transform.parent.gameObject.GetComponent<PlayerController>();
+                }
+                
                 switch (colTag)
                 {
                     case "PlayerFront":
