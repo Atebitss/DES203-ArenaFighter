@@ -36,6 +36,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Down",
+                    "type": "Value",
+                    "id": "1b16acd1-6362-47e0-9eeb-1d40f230e344",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -108,7 +116,7 @@
                 {
                     "name": "",
                     "id": "23c2c9b2-1f55-4a6e-8596-76305d472ef5",
-                    "path": "<Keyboard>/s",
+                    "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
@@ -146,6 +154,28 @@
                     "processors": "",
                     "groups": "Xbox",
                     "action": "Dash",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "118234c4-d0b9-47e8-a5b6-8d9064413306",
+                    "path": "<Gamepad>/leftStick/down",
+                    "interactions": "",
+                    "processors": "StickDeadzone",
+                    "groups": "Xbox",
+                    "action": "Down",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0a63f067-2f13-4c16-9587-7c4822d85a79",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Down",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

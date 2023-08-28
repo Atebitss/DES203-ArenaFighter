@@ -62,6 +62,7 @@ public class LevelScript : MonoBehaviour
      [SerializeField] private SpriteLibraryAsset player2Sprites;
      [SerializeField] private SpriteLibraryAsset player3Sprites;
      [SerializeField] private SpriteLibraryAsset player4Sprites;
+     [SerializeField] private SpriteLibraryAsset player5Sprites;
 
     private bool hasBeenShook = false;
 
@@ -128,6 +129,7 @@ public class LevelScript : MonoBehaviour
         introIsOver = false;
         yield return new WaitForSeconds(introTime);
         introIsOver = true;
+        print("INTRO ISOVER");
         AM.Play("MusicFight"); //TODO : CHANGE THIS BACK TO BEGIN AT START OF LEVEL ONCE COUNTDOWN IS ADDED TO SONG
         //Debug.Log("introIsOver: " + introIsOver);
     }
@@ -272,6 +274,11 @@ public class LevelScript : MonoBehaviour
                 playerAuraLight.color = new Color(0.5f, 1f, 0.75f, 1f); //teal
                 playerAuraParticles.startColor = new Color(0.5f, 1f, 0.75f, 1f);
                 spriteLibary.spriteLibraryAsset = player4Sprites;
+                break;
+            case 4:
+                playerAuraLight.color = new Color(0.75f, 0f, 1f, 1f); //purple
+                playerAuraParticles.startColor = new Color(0.75f, 0f, 1f, 1f);
+                spriteLibary.spriteLibraryAsset = player5Sprites;
                 break;
             default:
                 playerAuraLight.color = new Color(1f, 1f, 1f, 1f); //white, should never appear

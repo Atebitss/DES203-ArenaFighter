@@ -4837,4 +4837,5 @@ MonoBehaviour:
   hornKnight: {fileID: 2100000, guid: 5feb6f4c8ca87fc42bdd9b542e3392c8, type: 2}
   blossomKnight: {fileID: 2100000, guid: b47a9325ea3fc5443871df380c8bb8cc, type: 2}
   copperKnight: {fileID: 2100000, guid: ac477103f1ae6794fa69d49a1ef7d2fb, type: 2}
+  purpleKnight: {fileID: 2100000, guid: 775b98091b3a84140a3105c9cb5a1dae, type: 2}
   particleSys: {fileID: 3801535387976930411}

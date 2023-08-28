@@ -36,7 +36,7 @@ public class PlayerInputHandler : MonoBehaviour
     {
         playerController.OnMove(ctx);
     }
-
+    
     public void OnJump(InputAction.CallbackContext ctx)
     {
         if (ctx.started)
@@ -60,5 +60,6 @@ public class PlayerInputHandler : MonoBehaviour
             playerController.OnDash(ctx);
         }
     }
+    
 
 }

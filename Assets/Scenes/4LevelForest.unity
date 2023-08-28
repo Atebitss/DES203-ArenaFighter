@@ -11423,7 +11423,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CameraShake: {fileID: 72813653}
   playerMoveForce: 13.5
-  playerJumpForce: 17.5
+  playerJumpForce: 18
   players:
   - {fileID: 0}
   - {fileID: 0}
@@ -11443,6 +11443,7 @@ MonoBehaviour:
   player2Sprites: {fileID: 7108339969198208228, guid: 0a7b75e6cfdb4b34f8548fa405a8bc20, type: 3}
   player3Sprites: {fileID: 7108339969198208228, guid: f7a334f59f6dd56488c9c2bc8135352c, type: 3}
   player4Sprites: {fileID: 7108339969198208228, guid: 85086e2851dc40e44a1b084d71c1ce72, type: 3}
+  player5Sprites: {fileID: 7108339969198208228, guid: 3096f0d4ca4aa2847aa2beb1b88c74a2, type: 3}
 --- !u!4 &763047121
 Transform:
   m_ObjectHideFlags: 0

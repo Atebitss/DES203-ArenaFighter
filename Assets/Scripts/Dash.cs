@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class Dash : MonoBehaviour
 {
+    [Header("Player Materials")]
     public Material fireKnight;
     public Material hornKnight;
     public Material blossomKnight;
     public Material copperKnight;
+    public Material purpleKnight;
+    [Header("Particle System")]
     public ParticleSystem particleSys;
     private int playerNum;
 
@@ -29,7 +32,10 @@ public class Dash : MonoBehaviour
             case 3:
                 particleSys.GetComponent<Renderer>().material = copperKnight;
                 break;
-            
+            case 4:
+                particleSys.GetComponent<Renderer>().material = purpleKnight;
+                break;
+
         }
 
     }

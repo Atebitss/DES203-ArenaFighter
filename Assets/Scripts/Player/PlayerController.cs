@@ -38,6 +38,8 @@ public class PlayerController : MonoBehaviour
     private float jumpForce = 15f, moveForce = 5f, previousXMovement;
     private bool isRunning;
     private bool wasInAir;
+    private bool isHoldingDown;
+
 
 
 
@@ -340,7 +342,7 @@ public class PlayerController : MonoBehaviour
         }
 
         
-        animator.SetBool("isWallSliding", OnStickyWall() && !IsGrounded() && !frozen);
+        animator.SetBool("isWallSliding", OnStickyWall() && !IsGrounded() && !frozen );
         
         timeSinceLastKill += Time.deltaTime;
         dashCooldown += Time.deltaTime;
@@ -374,14 +376,18 @@ public class PlayerController : MonoBehaviour
         //A/D or Thumbstick -1/+1
         Vector2 movement = ctx.ReadValue<Vector2>();
         //Debug.Log(movement);
-
+        
         //update move vector with -1/+1, players current y velocity
-        move = new Vector3(movement.x, 0, playerVelocity.y);
+        move = new Vector3(movement.x, movement.y, playerVelocity.y);
+       
+        
     }
-
+ 
     //called by FixedUpdate
     private void PlayerMovement()
     {
+
+        
         playerVelocity = playerRigid.velocity;   //update current velocity Vector2 to players current velocity
 
         if (move.x != 0) //gets previous Xmovement for use in Ice Stuff
@@ -418,8 +424,6 @@ public class PlayerController : MonoBehaviour
         {
 
             breakCounter++;
-
-            Shake(0.1f, 0.1f);
 
             if (breakCounter == breakAmount)
             {
@@ -510,32 +514,7 @@ public class PlayerController : MonoBehaviour
         playerRigid.velocity = new Vector2(playerVelocity.x, 0.5f * jumpForce);
         // FindObjectOfType<AudioManager>().Play("Bounce");
     }
-    public IEnumerator Shake(float duration, float magnitude)
-    {
-        Vector3 originalPos;
 
-        originalPos = transform.localPosition;
-
-        float elapsed = 0.0f;
-
-        while (elapsed < duration)
-        {
-
-            float x = Random.Range(-1 * originalPos.x, 1f * originalPos.x) * magnitude;
-           // float y = Random.Range(-1f * originalPos.y, 1f * originalPos.y) * magnitude;
-          
-
-            transform.localPosition = new Vector3(x, originalPos.y, originalPos.z);
-
-            elapsed += Time.deltaTime;
-
-            yield return null;
-
-        }
-
-        transform.localPosition = originalPos;
-
-    }
 
 
 
@@ -591,16 +570,19 @@ public class PlayerController : MonoBehaviour
         {
             //playerRigid.velocity = new Vector2(move.x * moveForce, playerVelocity.y);
 
-            if (OnStickyWall() && !IsGrounded())
+            if (OnStickyWall() && !IsGrounded() )
             {
                 isWallJumping = false;
                 CancelInvoke(nameof(StopWallJumping));
 
-                playerRigid.velocity = new Vector2(playerRigid.velocity.x, Mathf.Clamp(playerRigid.velocity.y, wallSlideSpeed, float.MaxValue));
-
                 //flip player light around when sliding down a wall
                 playerLight.localRotation = Quaternion.Euler(0, 0, 270);
                 playerLight.localPosition = new Vector2(-0.2f, -0.05f);
+                if (move.y >= -0.8f)
+                {
+                    playerRigid.velocity = new Vector2(playerRigid.velocity.x, Mathf.Clamp(playerRigid.velocity.y, wallSlideSpeed, float.MaxValue));
+                }
+
 
             }
             else
@@ -764,7 +746,6 @@ public class PlayerController : MonoBehaviour
 
                 string colTag = collisions[colIndex].gameObject.tag;
                 PlayerController otherPlayer = null;
-
                 if (colTag == "PlayerFront" || colTag == "PlayerBack")
                 {
                     otherPlayer = collisions[colIndex].gameObject.transform.parent.gameObject.GetComponent<PlayerController>();
