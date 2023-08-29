@@ -11438,7 +11438,7 @@ MonoBehaviour:
   collectableType:
   - {fileID: 3800346872804229247, guid: f6c1d4bf4027b2c4f9bb22e30ff15620, type: 3}
   collectableSpawnInterval: 15
-  initialCollectableSpawnDelay: 15
+  initialCollectableSpawnDelay: 0
   player1Sprites: {fileID: 7108339969198208228, guid: bb8343e299b6afb4390b9dfafd041b8d, type: 3}
   player2Sprites: {fileID: 7108339969198208228, guid: 0a7b75e6cfdb4b34f8548fa405a8bc20, type: 3}
   player3Sprites: {fileID: 7108339969198208228, guid: f7a334f59f6dd56488c9c2bc8135352c, type: 3}

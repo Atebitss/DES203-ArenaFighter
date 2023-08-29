@@ -129,7 +129,6 @@ public class LevelScript : MonoBehaviour
         introIsOver = false;
         yield return new WaitForSeconds(introTime);
         introIsOver = true;
-        print("INTRO ISOVER");
         AM.Play("MusicFight"); //TODO : CHANGE THIS BACK TO BEGIN AT START OF LEVEL ONCE COUNTDOWN IS ADDED TO SONG
         //Debug.Log("introIsOver: " + introIsOver);
     }
@@ -291,7 +290,7 @@ public class LevelScript : MonoBehaviour
         if (collectableCanSpawn && lastSpawnedCollectable == null )
         {
             //add a public bool method to check if any collectables exist in the level already
-            //Debug.Log("Spawn Collectable");
+           Debug.Log("Collectable Spawned");
             Transform chosenSpawn = ChooseCollectableSpawnPoint().transform; //uses ChooseCollectableSpawnPoint() to choose one collectable spawn in the level
             Vector2 chosenSpawnPos = chosenSpawn.position;
             Quaternion chosenSpawnRot = chosenSpawn.rotation;
@@ -299,6 +298,7 @@ public class LevelScript : MonoBehaviour
             int randomNo = Random.Range(0, collectableType.Length); //rnadomly chooses a number to randomize what collectable we get
 
             lastSpawnedCollectable = Instantiate(collectableType[randomNo], chosenSpawnPos, chosenSpawnRot);
+
         }
     }
     

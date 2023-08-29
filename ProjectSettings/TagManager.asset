@@ -18,6 +18,7 @@ TagManager:
   - CollectableSpawn
   - InverseCollectable
   - VFX
+  - CollectableVFX
   layers:
   - Default
   - TransparentFX
