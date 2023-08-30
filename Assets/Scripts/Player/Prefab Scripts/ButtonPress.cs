@@ -20,11 +20,11 @@ public class ButtonPress : MonoBehaviour
     {
         if (playerPrefab.localScale.x < 0)
         {
-            transform.localScale = new Vector3(-0.1f, 0.1f, 1);
+            transform.localScale = new Vector3(-0.7f, 0.7f, 1);
         }
         else
         {
-            transform.localScale = new Vector3(0.1f, 0.1f, 1);
+            transform.localScale = new Vector3(0.7f, 0.7f, 1);
         }
 
     }

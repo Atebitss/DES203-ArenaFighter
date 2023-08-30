@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
     [Header("Prefab Components")]
     [SerializeField] private GameObject playerTop;
     [SerializeField] private PlayerLight playerLight;
-    [SerializeField] private GameObject promptUI;
+    [SerializeField] private ButtonPress buttonPress;
     [SerializeField] private GameObject crown;
     [SerializeField] private Transform deflectRef;
     [SerializeField] private PlayerArrows playerArrow;
@@ -278,18 +278,16 @@ public class PlayerController : MonoBehaviour
 
         //~~~ UI AND VFX ~~~\\ 
 
-        if (frozen) //Activate the Prompt UI above the player
+        if (frozen) //Activate the Button press UI above the player
         {
-            promptUI.SetActive(true);
+            buttonPress.ShowButtonPress();
             animator.SetBool("isFrozen", true);
-            // promptUI.GetComponent<Animator>().SetBool("isFrozen", true);
             DeleteVFXOfTag("CollectableVFX");
         }
         else
         {
-            promptUI.SetActive(false);
+            buttonPress.HideButtonPress();
             animator.SetBool("isFrozen", false);
-            // promptUI.GetComponent<Animator>().SetBool("isFrozen", false);
         }
 
         if (frozen && hasIcePower) //Disable powerup when frozen
@@ -297,11 +295,7 @@ public class PlayerController : MonoBehaviour
             hasIcePower = false;
 
         }
-        if (hasIcePower && !frozen) //updates animation for player and Prompt UI when we h
-        {
-            //  promptUI.GetComponent<Animator>().SetBool("hasIcePower", true);
 
-        }
         if (!hasIcePower) //delete vfx if we dont have the power
         {
             DeleteVFXOfTag("CollectableVFX");
@@ -903,6 +897,12 @@ public class PlayerController : MonoBehaviour
         playerLight.HideLight();
         spriteRenderer.sortingOrder = 4;
         PlayDeathAudio();
+
+        if (frozen)
+        {
+            spriteRenderer.enabled = false;
+        }
+
         Invoke(nameof(KillDelay), 0.6f); //set to time of deathAnimation
 
         StartCoroutine(IgnorePlayerCollisions(0.4f)); //stops players colliding with eachother after one has died for a duration
@@ -927,7 +927,7 @@ public class PlayerController : MonoBehaviour
     {
         frozen = false;
         hasIcePower = false;
-
+        spriteRenderer.enabled = true;
         playerArrow.ShowArrow();
         FaceTowardCenter();
 

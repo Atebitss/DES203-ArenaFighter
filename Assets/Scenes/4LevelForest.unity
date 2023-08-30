@@ -11206,10 +11206,10 @@ MonoBehaviour:
     effect: {fileID: 1064619890715945507, guid: c490adc6b0be5424894a24ee66ace58f, type: 3}
     trackPlayer: 0
   - name: Ice Death
-    effect: {fileID: 430977319686315939, guid: 3c2464a04bd04c046b625c7b77140376, type: 3}
+    effect: {fileID: 1064619890715945507, guid: fa1af5bef7bbe0840b131b3287aa2937, type: 3}
     trackPlayer: 0
   - name: Respawn
-    effect: {fileID: 3540998808498647275, guid: 38f12c87a3d7aa74c94ae128879098e3, type: 3}
+    effect: {fileID: 1064619890715945507, guid: 2e9a53ba306e4d943a4987da80d00e91, type: 3}
     trackPlayer: 0
   - name: Snow
     effect: {fileID: 5417773722678478166, guid: a825087bccdd9fd40a45ad49e5023600, type: 3}
