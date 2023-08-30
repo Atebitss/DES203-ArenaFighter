@@ -5652,7 +5652,7 @@ GameObject:
   - component: {fileID: 3764204897139211160}
   - component: {fileID: 4374236690244503245}
   m_Layer: 7
-  m_Name: Prompt UI
+  m_Name: Button Press UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

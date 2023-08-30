@@ -341,12 +341,12 @@ public class PlayerController : MonoBehaviour
         }
 
         //Landing Logic
+
         if (!IsGrounded())
         {
             wasInAir = true;
         }
-
-        if (wasInAir && IsGrounded()) //Triggers when the player Lands i.e when they go from !IsGrounded to IsGrounded
+        if (wasInAir && IsGrounded()) 
         {
             LandingTrigger();
             wasInAir = false;
@@ -756,7 +756,7 @@ public class PlayerController : MonoBehaviour
                 {
                     case "PlayerFront":
                         //deflect player if not hitting with Ice attack
-                        if (hasIcePower == true && this.gameObject.transform.localScale.x == -collisions[colIndex].gameObject.transform.parent.localScale.x && !invincible)
+                        if (hasIcePower == true && this.gameObject.transform.localScale.x == -collisions[colIndex].gameObject.transform.parent.localScale.x && !otherPlayer.invincible )
                         {
                             //if player attacking has ice power, freeze target
                             IceAttack(otherPlayer);
@@ -773,7 +773,7 @@ public class PlayerController : MonoBehaviour
                         break;
                     case "PlayerBack":
                         //kill other player if both facing the same direction ,0> ,0>
-                        if (this.gameObject.transform.localScale.x == collisions[colIndex].gameObject.transform.parent.localScale.x && !invincible)
+                        if (this.gameObject.transform.localScale.x == collisions[colIndex].gameObject.transform.parent.localScale.x && !otherPlayer.invincible)
                         {
                             if (otherPlayer.OnStickyWall())
                             {
@@ -900,6 +900,7 @@ public class PlayerController : MonoBehaviour
         isDying = true;
 
         animator.SetTrigger("Dying");
+        playerLight.HideLight();
         spriteRenderer.sortingOrder = 4;
         PlayDeathAudio();
         Invoke(nameof(KillDelay), 0.6f); //set to time of deathAnimation
@@ -943,8 +944,11 @@ public class PlayerController : MonoBehaviour
     public void InvincibilityTimer()
     {
         invincible = false;
+        frozen = false;
+        hasIcePower = false;
         spriteRenderer.material = defaultMaterial;
         playerArrow.HideArrow();
+        playerLight.ShowLight();
     }
   
 
