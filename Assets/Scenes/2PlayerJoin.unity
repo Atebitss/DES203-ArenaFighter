@@ -398,13 +398,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7655982992523358401, guid: ad74157192ab5e84bb252ccc082aef7b, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad74157192ab5e84bb252ccc082aef7b, type: 3}
 --- !u!224 &112474831 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6111290947804991299, guid: ad74157192ab5e84bb252ccc082aef7b, type: 3}
+  m_PrefabInstance: {fileID: 112474830}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &112474832 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5740091007199214207, guid: ad74157192ab5e84bb252ccc082aef7b, type: 3}
   m_PrefabInstance: {fileID: 112474830}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &225631429
@@ -1434,6 +1439,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 377630290}
+    - target: {fileID: 8706104051737302912, guid: 82ea0276000fbc54aadbc687212399c1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8706104051737302914, guid: 82ea0276000fbc54aadbc687212399c1, type: 3}
       propertyPath: m_SortingOrder
       value: 2
@@ -1750,7 +1759,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 449, y: 192}
+  m_AnchoredPosition: {x: 449, y: 195}
   m_SizeDelta: {x: 304.49, y: 85.62}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1539954910
@@ -1878,9 +1887,9 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
+    m_HighlightedSprite: {fileID: 21300000, guid: ba7762b749400fb42b2d371123351f27, type: 3}
     m_PressedSprite: {fileID: 21300000, guid: ba7762b749400fb42b2d371123351f27, type: 3}
-    m_SelectedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 21300000, guid: ba7762b749400fb42b2d371123351f27, type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Pressed
@@ -1913,7 +1922,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 7ffc1c956ae69ef448753d53059a7e2e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ba7762b749400fb42b2d371123351f27, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2067,7 +2076,7 @@ Animator:
   m_GameObject: {fileID: 1615819896}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 7c6eba41d1da13b4caa63806d28ceb33, type: 2}
+  m_Controller: {fileID: 9100000, guid: 994682a83a3e1174fbf80c0915687592, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -2088,7 +2097,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b01b9a55bc4db1e488ebcfcdbdea6098, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transition: {fileID: 0}
+  transition: {fileID: 112474832}
   transitionTime: 1
   startButton: {fileID: 1609097579}
 --- !u!1 &1700783619
@@ -2514,10 +2523,10 @@ MonoBehaviour:
       m_Action: Start
       m_Flags: 0
   headerAnimators:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 51048532}
+  - {fileID: 1539954912}
+  - {fileID: 749433390}
+  - {fileID: 51679699}
 --- !u!4 &2038272034
 Transform:
   m_ObjectHideFlags: 0

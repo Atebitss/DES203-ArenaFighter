@@ -963,13 +963,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7655982992523358401, guid: ad74157192ab5e84bb252ccc082aef7b, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad74157192ab5e84bb252ccc082aef7b, type: 3}
 --- !u!224 &855242262 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6111290947804991299, guid: ad74157192ab5e84bb252ccc082aef7b, type: 3}
+  m_PrefabInstance: {fileID: 855242261}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &855242263 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5740091007199214207, guid: ad74157192ab5e84bb252ccc082aef7b, type: 3}
   m_PrefabInstance: {fileID: 855242261}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &861733865
@@ -1689,10 +1694,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d097f9d52fdd2f4cbe53b81f5f1a295, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transition: {fileID: 0}
+  transition: {fileID: 855242263}
   transitionTime: 1
   pressStart: {fileID: 1226168848}
-  loading: {fileID: 0}
+  loading: {fileID: 194885846}
   minLoadTime: 18
   startAction:
     m_Name: Start
@@ -2010,7 +2015,7 @@ Animator:
   m_GameObject: {fileID: 1302066498}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 7c6eba41d1da13b4caa63806d28ceb33, type: 2}
+  m_Controller: {fileID: 9100000, guid: 994682a83a3e1174fbf80c0915687592, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
