@@ -6,32 +6,36 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     //~~~~~~~REFRENCES ~~~~~~~\\
-    [Header("References")]
+    [Header("REFRENCES")]
+    [Header("Player Components")]
     [SerializeField] private Rigidbody2D playerRigid;
     [SerializeField] private BoxCollider2D boxCollider;
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Animator animator;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask wallLayer;
-    private Gamepad controller;
-    [HideInInspector] public int playerNum;
-    private LevelScript ls;
-    private GameObject vfxController;
+    
+    [Header("Prefab Components")]
     [SerializeField] private GameObject playerTop;
-    [SerializeField] private Transform playerLight;
+    [SerializeField] private PlayerLight playerLight;
     [SerializeField] private GameObject promptUI;
     [SerializeField] private GameObject crown;
     [SerializeField] private Transform deflectRef;
+    [SerializeField] private PlayerArrows playerArrow;
 
     [Header("Materials")]
     [SerializeField] private Material whiteMaterial;
     [SerializeField] private Material defaultMaterial;
 
-
+    private Gamepad controller;
+    [HideInInspector] public int playerNum;
+    private LevelScript ls;
+    private GameObject vfxController;
 
 
     //~~~~~~~ GAMEPLAY ~~~~~~~\\
     //~~~ MOVEMENT ~~~\\
+
     private Vector2 move;
     private Vector2 playerVelocity;
     private bool onGround, devMode;
@@ -42,7 +46,7 @@ public class PlayerController : MonoBehaviour
 
 
 
-
+    [Header("MOVEMENT AND GAMEPLAY")]
     //~~~ JUMPING ~~~\\
     [Header("Jumping")]
     [SerializeField] private float coyoteTime = 0.1f;
@@ -175,10 +179,15 @@ public class PlayerController : MonoBehaviour
 
         //hide crown
         DisableCrown();
+        playerArrow.UpdateArrow(playerNum);
     }
     private void Start()
     {
-        //all players shpuld now face center on start
+        FaceTowardCenter();
+    }  
+
+    void FaceTowardCenter()
+    {
         if (transform.position.x > 0)
         {
             transform.localScale = new Vector3(-startingScale.x, startingScale.y, startingScale.z);
@@ -187,27 +196,28 @@ public class PlayerController : MonoBehaviour
         {
             transform.localScale = startingScale;
         }
-
-    }  
+    }
       
 
     void FixedUpdate()
     {
+        MiscAdjustments();
         PlayerMovement();
         Flip();
         IceMovement();
         WallSlide();
         BounceMovement();
-
-
+  
         if (devMode) { HighlightHitboxes(); }
 
-        //~~~MISC CHECKS AND ADJUSTMENTS ~~~\\ 
-
+    }
+    public void MiscAdjustments()
+    {
+       
         if (!ls.introIsOver || !ls.outroIsOver || isDying || invincible) //freeze player movement while level intro/outro is playing OR WHEN PLAYER IS DYING 
         {
             playerRigid.constraints = RigidbodyConstraints2D.FreezeAll;
-            
+
             playerRigid.isKinematic = true;
         }
         else if (!frozen)
@@ -265,40 +275,41 @@ public class PlayerController : MonoBehaviour
         {
             jumpBufferCounter -= Time.deltaTime;
         }
-   
-        //~~~PROMPT UI AND VFX ~~~\\ 
+
+        //~~~ UI AND VFX ~~~\\ 
 
         if (frozen) //Activate the Prompt UI above the player
         {
             promptUI.SetActive(true);
             animator.SetBool("isFrozen", true);
-           // promptUI.GetComponent<Animator>().SetBool("isFrozen", true);
+            // promptUI.GetComponent<Animator>().SetBool("isFrozen", true);
             DeleteVFXOfTag("CollectableVFX");
         }
         else
         {
             promptUI.SetActive(false);
             animator.SetBool("isFrozen", false);
-           // promptUI.GetComponent<Animator>().SetBool("isFrozen", false);
+            // promptUI.GetComponent<Animator>().SetBool("isFrozen", false);
         }
 
         if (frozen && hasIcePower) //Disable powerup when frozen
         {
             hasIcePower = false;
-           
+
         }
         if (hasIcePower && !frozen) //updates animation for player and Prompt UI when we h
         {
-          //  promptUI.GetComponent<Animator>().SetBool("hasIcePower", true);
+            //  promptUI.GetComponent<Animator>().SetBool("hasIcePower", true);
 
         }
         if (!hasIcePower) //delete vfx if we dont have the power
         {
             DeleteVFXOfTag("CollectableVFX");
         }
+        
         //~~~ STATES ~~~\\ 
 
-        if(move.x != 0 && IsGrounded())
+        if (move.x != 0 && IsGrounded())
         {
             animator.SetBool("isRunning", true);
             StartRunTrigger();
@@ -329,12 +340,13 @@ public class PlayerController : MonoBehaviour
             isFalling = false;
         }
 
+        //Landing Logic
         if (!IsGrounded())
         {
             wasInAir = true;
         }
-     
-        if (wasInAir && IsGrounded())
+
+        if (wasInAir && IsGrounded()) //Triggers when the player Lands i.e when they go from !IsGrounded to IsGrounded
         {
             LandingTrigger();
             wasInAir = false;
@@ -344,9 +356,9 @@ public class PlayerController : MonoBehaviour
             isLanding = false;
         }
 
-        
-        animator.SetBool("isWallSliding", OnStickyWall() && !IsGrounded() && !frozen );
-        
+
+        animator.SetBool("isWallSliding", OnStickyWall() && !IsGrounded() && !frozen);
+
         timeSinceLastKill += Time.deltaTime;
         dashCooldown += Time.deltaTime;
     }
@@ -367,7 +379,10 @@ public class PlayerController : MonoBehaviour
             PlayTriggeredEffect("Land");
         }
     }
-    
+    public void HideArrow()
+    {
+        playerArrow.HideArrow();
+    }
 
 
 
@@ -579,8 +594,7 @@ public class PlayerController : MonoBehaviour
                 CancelInvoke(nameof(StopWallJumping));
 
                 //flip player light around when sliding down a wall
-                playerLight.localRotation = Quaternion.Euler(0, 0, 270);
-                playerLight.localPosition = new Vector2(-0.2f, -0.05f);
+                playerLight.FlipLight(true);
                 if (move.y >= -0.8f)
                 {
                     playerRigid.velocity = new Vector2(playerRigid.velocity.x, Mathf.Clamp(playerRigid.velocity.y, wallSlideSpeed, float.MaxValue));
@@ -590,8 +604,7 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                playerLight.localRotation = Quaternion.Euler(0, 0, 90);
-                playerLight.localPosition = new Vector2(0.2f, -0.05f);
+                playerLight.FlipLight(false);
             }
 
         }
@@ -635,7 +648,7 @@ public class PlayerController : MonoBehaviour
     //~~~ DASH ~~~\\
     public void OnDash(InputAction.CallbackContext ctx)
     {
-        if (dashCooldown > dashCooldownTime && ls.introIsOver && ls.outroIsOver)
+        if (dashCooldown > dashCooldownTime && ls.introIsOver && ls.outroIsOver && !frozen)
         {
             isDashing = true;
             dashCooldown = 0;
@@ -743,13 +756,13 @@ public class PlayerController : MonoBehaviour
                 {
                     case "PlayerFront":
                         //deflect player if not hitting with Ice attack
-                        if (hasIcePower == true && this.gameObject.transform.localScale.x == -collisions[colIndex].gameObject.transform.parent.localScale.x)
+                        if (hasIcePower == true && this.gameObject.transform.localScale.x == -collisions[colIndex].gameObject.transform.parent.localScale.x && !invincible)
                         {
                             //if player attacking has ice power, freeze target
                             IceAttack(otherPlayer);
 
                         }
-                        else if (!isDeflecting && this.gameObject.transform.localScale.x == -collisions[colIndex].gameObject.transform.parent.localScale.x)
+                        else if (!isDeflecting && this.gameObject.transform.localScale.x == -collisions[colIndex].gameObject.transform.parent.localScale.x )
                         {
                             //deflect if this player isnt being deflected and both players are facing opposite directions  ,0>  <0,
                             Deflect();
@@ -760,7 +773,7 @@ public class PlayerController : MonoBehaviour
                         break;
                     case "PlayerBack":
                         //kill other player if both facing the same direction ,0> ,0>
-                        if (this.gameObject.transform.localScale.x == collisions[colIndex].gameObject.transform.parent.localScale.x)
+                        if (this.gameObject.transform.localScale.x == collisions[colIndex].gameObject.transform.parent.localScale.x && !invincible)
                         {
                             if (otherPlayer.OnStickyWall())
                             {
@@ -785,7 +798,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        Invoke(nameof(AttackFinish), attackTimer); //end attack after timer - 0.4 seconds
+        Invoke(nameof(AttackFinish), attackTimer); 
     }
 
     private void AttackFinish()
@@ -914,7 +927,9 @@ public class PlayerController : MonoBehaviour
         frozen = false;
         hasIcePower = false;
 
-        transform.localScale = startingScale;
+        playerArrow.ShowArrow();
+        FaceTowardCenter();
+
         DeleteVFXOfTag("CollectableVFX");
         vfxController.GetComponent<VFXController>().PlayVFX(transform, "Respawn");
         
@@ -929,6 +944,7 @@ public class PlayerController : MonoBehaviour
     {
         invincible = false;
         spriteRenderer.material = defaultMaterial;
+        playerArrow.HideArrow();
     }
   
 

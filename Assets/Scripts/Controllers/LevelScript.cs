@@ -129,6 +129,15 @@ public class LevelScript : MonoBehaviour
         introIsOver = false;
         yield return new WaitForSeconds(introTime);
         introIsOver = true;
+
+      //  if (players != null)
+       // {
+       //     foreach (GameObject player in players)
+        //    {
+        //        player.GetComponent<PlayerController>().HideArrow();
+
+        //    }
+       // }
         AM.Play("MusicFight"); //TODO : CHANGE THIS BACK TO BEGIN AT START OF LEVEL ONCE COUNTDOWN IS ADDED TO SONG
         //Debug.Log("introIsOver: " + introIsOver);
     }

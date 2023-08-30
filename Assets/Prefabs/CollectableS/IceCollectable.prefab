@@ -206,6 +206,7 @@ MonoBehaviour:
   particleSystem: {fileID: 1839650424783709803}
   spriteRenderer: {fileID: 3800346872804229244}
   light: {fileID: 7066432741650967702}
+  collider: {fileID: 3800346872804229245}
 --- !u!1001 &3120461305034020551
 PrefabInstance:
   m_ObjectHideFlags: 0
