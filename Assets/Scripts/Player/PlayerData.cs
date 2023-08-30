@@ -10,7 +10,7 @@ public class PlayerData : MonoBehaviour
     private static bool gameRun, devMode;
 
     //character sprite references
-    private static Sprite[] characterSprites = new Sprite[4];//holds possible sprites
+    private static Sprite[] characterSprites = new Sprite[4];           //holds possible sprites
 
 
     //player in-game

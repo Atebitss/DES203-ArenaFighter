@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class PlayerJoinHandler : MonoBehaviour
 {
+    //actions
     public event System.Action<PlayerInput> PlayerJoinedGame;
     public event System.Action<PlayerInput> PlayerLeftGame;
     [SerializeField] private GameObject playerJoinMenuController;
@@ -15,14 +16,18 @@ public class PlayerJoinHandler : MonoBehaviour
     [SerializeField] private InputAction startAction;
 
     //header animation
-    [SerializeField] private Animator[] headerAnimators = new Animator[4];
+    private Animator[] headerAnimators = new Animator[4];
     private bool[] headersPlaying = new bool[4];
 
+    //player 
     private int curPlayerPos;
-    private InputAction.CallbackContext context;
     private InputDevice curPlayerDevice;
+    [SerializeField] GameObject selectorPrefab;
 
+    //refs
     public static PlayerJoinHandler instance = null;
+    private CharacterSelectHandler csh;
+    [SerializeField] private GameObject[] pressA = new GameObject[4];
 
 
     //~~~~~~~ LEVEL BASICS ~~~~~~~\\
@@ -54,6 +59,8 @@ public class PlayerJoinHandler : MonoBehaviour
         {
             headerAnimators[i] = GameObject.Find("Header" + (i + 1)).GetComponent<Animator>();
         }
+
+        csh = GameObject.Find("CharacterSelectManager").GetComponent<CharacterSelectHandler>();
     }
 
 
@@ -61,29 +68,25 @@ public class PlayerJoinHandler : MonoBehaviour
     void JoinAction(InputAction.CallbackContext ctx)
     {
         //Debug.Log("Join action attempt");
-        if (SceneManager.GetActiveScene().name == "2PlayerJoin")
+        //joins player as long as there are less than 4 players
+        if (SceneManager.GetActiveScene().name == "2PlayerJoin" && PlayerData.GetNumOfPlayers() < 4)
         {
-            //joins player as long as there are less than 4 players
-            if (PlayerData.GetNumOfPlayers() < 4)
+            //Debug.Log("JoinAction()");
+            for (int playerCheck = 0; playerCheck < 4; playerCheck++)
             {
-                //Debug.Log("JoinAction()");
-                for (int playerCheck = 0; playerCheck < 4; playerCheck++)
+                if (PlayerData.playerInputs[playerCheck] == null)
                 {
-                    if (PlayerData.playerInputs[playerCheck] == null)
-                    {
-                        curPlayerPos = playerCheck;
-                        context = ctx;
-                        PlayerData.playerDevices[curPlayerPos] = ctx.control.device;
-                        //if (!PlayerData.gameRun) { curPlayerPos = playerCheck; }
-                        //else if (PlayerData.gameRun) { curPlayerPos = playerCheck-1; }
+                    curPlayerPos = playerCheck;
+                    PlayerData.playerDevices[curPlayerPos] = ctx.control.device;
+                    //if (!PlayerData.gameRun) { curPlayerPos = playerCheck; }
+                    //else if (PlayerData.gameRun) { curPlayerPos = playerCheck-1; }
 
-                        //Debug.Log("player input " + curPlayerPos + " empty");
-                        playerCheck = 4;
-                    }
+                    //Debug.Log("player input " + curPlayerPos + " empty");
+                    playerCheck = 4;
                 }
-
-                PlayerInputManager.instance.JoinPlayerFromActionIfNotAlreadyJoined(ctx);
             }
+
+            PlayerInputManager.instance.JoinPlayerFromActionIfNotAlreadyJoined(ctx);
         }
     }
 
@@ -116,14 +119,9 @@ public class PlayerJoinHandler : MonoBehaviour
             //Debug.Log("playerjoinhandler onplayerjoin curpos: " + curPlayerPos);
             //Debug.Log(PlayerData.playerDevices[curPlayerPos].name);
             //Debug.Log(this.gameObject.GetComponent<HapticController>());
-            if (!PlayerData.playerDevices[curPlayerPos].name.Equals("Keyboard")) { this.gameObject.GetComponent<HapticController>().PlayHaptics("Rumble", (Gamepad)PlayerData.playerDevices[curPlayerPos]); }    
+            if (!PlayerData.playerDevices[curPlayerPos].name.Equals("Keyboard")) { this.gameObject.GetComponent<HapticController>().PlayHaptics("Rumble", (Gamepad)PlayerData.playerDevices[curPlayerPos]); }
             
-
             StartCoroutine(AnimDelay(curPlayerPos));
-
-            string findRef = "Image" + (curPlayerPos + 1);
-            //Debug.Log(findRef);
-            GameObject.Find(findRef).GetComponent<ChangeImage>().ImageChange();
         }
     }
 
@@ -159,9 +157,9 @@ public class PlayerJoinHandler : MonoBehaviour
                             PlayerData.SetNumOfPlayers((PlayerData.GetNumOfPlayers()-1));
 
                             int playerNum = (int)char.GetNumericValue(PlayerData.playerInputs[player].name[10]) + 1;
-                            string findRef = "Image" + playerNum;
                             //Debug.Log(playerNum);
-                            GameObject.Find(findRef).GetComponent<ChangeImage>().ResetImage();
+                            csh.GetCSS(playerNum).ResetImage();     
+                            pressA[playerNum].SetActive(true);
 
                             //Debug.Log("removing " + PlayerData.playerInputs[player] + " from list");
                             PlayerData.playerInputs[player] = null;

@@ -10,7 +10,7 @@ public class PodiumScreenManager : MonoBehaviour
     public Animator transition;
     public float transitionTime = 1f;
 
-    [SerializeField ]private float minLoadTime;
+    [SerializeField] private float minLoadTime;
     private float timer;
 
     public Image continueButton;
