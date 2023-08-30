@@ -11,7 +11,7 @@ public class EGXScoreboardScript : MonoBehaviour, EGXPersistenceInterface
 
 
     //scoreboard text & image references
-    [SerializeField] private TextMeshProUGUI[] positionTexts = new TextMeshProUGUI[5];      //holds position text
+    [SerializeField] private GameObject[] positionTexts = new GameObject[5];      //holds position text
     [SerializeField] private Image[] positionImages = new Image[5];                         //holds position image
 
     //scoreboard scores, time since last kills, & sprite references (tracks top 5 wins)
@@ -27,7 +27,7 @@ public class EGXScoreboardScript : MonoBehaviour, EGXPersistenceInterface
     private string[] storedNames;                                                           //holds players name
 
     //current winner scoreboard text & image reference
-    [SerializeField] private TextMeshProUGUI curText;                                       //holds cur player text
+    [SerializeField] private GameObject curText;                                       //holds cur player text
     [SerializeField] private Image curImage;                                                //holds cur player image
 
     //current winner score, time since last kill, & sprite reference (tracks current winner)
@@ -44,8 +44,8 @@ public class EGXScoreboardScript : MonoBehaviour, EGXPersistenceInterface
 
     void Awake()
     {
-        for (int pos = 0; pos < positionTexts.Length; pos++) { positionTexts[pos].color = new Color32(0, 0, 0, 255); }
-        curText.color = new Color32(0, 0, 0, 255);
+        //for (int pos = 0; pos < positionTexts.Length; pos++) { positionTexts[pos].color = new Color32(0, 0, 0, 255); }
+        //curText.color = new Color32(0, 0, 0, 255);
     }
 
     void Start()
@@ -395,13 +395,27 @@ public class EGXScoreboardScript : MonoBehaviour, EGXPersistenceInterface
 
     private void DisplayScoreboard()
     {
+        
+
         for (int position = 0; position < playerScores.Length; position++)
         {
             //update relevant position image with sprite related to sprite ID of current position
             //update relevant position text with position and score of current position
 
             positionImages[position].sprite = characterSprites[playerSpriteIDs[position]];
-            positionTexts[position].text = "        Position " + (position+1) + ": " + playerNames[position] + "     Score: " + playerScores[position] + "     TSLK: " + playerTSLKs[position].ToString("F2");
+            //positionTexts[position].text = "        Position " + (position+1) + ": " + playerNames[position] + "     Score: " + playerScores[position] + "     TSLK: " + playerTSLKs[position].ToString("F2");
+
+
+            Transform[] allchildren = GetComponentsInChildren<Transform>();
+            foreach (Transform child in allchildren)
+            {
+                GameObject nameText = GameObject.Find(Name);
+                GameObject positionText = GameObject.Find(Position);
+                GameObject scoreText = GameObject.Find(Score);
+            }
+            
+
+           
         }
 
 
