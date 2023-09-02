@@ -11,6 +11,7 @@ public class PlayerData : MonoBehaviour
 
     //character sprite references
     private static Sprite[] characterSprites = new Sprite[4];           //holds possible sprites
+    public static int[] playerSpriteIDs = new int[4];                   //holds character sprite ids
 
 
     //player in-game
@@ -24,7 +25,7 @@ public class PlayerData : MonoBehaviour
 
     //player scores
     public static int[] playerScores = new int[4];                      //holds players total kills
-    public static float[] playerTSLKs = new float[4];                    //holds players time since last kill
+    public static float[] playerTSLKs = new float[4];                   //holds players time since last kill
     public static int[] playerPositions = new int[] { 0, 1, 2, 3 };     //holds players current podium position
     public static string playerName;
 
@@ -34,14 +35,20 @@ public class PlayerData : MonoBehaviour
     public static bool GetDevMode() { return devMode; }
     public static void SetDevMode(bool update) { devMode = update; }
 
+    public static float GetDevRoundTime() { return devRoundTime; }
+    public static void SetDevRoundTime(float update) { devRoundTime = update; }
+
+
     public static bool GetGameRun() { return gameRun; }
     public static void SetGameRun(bool update) { gameRun = update; }
 
     public static int GetNumOfPlayers() { return numOfPlayers; }
     public static void SetNumOfPlayers(int update) { numOfPlayers = update; }
 
-    public static float GetDevRoundTime() { return devRoundTime; }
-    public static void SetDevRoundTime(float update) { devRoundTime = update; }
+
+    public static void SetSpriteIDs(int[] spriteIDs) { playerSpriteIDs = spriteIDs; }
+    public static int GetSpriteID(int playerNum) { return playerSpriteIDs[playerNum]; }
+    public static int[] GetSpriteIDs() { return playerSpriteIDs; }
 
     public static void SetSprites(Sprite[] sprites) { characterSprites = sprites; }
     public static Sprite GetSprite(int spriteNum) { return characterSprites[spriteNum]; }

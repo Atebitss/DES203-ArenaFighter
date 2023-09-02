@@ -78,6 +78,7 @@ public class PlayerJoinHandler : MonoBehaviour
                 {
                     curPlayerPos = playerCheck;
                     PlayerData.playerDevices[curPlayerPos] = ctx.control.device;
+                    pressA[playerCheck].SetActive(false);
                     //if (!PlayerData.gameRun) { curPlayerPos = playerCheck; }
                     //else if (PlayerData.gameRun) { curPlayerPos = playerCheck-1; }
 
