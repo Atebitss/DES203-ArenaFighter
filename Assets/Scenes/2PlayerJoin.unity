@@ -2017,12 +2017,6 @@ MonoBehaviour:
       m_Groups: 
       m_Action: Start
       m_Flags: 0
-  selectorPrefab: {fileID: 7239917493352442643, guid: f209ce60c02edd54bacc81153b32fbb0, type: 3}
-  pressA:
-  - {fileID: 773222688}
-  - {fileID: 419319051}
-  - {fileID: 691523146}
-  - {fileID: 2064961861}
 --- !u!4 &2038272034
 Transform:
   m_ObjectHideFlags: 0
@@ -2178,6 +2172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 503b57bf28ad9a54d98cb107e2311acb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  greyMaterial: {fileID: 2100000, guid: dd8b1a0d0c04f9e4db87026ea4918317, type: 2}
 --- !u!4 &2084404336
 Transform:
   m_ObjectHideFlags: 0

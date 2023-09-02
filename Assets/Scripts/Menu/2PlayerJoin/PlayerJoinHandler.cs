@@ -64,8 +64,6 @@ public class PlayerJoinHandler : MonoBehaviour
         csh = GameObject.Find("CharacterSelectManager").GetComponent<CharacterSelectHandler>();
     }
 
-    void FixedUpdate() { Debug.Log("cPP: " + curPlayerPos); }
-
 
     //~~~~~~~ PLAYER JOINED ~~~~~~~\\
     void JoinAction(InputAction.CallbackContext ctx)
@@ -74,14 +72,14 @@ public class PlayerJoinHandler : MonoBehaviour
         //joins player as long as there are less than 4 players
         if (SceneManager.GetActiveScene().name == "2PlayerJoin" && PlayerData.GetNumOfPlayers() < 4)
         {
-            Debug.Log("JoinAction()");
-            Debug.Log("device attempting join: " + ctx.control.device);
+            //Debug.Log("JoinAction()");
+            //Debug.Log("device attempting join: " + ctx.control.device);
             for (int playerCheck = 0; playerCheck < 4; playerCheck++)
             {
                 if (PlayerData.playerInputs[playerCheck] != null && PlayerData.playerDevices[playerCheck].Equals(ctx.control.device)) { Debug.Log("device already found: " + ctx.control.device); break; }
                 if (PlayerData.playerInputs[playerCheck] == null)
                 {
-                    Debug.Log("player input " + playerCheck + " empty");
+                    //Debug.Log("player input " + playerCheck + " empty");
 
                     curPlayerPos = playerCheck;
                     PlayerData.playerDevices[curPlayerPos] = ctx.control.device;
@@ -103,7 +101,7 @@ public class PlayerJoinHandler : MonoBehaviour
         {
             curPlayerPos = playerInput.playerIndex;
             //runs when a player joins
-            Debug.Log("Player " + curPlayerPos + " joined..");
+            //Debug.Log("Player " + curPlayerPos + " joined..");
             //Debug.Log("Input: " + playerInput);
 
             if (PlayerJoinedGame != null)

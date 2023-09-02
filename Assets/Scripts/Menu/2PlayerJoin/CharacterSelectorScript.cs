@@ -15,6 +15,7 @@ public class CharacterSelectorScript : MonoBehaviour
     //image components
     [SerializeField] private Image imageComponent;
     [SerializeField] private Sprite emptyImage;
+    [SerializeField] private Material defaultMaterial;
 
     //arrows
     [SerializeField] private GameObject upArrow;
@@ -46,14 +47,15 @@ public class CharacterSelectorScript : MonoBehaviour
     public void ImageChange(Sprite newSpirte)
     {
         imageComponent.sprite = newSpirte;
-        imageComponent.color = new Color(imageComponent.color.r, imageComponent.color.g, imageComponent.color.b, 1);
+        if (imageComponent.color.a != 1) { imageComponent.color = new Color(imageComponent.color.r, imageComponent.color.g, imageComponent.color.b, 1); }
+        if (!imageComponent.material.Equals("None")) { imageComponent.material = defaultMaterial; }
         //Debug.Log("updating image with " + newSpirte);
     }
 
     public void ResetImage()
     {
         imageComponent.sprite = emptyImage;
-        imageComponent.color = new Color(imageComponent.color.r, imageComponent.color.g, imageComponent.color.b, 0);
+        if (imageComponent.color.a != 0) { imageComponent.color = new Color(imageComponent.color.r, imageComponent.color.g, imageComponent.color.b, 0); }
         //Debug.Log("resetting image");
     }
 
@@ -172,4 +174,9 @@ public class CharacterSelectorScript : MonoBehaviour
         ResetImage();
         csh.DelCSS(playerNum);
     }
+
+
+
+    public int GetSpriteIndex() { return spriteIndex; }
+    public Image GetImageComp() { return imageComponent; }
 }
