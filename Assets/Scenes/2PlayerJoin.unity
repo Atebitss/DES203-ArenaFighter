@@ -1980,7 +1980,7 @@ MonoBehaviour:
     - m_Name: 
       m_Id: 9d23d008-6fa2-4016-830f-e9fd47a6f649
       m_Path: <Keyboard>/escape
-      m_Interactions: 
+      m_Interactions: Hold(duration=0.25)
       m_Processors: 
       m_Groups: 
       m_Action: Leave
@@ -1988,7 +1988,7 @@ MonoBehaviour:
     - m_Name: 
       m_Id: 598a4bbf-d39e-4d07-8aab-23c7213bdc1b
       m_Path: <Gamepad>/select
-      m_Interactions: 
+      m_Interactions: Hold(duration=0.25)
       m_Processors: 
       m_Groups: 
       m_Action: Leave

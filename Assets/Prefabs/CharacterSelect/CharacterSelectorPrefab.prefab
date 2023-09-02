@@ -269,7 +269,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: 6bb360a1-ec6e-439a-b1c3-87851bacd334
-    m_ActionName: CharSelectInput/Confirm[/Keyboard/enter]
+    m_ActionName: CharSelectInput/Confirm[/XInputControllerWindows/buttonSouth,/Keyboard/space]
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 7239917493352442664}
@@ -285,7 +285,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: 097757e5-51ce-4144-a38d-c8ce7b7f49d3
-    m_ActionName: CharSelectInput/Back[/Keyboard/escape]
+    m_ActionName: CharSelectInput/Back[/XInputControllerWindows/buttonEast,/Keyboard/escape]
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 7239917493352442664}
@@ -301,7 +301,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: 7bcdced7-be7d-4891-8b3c-697c7a58b2f6
-    m_ActionName: CharSelectInput/Up[/Keyboard/w]
+    m_ActionName: CharSelectInput/Up[/XInputControllerWindows/leftStick/up,/XInputControllerWindows/rightStick/up,/XInputControllerWindows/dpad/up,/Keyboard/w]
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 7239917493352442664}
@@ -317,23 +317,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: 3f8ce6b3-3414-4ca0-ba3b-83edb74f34d3
-    m_ActionName: CharSelectInput/Down[/Keyboard/s]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7239917493352442664}
-        m_TargetAssemblyTypeName: CharacterSelectorScript, Assembly-CSharp
-        m_MethodName: OnContinue
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: ed1f838b-9a00-40f5-9027-88cf9229a462
-    m_ActionName: CharSelectInput/Continue[/Keyboard/enter]
+    m_ActionName: CharSelectInput/Down[/XInputControllerWindows/leftStick/down,/XInputControllerWindows/rightStick/down,/XInputControllerWindows/dpad/down,/Keyboard/s]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: CharSelectInput
@@ -352,7 +336,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   imageComponent: {fileID: 7239917493352442646}
-  newImage: {fileID: 4135883091519116254, guid: 0d4a47ff7c51399449ca1dc8cf9ad04f, type: 3}
   emptyImage: {fileID: 21300000, guid: 3e4d75d659e2863488d0967863d3ce9c, type: 3}
   upArrow: {fileID: 7239917492174162914}
   downArrow: {fileID: 7239917491640860619}

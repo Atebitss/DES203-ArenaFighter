@@ -151,14 +151,6 @@ public class CharacterSelectorScript : MonoBehaviour
     }
 
 
-    public void OnContinue(InputAction.CallbackContext ctx)
-    {
-        if (ctx.performed)
-        {
-            Debug.Log("OnContinue");
-        }
-    }
-
 
     void OnDestroy()
     {

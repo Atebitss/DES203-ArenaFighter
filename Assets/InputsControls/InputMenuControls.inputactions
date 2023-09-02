@@ -36,14 +36,6 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
-                },
-                {
-                    "name": "Continue",
-                    "type": "Button",
-                    "id": "ed1f838b-9a00-40f5-9027-88cf9229a462",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -61,7 +53,7 @@
                 {
                     "name": "",
                     "id": "c737a7e8-8cf3-446e-85bf-73e5e662c591",
-                    "path": "<Keyboard>/enter",
+                    "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -176,28 +168,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Down",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "24ba23a0-0ff5-4141-8411-7f850dd733af",
-                    "path": "<Gamepad>/start",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Continue",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "fef96af5-cf6c-40a6-8b9b-bfd0410dff80",
-                    "path": "<Keyboard>/enter",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Continue",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
