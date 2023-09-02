@@ -71,19 +71,23 @@ public class PlayerJoinHandler : MonoBehaviour
         //joins player as long as there are less than 4 players
         if (SceneManager.GetActiveScene().name == "2PlayerJoin" && PlayerData.GetNumOfPlayers() < 4)
         {
-            //Debug.Log("JoinAction()");
+            Debug.Log("JoinAction()");
+            Debug.Log("device attempting join: " + ctx.control.device);
             for (int playerCheck = 0; playerCheck < 4; playerCheck++)
             {
+                if (PlayerData.playerInputs[playerCheck] != null && PlayerData.playerDevices[playerCheck].Equals(ctx.control.device)) { Debug.Log("device already found: " + ctx.control.device); break; }
                 if (PlayerData.playerInputs[playerCheck] == null)
                 {
+                    Debug.Log("player input " + playerCheck + " empty");
+
                     curPlayerPos = playerCheck;
                     PlayerData.playerDevices[curPlayerPos] = ctx.control.device;
                     pressA[playerCheck].SetActive(false);
                     //if (!PlayerData.gameRun) { curPlayerPos = playerCheck; }
                     //else if (PlayerData.gameRun) { curPlayerPos = playerCheck-1; }
 
-                    //Debug.Log("player input " + curPlayerPos + " empty");
                     playerCheck = 4;
+                    break;
                 }
             }
 
