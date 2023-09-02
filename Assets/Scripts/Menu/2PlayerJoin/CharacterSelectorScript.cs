@@ -48,7 +48,7 @@ public class CharacterSelectorScript : MonoBehaviour
     {
         imageComponent.sprite = newSpirte;
         if (imageComponent.color.a != 1) { imageComponent.color = new Color(imageComponent.color.r, imageComponent.color.g, imageComponent.color.b, 1); }
-        if (!imageComponent.material.Equals("None")) { imageComponent.material = defaultMaterial; }
+        if (!imageComponent.material.Equals("None")) { imageComponent.material = defaultMaterial; }   //if cur material isnt none, reset it
         //Debug.Log("updating image with " + newSpirte);
     }
 
@@ -147,10 +147,14 @@ public class CharacterSelectorScript : MonoBehaviour
         if (ctx.performed && !confirmed)
         {
             //Debug.Log("OnConfirm");
-            //update csh with character id
-            csh.SelectCharcter(playerNum, spriteIndex);
-            //set bool confirmed to true
-            confirmed = true;
+            //if ID not already confirmed
+            if (!csh.IsCharacterConfirmed(spriteIndex))
+            {
+                //update csh with character id
+                csh.SelectCharcter(playerNum, spriteIndex);
+                //set bool confirmed to true
+                confirmed = true;
+            }
         }
     }
 
