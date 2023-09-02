@@ -24,16 +24,17 @@ public class CharacterSelectorScript : MonoBehaviour
 
     void Awake()
     {
+        Debug.Log(this.transform.name + " Awake()");
+    }
+
+    public void Wake(int num)
+    {
         //ref joining script & select manager
         pjh = GameObject.Find("PlayerJoinManager").GetComponent<PlayerJoinHandler>();
         csh = GameObject.Find("CharacterSelectManager").GetComponent<CharacterSelectHandler>();
 
         //set players num & disable 'press a'
-        playerNum = pjh.CurrentPlayer();
-
-        //update name and position in heirarchy
-        this.transform.name = "CharacterSelector" + playerNum;
-        this.transform.SetParent(GameObject.Find("Box" + (playerNum + 1)).transform, false);
+        playerNum = num;
 
         //update image & csh
         csh.AddCSS(playerNum, this);
@@ -46,14 +47,14 @@ public class CharacterSelectorScript : MonoBehaviour
     {
         imageComponent.sprite = newSpirte;
         imageComponent.color = new Color(imageComponent.color.r, imageComponent.color.g, imageComponent.color.b, 1);
-        Debug.Log("updating image with " + newSpirte);
+        //Debug.Log("updating image with " + newSpirte);
     }
 
     public void ResetImage()
     {
         imageComponent.sprite = emptyImage;
         imageComponent.color = new Color(imageComponent.color.r, imageComponent.color.g, imageComponent.color.b, 0);
-        Debug.Log("resetting image");
+        //Debug.Log("resetting image");
     }
 
 
@@ -68,7 +69,7 @@ public class CharacterSelectorScript : MonoBehaviour
         //if up pressed & player has not confirmed character & not on last character
         if (ctx.started && !confirmed)
         {
-            Debug.Log("OnUp");
+            //Debug.Log("OnUp");
             //find next availible character up
             spriteIndex = FindNextIndex(spriteIndex, 1);
 
@@ -87,7 +88,7 @@ public class CharacterSelectorScript : MonoBehaviour
     {
         if (ctx.started && !confirmed)
         {
-            Debug.Log("OnDown");
+            //Debug.Log("OnDown");
             //find next availible character down
             spriteIndex = FindNextIndex(spriteIndex, -1);
 
@@ -105,7 +106,7 @@ public class CharacterSelectorScript : MonoBehaviour
 
     private int FindNextIndex(int start, int dir)
     {
-        Debug.Log(this.transform.name + " FindNextIndex()");
+        //Debug.Log(this.transform.name + " FindNextIndex()");
         //temp int is scripts current sprite index
         int tempIndex = start;
 
@@ -113,14 +114,27 @@ public class CharacterSelectorScript : MonoBehaviour
         for (int check = 0; check < PlayerData.GetNumOfPlayers(); check++)
         {
             tempIndex = tempIndex + dir;
-            Debug.Log("checking index " + tempIndex);
+            //Debug.Log("checking index " + tempIndex);
 
-            if (tempIndex < 0) { Debug.Log("index at min, looping to max"); tempIndex = PlayerData.GetSprites().Length - 1; }
-            else if (tempIndex >= PlayerData.GetSprites().Length) { Debug.Log("index at max, looping to min"); tempIndex = 0; }
-            if (!csh.IsCharacterConfirmed(tempIndex)) { Debug.Log(tempIndex + " availible"); return tempIndex; }
+            if (tempIndex < 0) 
+            { 
+                //Debug.Log("index at min, looping to max"); 
+                tempIndex = PlayerData.GetSprites().Length - 1; 
+            }
+            else if (tempIndex >= PlayerData.GetSprites().Length) 
+            { 
+                //Debug.Log("index at max, looping to min"); 
+                tempIndex = 0; 
+            }
+
+            if (!csh.IsCharacterConfirmed(tempIndex)) 
+            { 
+                //Debug.Log(tempIndex + " availible"); 
+                return tempIndex; 
+            }
         }
 
-        Debug.Log("all charcters locked");
+        //Debug.Log("all charcters locked");
         return -1;
     }
 
@@ -130,7 +144,7 @@ public class CharacterSelectorScript : MonoBehaviour
     {
         if (ctx.performed && !confirmed)
         {
-            Debug.Log("OnConfirm");
+            //Debug.Log("OnConfirm");
             //update csh with character id
             csh.SelectCharcter(playerNum, spriteIndex);
             //set bool confirmed to true
@@ -142,7 +156,7 @@ public class CharacterSelectorScript : MonoBehaviour
     {
         if (ctx.performed && confirmed)
         {
-            Debug.Log("OnBack");
+            //Debug.Log("OnBack");
             //update csh with -1
             csh.DeselectCharacter(playerNum);
             //set bool confirmed to false

@@ -52,7 +52,7 @@ public class EGXScoreboardScript : MonoBehaviour, EGXPersistenceInterface
         //set script vars to top player's in player data
         playerScore = PlayerData.playerScores[0];
         playerTSLK = PlayerData.playerTSLKs[0];
-        playerSpriteID = PlayerData.playerPositions[0];
+        playerSpriteID = PlayerData.GetSpriteID(PlayerData.playerPositions[0]);
         playerName = PlayerData.playerName;
 
         //Debug.Log("score: " + playerScore + ", spriteID: " + playerSpriteID + ", tslk: " + playerTSLK);

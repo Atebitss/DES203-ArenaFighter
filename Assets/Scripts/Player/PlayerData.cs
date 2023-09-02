@@ -46,7 +46,7 @@ public class PlayerData : MonoBehaviour
     public static void SetNumOfPlayers(int update) { numOfPlayers = update; }
 
 
-    public static void SetSpriteIDs(int[] spriteIDs) { playerSpriteIDs = spriteIDs; }
+    public static void SetSpriteIDs(int[] spriteIDs) { for (int i = 0; i < playerSpriteIDs.Length; i++) { playerSpriteIDs = spriteIDs; } }
     public static int GetSpriteID(int playerNum) { return playerSpriteIDs[playerNum]; }
     public static int[] GetSpriteIDs() { return playerSpriteIDs; }
 
@@ -68,17 +68,22 @@ public class PlayerData : MonoBehaviour
         playerScripts[playerNum] = playerScript;
     }
 
-    public static void GetPlayers()
+    public static GameObject[] GetPlayers()
     {
-        Debug.Log(numOfPlayers + " total players");
-
-        for(int i = 0; i < numOfPlayers; i++)
+        if (devMode)
         {
-            Debug.Log("Name: " + playerInputs[i]);
-            Debug.Log("Player: " + players[i]);
-            Debug.Log("Device: " + playerDevices[i]);
-            Debug.Log("Scheme: " + playerControlScheme[i]);
+            Debug.Log(numOfPlayers + " total players");
+
+            for (int i = 0; i < numOfPlayers; i++)
+            {
+                Debug.Log("Name: " + playerInputs[i]);
+                Debug.Log("Player: " + players[i]);
+                Debug.Log("Device: " + playerDevices[i]);
+                Debug.Log("Scheme: " + playerControlScheme[i]);
+            }
         }
+
+        return players;
     }
 
 

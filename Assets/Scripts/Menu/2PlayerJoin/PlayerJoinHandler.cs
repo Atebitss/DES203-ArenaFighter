@@ -22,12 +22,12 @@ public class PlayerJoinHandler : MonoBehaviour
     //player 
     private int curPlayerPos;
     private InputDevice curPlayerDevice;
-    [SerializeField] GameObject selectorPrefab;
+    private GameObject[] selectorPrefabs = new GameObject[4];
 
     //refs
     public static PlayerJoinHandler instance = null;
     private CharacterSelectHandler csh;
-    [SerializeField] private GameObject[] pressA = new GameObject[4];
+    private GameObject[] pressA = new GameObject[4];
 
 
     //~~~~~~~ LEVEL BASICS ~~~~~~~\\
@@ -58,10 +58,13 @@ public class PlayerJoinHandler : MonoBehaviour
         for (int i = 0; i < headerAnimators.Length; i++)
         {
             headerAnimators[i] = GameObject.Find("Header" + (i + 1)).GetComponent<Animator>();
+            pressA[i] = GameObject.Find("A" + (i+1));
         }
 
         csh = GameObject.Find("CharacterSelectManager").GetComponent<CharacterSelectHandler>();
     }
+
+    void FixedUpdate() { Debug.Log("cPP: " + curPlayerPos); }
 
 
     //~~~~~~~ PLAYER JOINED ~~~~~~~\\
@@ -82,7 +85,6 @@ public class PlayerJoinHandler : MonoBehaviour
 
                     curPlayerPos = playerCheck;
                     PlayerData.playerDevices[curPlayerPos] = ctx.control.device;
-                    pressA[playerCheck].SetActive(false);
                     //if (!PlayerData.gameRun) { curPlayerPos = playerCheck; }
                     //else if (PlayerData.gameRun) { curPlayerPos = playerCheck-1; }
 
@@ -99,14 +101,19 @@ public class PlayerJoinHandler : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name == "2PlayerJoin")
         {
+            curPlayerPos = playerInput.playerIndex;
             //runs when a player joins
-            //Debug.Log("Player " + curPlayerPos + " joined..");
+            Debug.Log("Player " + curPlayerPos + " joined..");
             //Debug.Log("Input: " + playerInput);
 
             if (PlayerJoinedGame != null)
             {
                 PlayerJoinedGame(playerInput);
             }
+
+            selectorPrefabs[curPlayerPos] = playerInput.gameObject;
+
+            pressA[curPlayerPos].SetActive(false);
 
             //finds the lowest empty element in the players array & updates the current player int
             PlayerData.playerInputs[curPlayerPos] = playerInput;
@@ -125,7 +132,16 @@ public class PlayerJoinHandler : MonoBehaviour
             //Debug.Log(PlayerData.playerDevices[curPlayerPos].name);
             //Debug.Log(this.gameObject.GetComponent<HapticController>());
             if (!PlayerData.playerDevices[curPlayerPos].name.Equals("Keyboard")) { this.gameObject.GetComponent<HapticController>().PlayHaptics("Rumble", (Gamepad)PlayerData.playerDevices[curPlayerPos]); }
-            
+
+
+            //update name and position in heirarchy
+            if (GameObject.Find("CharacterSelector" + curPlayerPos)) { Debug.Log("duplicate selectors"); }
+            selectorPrefabs[curPlayerPos].transform.name = "CharacterSelector" + curPlayerPos;
+            selectorPrefabs[curPlayerPos].transform.SetParent(GameObject.Find("Box" + (curPlayerPos + 1)).transform, false);
+            Debug.Log(selectorPrefabs[curPlayerPos]);
+            selectorPrefabs[curPlayerPos].GetComponent<CharacterSelectorScript>().Wake(curPlayerPos);
+
+
             StartCoroutine(AnimDelay(curPlayerPos));
         }
     }
@@ -217,6 +233,7 @@ public class PlayerJoinHandler : MonoBehaviour
     //~~~~~~~ GET CURRENT PLAYER NUMBER ~~~~~~~\\
     public int CurrentPlayer()
     {
+        if (PlayerData.GetDevMode()) { Debug.Log("cPP: " + curPlayerPos); }
         return curPlayerPos;
     }
 }

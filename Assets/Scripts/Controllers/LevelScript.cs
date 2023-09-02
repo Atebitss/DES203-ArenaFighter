@@ -26,7 +26,7 @@ public class LevelScript : MonoBehaviour
     //PlayerData.playerInputs
     private PlayerJoinHandler pjh;
     private PlayerController[] playerScripts = new PlayerController[4];
-    public GameObject[] players = new GameObject[4];
+    private GameObject[] players = new GameObject[4];
     private int curPlayerPos = 0;
     private int prevPlayerPos = 0;
 
@@ -57,8 +57,9 @@ public class LevelScript : MonoBehaviour
 
 
 
-    //player sprites 
-     [SerializeField] private SpriteLibraryAsset player1Sprites;
+    //player sprites
+    private int[] playerSpriteIDs;
+    [SerializeField] private SpriteLibraryAsset player1Sprites;
      [SerializeField] private SpriteLibraryAsset player2Sprites;
      [SerializeField] private SpriteLibraryAsset player3Sprites;
      [SerializeField] private SpriteLibraryAsset player4Sprites;
@@ -100,6 +101,8 @@ public class LevelScript : MonoBehaviour
 
     private void Start()
     {
+        playerSpriteIDs = PlayerData.GetSpriteIDs();    //update sprite ids with previously selected sprites
+
         for (int player = 0; player < PlayerData.GetNumOfPlayers(); player++)
         {
             curPlayerPos = player;                      //current player ref is the players number (0-3)
@@ -250,11 +253,13 @@ public class LevelScript : MonoBehaviour
         //Color newColor = new Color(0.5f, 0.5f, 1f, 1f);
         //playerRend.color = Color.red;
 
+        Debug.Log(playerSpriteIDs[curPlayerPos]);
+
         //gives the appropriate colour based on player number
         Light2D playerAuraLight = players[curPlayerPos].transform.Find("Light").GetComponent<Light2D>();
         ParticleSystem.MainModule playerAuraParticles = playerAuraLight.GetComponent <ParticleSystem>().main;
         SpriteLibrary spriteLibary = players[curPlayerPos].GetComponent<SpriteLibrary>();
-        switch (curPlayerPos)
+        switch (playerSpriteIDs[curPlayerPos])
         {
             case 0:
                 playerAuraLight.color = new Color(1f, 0f, 0f, 1f); //red

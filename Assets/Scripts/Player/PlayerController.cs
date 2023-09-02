@@ -947,7 +947,7 @@ public class PlayerController : MonoBehaviour
     {
 
         print("Invert Collected");
-        GameObject[] players = ls.players; //store player list from leverl script
+        GameObject[] players = PlayerData.GetPlayers(); //store player list from player data
 
         foreach (GameObject thisPlayer in players)  //search player list for this player
         {
