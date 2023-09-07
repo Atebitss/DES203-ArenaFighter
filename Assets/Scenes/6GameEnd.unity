@@ -2352,6 +2352,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1019210327}
+  - component: {fileID: 1019210328}
   m_Layer: 0
   m_Name: GameEndScreen
   m_TagString: Untagged
@@ -2375,6 +2376,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1019210328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1019210326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52f8fce636b6dc04db594f681a5aa45a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transition: {fileID: 1617340749}
+  transitionTime: 1
+  continueAction:
+    m_Name: Start
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 0aad9881-5461-48c1-b500-362544eea1bf
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
 --- !u!1 &1079500906
 GameObject:
   m_ObjectHideFlags: 0
@@ -3224,9 +3247,7 @@ GameObject:
   - component: {fileID: 1445799266}
   - component: {fileID: 1445799265}
   - component: {fileID: 1445799264}
-  - component: {fileID: 1445799268}
   - component: {fileID: 1445799269}
-  - component: {fileID: 1445799270}
   m_Layer: 5
   m_Name: UICanvas
   m_TagString: Untagged
@@ -3322,44 +3343,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &1445799268
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1445799263}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52f8fce636b6dc04db594f681a5aa45a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  transition: {fileID: 1617340749}
-  transitionTime: 1
-  continueAction:
-    m_Name: Start
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 0aad9881-5461-48c1-b500-362544eea1bf
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 
-      m_Id: 83fbdb48-66dd-4b22-96dd-526f5dffa8d2
-      m_Path: <Gamepad>/start
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Start
-      m_Flags: 0
-    - m_Name: 
-      m_Id: 0638c9d6-31eb-4a36-9f4f-329baa962570
-      m_Path: <Keyboard>/enter
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Start
-      m_Flags: 0
 --- !u!95 &1445799269
 Animator:
   serializedVersion: 3
@@ -3379,49 +3362,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1445799270
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1445799263}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 621567455fd1c4ceb811cc8a00b6a1a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_NotificationBehavior: 0
-  m_MaxPlayerCount: -1
-  m_AllowJoining: 0
-  m_JoinBehavior: 2
-  m_PlayerJoinedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_PlayerLeftEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_JoinAction:
-    m_UseReference: 0
-    m_Action:
-      m_Name: 
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-    m_Reference: {fileID: 0}
-  m_PlayerPrefab: {fileID: 0}
-  m_SplitScreen: 0
-  m_MaintainAspectRatioInSplitScreen: 0
-  m_FixedNumberOfSplitScreens: -1
-  m_SplitScreenRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
 --- !u!1 &1475964960
 GameObject:
   m_ObjectHideFlags: 0
@@ -5769,11 +5709,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9a27b1c2c7c5614a801942ccfffd644, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterSprites:
-  - {fileID: 4135883091519116254, guid: 0d4a47ff7c51399449ca1dc8cf9ad04f, type: 3}
-  - {fileID: 1065614190303794672, guid: eb0070a1237c45842a56ba20d299e6f0, type: 3}
-  - {fileID: -3860403229348205898, guid: 29b2ef53f13a3684bab85eda0bb210b5, type: 3}
-  - {fileID: 685182351002567597, guid: bd17ab300d34ee14c8a684384bcdaa5f, type: 3}
   positionTexts:
   - {fileID: 1781562296}
   - {fileID: 303914654}

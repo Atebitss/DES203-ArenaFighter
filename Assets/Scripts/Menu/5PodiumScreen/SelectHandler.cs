@@ -67,9 +67,10 @@ public class SelectHandler : MonoBehaviour
 
     public void OnContinue(InputAction.CallbackContext ctx)
     {
-        //if (PlayerData.GetDevMode()) { Debug.Log("SelectHandler OnContinue"); }
+        if (PlayerData.GetDevMode()) { Debug.Log("SelectHandler OnContinue"); }
         if (ctx.started && ctx.control.device == PlayerData.playerDevices[0]) 
         {
+            Debug.Log(ctx.control.device + " == " + PlayerData.playerDevices[0]);
             string selectedChars = "" + selectors[0].GetChar() + selectors[1].GetChar() + selectors[2].GetChar();
 
             foreach(string x in extraProfanities) { if (selectedChars.Equals(x)) { selectedChars = "UwU"; }}
