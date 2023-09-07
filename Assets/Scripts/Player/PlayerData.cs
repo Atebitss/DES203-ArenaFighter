@@ -47,7 +47,7 @@ public class PlayerData : MonoBehaviour
 
 
     public static void SetSpriteIDs(int[] spriteIDs) { for (int i = 0; i < playerSpriteIDs.Length; i++) { playerSpriteIDs = spriteIDs; } }
-    public static int GetSpriteID(int playerNum) { return playerSpriteIDs[playerNum]; }
+    public static int GetSpriteID(int playerNum) { Debug.Log(playerNum); Debug.Log(playerSpriteIDs[playerNum]); return playerSpriteIDs[playerNum]; }
     public static int[] GetSpriteIDs() { return playerSpriteIDs; }
 
     public static void SetSprites(Sprite[] sprites) { characterSprites = sprites; }

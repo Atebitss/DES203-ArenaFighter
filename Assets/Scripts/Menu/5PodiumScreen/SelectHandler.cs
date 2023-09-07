@@ -32,43 +32,43 @@ public class SelectHandler : MonoBehaviour
 
     void Start()
     {
-        if (PlayerData.GetDevMode()) { Debug.Log("SelectHandler Start"); }
+        //if (PlayerData.GetDevMode()) { Debug.Log("SelectHandler Start"); }
         for(int i = 0; i < selectors.Length; i++) { selectors[i] = GameObject.Find("Input" + (i + 1)).GetComponent<LetterSelect>(); selectors[i].WakeDisplay(); }
     }
 
 
     public void OnUp(InputAction.CallbackContext ctx)
     {
-        if (PlayerData.GetDevMode()) { Debug.Log("SelectHandler OnUp"); }
-        if (PlayerData.GetDevMode()) { Debug.Log("selector: " + selectors[selectorIndex]); }
+        //if (PlayerData.GetDevMode()) { Debug.Log("SelectHandler OnUp"); }
+        //if (PlayerData.GetDevMode()) { Debug.Log("selector: " + selectors[selectorIndex]); }
 
         if (ctx.started) { selectors[selectorIndex].LetterInc(ctx); }
     }
 
     public void OnDown(InputAction.CallbackContext ctx)
     {
-        if (PlayerData.GetDevMode()) { Debug.Log("SelectHandler OnDown"); }
-        if (PlayerData.GetDevMode()) { Debug.Log("selector: " + selectors[selectorIndex]); }
+        //if (PlayerData.GetDevMode()) { Debug.Log("SelectHandler OnDown"); }
+        //if (PlayerData.GetDevMode()) { Debug.Log("selector: " + selectors[selectorIndex]); }
         if (ctx.started) { selectors[selectorIndex].LetterDec(ctx); }
     }
 
 
     public void OnForward(InputAction.CallbackContext ctx)
     {
-        if (PlayerData.GetDevMode()) { Debug.Log("SelectHandler OnForward"); }
+        //if (PlayerData.GetDevMode()) { Debug.Log("SelectHandler OnForward"); }
         if (ctx.started && selectorIndex < (selectors.Length - 1)) { selectorIndex++; }
     }
 
     public void OnBack(InputAction.CallbackContext ctx)
     {
-        if (PlayerData.GetDevMode()) { Debug.Log("SelectHandler OnBack"); }
+        //if (PlayerData.GetDevMode()) { Debug.Log("SelectHandler OnBack"); }
         if (ctx.started && selectorIndex > 0) { selectorIndex--; }
     }
 
 
     public void OnContinue(InputAction.CallbackContext ctx)
     {
-        if (PlayerData.GetDevMode()) { Debug.Log("SelectHandler OnContinue"); }
+        //if (PlayerData.GetDevMode()) { Debug.Log("SelectHandler OnContinue"); }
         if (ctx.started) 
         {
             string selectedChars = "" + selectors[0].GetChar() + selectors[1].GetChar() + selectors[2].GetChar();

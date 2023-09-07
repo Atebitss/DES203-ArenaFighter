@@ -396,6 +396,8 @@ public class EGXScoreboardScript : MonoBehaviour, EGXPersistenceInterface
             //update relevant position image with sprite related to sprite ID of current position
             //update relevant position text with position and score of current position
 
+            Debug.Log(position);
+            Debug.Log(playerSpriteIDs[position]);
             positionImages[position].sprite = PlayerData.GetSprite(playerSpriteIDs[position]);
             positionTexts[position].text = "        Position " + (position+1) + ": " + playerNames[position] + "     Score: " + playerScores[position] + "     TSLK: " + playerTSLKs[position].ToString("F2");
         }
