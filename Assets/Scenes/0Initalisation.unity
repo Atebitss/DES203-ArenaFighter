@@ -435,9 +435,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   devMode: 1
-  devRoundSecs: 15
+  devRoundSecs: 90
   characterSprites:
   - {fileID: 4135883091519116254, guid: 0d4a47ff7c51399449ca1dc8cf9ad04f, type: 3}
   - {fileID: -5065804324518478323, guid: eb0070a1237c45842a56ba20d299e6f0, type: 3}
   - {fileID: 3973831536378147099, guid: 29b2ef53f13a3684bab85eda0bb210b5, type: 3}
   - {fileID: 8812513605365520032, guid: bd17ab300d34ee14c8a684384bcdaa5f, type: 3}
+  - {fileID: -6706833997118022183, guid: 1ec56eba59216df42947a2b8be47d9b8, type: 3}

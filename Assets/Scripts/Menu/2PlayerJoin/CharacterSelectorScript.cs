@@ -44,9 +44,9 @@ public class CharacterSelectorScript : MonoBehaviour
 
 
 
-    public void ImageChange(Sprite newSpirte)
+    public void ImageChange(Sprite newSprite)
     {
-        imageComponent.sprite = newSpirte;
+        imageComponent.sprite = newSprite;
         if (imageComponent.color.a != 1) { imageComponent.color = new Color(imageComponent.color.r, imageComponent.color.g, imageComponent.color.b, 1); }
         if (!imageComponent.material.Equals("None")) { imageComponent.material = defaultMaterial; }   //if cur material isnt none, reset it
         //Debug.Log("updating image with " + newSpirte);

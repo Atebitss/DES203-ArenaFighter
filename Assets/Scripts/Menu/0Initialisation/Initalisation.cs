@@ -14,7 +14,7 @@ public class Initalisation : MonoBehaviour
 
     [Header("Sprite Refs")]
     //character sprite references
-    [SerializeField] private Sprite[] characterSprites = new Sprite[4];      //holds possible sprites
+    [SerializeField] private Sprite[] characterSprites = new Sprite[5];      //holds possible sprites
 
 
     //instantly loads up the main menu scene, this scene exits to instantiate the audio manager

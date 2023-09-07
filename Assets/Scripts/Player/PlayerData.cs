@@ -10,8 +10,8 @@ public class PlayerData : MonoBehaviour
     private static bool gameRun, devMode;
 
     //character sprite references
-    private static Sprite[] characterSprites = new Sprite[4];           //holds possible sprites
-    public static int[] playerSpriteIDs = new int[4];                   //holds character sprite ids
+    private static Sprite[] characterSprites = new Sprite[5];           //holds possible sprites
+    public static int[] playerSpriteIDs = new int[5];                   //holds character sprite ids
 
 
     //player in-game
@@ -28,7 +28,7 @@ public class PlayerData : MonoBehaviour
     public static float[] playerTSLKs = new float[4];                   //holds players time since last kill
     public static int[] playerPositions = new int[] { 0, 1, 2, 3 };     //holds players current podium position
     public static string playerName;
-
+    
 
 
 
