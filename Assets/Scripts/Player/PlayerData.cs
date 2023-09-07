@@ -49,7 +49,7 @@ public class PlayerData : MonoBehaviour
 
 
     public static void SetSpriteIDs(int[] spriteIDs) { for (int i = 0; i < playerSpriteIDs.Length; i++) { playerSpriteIDs = spriteIDs; } }
-    public static int GetSpriteID(int playerNum) { Debug.Log(playerNum); Debug.Log(playerSpriteIDs[playerNum]); return playerSpriteIDs[playerNum]; }
+    public static int GetSpriteID(int playerNum) { return playerSpriteIDs[playerNum]; }
     public static int[] GetSpriteIDs() { return playerSpriteIDs; }
 
     public static void SetSprites(Sprite[] sprites) { characterSprites = sprites; }
@@ -96,7 +96,7 @@ public class PlayerData : MonoBehaviour
 
         for(int position = 0; position < numOfPlayers; position++)
         {
-            if (GetDevMode()) { Debug.Log("UpdatingScores - position " + position + ": " + playerScripts[playerPositions[position]].gameObject.name + ", score: " + playerScripts[playerPositions[position]].GetScore() + ", tslk: " + playerScripts[playerPositions[position]].GetTimeSinceLastKill()); }
+            //if (GetDevMode()) { Debug.Log("UpdatingScores - position " + position + ": " + playerScripts[playerPositions[position]].gameObject.name + ", score: " + playerScripts[playerPositions[position]].GetScore() + ", tslk: " + playerScripts[playerPositions[position]].GetTimeSinceLastKill()); }
             playerScores[position] = playerScripts[playerPositions[position]].GetScore();
             playerTSLKs[position] = playerScripts[playerPositions[position]].GetTimeSinceLastKill();
         }
@@ -194,7 +194,7 @@ public class PlayerData : MonoBehaviour
                 //else if(!swapped) { Debug.Log("NO UPDATE"); }
             }
             //Debug.Log("_____");
-            if (GetDevMode()) { for (int i = 0; i < numOfPlayers; i++) { Debug.Log("AFTER position" + i + ": player " + playerPositions[i] + " - score " + playerScores[i] + ", tslk " + playerTSLKs[i]); } }
+            //if (GetDevMode()) { for (int i = 0; i < numOfPlayers; i++) { Debug.Log("AFTER position" + i + ": player " + playerPositions[i] + " - score " + playerScores[i] + ", tslk " + playerTSLKs[i]); } }
             if (!swapped) { break; }
         }
     }

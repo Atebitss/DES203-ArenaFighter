@@ -31,6 +31,7 @@ public class CharacterSelectorScript : MonoBehaviour
 
         //set players num & disable 'press a'
         playerNum = num;
+        if (csh.IsCharacterConfirmed(spriteIndex)) { spriteIndex = FindNextIndex(spriteIndex, 1); }
 
         //update image & csh
         csh.AddCSS(playerNum, this);

@@ -29,6 +29,8 @@ public class PlayerJoinHandler : MonoBehaviour
     private CharacterSelectHandler csh;
     private GameObject[] pressA = new GameObject[4];
 
+    private bool leavingEnabled = false;
+
 
     //~~~~~~~ LEVEL BASICS ~~~~~~~\\
     private void Awake()
@@ -154,7 +156,7 @@ public class PlayerJoinHandler : MonoBehaviour
     //~~~~~~~ PLAYER LEFT ~~~~~~~\\
     void LeaveAction(InputAction.CallbackContext ctx)
     {
-        if (SceneManager.GetActiveScene().name == "2PlayerJoin")
+        if (SceneManager.GetActiveScene().name == "2PlayerJoin" && leavingEnabled)
         {
             //leaves player
             //Debug.Log("LeaveAction()");

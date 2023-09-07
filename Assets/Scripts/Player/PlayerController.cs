@@ -971,22 +971,22 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator InvincibilityFlash()
     {
-        Debug.Log("InvincibilityFlash");
+        //Debug.Log("InvincibilityFlash");
         //flashing duration and interval
         float flashDuration = invincibilityTime;
         float flashInterval = invincibilityTime / 5;
-        Debug.Log("Dur: " + flashDuration + "/Int: " + flashInterval);
+        //Debug.Log("Dur: " + flashDuration + "/Int: " + flashInterval);
 
         while (flashDuration > 0)
         {
             //set renderer material to flash, wait, set back
 
-            Debug.Log("on");
+            //Debug.Log("on");
             spriteRenderer.material = invincibilityMat;
             yield return new WaitForSeconds(flashInterval);
             flashDuration -= flashInterval;
 
-            Debug.Log("off");
+            //Debug.Log("off");
             spriteRenderer.material = originMat;
             yield return new WaitForSeconds(flashInterval);
             flashDuration -= flashInterval;
@@ -994,7 +994,7 @@ public class PlayerController : MonoBehaviour
 
         //set renderer material to origin on flash end
         spriteRenderer.material = originMat;
-        Debug.Log("finished");
+        //Debug.Log("finished");
     }
 
     public bool GetIsDying() { return isDying; }

@@ -108,15 +108,7 @@ public class CharacterSelectHandler : MonoBehaviour
 
     void OnDestroy()
     {
-        if(PlayerData.GetDevMode())
-        {
-            Debug.Log("csh destroyed");
-            for(int check = 0; check < confirmedCharacterIDs.Length; check++)
-            {
-                Debug.Log(confirmedCharacterIDs[check]);
-            }
-        }
-
+        if (PlayerData.GetDevMode()) { Debug.Log("csh destroyed"); }
         PlayerData.SetSpriteIDs(confirmedCharacterIDs);
     }
 
