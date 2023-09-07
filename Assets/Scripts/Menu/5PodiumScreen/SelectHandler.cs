@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 public class SelectHandler : MonoBehaviour
 {
+    private bool confirmed = false;
     private LetterSelect[] selectors = new LetterSelect[3];
     private int selectorIndex = 0;
     private string[] profanities = new string[]
@@ -67,15 +68,17 @@ public class SelectHandler : MonoBehaviour
 
     public void OnContinue(InputAction.CallbackContext ctx)
     {
-        if (PlayerData.GetDevMode()) { Debug.Log("SelectHandler OnContinue"); }
+        //if (PlayerData.GetDevMode()) { Debug.Log("SelectHandler OnContinue"); }
         if (ctx.started && ctx.control.device == PlayerData.playerDevices[0]) 
         {
-            Debug.Log(ctx.control.device + " == " + PlayerData.playerDevices[0]);
+            //Debug.Log(ctx.control.device + " == " + PlayerData.playerDevices[0]);
             string selectedChars = "" + selectors[0].GetChar() + selectors[1].GetChar() + selectors[2].GetChar();
 
             foreach(string x in extraProfanities) { if (selectedChars.Equals(x)) { selectedChars = "UwU"; }}
 
             PlayerData.playerName = selectedChars;
+            confirmed = true;
         }
     }
+    public bool IsConfirmed() { return confirmed; if (PlayerData.GetDevMode()) { Debug.Log("player confirmed: " + confirmed); } }
 }
