@@ -11,9 +11,11 @@ GameObject:
   - component: {fileID: 3801535387976930408}
   - component: {fileID: 3801535387976930411}
   - component: {fileID: 3801535387976930410}
+  - component: {fileID: -8636723429370147214}
+  - component: {fileID: 1860276973405912724}
   m_Layer: 0
   m_Name: Dash
-  m_TagString: Untagged
+  m_TagString: VFX
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -42,7 +44,7 @@ ParticleSystem:
   serializedVersion: 8
   lengthInSec: 0.1
   simulationSpeed: 0.5
-  stopAction: 0
+  stopAction: 2
   cullingMode: 0
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
@@ -4778,8 +4780,8 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -818941787
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_RenderMode: 0
   m_SortMode: 0
@@ -4806,3 +4808,34 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!114 &-8636723429370147214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3801535387976930421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1a53212dcbe76e44ab44ed5e0cb1dc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  duration: 5
+--- !u!114 &1860276973405912724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3801535387976930421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a776fc434999b94b8beab0ab7219542, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fireKnight: {fileID: 2100000, guid: 93f7c59238eb2cc46be9f942148bd85c, type: 2}
+  hornKnight: {fileID: 2100000, guid: 5feb6f4c8ca87fc42bdd9b542e3392c8, type: 2}
+  blossomKnight: {fileID: 2100000, guid: b47a9325ea3fc5443871df380c8bb8cc, type: 2}
+  copperKnight: {fileID: 2100000, guid: ac477103f1ae6794fa69d49a1ef7d2fb, type: 2}
+  purpleKnight: {fileID: 2100000, guid: 775b98091b3a84140a3105c9cb5a1dae, type: 2}
+  particleSys: {fileID: 3801535387976930411}

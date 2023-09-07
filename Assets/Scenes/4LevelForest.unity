@@ -5453,6 +5453,10 @@ PrefabInstance:
       value: 0.88
       objectReference: {fileID: 0}
     - target: {fileID: 6843679558158310825, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6843679558158310825, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
@@ -10416,6 +10420,10 @@ PrefabInstance:
       value: 0.88
       objectReference: {fileID: 0}
     - target: {fileID: 6843679558158310825, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6843679558158310825, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
@@ -10537,6 +10545,10 @@ PrefabInstance:
     - target: {fileID: 6843679558158310825, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
       propertyPath: m_Size.y
       value: 0.88
+      objectReference: {fileID: 0}
+    - target: {fileID: 6843679558158310825, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6843679558158310825, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
       propertyPath: m_WasSpriteAssigned
@@ -10778,6 +10790,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 772051898}
     m_Modifications:
+    - target: {fileID: 2364766938862867476, guid: b6ff8bc27afafd34482441c84f30ec4f, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 8d6d065eae91e8b4291a4d6a24dd399b, type: 3}
     - target: {fileID: 4155656598806358797, guid: b6ff8bc27afafd34482441c84f30ec4f, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -10788,7 +10804,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4155656598806358797, guid: b6ff8bc27afafd34482441c84f30ec4f, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4155656598806358797, guid: b6ff8bc27afafd34482441c84f30ec4f, type: 3}
       propertyPath: m_AnchorMax.x
@@ -10813,6 +10829,18 @@ PrefabInstance:
     - target: {fileID: 4155656598806358797, guid: b6ff8bc27afafd34482441c84f30ec4f, type: 3}
       propertyPath: m_SizeDelta.y
       value: 687.39
+      objectReference: {fileID: 0}
+    - target: {fileID: 4155656598806358797, guid: b6ff8bc27afafd34482441c84f30ec4f, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4155656598806358797, guid: b6ff8bc27afafd34482441c84f30ec4f, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4155656598806358797, guid: b6ff8bc27afafd34482441c84f30ec4f, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4155656598806358797, guid: b6ff8bc27afafd34482441c84f30ec4f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -11108,6 +11136,10 @@ PrefabInstance:
       value: 0.88
       objectReference: {fileID: 0}
     - target: {fileID: 6843679558158310825, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6843679558158310825, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
@@ -11174,10 +11206,10 @@ MonoBehaviour:
     effect: {fileID: 1064619890715945507, guid: c490adc6b0be5424894a24ee66ace58f, type: 3}
     trackPlayer: 0
   - name: Ice Death
-    effect: {fileID: 430977319686315939, guid: 3c2464a04bd04c046b625c7b77140376, type: 3}
+    effect: {fileID: 1064619890715945507, guid: fa1af5bef7bbe0840b131b3287aa2937, type: 3}
     trackPlayer: 0
   - name: Respawn
-    effect: {fileID: 3540998808498647275, guid: 38f12c87a3d7aa74c94ae128879098e3, type: 3}
+    effect: {fileID: 1064619890715945507, guid: 2e9a53ba306e4d943a4987da80d00e91, type: 3}
     trackPlayer: 0
   - name: Snow
     effect: {fileID: 5417773722678478166, guid: a825087bccdd9fd40a45ad49e5023600, type: 3}
@@ -11188,6 +11220,18 @@ MonoBehaviour:
   - name: Dash
     effect: {fileID: 3801535387976930421, guid: e30cb5ada9d45c641968852a3fdf3d88, type: 3}
     trackPlayer: 1
+  - name: Deflect
+    effect: {fileID: 1909863093482724304, guid: 9dfbd906d1214d74d934aa5a1f02ad42, type: 3}
+    trackPlayer: 0
+  - name: DashEffect
+    effect: {fileID: 8024845321081894961, guid: 38dbcff08ab3d5645a7e583cee5aa0df, type: 3}
+    trackPlayer: 0
+  - name: Sprint
+    effect: {fileID: 7272764717443408694, guid: ab92215f33b08bd46909d936dc5bb976, type: 3}
+    trackPlayer: 0
+  - name: Land
+    effect: {fileID: 5546599668508724201, guid: 5e33c7898e6b0bc4c834451e46c206c6, type: 3}
+    trackPlayer: 0
   levelController: {fileID: 763047120}
 --- !u!4 &617323059
 Transform:
@@ -11265,6 +11309,10 @@ PrefabInstance:
     - target: {fileID: 6843679558158310825, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
       propertyPath: m_Size.y
       value: 0.88
+      objectReference: {fileID: 0}
+    - target: {fileID: 6843679558158310825, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6843679558158310825, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
       propertyPath: m_WasSpriteAssigned
@@ -11390,7 +11438,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CameraShake: {fileID: 72813653}
-  playerMoveForce: 14
+  playerMoveForce: 13.5
   playerJumpForce: 18
   players:
   - {fileID: 0}
@@ -11406,11 +11454,12 @@ MonoBehaviour:
   collectableType:
   - {fileID: 3800346872804229247, guid: f6c1d4bf4027b2c4f9bb22e30ff15620, type: 3}
   collectableSpawnInterval: 15
-  initialCollectableSpawnDelay: 15
+  initialCollectableSpawnDelay: 0
   player1Sprites: {fileID: 7108339969198208228, guid: bb8343e299b6afb4390b9dfafd041b8d, type: 3}
   player2Sprites: {fileID: 7108339969198208228, guid: 0a7b75e6cfdb4b34f8548fa405a8bc20, type: 3}
   player3Sprites: {fileID: 7108339969198208228, guid: f7a334f59f6dd56488c9c2bc8135352c, type: 3}
   player4Sprites: {fileID: 7108339969198208228, guid: 85086e2851dc40e44a1b084d71c1ce72, type: 3}
+  player5Sprites: {fileID: 7108339969198208228, guid: 3096f0d4ca4aa2847aa2beb1b88c74a2, type: 3}
 --- !u!4 &763047121
 Transform:
   m_ObjectHideFlags: 0
@@ -11540,8 +11589,8 @@ RectTransform:
   - {fileID: 1855328295}
   - {fileID: 1876265293}
   - {fileID: 348817694}
-  - {fileID: 574439649}
   - {fileID: 925810744}
+  - {fileID: 574439649}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0.333}
@@ -12035,7 +12084,7 @@ RectTransform:
   - {fileID: 584271655}
   - {fileID: 540635342}
   m_Father: {fileID: 772051898}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -18650,6 +18699,10 @@ PrefabInstance:
     - target: {fileID: 6843679558158310825, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
       propertyPath: m_Size.y
       value: 0.88
+      objectReference: {fileID: 0}
+    - target: {fileID: 6843679558158310825, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6843679558158310825, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
       propertyPath: m_WasSpriteAssigned
@@ -26355,6 +26408,10 @@ PrefabInstance:
       value: 0.88
       objectReference: {fileID: 0}
     - target: {fileID: 6843679558158310825, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6843679558158310825, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
@@ -26420,8 +26477,16 @@ PrefabInstance:
       value: 88.06
       objectReference: {fileID: 0}
     - target: {fileID: 4054155854958878125, guid: 9de74f3672c46b54e96f129801039e32, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4054155854958878125, guid: 9de74f3672c46b54e96f129801039e32, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.78750014
+      value: 0.7875001
+      objectReference: {fileID: 0}
+    - target: {fileID: 4054155854958878125, guid: 9de74f3672c46b54e96f129801039e32, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4054155854958878125, guid: 9de74f3672c46b54e96f129801039e32, type: 3}
       propertyPath: m_LocalPosition.x
@@ -26453,11 +26518,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4054155854958878125, guid: 9de74f3672c46b54e96f129801039e32, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 3.4000015
       objectReference: {fileID: 0}
     - target: {fileID: 4054155854958878125, guid: 9de74f3672c46b54e96f129801039e32, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 480.97
+      value: 501.7
       objectReference: {fileID: 0}
     - target: {fileID: 4054155854958878125, guid: 9de74f3672c46b54e96f129801039e32, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -26471,6 +26536,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4054155854958878127, guid: 9de74f3672c46b54e96f129801039e32, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 8e59b7cb6f06a5143970b47e52c8a26a, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9de74f3672c46b54e96f129801039e32, type: 3}
 --- !u!114 &1597534804 stripped
@@ -26775,7 +26844,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
-  m_ApplyToSortingLayers: 00000000756c34909d0fc2946b914e31
+  m_ApplyToSortingLayers: 00000000756c34909d0fc2946b914e31a5f02fcf
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -32082,7 +32151,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f3fc9fc1e0fcb2f4995e326c302c6045, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e294acde1b0202f4685e8a22cee9b578, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -37095,6 +37164,10 @@ PrefabInstance:
     - target: {fileID: 6843679558158310825, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
       propertyPath: m_Size.y
       value: 0.88
+      objectReference: {fileID: 0}
+    - target: {fileID: 6843679558158310825, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6843679558158310825, guid: 9aa2bc815749ff2489fc4d4916fb8b14, type: 3}
       propertyPath: m_WasSpriteAssigned

@@ -63,6 +63,7 @@ public class LevelScript : MonoBehaviour
      [SerializeField] private SpriteLibraryAsset player2Sprites;
      [SerializeField] private SpriteLibraryAsset player3Sprites;
      [SerializeField] private SpriteLibraryAsset player4Sprites;
+     [SerializeField] private SpriteLibraryAsset player5Sprites;
 
     private bool hasBeenShook = false;
 
@@ -131,7 +132,15 @@ public class LevelScript : MonoBehaviour
         introIsOver = false;
         yield return new WaitForSeconds(introTime);
         introIsOver = true;
-        AM.Play("MusicFight");
+
+        if (players != null)
+        {
+            for (int i = 0; i < players.Length; i++)
+            {
+                players[i].GetComponent<PlayerController>().HideArrow();
+            }
+        }
+        AM.Play("MusicFight"); //TODO : CHANGE THIS BACK TO BEGIN AT START OF LEVEL ONCE COUNTDOWN IS ADDED TO SONG
         //Debug.Log("introIsOver: " + introIsOver);
     }
     private IEnumerator InitialCollectableSpawnDelay()
@@ -140,10 +149,7 @@ public class LevelScript : MonoBehaviour
         yield return new WaitForSeconds(initialCollectableSpawnDelay);
         collectableCanSpawn = true;
     }
-    public void ShakeCamera(float duration, float magnitude)
-    {
-        StartCoroutine(CameraShake.Shake(duration, magnitude));
-    }
+    
 
 
 
@@ -281,6 +287,11 @@ public class LevelScript : MonoBehaviour
                 playerAuraParticles.startColor = new Color(0.5f, 1f, 0.75f, 1f);
                 spriteLibary.spriteLibraryAsset = player4Sprites;
                 break;
+            case 4:
+                playerAuraLight.color = new Color(0.75f, 0f, 1f, 1f); //purple
+                playerAuraParticles.startColor = new Color(0.75f, 0f, 1f, 1f);
+                spriteLibary.spriteLibraryAsset = player5Sprites;
+                break;
             default:
                 playerAuraLight.color = new Color(1f, 1f, 1f, 1f); //white, should never appear
                 spriteLibary.spriteLibraryAsset = player1Sprites;
@@ -292,7 +303,7 @@ public class LevelScript : MonoBehaviour
         if (collectableCanSpawn && lastSpawnedCollectable == null )
         {
             //add a public bool method to check if any collectables exist in the level already
-            //Debug.Log("Spawn Collectable");
+           Debug.Log("Collectable Spawned");
             Transform chosenSpawn = ChooseCollectableSpawnPoint().transform; //uses ChooseCollectableSpawnPoint() to choose one collectable spawn in the level
             Vector2 chosenSpawnPos = chosenSpawn.position;
             Quaternion chosenSpawnRot = chosenSpawn.rotation;
@@ -300,6 +311,7 @@ public class LevelScript : MonoBehaviour
             int randomNo = Random.Range(0, collectableType.Length); //rnadomly chooses a number to randomize what collectable we get
 
             lastSpawnedCollectable = Instantiate(collectableType[randomNo], chosenSpawnPos, chosenSpawnRot);
+
         }
     }
     
@@ -437,6 +449,11 @@ public class LevelScript : MonoBehaviour
         playerPC.Respawn();
         anim.SetTrigger("Respawning");
         playerPC.SetIsDying(false);
+    }
+
+    public void ShakeCamera(float duration, float magnitude)
+    {
+        StartCoroutine(CameraShake.Shake(duration, magnitude));
     }
 
 

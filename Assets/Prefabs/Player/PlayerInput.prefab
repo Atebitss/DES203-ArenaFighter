@@ -121,6 +121,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 77dfee3f-5dc1-4ecd-a35c-e29b7f562f22
     m_ActionName: PlayerInput/Dash[/Keyboard/q,/XInputControllerWindows/buttonEast]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2006578335114927798}
+        m_TargetAssemblyTypeName: PlayerInputHandler, Assembly-CSharp
+        m_MethodName: OnDown
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 1b16acd1-6362-47e0-9eeb-1d40f230e344
+    m_ActionName: PlayerInput/Down[/XInputControllerWindows/leftStick/down,/Keyboard/s]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: PlayerInput

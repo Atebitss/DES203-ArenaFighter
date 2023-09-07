@@ -6,32 +6,47 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     //~~~~~~~REFRENCES ~~~~~~~\\
-    [Header("References")]
+    [Header("REFRENCES")]
+    [Header("Player Components")]
     [SerializeField] private Rigidbody2D playerRigid;
     [SerializeField] private BoxCollider2D boxCollider;
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Animator animator;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask wallLayer;
-    private Gamepad controller;
-    private int playerNum;
+    
+    [Header("Prefab Components")]
+    [SerializeField] private GameObject playerTop;
+    [SerializeField] private PlayerLight playerLight;
+    [SerializeField] private ButtonPress buttonPress;
+    [SerializeField] private GameObject crown;
+    [SerializeField] private Transform deflectRef;
+    [SerializeField] private PlayerArrows playerArrow;
 
+    [Header("Materials")]
+    [SerializeField] private Material whiteMaterial;
+    [SerializeField] private Material defaultMaterial;
+
+    private Gamepad controller;
+    [HideInInspector] public int playerNum;
     private LevelScript ls;
     private GameObject vfxController;
-    [SerializeField] private GameObject playerTop;
-    [SerializeField] private GameObject promptUI;
-    [SerializeField] private GameObject crown;
-
 
 
     //~~~~~~~ GAMEPLAY ~~~~~~~\\
     //~~~ MOVEMENT ~~~\\
+
     private Vector2 move;
     private Vector2 playerVelocity;
     private bool onGround, devMode;
     private float jumpForce = 15f, moveForce = 5f, previousXMovement;
+    private bool isRunning;
+    private bool wasInAir;
+    private bool isHoldingDown;
 
 
+
+    [Header("MOVEMENT AND GAMEPLAY")]
     //~~~ JUMPING ~~~\\
     [Header("Jumping")]
     [SerializeField] private float coyoteTime = 0.1f;
@@ -44,6 +59,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float fallGravityMult = 1.4f;
     [SerializeField] private float midAirMoveMultiplier = 0.5f;
     [SerializeField] private float maxFallSpeed;
+    private bool isFalling;
+    private bool isLanding;
 
     private bool isJumping;
     private bool topTrigger;
@@ -114,7 +131,7 @@ public class PlayerController : MonoBehaviour
 
     //~~~ FLIP ~~~\\
     private bool facingRight;
-    private Vector2 startingScale = new Vector3(4, 4, 1);
+    private Vector3 startingScale = new Vector3(4, 4, 1);
 
 
     //~~~ COMBAT ~~~\\
@@ -165,29 +182,45 @@ public class PlayerController : MonoBehaviour
 
         //hide crown
         DisableCrown();
+        playerArrow.UpdateArrow(playerNum);
     }
     private void Start()
     {
-        transform.localScale = startingScale;
+        FaceTowardCenter();
+    }  
+
+    void FaceTowardCenter()
+    {
+        if (transform.position.x > 0)
+        {
+            transform.localScale = new Vector3(-startingScale.x, startingScale.y, startingScale.z);
+        }
+        else
+        {
+            transform.localScale = startingScale;
+        }
     }
+      
 
     void FixedUpdate()
     {
+        MiscAdjustments();
         PlayerMovement();
         Flip();
         IceMovement();
         WallSlide();
         BounceMovement();
-
-
+  
         if (devMode) { HighlightHitboxes(); }
 
-        //~~~MISC CHECKS AND ADJUSTMENTS ~~~\\ 
-
+    }
+    public void MiscAdjustments()
+    {
+       
         if (!ls.introIsOver || !ls.outroIsOver || isDying || invincible) //freeze player movement while level intro/outro is playing OR WHEN PLAYER IS DYING 
         {
             playerRigid.constraints = RigidbodyConstraints2D.FreezeAll;
-            
+
             playerRigid.isKinematic = true;
         }
         else if (!frozen)
@@ -245,40 +278,45 @@ public class PlayerController : MonoBehaviour
         {
             jumpBufferCounter -= Time.deltaTime;
         }
-        // max fall speed
-        if (playerVelocity.y > maxFallSpeed)
-        {
-            playerVelocity.y = maxFallSpeed;
-        }
 
-        //~~~PROMPT UI AND VFX ~~~\\ 
+        //~~~ UI AND VFX ~~~\\ 
 
-        if (frozen) //Activate the Prompt UI above the player
+        if (frozen) //Activate the Button press UI above the player
         {
-            promptUI.SetActive(true);
+            buttonPress.ShowButtonPress();
             animator.SetBool("isFrozen", true);
-            promptUI.GetComponent<Animator>().SetBool("isFrozen", true);
-            DeleteAllVFX();
+            DeleteVFXOfTag("CollectableVFX");
         }
         else
         {
-            promptUI.SetActive(false);
+            buttonPress.HideButtonPress();
             animator.SetBool("isFrozen", false);
-            promptUI.GetComponent<Animator>().SetBool("isFrozen", false);
         }
 
         if (frozen && hasIcePower) //Disable powerup when frozen
         {
             hasIcePower = false;
-           
+
         }
-        if (hasIcePower && !frozen) //updates animation for player and Prompt UI when we h
+
+        if (!hasIcePower) //delete vfx if we dont have the power
         {
-          //  promptUI.GetComponent<Animator>().SetBool("hasIcePower", true);
+            DeleteVFXOfTag("CollectableVFX");
+        }
+        
+        //~~~ STATES ~~~\\ 
 
+        if (move.x != 0 && IsGrounded())
+        {
+            animator.SetBool("isRunning", true);
+            StartRunTrigger();
+        }
+        else
+        {
+            animator.SetBool("isRunning", false);
+            isRunning = false;
         }
 
-        //~~~ ANIMATIONS ~~~\\ 
         if (!IsGrounded() && playerVelocity.y > 0 && !OnStickyWall())
         {
             animator.SetBool("IsJumping", true);
@@ -287,26 +325,60 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetBool("IsJumping", false);
         }
+
         if (!IsGrounded() && playerVelocity.y < 0 && !OnStickyWall())
         {
             animator.SetBool("isFalling", true);
+            isFalling = true;
         }
         else
         {
             animator.SetBool("isFalling", false);
+            isFalling = false;
         }
-       
-        animator.SetBool("isRunning", move.x != 0 && IsGrounded());
+
+        //Landing Logic
+
+        if (!IsGrounded())
+        {
+            wasInAir = true;
+        }
+        if (wasInAir && IsGrounded()) 
+        {
+            LandingTrigger();
+            wasInAir = false;
+        }
+        else
+        {
+            isLanding = false;
+        }
+
 
         animator.SetBool("isWallSliding", OnStickyWall() && !IsGrounded() && !frozen);
-        
-        //increase time since last kill
+
         timeSinceLastKill += Time.deltaTime;
-
-        //lower dash cooldown
         dashCooldown += Time.deltaTime;
-
-        
+    }
+    public void StartRunTrigger() //to trigger sprint effect only once
+    {
+        if (!isRunning)
+        {
+            isRunning = true;
+            PlayTriggeredEffect("Sprint");
+        }
+    }
+    public void LandingTrigger() //to trigger landing effect only once
+    {
+        if (!isLanding)
+        {
+            isLanding = true;
+            animator.SetTrigger("Landing");
+            PlayTriggeredEffect("Land");
+        }
+    }
+    public void HideArrow()
+    {
+        playerArrow.HideArrow();
     }
 
 
@@ -319,14 +391,18 @@ public class PlayerController : MonoBehaviour
         //A/D or Thumbstick -1/+1
         Vector2 movement = ctx.ReadValue<Vector2>();
         //Debug.Log(movement);
-
+        
         //update move vector with -1/+1, players current y velocity
-        move = new Vector3(movement.x, 0, playerVelocity.y);
+        move = new Vector3(movement.x, movement.y, playerVelocity.y);
+       
+        
     }
-
+ 
     //called by FixedUpdate
     private void PlayerMovement()
     {
+
+        
         playerVelocity = playerRigid.velocity;   //update current velocity Vector2 to players current velocity
 
         if (move.x != 0) //gets previous Xmovement for use in Ice Stuff
@@ -350,13 +426,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+   
 
     //~~~ JUMP ~~~\\ 
     public void OnJump(InputAction.CallbackContext ctx) //when A is pressed
     {
         isJumping = true;
 
-
+       
 
         if (frozen) //code for when frozen, have to jump [breakAmount] of times to escape
         {
@@ -508,20 +585,30 @@ public class PlayerController : MonoBehaviour
         {
             //playerRigid.velocity = new Vector2(move.x * moveForce, playerVelocity.y);
 
-            if (OnStickyWall() && !IsGrounded())
+            if (OnStickyWall() && !IsGrounded() )
             {
                 isWallJumping = false;
                 CancelInvoke(nameof(StopWallJumping));
 
-                playerRigid.velocity = new Vector2(playerRigid.velocity.x, Mathf.Clamp(playerRigid.velocity.y, wallSlideSpeed, float.MaxValue));
+                //flip player light around when sliding down a wall
+                playerLight.FlipLight(true);
+                if (move.y >= -0.8f)
+                {
+                    playerRigid.velocity = new Vector2(playerRigid.velocity.x, Mathf.Clamp(playerRigid.velocity.y, wallSlideSpeed, float.MaxValue));
+                }
 
 
+            }
+            else
+            {
+                playerLight.FlipLight(false);
             }
 
         }
         else
             wallJumpCooldown += Time.deltaTime;
     }
+  
 
     //~~~ BOUNCE ~~~\\
     private void BounceMovement()
@@ -558,32 +645,22 @@ public class PlayerController : MonoBehaviour
     //~~~ DASH ~~~\\
     public void OnDash(InputAction.CallbackContext ctx)
     {
-        if (dashEnabled)
+        if (dashCooldown > dashCooldownTime && ls.introIsOver && ls.outroIsOver && !frozen)
         {
-            if (dashCooldown > dashCooldownTime)
-            {
-                isDashing = true;
-                dashCooldown = 0;
-                playerRigid.velocity = new Vector2(transform.localScale.x * dashSpeed, 0);
-                StartCoroutine(IgnorePlayerCollisions(dashDuration));
-                FindObjectOfType<AudioManager>().Play("Dash");
-                vfxController.GetComponent<VFXController>().PlayPlayerVFX(playerNum, "Dash");
-                animator.SetTrigger("Dashing");
-            }
-            Invoke(nameof(StopDashing), dashDuration);
-        }
-        else if ((hasDashPower) && !dashEnabled)
-        {
-            if (dashCooldown > dashCooldownTime)
-            {
-                isDashing = true;
-                dashCooldown = 0;
-                playerRigid.velocity = new Vector2(transform.localScale.x * dashSpeed, 0);
-                StartCoroutine(IgnorePlayerCollisions(dashDuration));
-            }
-            Invoke(nameof(StopDashing), dashDuration);
-        }
+            isDashing = true;
+            dashCooldown = 0;
+            playerRigid.velocity = new Vector2(transform.localScale.x * dashSpeed, 0);
+            StartCoroutine(IgnorePlayerCollisions(dashDuration));
 
+            FindObjectOfType<AudioManager>().Play("Dash");
+            vfxController.GetComponent<VFXController>().PlayPlayerVFX(playerNum, "Dash");
+            //change direction of effect whether facing right or left
+            PlayTriggeredEffect("DashEffect");
+
+
+            animator.SetTrigger("Dashing");
+        }
+         Invoke(nameof(StopDashing), dashDuration);
     }
 
     //~~~IGNORE COLLISIONS ~~~\\
@@ -655,8 +732,8 @@ public class PlayerController : MonoBehaviour
         //get the colliders tag & run the appropriate function
         //Debug.Log("attacking");
         BoxCollider2D[] collisions = this.gameObject.transform.Find("Attack").GetComponent<PlayerAttackTrigger>().GetColliders();
-
-        for (int colIndex = 0; colIndex < collisions.Length; colIndex++)
+        
+          for (int colIndex = 0; colIndex < collisions.Length; colIndex++)
         {
             if (collisions[colIndex] != null && !frozen) //cannot attack while frozen
             {
@@ -666,28 +743,51 @@ public class PlayerController : MonoBehaviour
                 }*/
 
                 string colTag = collisions[colIndex].gameObject.tag;
+                PlayerController otherPlayer = null;
+                if (colTag == "PlayerFront" || colTag == "PlayerBack")
+                {
+                    otherPlayer = collisions[colIndex].gameObject.transform.parent.gameObject.GetComponent<PlayerController>();
+                }
+
                 switch (colTag)
                 {
                     case "PlayerFront":
                         //deflect player if not hitting with Ice attack
-                        if (hasIcePower == true)
+                        if (hasIcePower == true && this.gameObject.transform.localScale.x == -collisions[colIndex].gameObject.transform.parent.localScale.x && !otherPlayer.invincible )
                         {
                             //if player attacking has ice power, freeze target
-                            IceAttack(collisions[colIndex].gameObject.transform.parent.gameObject);
+                            IceAttack(otherPlayer);
+
                         }
-                        else if (!isDeflecting && this.gameObject.transform.localScale.x == -collisions[colIndex].gameObject.transform.parent.localScale.x)
+                        else if (!isDeflecting && this.gameObject.transform.localScale.x == -collisions[colIndex].gameObject.transform.parent.localScale.x )
                         {
                             //deflect if this player isnt being deflected and both players are facing opposite directions  ,0>  <0,
                             Deflect();
-                            collisions[colIndex].gameObject.transform.parent.gameObject.GetComponent<PlayerController>().Deflect();
+                            vfxController.GetComponent<VFXController>().PlayVFX(deflectRef, "Deflect");
+
+                            otherPlayer.Deflect();
                         }
                         break;
                     case "PlayerBack":
                         //kill other player if both facing the same direction ,0> ,0>
-                        if (this.gameObject.transform.localScale.x == collisions[colIndex].gameObject.transform.parent.localScale.x)
+                        if (this.gameObject.transform.localScale.x == collisions[colIndex].gameObject.transform.parent.localScale.x && !otherPlayer.invincible)
                         {
                             ls.Kill(collisions[colIndex].gameObject.transform.parent.gameObject, this.gameObject);
                             if (controller != null) { vfxController.GetComponent<HapticController>().PlayHaptics("Kill", controller); }
+                            if (otherPlayer.OnStickyWall())
+                            {
+                                Deflect();
+                            }
+                            else
+                            {
+                                ls.Kill(collisions[colIndex].gameObject.transform.parent.gameObject, this.gameObject);
+                                if (controller != null)
+                                {
+                                    vfxController.GetComponent<HapticController>().PlayHaptics("Kill", controller);
+                                }
+                              
+                            }
+
                         }
                         break;
                     default:
@@ -696,7 +796,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        Invoke(nameof(AttackFinish), attackTimer); //end attack after timer - 0.4 seconds
+        Invoke(nameof(AttackFinish), attackTimer); 
     }
 
     private void AttackFinish()
@@ -734,16 +834,28 @@ public class PlayerController : MonoBehaviour
 
 
     //~~ ICE ATTACK ~~\\
-    public void IceAttack(GameObject player) //fires when this player is hit with an Ice Attack
+    public void IceAttack(PlayerController otherPlayer) //when player attacks otherPlayer with an ice attack
     {
         if (hasIcePower == true)
         {
             Debug.Log("Player Has Attacked with Ice");
             hasIcePower = false;
-            DeleteAllVFX();
-            player.GetComponent<PlayerController>().Freeze();
+            DeleteVFXOfTag("CollectableVFX");
+            otherPlayer.Freeze();
             FindObjectOfType<AudioManager>().Play("Freeze");
             
+        }
+    }
+    public void IceAttackTest() //when player attacks otherPlayer with an ice attack
+    {
+        if (hasIcePower == true)
+        {
+            Debug.Log("Player Has Attacked with Ice");
+            hasIcePower = false;
+            DeleteVFXOfTag("CollectableVFX");
+
+            FindObjectOfType<AudioManager>().Play("Freeze");
+
         }
     }
     public void Freeze()
@@ -751,7 +863,7 @@ public class PlayerController : MonoBehaviour
         breakAmount = Random.Range(5, 10); //sets the amount of times we need to press jump to escape to a ranodm number between these numbers
         frozen = true;
         hasIcePower = false;
-        DeleteAllVFX();
+        DeleteVFXOfTag("CollectableVFX");
         //RigidbodyConstraints2D.FreezeRotationZ; to freeze flip?
         playerRigid.constraints = RigidbodyConstraints2D.FreezeAll;
 
@@ -803,20 +915,27 @@ public class PlayerController : MonoBehaviour
         isDying = true;
 
         animator.SetTrigger("Dying");
+        playerLight.HideLight();
         spriteRenderer.sortingOrder = 4;
         PlayDeathAudio();
+
+        if (frozen)
+        {
+            spriteRenderer.enabled = false;
+        }
+
         Invoke(nameof(KillDelay), 0.6f); //set to time of deathAnimation
 
         StartCoroutine(IgnorePlayerCollisions(0.4f)); //stops players colliding with eachother after one has died for a duration
 
-        if (controller != null)
-        { vfxController.GetComponent<HapticController>().PlayHaptics("Death", controller); }
+       // if (controller != null) RENABLE TO CAUSE HAPTICS ON PLAYER DEATH
+       // { vfxController.GetComponent<HapticController>().PlayHaptics("Death", controller); }
         if (frozen)
         { vfxController.GetComponent<VFXController>().PlayVFX(transform, "Ice Death"); }
         else
         { vfxController.GetComponent<VFXController>().PlayVFX(this.gameObject.transform, "Death"); }
 
-        DeleteAllVFX();
+        DeleteVFXOfTag("CollectableVFX");
     }
 
     //delays destroying target to allow the death anim to play
@@ -830,19 +949,27 @@ public class PlayerController : MonoBehaviour
         invincible = true;
         frozen = false;
         hasIcePower = false;
+        spriteRenderer.enabled = true;
+        playerArrow.ShowArrow();
+        FaceTowardCenter();
 
-        transform.localScale = startingScale;
-        DeleteAllVFX();
+        DeleteVFXOfTag("CollectableVFX");
         vfxController.GetComponent<VFXController>().PlayVFX(transform, "Respawn");
+        
         spriteRenderer.sortingOrder = 3;
-
         StartCoroutine(InvincibilityFlash());
-
+        invincible = true;
+        spriteRenderer.material = whiteMaterial;
         Invoke(nameof(InvincibilityTimer), invincibilityTime);
     }
     public void InvincibilityTimer()
     {
         invincible = false;
+        frozen = false;
+        hasIcePower = false;
+        spriteRenderer.material = defaultMaterial;
+        playerArrow.HideArrow();
+        playerLight.ShowLight();
     }
     public bool GetIsInvincible() { return invincible; }
 
@@ -874,21 +1001,25 @@ public class PlayerController : MonoBehaviour
         Debug.Log("finished");
     }
 
-
     public bool GetIsDying() { return isDying; }
     public void SetIsDying(bool dying) { isDying = dying; }
 
-    private void DeleteAllVFX() //deletes all children with VFX tag, messy fix but it should work
+    private void DeleteVFXOfTag(string tag) //deletes all children with VFX tag, messy fix but it should work
     {
         Transform[] allChildren = GetComponentsInChildren<Transform>();
         foreach (Transform child in allChildren)
         {
-            if (child.gameObject == GameObject.FindWithTag("VFX"))
+            if (child.gameObject == GameObject.FindWithTag(tag))
             {
                 Destroy(child.gameObject);
             }
             
         }
+    }
+    public void PlayTriggeredEffect(string effectName) //effects that are dependent on player Direction
+    {
+        if (facingRight) { vfxController.GetComponent<VFXController>().PlayVFXwithDirection(transform, effectName, 1); }
+        else { vfxController.GetComponent<VFXController>().PlayVFXwithDirection(transform, effectName, -1); }
     }
 
 
@@ -921,12 +1052,14 @@ public class PlayerController : MonoBehaviour
                 //Debug.Log("Collected Ice");
                 if (hasIcePower) //remove collectable if we arady have that one equipped 
                 {
-                    Destroy(collision.gameObject);
+                    //Destroy(collision.gameObject);
+                    Debug.Log("Already have collectable, ignored");
                 }
                 else
                 {
                     hasIcePower = true;
-                    Destroy(collision.gameObject);
+                    Debug.Log("Collected Ice");
+                    collision.gameObject.GetComponent<Collectable>().PickUp();
                     FindObjectOfType<AudioManager>().Play("Collect");
                     vfxController.GetComponent<VFXController>().PlayPlayerVFX(playerNum, "Snow");
                 }
@@ -1017,7 +1150,7 @@ public class PlayerController : MonoBehaviour
 
     public bool GetCrowned() { return crowned; }
 
-
+   
 
 
 
@@ -1026,7 +1159,7 @@ public class PlayerController : MonoBehaviour
     public bool IsGrounded()
     {
         //casts an invisble box from the players center down to see if the player is touching the ground
-        RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, Vector2.down, 0.5f, groundLayer);
+        RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, Vector2.down, 0.2f, groundLayer);
         return raycastHit.collider != null;
     }
     public bool IsOnIce()
@@ -1085,7 +1218,7 @@ public class PlayerController : MonoBehaviour
     public bool OnStickyWall()
     {
         //casts an invisble box from the players center to whichever way the player is facing to see if we are touching a sticky wall
-        RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, new Vector2(transform.localScale.x, 0), 0.3f, wallLayer);
+        RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, new Vector2(transform.localScale.x, 0), 0.2f, wallLayer);
         return raycastHit.collider != null;
     }
 

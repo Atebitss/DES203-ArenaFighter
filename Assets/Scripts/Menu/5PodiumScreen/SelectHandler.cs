@@ -41,7 +41,6 @@ public class SelectHandler : MonoBehaviour
     {
         //if (PlayerData.GetDevMode()) { Debug.Log("SelectHandler OnUp"); }
         //if (PlayerData.GetDevMode()) { Debug.Log("selector: " + selectors[selectorIndex]); }
-
         if (ctx.started) { selectors[selectorIndex].LetterInc(ctx); }
     }
 

@@ -7,7 +7,7 @@ using TMPro;
 public class EGXScoreboardScript : MonoBehaviour, EGXPersistenceInterface
 {
     //scoreboard text & image references
-    [SerializeField] private TextMeshProUGUI[] positionTexts = new TextMeshProUGUI[5];      //holds position text
+    [SerializeField] private GameObject[] positionTexts = new GameObject[5];      //holds position text
     [SerializeField] private Image[] positionImages = new Image[5];                         //holds position image
 
     //scoreboard scores, time since last kills, & sprite references (tracks top 5 wins)
@@ -23,7 +23,7 @@ public class EGXScoreboardScript : MonoBehaviour, EGXPersistenceInterface
     private string[] storedNames;                                                           //holds players name
 
     //current winner scoreboard text & image reference
-    [SerializeField] private TextMeshProUGUI curText;                                       //holds cur player text
+    [SerializeField] private GameObject curText;                                       //holds cur player text
     [SerializeField] private Image curImage;                                                //holds cur player image
 
     //current winner score, time since last kill, & sprite reference (tracks current winner)
@@ -40,8 +40,8 @@ public class EGXScoreboardScript : MonoBehaviour, EGXPersistenceInterface
 
     void Awake()
     {
-        for (int pos = 0; pos < positionTexts.Length; pos++) { positionTexts[pos].color = new Color32(0, 0, 0, 255); }
-        curText.color = new Color32(0, 0, 0, 255);
+        //for (int pos = 0; pos < positionTexts.Length; pos++) { positionTexts[pos].color = new Color32(0, 0, 0, 255); }
+        //curText.color = new Color32(0, 0, 0, 255);
     }
 
     void Start()
@@ -391,19 +391,65 @@ public class EGXScoreboardScript : MonoBehaviour, EGXPersistenceInterface
 
     private void DisplayScoreboard()
     {
+        TextMeshProUGUI positionText = null;
+        TextMeshProUGUI nameText = null;
+        TextMeshProUGUI scoreText = null;
+
         for (int position = 0; position < playerScores.Length; position++)
         {
             //update relevant position image with sprite related to sprite ID of current position
             //update relevant position text with position and score of current position
 
-            Debug.Log(position);
-            Debug.Log(playerSpriteIDs[position]);
             positionImages[position].sprite = PlayerData.GetSprite(playerSpriteIDs[position]);
-            positionTexts[position].text = "        Position " + (position+1) + ": " + playerNames[position] + "     Score: " + playerScores[position] + "     TSLK: " + playerTSLKs[position].ToString("F2");
+            //positionTexts[position].text = "        Position " + (position+1) + ": " + playerNames[position] + "     Score: " + playerScores[position] + "     TSLK: " + playerTSLKs[position].ToString("F2");
+            //Position Name and Score are stored in sepearte child objects, so this searhes through children, assigning the local variables to the correct object
+            Transform[] positionTextsChildren = positionTexts[position].GetComponentsInChildren<Transform>();
+            foreach (Transform child in positionTextsChildren)
+            {
+                switch (child.name)
+                {
+                    case "Position":
+                        positionText = child.gameObject.GetComponent<TextMeshProUGUI>();
+                        break;
+                    case "Name":
+                        nameText = child.gameObject.GetComponent<TextMeshProUGUI>();
+                        break;
+                    case "Score":
+                        scoreText = child.gameObject.GetComponent<TextMeshProUGUI>();
+                        break;
+                }
+
+
+            }
+            positionText.text = ("" + (position + 1));
+            nameText.text = ("" + playerNames[position]);
+            scoreText.text = ("" + playerScores[position]);
         }
 
 
+
         curImage.sprite = PlayerData.GetSprite(playerSpriteID);
-        curText.text = "        Position " + (playerStatsPosition + 1) + ": " + playerName + "     Score: " + playerScore + "     TSLK: " + playerTSLK.ToString("F2");
+        // curText.text = "        Position " + (playerStatsPosition + 1) + ": " + playerName + "     Score: " + playerScore + "     TSLK: " + playerTSLK.ToString("F2");
+        Transform[] curTextChildren = curText.GetComponentsInChildren<Transform>();
+        foreach (Transform child in curTextChildren)
+        {
+            switch (child.name)
+            {
+                case "Position":
+                    positionText = child.gameObject.GetComponent<TextMeshProUGUI>();
+                    break;
+                case "Name":
+                    nameText = child.gameObject.GetComponent<TextMeshProUGUI>();
+                    break;
+                case "Score":
+                    scoreText = child.gameObject.GetComponent<TextMeshProUGUI>();
+                    break;
+            }
+
+
+        }
+        positionText.text = ("" + (playerStatsPosition + 1));
+        nameText.text = ("" + playerName);
+        scoreText.text = ("" + playerScore);
     }
 }

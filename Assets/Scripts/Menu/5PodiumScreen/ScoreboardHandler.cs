@@ -59,7 +59,7 @@ public class ScoreboardHandler : MonoBehaviour
         {
             podiumImage[playerCheck].GetComponent<ChangeImage>().ImageChange(PlayerData.GetSprite(PlayerData.GetSpriteID(PlayerData.playerPositions[playerCheck])));
 
-            podiumText[playerCheck].color = new Color32(0, 0, 0, 255);
+            //podiumText[playerCheck].color = new Color32(1, 1, 1, 1);
             podiumText[playerCheck].text = "KILLS: " + PlayerData.playerScores[playerCheck];
         }
 
