@@ -1164,18 +1164,11 @@ public class PlayerController : MonoBehaviour
     //~~~ JUMP ~~~\\ 
     public void PlayJumpAudio()
     {
-        int SoundNo = Random.Range(1, 5);
+     
 
         FindObjectOfType<AudioManager>().Play("JumpWhoosh");
 
-        if (SoundNo == 1)
-        {
-            FindObjectOfType<AudioManager>().Play("JumpGrunt");
-        }
-        if (SoundNo == 2)
-        {
-            FindObjectOfType<AudioManager>().Play("JumpGrunt2");
-        }
+   
 
     }
 

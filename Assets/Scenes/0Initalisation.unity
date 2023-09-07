@@ -383,6 +383,12 @@ MonoBehaviour:
     pitch: 1
     loop: 1
     source: {fileID: 0}
+  - name: Steps
+    clip: {fileID: 8300000, guid: 329bfff8cf9460848b880be510c687bf, type: 3}
+    volume: 0.145
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
 --- !u!4 &516737285
 Transform:
   m_ObjectHideFlags: 0
