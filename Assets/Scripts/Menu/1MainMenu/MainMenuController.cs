@@ -54,7 +54,7 @@ public class MainMenuController : MonoBehaviour
     public void Leaderboard()
     {
         FindObjectOfType<AudioManager>().Play("SelectBeep");
-        StartCoroutine(LoadLevel(6));
+        StartCoroutine(LoadLevel(7));
     }
 
     public void Play(InputAction.CallbackContext ctx)

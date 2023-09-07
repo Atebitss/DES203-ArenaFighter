@@ -215,22 +215,22 @@ MonoBehaviour:
       m_Hash: -1020119463
       m_Sprite: {fileID: 6668112539376953756, guid: c214c5d7d8591c944a718cae5fa5c945, type: 3}
       m_FromMain: 1
-      m_SpriteOverride: {fileID: 3136511896079175844, guid: 7b9524cbee32aa941a6f06c9ce852e70, type: 3}
+      m_SpriteOverride: {fileID: 3136511896079175844, guid: fc8b2a185e7f9474682558075de17794, type: 3}
     - m_Name: fire knight wall climb_1
       m_Hash: -1271593265
       m_Sprite: {fileID: 2590136077057186580, guid: c214c5d7d8591c944a718cae5fa5c945, type: 3}
       m_FromMain: 1
-      m_SpriteOverride: {fileID: -27873133042234360, guid: 7b9524cbee32aa941a6f06c9ce852e70, type: 3}
+      m_SpriteOverride: {fileID: -27873133042234360, guid: fc8b2a185e7f9474682558075de17794, type: 3}
     - m_Name: fire knight wall climb_2
       m_Hash: 758929269
       m_Sprite: {fileID: 7301512038846388708, guid: c214c5d7d8591c944a718cae5fa5c945, type: 3}
       m_FromMain: 1
-      m_SpriteOverride: {fileID: -7910680656867703225, guid: 7b9524cbee32aa941a6f06c9ce852e70, type: 3}
+      m_SpriteOverride: {fileID: -7910680656867703225, guid: fc8b2a185e7f9474682558075de17794, type: 3}
     - m_Name: fire knight wall climb_3
       m_Hash: 1513842659
       m_Sprite: {fileID: -6599311525781477782, guid: c214c5d7d8591c944a718cae5fa5c945, type: 3}
       m_FromMain: 1
-      m_SpriteOverride: {fileID: 4677928159665290179, guid: 7b9524cbee32aa941a6f06c9ce852e70, type: 3}
+      m_SpriteOverride: {fileID: 4677928159665290179, guid: fc8b2a185e7f9474682558075de17794, type: 3}
     m_FromMain: 1
     m_EntryOverrideCount: 4
   - m_Name: Land
