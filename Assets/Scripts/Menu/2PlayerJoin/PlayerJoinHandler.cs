@@ -76,7 +76,7 @@ public class PlayerJoinHandler : MonoBehaviour
             //Debug.Log("device attempting join: " + ctx.control.device);
             for (int playerCheck = 0; playerCheck < 4; playerCheck++)
             {
-                if (PlayerData.playerInputs[playerCheck] != null && PlayerData.playerDevices[playerCheck].Equals(ctx.control.device)) { Debug.Log("device already found: " + ctx.control.device); break; }
+                if (PlayerData.GetDevMode()) { if (PlayerData.playerInputs[playerCheck] != null && PlayerData.playerDevices[playerCheck].Equals(ctx.control.device)) { Debug.Log("device already found: " + ctx.control.device); break; } }
                 if (PlayerData.playerInputs[playerCheck] == null)
                 {
                     //Debug.Log("player input " + playerCheck + " empty");
@@ -136,7 +136,6 @@ public class PlayerJoinHandler : MonoBehaviour
             if (GameObject.Find("CharacterSelector" + curPlayerPos)) { Debug.Log("duplicate selectors"); }
             selectorPrefabs[curPlayerPos].transform.name = "CharacterSelector" + curPlayerPos;
             selectorPrefabs[curPlayerPos].transform.SetParent(GameObject.Find("Box" + (curPlayerPos + 1)).transform, false);
-            Debug.Log(selectorPrefabs[curPlayerPos]);
             selectorPrefabs[curPlayerPos].GetComponent<CharacterSelectorScript>().Wake(curPlayerPos);
 
 
@@ -177,8 +176,10 @@ public class PlayerJoinHandler : MonoBehaviour
 
                             int playerNum = (int)char.GetNumericValue(PlayerData.playerInputs[player].name[10]) + 1;
                             //Debug.Log(playerNum);
+
                             csh.GetCSS(playerNum).ResetImage();     
                             pressA[playerNum].SetActive(true);
+
 
                             //Debug.Log("removing " + PlayerData.playerInputs[player] + " from list");
                             PlayerData.playerInputs[player] = null;
@@ -223,7 +224,7 @@ public class PlayerJoinHandler : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "2PlayerJoin" && playerJoinMenuController != null)
         {
             //Debug.Log("Start action");
-            if (PlayerData.GetNumOfPlayers() >= minPlayers || PlayerData.GetDevMode() && PlayerData.GetNumOfPlayers() > 0) 
+            if (PlayerData.GetNumOfPlayers() >= minPlayers && csh.AreAllPlayersConfirmed() || PlayerData.GetDevMode() && PlayerData.GetNumOfPlayers() >= minPlayers && csh.AreAllPlayersConfirmed()) 
             {
                 //Debug.Log("Enough player to start");
                 playerJoinMenuController.GetComponent<PlayerJoinMenuController>().StartGame();

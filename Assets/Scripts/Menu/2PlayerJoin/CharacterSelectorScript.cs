@@ -23,11 +23,6 @@ public class CharacterSelectorScript : MonoBehaviour
 
 
 
-    void Awake()
-    {
-        Debug.Log(this.transform.name + " Awake()");
-    }
-
     public void Wake(int num)
     {
         //ref joining script & select manager
@@ -58,6 +53,8 @@ public class CharacterSelectorScript : MonoBehaviour
         if (imageComponent.color.a != 0) { imageComponent.color = new Color(imageComponent.color.r, imageComponent.color.g, imageComponent.color.b, 0); }
         //Debug.Log("resetting image");
     }
+
+    public void ResetMaterial() { if (!imageComponent.material.Equals("None")) { imageComponent.material = defaultMaterial; } }   //if cur material isnt none, reset it
 
 
     //up/down function
@@ -174,7 +171,7 @@ public class CharacterSelectorScript : MonoBehaviour
 
     void OnDestroy()
     {
-        Debug.Log(this.transform.name + " destroyed");
+        if (PlayerData.GetDevMode()) { Debug.Log(this.transform.name + " destroyed"); }
         ResetImage();
         csh.DelCSS(playerNum);
     }

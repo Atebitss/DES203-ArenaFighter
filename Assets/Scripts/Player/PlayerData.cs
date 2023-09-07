@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+//if (PlayerData.GetDevMode()) { Debug.Log(); }
+
 public class PlayerData : MonoBehaviour
 {
     private static int numOfPlayers = 4;
