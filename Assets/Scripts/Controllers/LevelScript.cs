@@ -135,7 +135,7 @@ public class LevelScript : MonoBehaviour
 
         if (players != null)
         {
-            for (int i = 0; i < players.Length; i++)
+            for (int i = 0; i < PlayerData.GetNumOfPlayers(); i++)
             {
                 players[i].GetComponent<PlayerController>().HideArrow();
             }

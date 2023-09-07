@@ -432,8 +432,6 @@ MonoBehaviour:
   crown: {fileID: 5412496932998414287}
   deflectRef: {fileID: 3166333263744241853}
   playerArrow: {fileID: 7917156010337010961}
-  whiteMaterial: {fileID: 2100000, guid: a58e097d08c04704ca0a22c8e29b19ff, type: 2}
-  defaultMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   playerNum: 0
   coyoteTime: 0.1
   jumpBufferTime: 0.2
@@ -461,11 +459,14 @@ MonoBehaviour:
   floatingPrompts:
   - {fileID: 4348181229045889059, guid: 6eabb62de898a2a41be5ae06ef305e37, type: 3}
   - {fileID: 21300000, guid: 04f1557c63d75b542848c6c118b05f21, type: 3}
+  stunTime: 1
   hasInvertedControls: 0
   deflectDuration: 0.1
   deflectForce: 15
   attackBuildUp: 0
   attackTimer: 0.2
+  originMat: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  invincibilityMat: {fileID: 2100000, guid: 30d2a81a2f0660f48b668245b900a2b1, type: 2}
   invincibilityTime: 0.6
 --- !u!114 &1821414771621719917
 MonoBehaviour:

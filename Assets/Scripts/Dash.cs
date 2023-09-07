@@ -18,7 +18,7 @@ public class Dash : MonoBehaviour
     {
         playerNum = transform.parent.gameObject.GetComponent<PlayerController>().playerNum;
 
-        switch (playerNum)
+        switch (PlayerData.GetSpriteID(playerNum))
         {
             case 0:
                 particleSys.GetComponent<Renderer>().material = fireKnight;

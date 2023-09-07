@@ -23,10 +23,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform deflectRef;
     [SerializeField] private PlayerArrows playerArrow;
 
-    [Header("Materials")]
-    [SerializeField] private Material whiteMaterial;
-    [SerializeField] private Material defaultMaterial;
-
     private Gamepad controller;
     [HideInInspector] public int playerNum;
     private LevelScript ls;
@@ -959,7 +955,7 @@ public class PlayerController : MonoBehaviour
         spriteRenderer.sortingOrder = 3;
         StartCoroutine(InvincibilityFlash());
         invincible = true;
-        spriteRenderer.material = whiteMaterial;
+        //spriteRenderer.material = whiteMaterial;
         Invoke(nameof(InvincibilityTimer), invincibilityTime);
     }
     public void InvincibilityTimer()
@@ -967,7 +963,7 @@ public class PlayerController : MonoBehaviour
         invincible = false;
         frozen = false;
         hasIcePower = false;
-        spriteRenderer.material = defaultMaterial;
+        //spriteRenderer.material = defaultMaterial;
         playerArrow.HideArrow();
         playerLight.ShowLight();
     }
