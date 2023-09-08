@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 using TMPro;
 
@@ -427,8 +428,11 @@ public class EGXScoreboardScript : MonoBehaviour, EGXPersistenceInterface
         }
 
 
-
-        curImage.sprite = PlayerData.GetSprite(playerSpriteID);
+       if (SceneManager.GetActiveScene().name == "6GameEnd" && this != null)
+        {
+            curImage.sprite = PlayerData.GetSprite(playerSpriteID);
+        }
+      
         // curText.text = "        Position " + (playerStatsPosition + 1) + ": " + playerName + "     Score: " + playerScore + "     TSLK: " + playerTSLK.ToString("F2");
         Transform[] curTextChildren = curText.GetComponentsInChildren<Transform>();
         foreach (Transform child in curTextChildren)
