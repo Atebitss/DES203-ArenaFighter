@@ -75,9 +75,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1799221347
   m_SortingLayer: 3
-  m_SortingOrder: 2
+  m_SortingOrder: 1
   m_Sprite: {fileID: -6345321533683760574, guid: 324eb201394527c4d87b9a0f72acedf6, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 1, b: 0.9193194, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -129,7 +129,7 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.65
-  m_Color: {r: 0, g: 0.3826251, b: 1, a: 1}
+  m_Color: {r: 0, g: 1, b: 0.9176471, a: 1}
   m_Intensity: 5
   m_LightVolumeIntensity: 0.1
   m_LightVolumeIntensityEnabled: 1
@@ -297,6 +297,10 @@ PrefabInstance:
     - target: {fileID: 3659697337410171052, guid: a825087bccdd9fd40a45ad49e5023600, type: 3}
       propertyPath: InitialModule.startLifetime.scalar
       value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 3659697337410171052, guid: a825087bccdd9fd40a45ad49e5023600, type: 3}
+      propertyPath: InitialModule.startColor.minColor.a
+      value: 0.3137255
       objectReference: {fileID: 0}
     - target: {fileID: 5417773722678478166, guid: a825087bccdd9fd40a45ad49e5023600, type: 3}
       propertyPath: m_Name
