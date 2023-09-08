@@ -184,6 +184,8 @@ public class CharacterSelectorScript : MonoBehaviour
                 csh.SelectCharcter(playerNum, spriteIndex);
                 //set bool confirmed to true
                 confirmed = true;
+                upArrow.transform.gameObject.SetActive(false);
+                downArrow.transform.gameObject.SetActive(false);
                 confirmA.SetActive(false);
                 confirmTick.SetActive(true);
             }
@@ -199,6 +201,8 @@ public class CharacterSelectorScript : MonoBehaviour
             csh.DeselectCharacter(playerNum);
             //set bool confirmed to false
             confirmed = false;
+            upArrow.transform.gameObject.SetActive(true);
+            downArrow.transform.gameObject.SetActive(true);
             confirmA.SetActive(true);
             confirmTick.SetActive(false);
         }
