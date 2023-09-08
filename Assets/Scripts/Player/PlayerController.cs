@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject crown;
     [SerializeField] private Transform deflectRef;
     [SerializeField] private PlayerArrows playerArrow;
+    [SerializeField] private IceBlock iceBlock;
 
     private Gamepad controller;
     [HideInInspector] public int playerNum;
@@ -280,11 +281,13 @@ public class PlayerController : MonoBehaviour
         if (frozen) //Activate the Button press UI above the player
         {
             buttonPress.ShowButtonPress();
+            iceBlock.ShowIce();
             animator.SetBool("isFrozen", true);
             DeleteVFXOfTag("CollectableVFX");
         }
         else
         {
+            iceBlock.HideIce();
             buttonPress.HideButtonPress();
             animator.SetBool("isFrozen", false);
         }
@@ -435,7 +438,7 @@ public class PlayerController : MonoBehaviour
         {
 
             breakCounter++;
-
+            iceBlock.BreakIce();
             if (breakCounter == breakAmount)
             {
                 playerRigid.constraints = ~RigidbodyConstraints2D.FreezePosition;
@@ -856,7 +859,8 @@ public class PlayerController : MonoBehaviour
     }
     public void Freeze()
     {
-        breakAmount = Random.Range(5, 10); //sets the amount of times we need to press jump to escape to a ranodm number between these numbers
+       // breakAmount = Random.Range(5, 10); //sets the amount of times we need to press jump to escape to a ranodm number between these numbers
+        breakAmount = 6;
         frozen = true;
         hasIcePower = false;
         DeleteVFXOfTag("CollectableVFX");
