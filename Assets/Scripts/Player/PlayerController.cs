@@ -280,15 +280,11 @@ public class PlayerController : MonoBehaviour
 
         if (frozen) //Activate the Button press UI above the player
         {
-            buttonPress.ShowButtonPress();
-            
             animator.SetBool("isFrozen", true);
             DeleteVFXOfTag("CollectableVFX");
         }
         else
         {
-           
-            buttonPress.HideButtonPress();
             animator.SetBool("isFrozen", false);
         }
 
@@ -447,6 +443,7 @@ public class PlayerController : MonoBehaviour
                 breakCounter = 0;
                 frozen = false;
                 iceBlock.HideIce();
+                buttonPress.HideButtonPress();
                 iceBlock.ResetIce();
                 Debug.Log("Broke free from Ice!!!");
                 vfxController.GetComponent<VFXController>().PlayVFX(transform, "Shatter");
@@ -864,6 +861,7 @@ public class PlayerController : MonoBehaviour
        // breakAmount = Random.Range(5, 10); //sets the amount of times we need to press jump to escape to a ranodm number between these numbers
         breakAmount = 6;
         iceBlock.ShowIce();
+        buttonPress.ShowButtonPress();
         frozen = true;
         hasIcePower = false;
         DeleteVFXOfTag("CollectableVFX");
@@ -920,6 +918,7 @@ public class PlayerController : MonoBehaviour
         animator.SetTrigger("Dying");
         playerLight.HideLight();
         iceBlock.HideIce();
+        buttonPress.HideButtonPress();
         spriteRenderer.sortingOrder = 4;
         PlayDeathAudio();
 
