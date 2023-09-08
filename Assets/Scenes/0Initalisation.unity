@@ -224,7 +224,7 @@ MonoBehaviour:
   - name: DeathCry3
     clip: {fileID: 8300000, guid: 7a883a823bdd20d4da485f9d92490cae, type: 3}
     volume: 1
-    pitch: 0.75
+    pitch: 1.5
     loop: 0
     source: {fileID: 0}
   - name: JumpGrunt
@@ -252,14 +252,14 @@ MonoBehaviour:
     loop: 0
     source: {fileID: 0}
   - name: MusicFight
-    clip: {fileID: 8300000, guid: 01427ea5a4d9de74a82fdde0aa963427, type: 3}
-    volume: 0.5
+    clip: {fileID: 8300000, guid: 859d68901c0122b47a306adb9c34166a, type: 3}
+    volume: 0
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: Landing
     clip: {fileID: 8300000, guid: 6238404e126d77d4eabed630539ac71a, type: 3}
-    volume: 1
+    volume: 0.3
     pitch: 1.24
     loop: 0
     source: {fileID: 0}
@@ -376,6 +376,42 @@ MonoBehaviour:
     volume: 0.75
     pitch: 1
     loop: 1
+    source: {fileID: 0}
+  - name: Steps
+    clip: {fileID: 8300000, guid: e9dc2df8da8a2514e9f013dae54ba1c4, type: 3}
+    volume: 0.3
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: LavaDie
+    clip: {fileID: 8300000, guid: a63743b20c5b56f43906ec63be6b66f4, type: 3}
+    volume: 0.75
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: CopperDie
+    clip: {fileID: 8300000, guid: 3f56d6f328fe84b4c93be1b51eaece8d, type: 3}
+    volume: 0.75
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: HornDie
+    clip: {fileID: 8300000, guid: 65b98b08739110d40b54221ad7a7db81, type: 3}
+    volume: 0.75
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: TreeDie
+    clip: {fileID: 8300000, guid: ee3edb18ac8548542bcebb3e1e5f9db2, type: 3}
+    volume: 0.75
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: WallSlide
+    clip: {fileID: 8300000, guid: 675c54d2c745a4a41bcc6a258a3ceaf6, type: 3}
+    volume: 0.75
+    pitch: 1
+    loop: 0
     source: {fileID: 0}
 --- !u!4 &516737285
 Transform:

@@ -306,11 +306,13 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetBool("isRunning", true);
             StartRunTrigger();
+        
         }
         else
         {
             animator.SetBool("isRunning", false);
             isRunning = false;
+        
         }
 
         if (!IsGrounded() && playerVelocity.y > 0 && !OnStickyWall())
@@ -351,6 +353,8 @@ public class PlayerController : MonoBehaviour
 
 
         animator.SetBool("isWallSliding", OnStickyWall() && !IsGrounded() && !frozen);
+         FindObjectOfType<AudioManager>().PlayOnce("WallSlide");
+
 
         timeSinceLastKill += Time.deltaTime;
         dashCooldown += Time.deltaTime;
@@ -370,6 +374,8 @@ public class PlayerController : MonoBehaviour
             isLanding = true;
             animator.SetTrigger("Landing");
             PlayTriggeredEffect("Land");
+            FindObjectOfType<AudioManager>().Play("Landing");
+
         }
     }
     public void HideArrow()
@@ -586,6 +592,15 @@ public class PlayerController : MonoBehaviour
                 isWallJumping = false;
                 CancelInvoke(nameof(StopWallJumping));
 
+         
+
+
+
+
+
+
+
+
                 //flip player light around when sliding down a wall
                 playerLight.FlipLight(true);
                 if (move.y >= -0.8f)
@@ -598,6 +613,7 @@ public class PlayerController : MonoBehaviour
             else
             {
                 playerLight.FlipLight(false);
+        
             }
 
         }
@@ -1318,18 +1334,9 @@ public class PlayerController : MonoBehaviour
     //~~~ JUMP ~~~\\ 
     public void PlayJumpAudio()
     {
-        int SoundNo = Random.Range(1, 5);
 
         FindObjectOfType<AudioManager>().Play("JumpWhoosh");
 
-        if (SoundNo == 1)
-        {
-            FindObjectOfType<AudioManager>().Play("JumpGrunt");
-        }
-        if (SoundNo == 2)
-        {
-            FindObjectOfType<AudioManager>().Play("JumpGrunt2");
-        }
 
     }
 
@@ -1339,19 +1346,27 @@ public class PlayerController : MonoBehaviour
         // TODO 1.Change audio dpeending on what player has died
         //      2.random change of pitch
 
-        int SoundNo = Random.Range(1, 4);
+        int SoundNo = PlayerData.GetSpriteID(playerNum);
 
         FindObjectOfType<AudioManager>().Play("DeathSound");
 
         if (SoundNo == 1)
         {
-            FindObjectOfType<AudioManager>().Play("DeathCry1");
+            FindObjectOfType<AudioManager>().Play("HornDie");
         }
         if (SoundNo == 2)
         {
-            FindObjectOfType<AudioManager>().Play("DeathCry2");
+            FindObjectOfType<AudioManager>().Play("TreeDie");
         }
         if (SoundNo == 3)
+        {
+            FindObjectOfType<AudioManager>().Play("CopperDie");
+        }
+        if (SoundNo == 0)
+        {
+            FindObjectOfType<AudioManager>().Play("LavaDie");
+        }
+         if (SoundNo == 4)
         {
             FindObjectOfType<AudioManager>().Play("DeathCry3");
         }

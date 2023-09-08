@@ -102,6 +102,10 @@ public class LevelScript : MonoBehaviour
 
     private void Start()
     {
+
+     AM.Play("MusicFight");
+     AM.Play("SoundTrees");
+
         playerSpriteIDs = PlayerData.GetSpriteIDs();    //update sprite ids with previously selected sprites
 
         for (int player = 0; player < PlayerData.GetNumOfPlayers(); player++)
@@ -140,7 +144,7 @@ public class LevelScript : MonoBehaviour
                 players[i].GetComponent<PlayerController>().HideArrow();
             }
         }
-        AM.Play("MusicFight"); //TODO : CHANGE THIS BACK TO BEGIN AT START OF LEVEL ONCE COUNTDOWN IS ADDED TO SONG
+        //TODO : CHANGE THIS BACK TO BEGIN AT START OF LEVEL ONCE COUNTDOWN IS ADDED TO SONG
         //Debug.Log("introIsOver: " + introIsOver);
     }
     private IEnumerator InitialCollectableSpawnDelay()
