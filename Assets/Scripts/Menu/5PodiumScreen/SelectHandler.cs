@@ -42,36 +42,36 @@ public class SelectHandler : MonoBehaviour
     {
         //if (PlayerData.GetDevMode()) { Debug.Log("SelectHandler OnUp"); }
         //if (PlayerData.GetDevMode()) { Debug.Log("selector: " + selectors[selectorIndex]); }
-        if (ctx.started && ctx.control.device == PlayerData.playerDevices[0]) { selectors[selectorIndex].LetterInc(ctx); }
+        if (ctx.started && ctx.control.device == PlayerData.playerDevices[PlayerData.playerPositions[0]]) { selectors[selectorIndex].LetterInc(ctx); }
     }
 
     public void OnDown(InputAction.CallbackContext ctx)
     {
         //if (PlayerData.GetDevMode()) { Debug.Log("SelectHandler OnDown"); }
         //if (PlayerData.GetDevMode()) { Debug.Log("selector: " + selectors[selectorIndex]); }
-        if (ctx.started && ctx.control.device == PlayerData.playerDevices[0]) { selectors[selectorIndex].LetterDec(ctx); }
+        if (ctx.started && ctx.control.device == PlayerData.playerDevices[PlayerData.playerPositions[0]]) { selectors[selectorIndex].LetterDec(ctx); }
     }
 
 
     public void OnForward(InputAction.CallbackContext ctx)
     {
         //if (PlayerData.GetDevMode()) { Debug.Log("SelectHandler OnForward"); }
-        if (ctx.started && ctx.control.device == PlayerData.playerDevices[0] && selectorIndex < (selectors.Length - 1)) { selectorIndex++; }
+        if (ctx.started && ctx.control.device == PlayerData.playerDevices[PlayerData.playerPositions[0]] && selectorIndex < (selectors.Length - 1)) { selectorIndex++; }
     }
 
     public void OnBack(InputAction.CallbackContext ctx)
     {
         //if (PlayerData.GetDevMode()) { Debug.Log("SelectHandler OnBack"); }
-        if (ctx.started && ctx.control.device == PlayerData.playerDevices[0] && selectorIndex > 0) { selectorIndex--; }
+        if (ctx.started && ctx.control.device == PlayerData.playerDevices[PlayerData.playerPositions[0]] && selectorIndex > 0) { selectorIndex--; }
     }
 
 
     public void OnContinue(InputAction.CallbackContext ctx)
     {
         //if (PlayerData.GetDevMode()) { Debug.Log("SelectHandler OnContinue"); }
-        if (ctx.started && ctx.control.device == PlayerData.playerDevices[0]) 
+        if (ctx.started && ctx.control.device == PlayerData.playerDevices[PlayerData.playerPositions[0]]) 
         {
-            //Debug.Log(ctx.control.device + " == " + PlayerData.playerDevices[0]);
+            //Debug.Log(ctx.control.device + " == " + PlayerData.playerDevices[PlayerData.playerPositions[0]);
             string selectedChars = "" + selectors[0].GetChar() + selectors[1].GetChar() + selectors[2].GetChar();
 
             foreach(string x in extraProfanities) { if (selectedChars.Equals(x)) { selectedChars = "UwU"; }}

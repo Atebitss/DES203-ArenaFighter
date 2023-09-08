@@ -10,32 +10,30 @@ public class GameEndManager : MonoBehaviour
     public Animator transition;
     public float transitionTime = 1f;
 
-    [SerializeField] private InputAction continueAction;
 
-    void Awake()
+    public void MainMenu()
     {
-        continueAction.performed += ctx => Continue(ctx);
-        continueAction.Enable();
-    }
-
-
-    public void Continue(InputAction.CallbackContext ctx)
-    {
-        if (SceneManager.GetActiveScene().name == "6GameEnd" && this != null)
+        if (SceneManager.GetActiveScene().name == "6GameEnd")
         {
             FindObjectOfType<AudioManager>().Play("SelectBeep");
-
             StartCoroutine(LoadLevel(1));
         }
     }
+
+    public void Replay()
+    {
+        if (SceneManager.GetActiveScene().name == "6GameEnd")
+        {
+            FindObjectOfType<AudioManager>().Play("SelectBeep");
+            StartCoroutine(LoadLevel(3)); //can be changed to 4 to go straight into the game
+        }
+    }
+
+
     IEnumerator LoadLevel(int levelIndex)
     {
-        continueAction.Disable();
         transition.SetTrigger("Start");
-
         yield return new WaitForSeconds(transitionTime);
-
         SceneManager.LoadScene(levelIndex);
-
     }
 }
