@@ -259,8 +259,6 @@ public class LevelScript : MonoBehaviour
         //Color newColor = new Color(0.5f, 0.5f, 1f, 1f);
         //playerRend.color = Color.red;
 
-        Debug.Log(playerSpriteIDs[curPlayerPos]);
-
         //gives the appropriate colour based on player number
         Light2D playerAuraLight = players[curPlayerPos].transform.Find("Light").GetComponent<Light2D>();
         ParticleSystem.MainModule playerAuraParticles = playerAuraLight.GetComponent <ParticleSystem>().main;

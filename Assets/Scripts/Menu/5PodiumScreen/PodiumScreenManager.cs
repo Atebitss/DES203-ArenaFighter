@@ -39,7 +39,7 @@ public class PodiumScreenManager : MonoBehaviour
     }
     public void Continue(InputAction.CallbackContext ctx)
     {
-        if (SceneManager.GetActiveScene().name == "5PodiumScreen")
+        if (SceneManager.GetActiveScene().name == "5PodiumScreen" && GameObject.Find("NameInput").GetComponent<SelectHandler>().IsConfirmed())
         {
             FindObjectOfType<AudioManager>().Play("SelectBeep");
 

@@ -47,7 +47,7 @@ public class EGXScoreboardScript : MonoBehaviour, EGXPersistenceInterface
     void Start()
     {
         //Debug.Log("EGX scoreboard script awake");
-        if(PlayerData.GetDevMode()) { PlayerData.GetTopPlayer(); }
+        //if(PlayerData.GetDevMode()) { PlayerData.GetTopPlayer(); }
 
         //set script vars to top player's in player data
         playerScore = PlayerData.playerScores[0];

@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 public class SelectHandler : MonoBehaviour
 {
+    private bool confirmed = false;
     private LetterSelect[] selectors = new LetterSelect[3];
     private int selectorIndex = 0;
     private string[] profanities = new string[]
@@ -41,40 +42,43 @@ public class SelectHandler : MonoBehaviour
     {
         //if (PlayerData.GetDevMode()) { Debug.Log("SelectHandler OnUp"); }
         //if (PlayerData.GetDevMode()) { Debug.Log("selector: " + selectors[selectorIndex]); }
-        if (ctx.started) { selectors[selectorIndex].LetterInc(ctx); }
+        if (ctx.started && ctx.control.device == PlayerData.playerDevices[0]) { selectors[selectorIndex].LetterInc(ctx); }
     }
 
     public void OnDown(InputAction.CallbackContext ctx)
     {
         //if (PlayerData.GetDevMode()) { Debug.Log("SelectHandler OnDown"); }
         //if (PlayerData.GetDevMode()) { Debug.Log("selector: " + selectors[selectorIndex]); }
-        if (ctx.started) { selectors[selectorIndex].LetterDec(ctx); }
+        if (ctx.started && ctx.control.device == PlayerData.playerDevices[0]) { selectors[selectorIndex].LetterDec(ctx); }
     }
 
 
     public void OnForward(InputAction.CallbackContext ctx)
     {
         //if (PlayerData.GetDevMode()) { Debug.Log("SelectHandler OnForward"); }
-        if (ctx.started && selectorIndex < (selectors.Length - 1)) { selectorIndex++; }
+        if (ctx.started && ctx.control.device == PlayerData.playerDevices[0] && selectorIndex < (selectors.Length - 1)) { selectorIndex++; }
     }
 
     public void OnBack(InputAction.CallbackContext ctx)
     {
         //if (PlayerData.GetDevMode()) { Debug.Log("SelectHandler OnBack"); }
-        if (ctx.started && selectorIndex > 0) { selectorIndex--; }
+        if (ctx.started && ctx.control.device == PlayerData.playerDevices[0] && selectorIndex > 0) { selectorIndex--; }
     }
 
 
     public void OnContinue(InputAction.CallbackContext ctx)
     {
         //if (PlayerData.GetDevMode()) { Debug.Log("SelectHandler OnContinue"); }
-        if (ctx.started) 
+        if (ctx.started && ctx.control.device == PlayerData.playerDevices[0]) 
         {
+            //Debug.Log(ctx.control.device + " == " + PlayerData.playerDevices[0]);
             string selectedChars = "" + selectors[0].GetChar() + selectors[1].GetChar() + selectors[2].GetChar();
 
             foreach(string x in extraProfanities) { if (selectedChars.Equals(x)) { selectedChars = "UwU"; }}
 
             PlayerData.playerName = selectedChars;
+            confirmed = true;
         }
     }
+    public bool IsConfirmed() { return confirmed; if (PlayerData.GetDevMode()) { Debug.Log("player confirmed: " + confirmed); } }
 }
