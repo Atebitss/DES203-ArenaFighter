@@ -11,8 +11,6 @@ public class MainMenuController : MonoBehaviour
 
     private AudioManager AM;
 
-    [SerializeField] private InputAction playAction;
-
     public static MainMenuController instance = null;
 
 
@@ -31,8 +29,6 @@ public class MainMenuController : MonoBehaviour
             instance = this;
         }
 
-        playAction.performed += ctx => Play(ctx);
-        playAction.Enable();
 
         AM = FindObjectOfType<AudioManager>();
     }
@@ -46,6 +42,7 @@ public class MainMenuController : MonoBehaviour
         PlayerData.ResetStats();
     }
 
+
     public void PlayGame()
     {
         AM.Play("SelectBeep");
@@ -57,13 +54,6 @@ public class MainMenuController : MonoBehaviour
         StartCoroutine(LoadLevel(7));
     }
 
-    public void Play(InputAction.CallbackContext ctx)
-    {
-        if (SceneManager.GetActiveScene().name == "1MainMenu")
-        {
-            PlayGame();
-        }
-    }
 
     public void QuitGame() 
     {
@@ -89,15 +79,14 @@ public class MainMenuController : MonoBehaviour
         //SceneManager.LoadScene(x);
     }
 
+
     IEnumerator LoadLevel(int levelIndex)
     {
-        playAction.Disable();
         transition.SetTrigger("Start");
         AM.VolumeFadeOut("TitleScreenMusic");
 
         yield return new WaitForSeconds(transitionTime);
 
         SceneManager.LoadScene(levelIndex);
-
     }
 }

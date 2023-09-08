@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine;
@@ -419,13 +420,13 @@ public class EGXScoreboardScript : MonoBehaviour, EGXPersistenceInterface
                         scoreText = child.gameObject.GetComponent<TextMeshProUGUI>();
                         break;
                 }
-
-
             }
+
             positionText.text = ("" + (position + 1));
             nameText.text = ("" + playerNames[position]);
             scoreText.text = ("" + playerScores[position]);
         }
+
 
 
        if (SceneManager.GetActiveScene().name == "6GameEnd" && this != null)
@@ -436,24 +437,32 @@ public class EGXScoreboardScript : MonoBehaviour, EGXPersistenceInterface
         // curText.text = "        Position " + (playerStatsPosition + 1) + ": " + playerName + "     Score: " + playerScore + "     TSLK: " + playerTSLK.ToString("F2");
         Transform[] curTextChildren = curText.GetComponentsInChildren<Transform>();
         foreach (Transform child in curTextChildren)
+
+
+        if (SceneManager.GetActiveScene().name.Equals("6GameEnd"))
+
         {
-            switch (child.name)
+            curImage.sprite = PlayerData.GetSprite(playerSpriteID);
+            Transform[] curTextChildren = curText.GetComponentsInChildren<Transform>();
+            foreach (Transform child in curTextChildren)
             {
-                case "Position":
-                    positionText = child.gameObject.GetComponent<TextMeshProUGUI>();
-                    break;
-                case "Name":
-                    nameText = child.gameObject.GetComponent<TextMeshProUGUI>();
-                    break;
-                case "Score":
-                    scoreText = child.gameObject.GetComponent<TextMeshProUGUI>();
-                    break;
+                switch (child.name)
+                {
+                    case "Position":
+                        positionText = child.gameObject.GetComponent<TextMeshProUGUI>();
+                        break;
+                    case "Name":
+                        nameText = child.gameObject.GetComponent<TextMeshProUGUI>();
+                        break;
+                    case "Score":
+                        scoreText = child.gameObject.GetComponent<TextMeshProUGUI>();
+                        break;
+                }
             }
 
-
+            positionText.text = ("" + (playerStatsPosition + 1));
+            nameText.text = ("" + playerName);
+            scoreText.text = ("" + playerScore);
         }
-        positionText.text = ("" + (playerStatsPosition + 1));
-        nameText.text = ("" + playerName);
-        scoreText.text = ("" + playerScore);
     }
 }

@@ -306,7 +306,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
+  m_FirstSelected: {fileID: 1747836860}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!4 &63305671
@@ -2390,14 +2390,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transition: {fileID: 1617340749}
   transitionTime: 1
-  continueAction:
-    m_Name: Start
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 0aad9881-5461-48c1-b500-362544eea1bf
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
 --- !u!1 &1079500906
 GameObject:
   m_ObjectHideFlags: 0
@@ -3690,7 +3682,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1535754603}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1019210328}
+        m_TargetAssemblyTypeName: GameEndManager, Assembly-CSharp
+        m_MethodName: MainMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1535754603
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4382,7 +4386,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1747836863}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1019210328}
+        m_TargetAssemblyTypeName: GameEndManager, Assembly-CSharp
+        m_MethodName: Replay
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1747836863
 MonoBehaviour:
   m_ObjectHideFlags: 0
