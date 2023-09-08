@@ -429,17 +429,14 @@ public class EGXScoreboardScript : MonoBehaviour, EGXPersistenceInterface
 
 
 
-       if (SceneManager.GetActiveScene().name == "6GameEnd" && this != null)
-        {
-            curImage.sprite = PlayerData.GetSprite(playerSpriteID);
-        }
+       
       
         // curText.text = "        Position " + (playerStatsPosition + 1) + ": " + playerName + "     Score: " + playerScore + "     TSLK: " + playerTSLK.ToString("F2");
-        Transform[] curTextChildren = curText.GetComponentsInChildren<Transform>();
-        foreach (Transform child in curTextChildren)
+     //   Transform[] curTextChildren = curText.GetComponentsInChildren<Transform>();
+       // foreach (Transform child in curTextChildren)
 
 
-        if (SceneManager.GetActiveScene().name.Equals("6GameEnd"))
+        if (SceneManager.GetActiveScene().name.Equals("6GameEnd") && this != null)
 
         {
             curImage.sprite = PlayerData.GetSprite(playerSpriteID);
