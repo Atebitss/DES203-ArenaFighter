@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
+using UnityEngine;
 
 public class GameEndManager : MonoBehaviour
 {
@@ -13,7 +13,7 @@ public class GameEndManager : MonoBehaviour
 
     public void MainMenu()
     {
-        if (SceneManager.GetActiveScene().name == "6GameEnd")
+        if (SceneManager.GetActiveScene().name == "6GameEnd" || SceneManager.GetActiveScene().name == "7Leaderboard")
         {
             FindObjectOfType<AudioManager>().Play("SelectBeep");
             StartCoroutine(LoadLevel(1));

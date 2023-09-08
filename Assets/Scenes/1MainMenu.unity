@@ -578,30 +578,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transition: {fileID: 5042851957019510398}
   transitionTime: 1
-  playAction:
-    m_Name: Play
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: e5814308-c17e-4b70-a788-1d6c7fc2b321
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 
-      m_Id: 5e39cb17-954a-4b48-85b9-f4a546a793d1
-      m_Path: <Gamepad>/buttonSouth
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Play
-      m_Flags: 0
-    - m_Name: 
-      m_Id: ad4992c2-afb1-4db8-a1d6-a29c57135a61
-      m_Path: <Keyboard>/enter
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Play
-      m_Flags: 0
 --- !u!4 &1108278123
 Transform:
   m_ObjectHideFlags: 0
@@ -1478,7 +1454,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7655982992523358401, guid: ad74157192ab5e84bb252ccc082aef7b, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad74157192ab5e84bb252ccc082aef7b, type: 3}

@@ -1049,12 +1049,12 @@ public class PlayerController : MonoBehaviour
                 if (hasIcePower) //remove collectable if we arady have that one equipped 
                 {
                     //Destroy(collision.gameObject);
-                    Debug.Log("Already have collectable, ignored");
+                    //Debug.Log("Already have collectable, ignored");
                 }
                 else
                 {
                     hasIcePower = true;
-                    Debug.Log("Collected Ice");
+                    //Debug.Log("Collected Ice");
                     collision.gameObject.GetComponent<Collectable>().PickUp();
                     FindObjectOfType<AudioManager>().Play("Collect");
                     vfxController.GetComponent<VFXController>().PlayPlayerVFX(playerNum, "Snow");
@@ -1075,7 +1075,7 @@ public class PlayerController : MonoBehaviour
     public void InvertCollected()
     {
 
-        print("Invert Collected");
+        //print("Invert Collected");
         GameObject[] players = PlayerData.GetPlayers(); //store player list from player data
 
         foreach (GameObject thisPlayer in players)  //search player list for this player
@@ -1086,7 +1086,7 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                print("not this p;layer");
+                //print("not this p;layer");
             }
 
         }
