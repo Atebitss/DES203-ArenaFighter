@@ -22,6 +22,12 @@ public class IceBlock : MonoBehaviour
         renderer.sprite = breakFreeAnimSprites[counter];
         counter++;
     }
+     public void ResetIce()
+    {
+        counter = 0;
+        renderer.sprite = breakFreeAnimSprites[0];
+       
+    }
     private void Update() //keep buttons facing the correct way regardless of the players direction
     {
         if (playerPrefab.localScale.x < 0)
