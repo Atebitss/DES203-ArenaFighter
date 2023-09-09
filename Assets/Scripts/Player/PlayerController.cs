@@ -726,6 +726,8 @@ public class PlayerController : MonoBehaviour
 
     private void StopTeleporting()
     {
+        if (GetPlayerX() > 17.3f) { SetPlayerX(15.5f); }
+        else if (GetPlayerX() < -17.3f) { SetPlayerX(-15.5f); }
         isTeleporting = false;
     }
 

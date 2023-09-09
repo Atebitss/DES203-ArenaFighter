@@ -15,6 +15,8 @@ public class SelectHandler : MonoBehaviour
     [SerializeField] private GameObject[] downArrows = new GameObject[3];
     [SerializeField] private GameObject[] confirms = new GameObject[3];
 
+    [SerializeField] private ParticleSystem confetti;
+
 
     private string[] profanities = new string[]
         {"ASS",
@@ -55,7 +57,11 @@ public class SelectHandler : MonoBehaviour
         upArrows[0].SetActive(true);
         downArrows[0].SetActive(true);
         confirms[0].SetActive(true);
+
+        Invoke("TransitionWait", 1f);
     }
+
+    private void TransitionWait() { confetti.Play(); }
 
 
     public void OnUp(InputAction.CallbackContext ctx)

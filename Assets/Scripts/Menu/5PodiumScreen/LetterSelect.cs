@@ -61,11 +61,16 @@ public class LetterSelect : MonoBehaviour
         }
         else if (charIndex > 0)
         { 
-            charIndex--; UpdateDisplay(); 
+            charIndex--; UpdateDisplay();
         }
         else if (charIndex == 0)
-        { 
+        {
             charIndex = chars.Length - 1;
+            UpdateDisplay();
+        }
+        else if (PlayerData.GetDevMode() && charIndex == 0)
+        {
+            charIndex = devChars.Length - 1;
             UpdateDisplay();
         }
 
