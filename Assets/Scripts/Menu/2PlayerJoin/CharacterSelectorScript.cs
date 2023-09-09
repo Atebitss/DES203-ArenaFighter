@@ -18,15 +18,14 @@ public class CharacterSelectorScript : MonoBehaviour
     [SerializeField] private Material defaultMaterial;
 
     //arrows
-    [SerializeField] private GameObject upArrow;
-    [SerializeField] private GameObject downArrow;
+    [SerializeField] private Image upArrow;
+    [SerializeField] private Image downArrow;
+
+    //confirms
+    [SerializeField] private GameObject confirmA;
+    [SerializeField] private GameObject confirmTick;
 
 
-
-    void Awake()
-    {
-        Debug.Log(this.transform.name + " Awake()");
-    }
 
     public void Wake(int num)
     {
@@ -36,6 +35,8 @@ public class CharacterSelectorScript : MonoBehaviour
 
         //set players num & disable 'press a'
         playerNum = num;
+        if (csh.IsCharacterConfirmed(spriteIndex)) { spriteIndex = FindNextIndex(spriteIndex, 1); }
+        confirmTick.SetActive(false);
 
         //update image & csh
         csh.AddCSS(playerNum, this);
@@ -59,6 +60,8 @@ public class CharacterSelectorScript : MonoBehaviour
         //Debug.Log("resetting image");
     }
 
+    public void ResetMaterial() { if (!imageComponent.material.Equals("None")) { imageComponent.material = defaultMaterial; } }   //if cur material isnt none, reset it
+
 
     //up/down function
     //  increase/decrease sprite num to temp int
@@ -80,6 +83,7 @@ public class CharacterSelectorScript : MonoBehaviour
             //set bool 'upRun' to true - this sets the colour of the arrow & makes it jump
             //start coroutine(animation length, 1 sec or smthn)
             //after 1sec set bool to false - this sets the colour of the arrow and brings it back down
+            Highlight("up");
 
             //update image with newly selected character
             ImageChange(PlayerData.GetSprite(spriteIndex));
@@ -99,10 +103,36 @@ public class CharacterSelectorScript : MonoBehaviour
             //set bool 'downRun' to true - this sets the colour of the arrow & makes it fall down
             //start coroutine(animation length, 1 sec or smthn)
             //after 1sec set bool to false - this sets the colour of the arrow and brings it back up
+            Highlight("down");
 
             //update image with newly selected character
             ImageChange(PlayerData.GetSprite(spriteIndex));
         }
+    }
+
+
+    private void Highlight(string dir)
+    {
+        switch (dir) 
+        {
+            case "up":
+                upArrow.color = new Color(1.0f, 0f, 0.875f);
+                Invoke("DeHighlight", 0.1f);
+                break;
+            case "down":
+                downArrow.color = new Color(1.0f, 0f, 0.875f);
+                Invoke("DeHighlight", 0.1f);
+                break;
+            default: 
+                if (PlayerData.GetDevMode()) { Debug.Log("no direction"); } 
+                break;
+        }
+    }
+
+    private void DeHighlight()
+    {
+        upArrow.color = new Color(1f, 1f, 1f);
+        downArrow.color = new Color(1f, 1f, 1f);
     }
 
 
@@ -154,6 +184,10 @@ public class CharacterSelectorScript : MonoBehaviour
                 csh.SelectCharcter(playerNum, spriteIndex);
                 //set bool confirmed to true
                 confirmed = true;
+                upArrow.transform.gameObject.SetActive(false);
+                downArrow.transform.gameObject.SetActive(false);
+                confirmA.SetActive(false);
+                confirmTick.SetActive(true);
             }
         }
     }
@@ -167,6 +201,10 @@ public class CharacterSelectorScript : MonoBehaviour
             csh.DeselectCharacter(playerNum);
             //set bool confirmed to false
             confirmed = false;
+            upArrow.transform.gameObject.SetActive(true);
+            downArrow.transform.gameObject.SetActive(true);
+            confirmA.SetActive(true);
+            confirmTick.SetActive(false);
         }
     }
 
@@ -174,7 +212,7 @@ public class CharacterSelectorScript : MonoBehaviour
 
     void OnDestroy()
     {
-        Debug.Log(this.transform.name + " destroyed");
+        if (PlayerData.GetDevMode()) { Debug.Log(this.transform.name + " destroyed"); }
         ResetImage();
         csh.DelCSS(playerNum);
     }

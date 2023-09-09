@@ -878,7 +878,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7655982992523358401, guid: ad74157192ab5e84bb252ccc082aef7b, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad74157192ab5e84bb252ccc082aef7b, type: 3}
@@ -1159,7 +1159,6 @@ GameObject:
   - component: {fileID: 1890713705}
   - component: {fileID: 1890713709}
   - component: {fileID: 1890713710}
-  - component: {fileID: 1890713711}
   m_Layer: 5
   m_Name: UICanvas
   m_TagString: Untagged
@@ -1275,7 +1274,7 @@ MonoBehaviour:
     m_Interactions: 
     m_SingletonActionBindings:
     - m_Name: 
-      m_Id: 83fbdb48-66dd-4b22-96dd-526f5dffa8d2
+      m_Id: 3aa073b8-1842-4771-b4b0-7a8afccd3a27
       m_Path: <Gamepad>/start
       m_Interactions: 
       m_Processors: 
@@ -1283,7 +1282,7 @@ MonoBehaviour:
       m_Action: Start
       m_Flags: 0
     - m_Name: 
-      m_Id: 0d4cd965-f421-4fde-92ef-310489133554
+      m_Id: 6978c645-866f-49df-b681-b72ddae712d3
       m_Path: <Keyboard>/enter
       m_Interactions: 
       m_Processors: 
@@ -1309,49 +1308,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1890713711
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1890713704}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 621567455fd1c4ceb811cc8a00b6a1a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_NotificationBehavior: 0
-  m_MaxPlayerCount: -1
-  m_AllowJoining: 0
-  m_JoinBehavior: 2
-  m_PlayerJoinedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_PlayerLeftEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_JoinAction:
-    m_UseReference: 0
-    m_Action:
-      m_Name: 
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-    m_Reference: {fileID: 0}
-  m_PlayerPrefab: {fileID: 0}
-  m_SplitScreen: 0
-  m_MaintainAspectRatioInSplitScreen: 0
-  m_FixedNumberOfSplitScreens: -1
-  m_SplitScreenRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
 --- !u!1 &2136599928
 GameObject:
   m_ObjectHideFlags: 0

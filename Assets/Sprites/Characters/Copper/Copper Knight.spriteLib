@@ -144,32 +144,11 @@ MonoBehaviour:
     m_OverrideEntries:
     - m_Name: FrozenKnight
       m_Hash: -1237208391
-      m_Sprite: {fileID: 21300000, guid: fae1556666bbb284abc52a2970fd2d22, type: 3}
+      m_Sprite: {fileID: 6838223020439552223, guid: 9bb13ce707a86774b8a804cdf4856778, type: 3}
       m_FromMain: 1
-      m_SpriteOverride: {fileID: 21300000, guid: fae1556666bbb284abc52a2970fd2d22, type: 3}
+      m_SpriteOverride: {fileID: -5086577706576513742, guid: bd4858fe320e9f543ae9e3d957bf0572, type: 3}
     m_FromMain: 1
-    m_EntryOverrideCount: 0
-  - m_Name: Frozen Shake
-    m_Hash: 1886345713
-    m_CategoryList: []
-    m_OverrideEntries:
-    - m_Name: FrozenKnightSpriteSheet_0
-      m_Hash: -297178089
-      m_Sprite: {fileID: 7648158685910890140, guid: 359bf2886d671434c9a2822de866efa6, type: 3}
-      m_FromMain: 1
-      m_SpriteOverride: {fileID: 7648158685910890140, guid: 359bf2886d671434c9a2822de866efa6, type: 3}
-    - m_Name: FrozenKnightSpriteSheet_1
-      m_Hash: -1722917759
-      m_Sprite: {fileID: 5664145314700465830, guid: 359bf2886d671434c9a2822de866efa6, type: 3}
-      m_FromMain: 1
-      m_SpriteOverride: {fileID: 5664145314700465830, guid: 359bf2886d671434c9a2822de866efa6, type: 3}
-    - m_Name: FrozenKnightSpriteSheet_2
-      m_Hash: 4656443
-      m_Sprite: {fileID: -8909151843786938344, guid: 359bf2886d671434c9a2822de866efa6, type: 3}
-      m_FromMain: 1
-      m_SpriteOverride: {fileID: -8909151843786938344, guid: 359bf2886d671434c9a2822de866efa6, type: 3}
-    m_FromMain: 1
-    m_EntryOverrideCount: 0
+    m_EntryOverrideCount: 1
   - m_Name: Death
     m_Hash: 646380074
     m_CategoryList: []

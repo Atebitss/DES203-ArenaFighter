@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject crown;
     [SerializeField] private Transform deflectRef;
     [SerializeField] private PlayerArrows playerArrow;
+    [SerializeField] private IceBlock iceBlock;
 
     private Gamepad controller;
     [HideInInspector] public int playerNum;
@@ -282,13 +283,11 @@ public class PlayerController : MonoBehaviour
 
         if (frozen) //Activate the Button press UI above the player
         {
-            buttonPress.ShowButtonPress();
             animator.SetBool("isFrozen", true);
             DeleteVFXOfTag("CollectableVFX");
         }
         else
         {
-            buttonPress.HideButtonPress();
             animator.SetBool("isFrozen", false);
         }
 
@@ -443,7 +442,7 @@ public class PlayerController : MonoBehaviour
         {
 
             breakCounter++;
-
+            iceBlock.BreakIce();
             if (breakCounter == breakAmount)
             {
                 playerRigid.constraints = ~RigidbodyConstraints2D.FreezePosition;
@@ -451,6 +450,9 @@ public class PlayerController : MonoBehaviour
 
                 breakCounter = 0;
                 frozen = false;
+                iceBlock.HideIce();
+                buttonPress.HideButtonPress();
+                iceBlock.ResetIce();
                 Debug.Log("Broke free from Ice!!!");
                 vfxController.GetComponent<VFXController>().PlayVFX(transform, "Shatter");
                 AM.Play("BreakFree");
@@ -872,7 +874,10 @@ public class PlayerController : MonoBehaviour
     }
     public void Freeze()
     {
-        breakAmount = Random.Range(5, 10); //sets the amount of times we need to press jump to escape to a ranodm number between these numbers
+       // breakAmount = Random.Range(5, 10); //sets the amount of times we need to press jump to escape to a ranodm number between these numbers
+        breakAmount = 6;
+        iceBlock.ShowIce();
+        buttonPress.ShowButtonPress();
         frozen = true;
         hasIcePower = false;
         DeleteVFXOfTag("CollectableVFX");
@@ -928,13 +933,17 @@ public class PlayerController : MonoBehaviour
 
         animator.SetTrigger("Dying");
         playerLight.HideLight();
+        iceBlock.HideIce();
+        buttonPress.HideButtonPress();
         spriteRenderer.sortingOrder = 4;
         PlayDeathAudio();
 
         if (frozen)
         {
             spriteRenderer.enabled = false;
+            
         }
+        
 
         Invoke(nameof(KillDelay), 0.6f); //set to time of deathAnimation
 
@@ -987,22 +996,22 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator InvincibilityFlash()
     {
-        Debug.Log("InvincibilityFlash");
+        //Debug.Log("InvincibilityFlash");
         //flashing duration and interval
         float flashDuration = invincibilityTime;
         float flashInterval = invincibilityTime / 5;
-        Debug.Log("Dur: " + flashDuration + "/Int: " + flashInterval);
+        //Debug.Log("Dur: " + flashDuration + "/Int: " + flashInterval);
 
         while (flashDuration > 0)
         {
             //set renderer material to flash, wait, set back
 
-            Debug.Log("on");
+            //Debug.Log("on");
             spriteRenderer.material = invincibilityMat;
             yield return new WaitForSeconds(flashInterval);
             flashDuration -= flashInterval;
 
-            Debug.Log("off");
+            //Debug.Log("off");
             spriteRenderer.material = originMat;
             yield return new WaitForSeconds(flashInterval);
             flashDuration -= flashInterval;
@@ -1010,7 +1019,7 @@ public class PlayerController : MonoBehaviour
 
         //set renderer material to origin on flash end
         spriteRenderer.material = originMat;
-        Debug.Log("finished");
+        //Debug.Log("finished");
     }
 
     public bool GetIsDying() { return isDying; }
@@ -1065,12 +1074,12 @@ public class PlayerController : MonoBehaviour
                 if (hasIcePower) //remove collectable if we arady have that one equipped 
                 {
                     //Destroy(collision.gameObject);
-                    Debug.Log("Already have collectable, ignored");
+                    //Debug.Log("Already have collectable, ignored");
                 }
                 else
                 {
                     hasIcePower = true;
-                    Debug.Log("Collected Ice");
+                    //Debug.Log("Collected Ice");
                     collision.gameObject.GetComponent<Collectable>().PickUp();
                     AM.Play("Collect");
                     vfxController.GetComponent<VFXController>().PlayPlayerVFX(playerNum, "Snow");
@@ -1091,7 +1100,7 @@ public class PlayerController : MonoBehaviour
     public void InvertCollected()
     {
 
-        print("Invert Collected");
+        //print("Invert Collected");
         GameObject[] players = PlayerData.GetPlayers(); //store player list from player data
 
         foreach (GameObject thisPlayer in players)  //search player list for this player
@@ -1102,7 +1111,7 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                print("not this p;layer");
+                //print("not this p;layer");
             }
 
         }

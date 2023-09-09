@@ -8,7 +8,7 @@ public class LoadScreenManager : MonoBehaviour
 {
     public Animator transition;
     public float transitionTime = 1f;
-    public Button pressStart;
+    public Image pressStart;
     public Image loading;
     private bool isLoading = true;
     private bool skipping = false;
@@ -69,7 +69,8 @@ public class LoadScreenManager : MonoBehaviour
             AM.StopPlaying("StartMenuMusic");
             AM.StopPlaying("SoundTrees");
             AM.StopPlaying("SoundZaps");
-            pressedStart = true;
+            
+             StartCoroutine(LoadLevel());
         }
     }
 
@@ -87,7 +88,7 @@ public class LoadScreenManager : MonoBehaviour
             AM.StopPlaying("StartMenuMusic");
             AM.StopPlaying("SoundTrees");
             AM.StopPlaying("SoundZaps");
-            pressedStart = true;
+           
             StartCoroutine(LoadLevel());
         }
     }
