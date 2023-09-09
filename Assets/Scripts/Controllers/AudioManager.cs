@@ -126,6 +126,12 @@ public class AudioManager : MonoBehaviour
         s.source.Stop();
     }
 
+    public bool IsSoundPlaying(string name)
+    {
+        Sound s = Array.Find(sounds, item => item.name == name);
+        return s.isPlaying;
+    }
+
 
     public void VolumeChange(float inc)
     {

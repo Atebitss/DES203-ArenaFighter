@@ -43,6 +43,7 @@ public class LevelScript : MonoBehaviour
     public static LevelScript instance = null;
     [SerializeField] [Range(1, 5)] private float roundMins = 3;
     private AudioManager AM;
+    private bool[] playerWallSliding = new bool[] { false, false, false, false };
     
 
     //collectable stuff
@@ -103,8 +104,8 @@ public class LevelScript : MonoBehaviour
     private void Start()
     {
 
-     AM.Play("MusicFight");
-     AM.Play("SoundTrees");
+        AM.Play("MusicFight");
+        AM.Play("SoundTrees");
 
         playerSpriteIDs = PlayerData.GetSpriteIDs();    //update sprite ids with previously selected sprites
 
@@ -176,6 +177,46 @@ public class LevelScript : MonoBehaviour
         {
             intervalTime += Time.deltaTime;
         }
+
+        //play sound if any player's wall sliding
+        PlaySounds();
+    }
+
+    private void PlaySounds()
+    {
+        bool wallSlides = false;
+
+        for(int i = 0; i < PlayerData.GetNumOfPlayers(); i++)
+        {
+            if (playerScripts[i].OnStickyWall()) 
+            { 
+                //if (PlayerData.GetDevMode()){ Debug.Log("player" + i + " wall sliding"); } 
+                wallSlides = true; 
+                break; 
+            }
+            else { wallSlides = false; }
+        }
+
+        if (wallSlides) { AM.PlayOnce("WallSlide"); }
+        else { AM.StopPlaying("WallSlide"); }
+
+
+
+        bool steps = false;
+
+        for (int i = 0; i < PlayerData.GetNumOfPlayers(); i++)
+        {
+            if (playerScripts[i].GetPlayerXVelocity() != 0)
+            {
+                if (PlayerData.GetDevMode()) { Debug.Log("player" + i + " walking"); }
+                steps = true;
+                break;
+            }
+            else { steps = false; }
+        }
+
+        if (steps) { AM.PlayOnce("Steps"); }
+        else { AM.StopPlaying("Steps"); }
     }
 
 
@@ -494,6 +535,8 @@ public class LevelScript : MonoBehaviour
         SceneManager.LoadScene(5);
     }
    
+
+    //public void UpdatePlayerWallSliding(bool sliding, int playerNum) { if (PlayerData.GetDevMode()) { Debug.Log("player" + playerNum + " sliding"); } playerWallSliding[playerNum] = sliding; }
 
     public float GetRoundLength()
     {

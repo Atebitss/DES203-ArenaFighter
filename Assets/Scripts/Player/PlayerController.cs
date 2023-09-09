@@ -166,9 +166,9 @@ public class PlayerController : MonoBehaviour
         playerNum = ls.CurrentPlayer();
         gameObject.name = "Player" + playerNum;
 
-       
+        onStickyWall = false;
 
-        //player animator
+         //player animator
         animator = GetComponent<Animator>();
         //animator.SetInteger("PlayerNum", playerNum);
 
@@ -315,7 +315,7 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetBool("isRunning", false);
             isRunning = false;
-            AM.StopPlaying("Steps");
+            //AM.StopPlaying("Steps");
         
         }
 
@@ -378,7 +378,6 @@ public class PlayerController : MonoBehaviour
             animator.SetTrigger("Landing");
             PlayTriggeredEffect("Land");
             AM.Play("Landing");
-
         }
     }
     public void HideArrow()
@@ -418,7 +417,7 @@ public class PlayerController : MonoBehaviour
 
          if (move.x != 0 && IsGrounded())
         {
-                        PlaySteps();
+                        //PlaySteps();
         }
 
 
@@ -606,7 +605,7 @@ public class PlayerController : MonoBehaviour
                 CancelInvoke(nameof(StopWallJumping));
 
 
-                PlayWallSlide();
+                //PlayWallSlide();
                 
 
 
@@ -624,7 +623,7 @@ public class PlayerController : MonoBehaviour
                 playerLight.FlipLight(false);
 
 
-                AM.StopPlaying("WallSlide");
+                //AM.StopPlaying("WallSlide");
             }
 
         }
@@ -1359,24 +1358,24 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    public void PlayWallSlide()
+    /*public void PlayWallSlide()
     {
 
-    bool isWallSlidePlaying = false;
+        bool isWallSlidePlaying = false;
 
-    foreach (var sound in AM.sounds)
-    {
-    if (sound.name == "WallSlide" && sound.isPlaying)
-    {
-        isWallSlidePlaying = true;
-        break; // Exit the loop if the sound is found to be playing
-    }
-    }
+        foreach (var sound in AM.sounds)
+        {
+            if (sound.name == "WallSlide" && sound.isPlaying)
+            {
+                isWallSlidePlaying = true;
+                break; // Exit the loop if the sound is found to be playing
+            }
+        }
 
-    if (!isWallSlidePlaying)
-    {
-    AM.Play("WallSlide");
-    }
+        if (!isWallSlidePlaying)
+        {
+            AM.Play("WallSlide");
+        }
     }
 
 
@@ -1400,7 +1399,7 @@ public class PlayerController : MonoBehaviour
     {
     AM.Play("Steps");
     }
-    }
+    }*/
 
 
     //~~~ DEATH ~~~\\ 
