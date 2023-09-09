@@ -33,6 +33,7 @@ public class AudioManager : MonoBehaviour
             s.source.pitch = s.pitch;
             s.source.loop = s.loop;
             s.source.playOnAwake = false;
+           
         }
     }
     void Start()
@@ -53,6 +54,7 @@ public class AudioManager : MonoBehaviour
 
         if (PlayerData.GetDevMode()) { Debug.Log("playing sound: " + name); }
 
+        s.isPlaying = true;
         s.source.Play();
     }
 
@@ -120,6 +122,7 @@ public class AudioManager : MonoBehaviour
 
         if (PlayerData.GetDevMode()) { Debug.Log("stopping sound: " + sound); }
 
+        s.isPlaying = false;
         s.source.Stop();
     }
 

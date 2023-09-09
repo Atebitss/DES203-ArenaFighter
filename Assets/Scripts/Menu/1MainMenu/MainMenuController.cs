@@ -37,6 +37,7 @@ public class MainMenuController : MonoBehaviour
     {
         AM.Play("TitleScreenMusic");
         AM.Play("SoundTrees");
+        AM.Play("SoundZaps");
         AM.StopPlaying("MusicFight");
 
         PlayerData.ResetStats();

@@ -15,8 +15,6 @@ public class PlayerJoinMenuController : MonoBehaviour
      private void Start()
     {
         FindObjectOfType<AudioManager>().Play("StartMenuMusic");
-        FindObjectOfType<AudioManager>().Play("SoundTrees");
-        FindObjectOfType<AudioManager>().Play("SoundZaps");
         FindObjectOfType<AudioManager>().StopPlaying("TitleScreenMusic");
     }
 

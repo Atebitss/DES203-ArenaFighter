@@ -10,6 +10,8 @@ public class CharacterSelectHandler : MonoBehaviour
     private int[] confirmedCharacterIDs = new int[] { -1, -1, -1, -1 };
     private CharacterSelectorScript[] css = new CharacterSelectorScript[4];
 
+     private AudioManager AM;
+
     public void SelectCharcter(int playerNum, int charID) 
     {
         if (PlayerData.GetDevMode()) { Debug.Log("csh.SelectedCharacter, " + playerNum + "/" + charID); }
@@ -91,6 +93,8 @@ public class CharacterSelectHandler : MonoBehaviour
 
             if(confirmedCharacterIDs[player] == -1) 
             {
+             AM = FindObjectOfType<AudioManager>();
+            AM.Play("NoBeep");
                 if (PlayerData.GetDevMode()) { Debug.Log("Player" + player + " has not confirmed character"); }
                 return false;
             }

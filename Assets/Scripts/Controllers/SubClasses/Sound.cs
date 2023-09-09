@@ -15,6 +15,8 @@ public float volume;
 public float pitch;
 
 public bool loop;
+public bool isPlaying = false;
+
 
 [HideInInspector]
 public AudioSource source;

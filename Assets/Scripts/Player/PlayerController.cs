@@ -308,12 +308,14 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetBool("isRunning", true);
             StartRunTrigger();
+           
         
         }
         else
         {
             animator.SetBool("isRunning", false);
             isRunning = false;
+            AM.StopPlaying("Steps");
         
         }
 
@@ -412,6 +414,13 @@ public class PlayerController : MonoBehaviour
         {
             previousXMovement = playerRigid.velocity.x;
         }
+
+
+         if (move.x != 0 && IsGrounded())
+        {
+                        PlaySteps();
+        }
+
 
 
 
@@ -597,8 +606,8 @@ public class PlayerController : MonoBehaviour
                 CancelInvoke(nameof(StopWallJumping));
 
 
-
-                AM.PlayOnce("WallSlide");
+                PlayWallSlide();
+                
 
 
                 //flip player light around when sliding down a wall
@@ -1348,6 +1357,51 @@ public class PlayerController : MonoBehaviour
 
 
     }
+
+
+    public void PlayWallSlide()
+    {
+
+    bool isWallSlidePlaying = false;
+
+    foreach (var sound in AM.sounds)
+    {
+    if (sound.name == "WallSlide" && sound.isPlaying)
+    {
+        isWallSlidePlaying = true;
+        break; // Exit the loop if the sound is found to be playing
+    }
+    }
+
+    if (!isWallSlidePlaying)
+    {
+    AM.Play("WallSlide");
+    }
+    }
+
+
+
+
+     public void PlaySteps()
+    {
+
+    bool isStepsPlaying = false;
+
+    foreach (var sound in AM.sounds)
+    {
+    if (sound.name == "Steps" && sound.isPlaying)
+    {
+        isStepsPlaying = true;
+        break; // Exit the loop if the sound is found to be playing
+    }
+    }
+
+    if (!isStepsPlaying)
+    {
+    AM.Play("Steps");
+    }
+    }
+
 
     //~~~ DEATH ~~~\\ 
     public void PlayDeathAudio()

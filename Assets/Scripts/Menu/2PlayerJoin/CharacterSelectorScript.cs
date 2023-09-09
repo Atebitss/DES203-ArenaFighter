@@ -25,10 +25,13 @@ public class CharacterSelectorScript : MonoBehaviour
     [SerializeField] private GameObject confirmA;
     [SerializeField] private GameObject confirmTick;
 
-
+    private AudioManager AM;
 
     public void Wake(int num)
     {
+
+    AM = FindObjectOfType<AudioManager>();
+
         //ref joining script & select manager
         pjh = GameObject.Find("PlayerJoinManager").GetComponent<PlayerJoinHandler>();
         csh = GameObject.Find("CharacterSelectManager").GetComponent<CharacterSelectHandler>();
@@ -51,6 +54,7 @@ public class CharacterSelectorScript : MonoBehaviour
         if (imageComponent.color.a != 1) { imageComponent.color = new Color(imageComponent.color.r, imageComponent.color.g, imageComponent.color.b, 1); }
         if (!imageComponent.material.Equals("None")) { imageComponent.material = defaultMaterial; }   //if cur material isnt none, reset it
         //Debug.Log("updating image with " + newSpirte);
+        AM.Play("Beep");
     }
 
     public void ResetImage()
@@ -174,6 +178,7 @@ public class CharacterSelectorScript : MonoBehaviour
 
     public void OnConfirm(InputAction.CallbackContext ctx)
     {
+    AM.Play("SelectBeep");
         if (ctx.performed && !confirmed)
         {
             //Debug.Log("OnConfirm");
