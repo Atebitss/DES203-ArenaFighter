@@ -36,6 +36,8 @@ public class LoadScreenManager : MonoBehaviour
     public void Start()
     {
 
+    AM.StopPlaying("PodiumMusic");
+
         StartCoroutine(LoadLevelASync(4));
         boxAnimator.GetComponent<BoxAnimator>().AnimateBoxes();
     }

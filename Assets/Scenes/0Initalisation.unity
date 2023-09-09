@@ -262,7 +262,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: MusicFight
     clip: {fileID: 8300000, guid: 859d68901c0122b47a306adb9c34166a, type: 3}
-    volume: 0
+    volume: 0.3
     pitch: 1
     loop: 0
     isPlaying: 0
@@ -381,7 +381,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: SoundTrees
     clip: {fileID: 8300000, guid: ff6ebe8e8ecd6724db72212f38b53542, type: 3}
-    volume: 0
+    volume: 0.4
     pitch: 1
     loop: 1
     isPlaying: 0
@@ -401,7 +401,7 @@ MonoBehaviour:
     isPlaying: 0
     source: {fileID: 0}
   - name: TitleScreenMusic
-    clip: {fileID: 8300000, guid: 4074e1393caca0b438204e938e189d95, type: 3}
+    clip: {fileID: 8300000, guid: 0c96095405663654eaa8199df4a4366e, type: 3}
     volume: 0.75
     pitch: 1
     loop: 1
@@ -454,6 +454,13 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     loop: 0
+    isPlaying: 0
+    source: {fileID: 0}
+  - name: PodiumMusic
+    clip: {fileID: 8300000, guid: c46ca1c0326bf9346b9737b57d2c0f5c, type: 3}
+    volume: 0.75
+    pitch: 1
+    loop: 1
     isPlaying: 0
     source: {fileID: 0}
 --- !u!4 &516737285
@@ -514,7 +521,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   devMode: 1
-  devRoundSecs: 40
+  devRoundSecs: 90
   characterSprites:
   - {fileID: 4135883091519116254, guid: 0d4a47ff7c51399449ca1dc8cf9ad04f, type: 3}
   - {fileID: -5065804324518478323, guid: eb0070a1237c45842a56ba20d299e6f0, type: 3}

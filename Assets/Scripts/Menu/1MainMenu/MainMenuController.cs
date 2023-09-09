@@ -39,6 +39,7 @@ public class MainMenuController : MonoBehaviour
         AM.Play("SoundTrees");
         AM.Play("SoundZaps");
         AM.StopPlaying("MusicFight");
+        AM.StopPlaying("PodiumMusic");
 
         PlayerData.ResetStats();
     }

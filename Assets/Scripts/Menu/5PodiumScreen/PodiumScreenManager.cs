@@ -17,10 +17,15 @@ public class PodiumScreenManager : MonoBehaviour
 
     [SerializeField] private InputAction continueAction;
 
+    private AudioManager AM;
+
     void Awake()
     {
         continueAction.performed += ctx => Continue(ctx);
         continueAction.Enable();
+        AM = FindObjectOfType<AudioManager>();
+        AM.StopPlaying("MusicFight");
+        AM.Play("PodiumMusic");
     }
 
     

@@ -24,7 +24,7 @@ public class LeaderboardMenuManager : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "7Leaderboard" && this != null)
         {
             FindObjectOfType<AudioManager>().Play("SelectBeep");
-
+            FindObjectOfType<AudioManager>().StopPlaying("TitleScreenMusic");
             StartCoroutine(LoadLevel(1));
         }
     }
