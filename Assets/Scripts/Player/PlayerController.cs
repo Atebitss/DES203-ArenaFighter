@@ -149,6 +149,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float invincibilityTime = 1f;
     private bool invincible;
 
+    private AudioManager AM;
+
 
 
     void Awake()
@@ -156,6 +158,7 @@ public class PlayerController : MonoBehaviour
         //reference control scripts
         ls = GameObject.Find("LevelController").GetComponent<LevelScript>();
         vfxController = GameObject.Find("VFXController");
+        AM = FindObjectOfType<AudioManager>();
 
         //set player name
         //Debug.Log("PC.A, playerNum: " + ls.CurrentPlayer());
@@ -353,7 +356,6 @@ public class PlayerController : MonoBehaviour
 
 
         animator.SetBool("isWallSliding", OnStickyWall() && !IsGrounded() && !frozen);
-         FindObjectOfType<AudioManager>().PlayOnce("WallSlide");
 
 
         timeSinceLastKill += Time.deltaTime;
@@ -374,7 +376,7 @@ public class PlayerController : MonoBehaviour
             isLanding = true;
             animator.SetTrigger("Landing");
             PlayTriggeredEffect("Land");
-            FindObjectOfType<AudioManager>().Play("Landing");
+            AM.Play("Landing");
 
         }
     }
@@ -451,7 +453,7 @@ public class PlayerController : MonoBehaviour
                 frozen = false;
                 Debug.Log("Broke free from Ice!!!");
                 vfxController.GetComponent<VFXController>().PlayVFX(transform, "Shatter");
-                FindObjectOfType<AudioManager>().Play("BreakFree");
+                AM.Play("BreakFree");
             }
 
         }
@@ -529,7 +531,7 @@ public class PlayerController : MonoBehaviour
     public void TopTrigger()
     {
         playerRigid.velocity = new Vector2(playerVelocity.x, 0.5f * jumpForce);
-        // FindObjectOfType<AudioManager>().Play("Bounce");
+        // AM.Play("Bounce");
     }
 
 
@@ -592,13 +594,9 @@ public class PlayerController : MonoBehaviour
                 isWallJumping = false;
                 CancelInvoke(nameof(StopWallJumping));
 
-         
 
 
-
-
-
-
+                AM.PlayOnce("WallSlide");
 
 
                 //flip player light around when sliding down a wall
@@ -613,7 +611,9 @@ public class PlayerController : MonoBehaviour
             else
             {
                 playerLight.FlipLight(false);
-        
+
+
+                AM.StopPlaying("WallSlide");
             }
 
         }
@@ -631,7 +631,7 @@ public class PlayerController : MonoBehaviour
             // float previousYMovement = playerRigid.velocity.y;
             // playerRigid.velocity = new Vector2(playerVelocity.x, -previousYMovement * bounceRebound);
             playerRigid.velocity = new Vector2(playerVelocity.x, jumpForce * bounceRebound);
-            FindObjectOfType<AudioManager>().Play("Bouncy");
+            AM.Play("Bouncy");
             print("Yipeeee");
 
             //animates the mushroom
@@ -664,7 +664,7 @@ public class PlayerController : MonoBehaviour
             playerRigid.velocity = new Vector2(transform.localScale.x * dashSpeed, 0);
             StartCoroutine(IgnorePlayerCollisions(dashDuration));
 
-            FindObjectOfType<AudioManager>().Play("Dash");
+            AM.Play("Dash");
             vfxController.GetComponent<VFXController>().PlayPlayerVFX(playerNum, "Dash");
             //change direction of effect whether facing right or left
             PlayTriggeredEffect("DashEffect");
@@ -697,7 +697,7 @@ public class PlayerController : MonoBehaviour
         isTeleporting = true;
         Vector2 previousVelocity = playerVelocity;
         transform.position = currentTeleporter.GetComponent<Teleporter>().GetDestination().position;
-        FindObjectOfType<AudioManager>().Play("Teleport");
+        AM.Play("Teleport");
 
 
         Quaternion destinationRotation = currentTeleporter.GetComponent<Teleporter>().GetDestination().rotation;
@@ -854,7 +854,7 @@ public class PlayerController : MonoBehaviour
             hasIcePower = false;
             DeleteVFXOfTag("CollectableVFX");
             otherPlayer.Freeze();
-            FindObjectOfType<AudioManager>().Play("Freeze");
+            AM.Play("Freeze");
             
         }
     }
@@ -866,7 +866,7 @@ public class PlayerController : MonoBehaviour
             hasIcePower = false;
             DeleteVFXOfTag("CollectableVFX");
 
-            FindObjectOfType<AudioManager>().Play("Freeze");
+            AM.Play("Freeze");
 
         }
     }
@@ -1072,7 +1072,7 @@ public class PlayerController : MonoBehaviour
                     hasIcePower = true;
                     Debug.Log("Collected Ice");
                     collision.gameObject.GetComponent<Collectable>().PickUp();
-                    FindObjectOfType<AudioManager>().Play("Collect");
+                    AM.Play("Collect");
                     vfxController.GetComponent<VFXController>().PlayPlayerVFX(playerNum, "Snow");
                 }
                 break;
@@ -1080,7 +1080,7 @@ public class PlayerController : MonoBehaviour
                 //Debug.Log("Collected Invert");
                 hasInvertPower = true;
                 Destroy(collision.gameObject);
-                FindObjectOfType<AudioManager>().Play("Collect");
+                AM.Play("Collect");
                 InvertCollected();
                 break;
             default:
@@ -1335,7 +1335,7 @@ public class PlayerController : MonoBehaviour
     public void PlayJumpAudio()
     {
 
-        FindObjectOfType<AudioManager>().Play("JumpWhoosh");
+        AM.Play("JumpWhoosh");
 
 
     }
@@ -1348,27 +1348,27 @@ public class PlayerController : MonoBehaviour
 
         int SoundNo = PlayerData.GetSpriteID(playerNum);
 
-        FindObjectOfType<AudioManager>().Play("DeathSound");
+        AM.Play("DeathSound");
 
         if (SoundNo == 1)
         {
-            FindObjectOfType<AudioManager>().Play("HornDie");
+            AM.Play("HornDie");
         }
         if (SoundNo == 2)
         {
-            FindObjectOfType<AudioManager>().Play("TreeDie");
+            AM.Play("TreeDie");
         }
         if (SoundNo == 3)
         {
-            FindObjectOfType<AudioManager>().Play("CopperDie");
+            AM.Play("CopperDie");
         }
         if (SoundNo == 0)
         {
-            FindObjectOfType<AudioManager>().Play("LavaDie");
+            AM.Play("LavaDie");
         }
          if (SoundNo == 4)
         {
-            FindObjectOfType<AudioManager>().Play("DeathCry3");
+            AM.Play("DeathCry3");
         }
 
     }
@@ -1380,15 +1380,15 @@ public class PlayerController : MonoBehaviour
 
         if (SoundNo == 1)
         {
-            FindObjectOfType<AudioManager>().Play("SwordSwing1");
+            AM.Play("SwordSwing1");
         }
         if (SoundNo == 2)
         {
-            FindObjectOfType<AudioManager>().Play("SwordSwing2");
+            AM.Play("SwordSwing2");
         }
         if (SoundNo == 3)
         {
-            FindObjectOfType<AudioManager>().Play("SwordSwing3");
+            AM.Play("SwordSwing3");
         }
 
     }
@@ -1402,15 +1402,15 @@ public class PlayerController : MonoBehaviour
 
         if (SoundNo == 1)
         {
-            FindObjectOfType<AudioManager>().Play("SwordClang");
+            AM.Play("SwordClang");
         }
         if (SoundNo == 2)
         {
-            FindObjectOfType<AudioManager>().Play("SwordClang2");
+            AM.Play("SwordClang2");
         }
         if (SoundNo == 3)
         {
-            FindObjectOfType<AudioManager>().Play("SwordClang3");
+            AM.Play("SwordClang3");
         }
 
     }

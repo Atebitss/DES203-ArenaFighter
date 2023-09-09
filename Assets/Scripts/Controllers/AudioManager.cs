@@ -51,6 +51,8 @@ public class AudioManager : MonoBehaviour
             return;
         }
 
+        if (PlayerData.GetDevMode()) { Debug.Log("playing sound: " + name); }
+
         s.source.Play();
     }
 
@@ -63,6 +65,9 @@ public class AudioManager : MonoBehaviour
             Debug.LogWarning("Sound: " + name + " not found");
             return;
         }
+
+        if (PlayerData.GetDevMode()) { Debug.Log("playing sound : " + name + " with pitch: " + pitch); }
+
         s.pitch = Mathf.Clamp(pitch, 0.1f, 3f);
         s.source.Play();
 
@@ -78,6 +83,10 @@ public class AudioManager : MonoBehaviour
             Debug.LogWarning("Sound: " + name + " not found");
             return;
         }
+
+
+        if (PlayerData.GetDevMode()) { Debug.Log("playing sound once: " + name); }
+
         if (!s.source.isPlaying) s.source.Play();
 
     }
@@ -87,13 +96,16 @@ public class AudioManager : MonoBehaviour
     public void PlayOneShot(string name)
     {
         Sound s = Array.Find(sounds, sound => sound.name == name);
-        s.source.PlayOneShot(s.clip);
 
         if (s == null)
         {
             Debug.LogWarning("Sound: " + name + " not found");
             return;
         }
+
+        if (PlayerData.GetDevMode()) { Debug.Log("playing sound one shot: " + name); }
+
+        s.source.PlayOneShot(s.clip);
     }
 
 
@@ -105,6 +117,8 @@ public class AudioManager : MonoBehaviour
             Debug.LogWarning("Sound: " + name + " not found!");
             return;
         }
+
+        if (PlayerData.GetDevMode()) { Debug.Log("stopping sound: " + sound); }
 
         s.source.Stop();
     }
