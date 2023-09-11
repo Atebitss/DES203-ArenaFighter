@@ -74,12 +74,14 @@ public class CharacterSelectHandler : MonoBehaviour
     public bool AreAllPlayersConfirmed()
     {
         //if (PlayerData.GetDevMode()) { DisplayStats(); }
-
+       
         for (int player = 0; player < PlayerData.GetNumOfPlayers(); player++)
         {
-            for(int otherPlayer = 1; otherPlayer < PlayerData.GetNumOfPlayers() - player -1; otherPlayer++)
+            for(int otherPlayer = 0; otherPlayer < PlayerData.GetNumOfPlayers(); otherPlayer++)
             {
-                if(confirmedCharacterIDs[player] == confirmedCharacterIDs[otherPlayer])
+                if (player == otherPlayer)
+                    continue;
+                if ((confirmedCharacterIDs[player] == confirmedCharacterIDs[otherPlayer]))
                 {
                     if (PlayerData.GetDevMode()) 
                     { 

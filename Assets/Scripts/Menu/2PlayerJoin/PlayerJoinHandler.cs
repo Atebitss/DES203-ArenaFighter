@@ -215,7 +215,7 @@ public class PlayerJoinHandler : MonoBehaviour
 
     void StartAction(InputAction.CallbackContext ctx)
     {
-
+        Debug.Log("Pressing Start");
         int minPlayers = 2;
 
        if(PlayerData.GetDevMode())
@@ -225,10 +225,11 @@ public class PlayerJoinHandler : MonoBehaviour
 
         if (SceneManager.GetActiveScene().name == "2PlayerJoin" && playerJoinMenuController != null)
         {
-            //Debug.Log("Start action");
+            Debug.Log("Start action");
             if (PlayerData.GetNumOfPlayers() >= minPlayers && csh.AreAllPlayersConfirmed() || PlayerData.GetDevMode() && PlayerData.GetNumOfPlayers() >= minPlayers && csh.AreAllPlayersConfirmed()) 
             {
-                //Debug.Log("Enough player to start");
+
+                Debug.Log("Enough player to start");
                 playerJoinMenuController.GetComponent<PlayerJoinMenuController>().StartGame();
             }
             else
