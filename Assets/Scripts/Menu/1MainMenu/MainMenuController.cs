@@ -85,7 +85,7 @@ public class MainMenuController : MonoBehaviour
     IEnumerator LoadLevel(int levelIndex)
     {
         transition.SetTrigger("Start");
-        AM.VolumeFadeOut("TitleScreenMusic");
+       // AM.VolumeFadeOut("TitleScreenMusic");
 
         yield return new WaitForSeconds(transitionTime);
 

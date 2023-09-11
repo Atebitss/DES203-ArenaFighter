@@ -68,7 +68,7 @@ public class LoadScreenManager : MonoBehaviour
         if (!isLoading)
         {
             AM.Play("SelectBeep");
-            AM.StopPlaying("StartMenuMusic");
+          //  AM.StopPlaying("StartMenuMusic");
             AM.StopPlaying("SoundTrees");
             AM.StopPlaying("SoundZaps");
             

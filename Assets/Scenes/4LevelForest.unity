@@ -16170,7 +16170,7 @@ MonoBehaviour:
   playerJumpForce: 18.5
   introIsOver: 0
   outroIsOver: 1
-  introTime: 4
+  introTime: 5
   outroTime: 3
   playerPrefab: {fileID: 2006578335114927435, guid: f5d7baf64116c154f9e667d7790ae77e, type: 3}
   roundMins: 1

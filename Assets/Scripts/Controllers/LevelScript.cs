@@ -106,6 +106,7 @@ public class LevelScript : MonoBehaviour
 
         AM.Play("MusicFight");
         AM.Play("SoundTrees");
+        AM.StopPlaying("TitleScreenMusic");
 
         playerSpriteIDs = PlayerData.GetSpriteIDs();    //update sprite ids with previously selected sprites
 
