@@ -92,6 +92,7 @@ public class PlayerController : MonoBehaviour
     private float wallJumpCooldown;
     private bool onStickyWall;
     private bool isWallJumping;
+    private bool isWallSliding;
     private float wallJumpingDirection;
     [SerializeField] private float wallJumpingDuration = 0.4f;
     [SerializeField] private float wallClimbingDuration = 0.1f;
@@ -355,7 +356,8 @@ public class PlayerController : MonoBehaviour
             isLanding = false;
         }
 
-
+        if (OnStickyWall() && !IsGrounded() && !frozen) { isWallSliding = true; }
+        else if (!OnStickyWall()) { isWallSliding = false; }
         animator.SetBool("isWallSliding", OnStickyWall() && !IsGrounded() && !frozen);
 
 
@@ -552,7 +554,7 @@ public class PlayerController : MonoBehaviour
     //called by Fixed Update, line 42
     private void Flip()  //flips the player around when moving left or right | Allows us to determine player direction for animating and other stuffs
     {
-        if (!frozen) //cannot flip while frozen
+        if (!frozen && !OnStickyWall()) //cannot flip while frozen or sliding
         {
             if (move.x > 0f)
             {
@@ -564,6 +566,20 @@ public class PlayerController : MonoBehaviour
             {
                 transform.localScale = new Vector3(-startingScale.x, startingScale.y, 1);
                 facingRight = false;
+            }
+        }
+        else if (isWallSliding)
+        {
+            Debug.Log("player is wall sliding");
+            if (!facingRight)
+            {
+                Debug.Log("player is left("+ transform.localScale+"), flipping right("+ startingScale+")");
+                transform.localScale = startingScale;
+            }
+            else if (facingRight)
+            {
+                Debug.Log("player is right(" + transform.localScale + "), flipping left(" + startingScale + ")");
+                transform.localScale = new Vector3(-startingScale.x, startingScale.y, 1);
             }
         }
 
@@ -604,26 +620,17 @@ public class PlayerController : MonoBehaviour
                 isWallJumping = false;
                 CancelInvoke(nameof(StopWallJumping));
 
-
-                Flip();
-                
-
-
                 //flip player light around when sliding down a wall
                 playerLight.FlipLight(true);
+
                 if (move.y >= -0.8f)
                 {
                     playerRigid.velocity = new Vector2(playerRigid.velocity.x, Mathf.Clamp(playerRigid.velocity.y, wallSlideSpeed, float.MaxValue));
                 }
-
-
             }
             else
             {
                 playerLight.FlipLight(false);
-
-
-                //AM.StopPlaying("WallSlide");
             }
 
         }
@@ -1249,8 +1256,12 @@ public class PlayerController : MonoBehaviour
     public bool OnStickyWall()
     {
         //casts an invisble box from the players center to whichever way the player is facing to see if we are touching a sticky wall
-        RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, new Vector2(transform.localScale.x, 0), 0.2f, wallLayer);
-        return raycastHit.collider != null;
+        RaycastHit2D raycastFrontHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, new Vector2(transform.localScale.x, 0), 0.2f, wallLayer);
+        RaycastHit2D raycastBackHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, new Vector2(transform.localScale.x, 0), -0.2f, wallLayer);
+
+        if (raycastFrontHit) { return raycastFrontHit; }
+        else if (raycastBackHit) { return raycastBackHit; }
+        else { return false; }
     }
 
     public bool IsDeflecting()

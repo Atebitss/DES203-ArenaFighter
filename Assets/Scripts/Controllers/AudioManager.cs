@@ -52,7 +52,7 @@ public class AudioManager : MonoBehaviour
             return;
         }
 
-        if (PlayerData.GetDevMode()) { Debug.Log("playing sound: " + name); }
+        //if (PlayerData.GetDevMode()) { Debug.Log("playing sound: " + name); }
 
         s.isPlaying = true;
         s.source.Play();
@@ -68,7 +68,7 @@ public class AudioManager : MonoBehaviour
             return;
         }
 
-        if (PlayerData.GetDevMode()) { Debug.Log("playing sound : " + name + " with pitch: " + pitch); }
+        //if (PlayerData.GetDevMode()) { Debug.Log("playing sound : " + name + " with pitch: " + pitch); }
 
         s.pitch = Mathf.Clamp(pitch, 0.1f, 3f);
         s.source.Play();
@@ -87,7 +87,7 @@ public class AudioManager : MonoBehaviour
         }
 
 
-        if (PlayerData.GetDevMode()) { Debug.Log("playing sound once: " + name); }
+        //if (PlayerData.GetDevMode()) { Debug.Log("playing sound once: " + name); }
 
         if (!s.source.isPlaying) s.source.Play();
 
@@ -105,7 +105,7 @@ public class AudioManager : MonoBehaviour
             return;
         }
 
-        if (PlayerData.GetDevMode()) { Debug.Log("playing sound one shot: " + name); }
+        //if (PlayerData.GetDevMode()) { Debug.Log("playing sound one shot: " + name); }
 
         s.source.PlayOneShot(s.clip);
     }
@@ -120,10 +120,13 @@ public class AudioManager : MonoBehaviour
             return;
         }
 
-        if (PlayerData.GetDevMode()) { Debug.Log("stopping sound: " + sound); }
+        if (s.isPlaying)
+        {
+            //if (PlayerData.GetDevMode()) { Debug.Log("stopping sound: " + sound); }
 
-        s.isPlaying = false;
-        s.source.Stop();
+            s.isPlaying = false;
+            s.source.Stop();
+        }
     }
 
     public bool IsSoundPlaying(string name)

@@ -209,7 +209,7 @@ public class LevelScript : MonoBehaviour
         {
             if (playerScripts[i].GetPlayerXVelocity() != 0)
             {
-                if (PlayerData.GetDevMode()) { Debug.Log("player" + i + " walking"); }
+                //if (PlayerData.GetDevMode()) { Debug.Log("player" + i + " walking"); }
                 steps = true;
                 break;
             }
