@@ -605,7 +605,7 @@ public class PlayerController : MonoBehaviour
                 CancelInvoke(nameof(StopWallJumping));
 
 
-                //PlayWallSlide();
+                Flip();
                 
 
 

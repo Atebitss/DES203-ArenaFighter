@@ -30,6 +30,7 @@ public class PlayerJoinHandler : MonoBehaviour
     private GameObject[] pressA = new GameObject[4];
 
     private bool leavingEnabled = false;
+    private bool started = false;
 
 
     //~~~~~~~ LEVEL BASICS ~~~~~~~\\
@@ -72,7 +73,7 @@ public class PlayerJoinHandler : MonoBehaviour
     {
         //Debug.Log("Join action attempt");
         //joins player as long as there are less than 4 players
-        if (SceneManager.GetActiveScene().name == "2PlayerJoin" && PlayerData.GetNumOfPlayers() < 4)
+        if (SceneManager.GetActiveScene().name == "2PlayerJoin" && PlayerData.GetNumOfPlayers() < 4 && !started)
         {
             //Debug.Log("JoinAction()");
             //Debug.Log("device attempting join: " + ctx.control.device);
@@ -223,13 +224,15 @@ public class PlayerJoinHandler : MonoBehaviour
             minPlayers = 1;
        }
 
-        if (SceneManager.GetActiveScene().name == "2PlayerJoin" && playerJoinMenuController != null)
+        if (SceneManager.GetActiveScene().name == "2PlayerJoin" && playerJoinMenuController != null && !started)
         {
             Debug.Log("Start action");
+            Debug.Log("started: " + started);
             if (PlayerData.GetNumOfPlayers() >= minPlayers && csh.AreAllPlayersConfirmed() || PlayerData.GetDevMode() && PlayerData.GetNumOfPlayers() >= minPlayers && csh.AreAllPlayersConfirmed()) 
             {
 
                 Debug.Log("Enough player to start");
+                started = true;
                 playerJoinMenuController.GetComponent<PlayerJoinMenuController>().StartGame();
             }
             else
