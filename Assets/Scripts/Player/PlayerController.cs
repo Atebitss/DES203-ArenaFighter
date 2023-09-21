@@ -939,34 +939,40 @@ public class PlayerController : MonoBehaviour
     //~~~ DEATH ~~~\\
     public void Death() //RIP
     {
-        isDying = true;
-
-        animator.SetTrigger("Dying");
-        playerLight.HideLight();
-        iceBlock.HideIce();
-        buttonPress.HideButtonPress();
-        spriteRenderer.sortingOrder = 4;
-        PlayDeathAudio();
-
-        if (frozen)
+        if (!isDying)
         {
-            spriteRenderer.enabled = false;
-            
+            isDying = true;
+
+            animator.SetTrigger("Dying");
+            playerLight.HideLight();
+            iceBlock.HideIce();
+            buttonPress.HideButtonPress();
+            spriteRenderer.sortingOrder = 4;
+            PlayDeathAudio();
+
+            if (frozen)
+            {
+                spriteRenderer.enabled = false;
+
+            }
+
+
+            Invoke(nameof(KillDelay), 0.6f); //set to time of deathAnimation
+
+            StartCoroutine(IgnorePlayerCollisions(0.4f)); //stops players colliding with eachother after one has died for a duration
+
+            // if (controller != null) RENABLE TO CAUSE HAPTICS ON PLAYER DEATH
+            // { vfxController.GetComponent<HapticController>().PlayHaptics("Death", controller); }
+            if (frozen)
+            { vfxController.GetComponent<VFXController>().PlayVFX(transform, "Ice Death"); }
+            else
+            { vfxController.GetComponent<VFXController>().PlayVFX(this.gameObject.transform, "Death"); }
+
+            DeleteVFXOfTag("CollectableVFX");
         }
+        else { Debug.Log("can't die twice numbnuts"); }
         
-
-        Invoke(nameof(KillDelay), 0.6f); //set to time of deathAnimation
-
-        StartCoroutine(IgnorePlayerCollisions(0.4f)); //stops players colliding with eachother after one has died for a duration
-
-       // if (controller != null) RENABLE TO CAUSE HAPTICS ON PLAYER DEATH
-       // { vfxController.GetComponent<HapticController>().PlayHaptics("Death", controller); }
-        if (frozen)
-        { vfxController.GetComponent<VFXController>().PlayVFX(transform, "Ice Death"); }
-        else
-        { vfxController.GetComponent<VFXController>().PlayVFX(this.gameObject.transform, "Death"); }
-
-        DeleteVFXOfTag("CollectableVFX");
+    
     }
 
     //delays destroying target to allow the death anim to play
