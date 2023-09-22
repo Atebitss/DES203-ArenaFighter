@@ -94,6 +94,7 @@ public class PlayerController : MonoBehaviour
     private bool isWallJumping;
     private bool isWallSliding;
     private float wallJumpingDirection;
+    private string wallSlideDirection = "";
     [SerializeField] private float wallJumpingDuration = 0.4f;
     [SerializeField] private float wallClimbingDuration = 0.1f;
 
@@ -304,20 +305,16 @@ public class PlayerController : MonoBehaviour
         }
         
         //~~~ STATES ~~~\\ 
-
         if (move.x != 0 && IsGrounded())
         {
             animator.SetBool("isRunning", true);
             StartRunTrigger();
-           
-        
         }
         else
         {
             animator.SetBool("isRunning", false);
             isRunning = false;
             //AM.StopPlaying("Steps");
-        
         }
 
         if (!IsGrounded() && playerVelocity.y > 0 && !OnStickyWall())
@@ -341,7 +338,6 @@ public class PlayerController : MonoBehaviour
         }
 
         //Landing Logic
-
         if (!IsGrounded())
         {
             wasInAir = true;
@@ -400,29 +396,17 @@ public class PlayerController : MonoBehaviour
         
         //update move vector with -1/+1, players current y velocity
         move = new Vector3(movement.x, movement.y, playerVelocity.y);
-       
-        
     }
  
     //called by FixedUpdate
     private void PlayerMovement()
     {
-
-        
         playerVelocity = playerRigid.velocity;   //update current velocity Vector2 to players current velocity
 
         if (move.x != 0) //gets previous Xmovement for use in Ice Stuff
         {
             previousXMovement = playerRigid.velocity.x;
         }
-
-
-         if (move.x != 0 && IsGrounded())
-        {
-                        //PlaySteps();
-        }
-
-
 
 
         if (hasInvertedControls) //Basic horizontal movment, and inverted horizontal movement, and slowed horizontal movement when in air
@@ -463,7 +447,7 @@ public class PlayerController : MonoBehaviour
                 iceBlock.HideIce();
                 buttonPress.HideButtonPress();
                 iceBlock.ResetIce();
-                Debug.Log("Broke free from Ice!!!");
+                //Debug.Log("Broke free from Ice!!!");
                 vfxController.GetComponent<VFXController>().PlayVFX(transform, "Shatter");
                 AM.Play("BreakFree");
             }
@@ -517,16 +501,16 @@ public class PlayerController : MonoBehaviour
         else if (wallCoyoteCounter > 0 & !IsGrounded()) // Wall Jumping / Kicking
         {
             isWallJumping = true;
-            playerRigid.velocity = new Vector2(-transform.localScale.x * wallKickX, wallKickY);
+            playerRigid.velocity = new Vector2(transform.localScale.x * wallKickX, wallKickY);
             PlayJumpAudio();
             wallJumpCooldown = 0;
 
-            if (transform.localScale.x != wallJumpingDirection) //flips player so they are facing the direction that they are jumping towards
+            /*if (transform.localScale.x != wallJumpingDirection) //flips player so they are facing the direction that they are jumping towards
             {
                 Vector3 localScale = transform.localScale;
                 localScale.x *= -1f;
                 transform.localScale = localScale;
-            }
+            }*/
 
             Invoke(nameof(StopWallJumping), wallJumpingDuration); //while we are wall jumping, the player cannot change thier velocity, so after a duration, let the players control the PC again
 
@@ -570,16 +554,20 @@ public class PlayerController : MonoBehaviour
         }
         else if (isWallSliding)
         {
-            Debug.Log("player is wall sliding");
-            if (!facingRight)
+            //if player is wall sliding
+            //if player is not facing right & slide dir is in front, flip
+            if (!facingRight && wallSlideDirection.Equals("front"))
             {
-                Debug.Log("player is left("+ transform.localScale+"), flipping right("+ startingScale+")");
+                //Debug.Log("player is left("+ transform.localScale+"), flipping right("+ startingScale+")");
                 transform.localScale = startingScale;
+                facingRight = true;
             }
-            else if (facingRight)
+            //else if player is facing right & slide dir is behind, flip
+            else if (facingRight && wallSlideDirection.Equals("front"))
             {
-                Debug.Log("player is right(" + transform.localScale + "), flipping left(" + startingScale + ")");
+                //Debug.Log("player is right(" + transform.localScale + "), flipping left(" + startingScale + ")");
                 transform.localScale = new Vector3(-startingScale.x, startingScale.y, 1);
+                facingRight = false;
             }
         }
 
@@ -1259,9 +1247,9 @@ public class PlayerController : MonoBehaviour
         RaycastHit2D raycastFrontHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, new Vector2(transform.localScale.x, 0), 0.2f, wallLayer);
         RaycastHit2D raycastBackHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, new Vector2(transform.localScale.x, 0), -0.2f, wallLayer);
 
-        if (raycastFrontHit) { return raycastFrontHit; }
-        else if (raycastBackHit) { return raycastBackHit; }
-        else { return false; }
+        if (raycastFrontHit) { wallSlideDirection = "front"; return raycastFrontHit; }
+        else if (raycastBackHit) { wallSlideDirection = "back"; return raycastBackHit; }
+        else { wallSlideDirection = ""; return false; }
     }
 
     public bool IsDeflecting()
