@@ -129,7 +129,7 @@ public class PlayerController : MonoBehaviour
    
 
     //~~~ FLIP ~~~\\
-    private bool facingRight;
+    public bool facingRight;
     private Vector3 startingScale = new Vector3(4, 4, 1);
 
 
@@ -213,9 +213,9 @@ public class PlayerController : MonoBehaviour
         WallSlide();
         BounceMovement();
   
-        if (devMode) { HighlightHitboxes(); }
-
+        if (PlayerData.GetDevMode()) { HighlightHitboxes(); }
     }
+
     public void MiscAdjustments()
     {
        
@@ -478,7 +478,7 @@ public class PlayerController : MonoBehaviour
         }
 
         //~~~ WALL JUMP ~~~\\ 
-        else if (wallCoyoteCounter > 0 & !IsGrounded() & facingRight && move.x > 0f) // Wall Climbing when facing right
+        else if (wallCoyoteCounter > 0 & !IsGrounded() & facingRight && move.x < 0f) // Wall Climbing when facing right
         {
             isWallJumping = true;
             playerRigid.velocity = new Vector2(-transform.localScale.x * wallClimbX, wallClimbY);
@@ -488,7 +488,7 @@ public class PlayerController : MonoBehaviour
 
             Invoke(nameof(StopWallJumping), wallClimbingDuration); //while we are wall climbing, the player cannot change thier velocity, so after a duration, let the players control the PC again
         }
-        else if (wallCoyoteCounter > 0 & !IsGrounded() & !facingRight && move.x < 0f) // Wall Climbing when facing left
+        else if (wallCoyoteCounter > 0 & !IsGrounded() & !facingRight && move.x > 0f) // Wall Climbing when facing left
         {
             isWallJumping = true;
             playerRigid.velocity = new Vector2(-transform.localScale.x * wallClimbX, wallClimbY);
