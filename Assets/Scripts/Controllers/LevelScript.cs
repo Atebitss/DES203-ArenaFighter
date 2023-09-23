@@ -12,11 +12,15 @@ public class LevelScript : MonoBehaviour
     public CameraShake CameraShake;
     [SerializeField] [Range(1, 100)] private float playerMoveForce = 25f;
     [SerializeField] [Range(10, 50)] private float playerJumpForce = 25f;
-    
+
     //debug
     [Header("Debug")]
     private bool devMode = false;
     private DebugUIManager DUIM;
+
+    //ui
+    [Header("UI")]
+    private PlayerUIManager PUIM;
 
     //spawn points
     private GameObject[] spawnPoints;
@@ -92,9 +96,11 @@ public class LevelScript : MonoBehaviour
         //set spawn point order
         SetSpawnPoints();
 
+        //update player ui
+        PUIM = GameObject.Find("PlayerUI").GetComponent<PlayerUIManager>();
 
         //update debug
-        if (devMode)
+        if (devMode && PlayerData.GetDebugMode())
         {
             DUIM = GameObject.Find("DebugUI").GetComponent<DebugUIManager>();
         }
@@ -103,10 +109,16 @@ public class LevelScript : MonoBehaviour
 
     private void Start()
     {
+        AM.StopPlaying("TitleScreenMusic");
+
+        if (AM.IsSoundPlaying("MusicFight"))
+        {
+            AM.StopPlaying("MusicFight");
+            AM.StopPlaying("SoundTrees");
+        }
 
         AM.Play("MusicFight");
         AM.Play("SoundTrees");
-        AM.StopPlaying("TitleScreenMusic");
 
         playerSpriteIDs = PlayerData.GetSpriteIDs();    //update sprite ids with previously selected sprites
 
@@ -277,6 +289,8 @@ public class LevelScript : MonoBehaviour
         //apply stats
         ApplySprites();
         ApplyLevelStats();
+
+        PUIM.EnablePlayer(curPlayerPos, players[curPlayerPos]);
 
         if (devMode)
         {

@@ -10,6 +10,7 @@ public class Initalisation : MonoBehaviour
     [SerializeField] private float devRoundSecs = 15f;
 
     [Header("Debug")]
+    [SerializeField] private bool debugMode;
 
 
     [Header("Sprite Refs")]
@@ -20,6 +21,7 @@ public class Initalisation : MonoBehaviour
     //instantly loads up the main menu scene, this scene exits to instantiate the audio manager
     void Start()
     {
+        PlayerData.SetDebugMode(debugMode);
         PlayerData.SetDevMode(devMode);
         PlayerData.SetDevRoundTime(devRoundSecs);
         PlayerData.SetSprites(characterSprites);

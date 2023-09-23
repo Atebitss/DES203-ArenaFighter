@@ -984,7 +984,7 @@ public class PlayerController : MonoBehaviour
         
         spriteRenderer.sortingOrder = 3;
         StartCoroutine(InvincibilityFlash());
-        invincible = true;
+        //invincible = true;
         //spriteRenderer.material = whiteMaterial;
         Invoke(nameof(InvincibilityTimer), invincibilityTime);
     }
