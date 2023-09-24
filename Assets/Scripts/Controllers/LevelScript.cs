@@ -155,7 +155,7 @@ public class LevelScript : MonoBehaviour
         {
             for (int i = 0; i < PlayerData.GetNumOfPlayers(); i++)
             {
-                players[i].GetComponent<PlayerController>().HideArrow();
+                playerScripts[i].HideArrow();
             }
         }
         //TODO : CHANGE THIS BACK TO BEGIN AT START OF LEVEL ONCE COUNTDOWN IS ADDED TO SONG

@@ -184,7 +184,7 @@ public class PlayerController : MonoBehaviour
 
         //hide crown
         DisableCrown();
-        playerArrow.UpdateArrow(playerNum);
+        playerArrow.StartArrow(playerNum);
     }
     private void Start()
     {
