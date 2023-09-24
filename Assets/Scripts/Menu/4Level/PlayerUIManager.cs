@@ -7,9 +7,12 @@ public class PlayerUIManager : MonoBehaviour
 {
     [SerializeField] private GameObject[] playerUI = new GameObject[4];
     [SerializeField] private Sprite[] headshotSprites = new Sprite[5];
+    private int[] playerSpriteIDs;
 
     void Awake()
     {
+        playerSpriteIDs = PlayerData.GetSpriteIDs();
+
         for (int playerIndex = 0; playerIndex < playerUI.Length; playerIndex++)
         {
             playerUI[playerIndex].SetActive(false);
@@ -24,9 +27,7 @@ public class PlayerUIManager : MonoBehaviour
         playerUI[playerIndex].GetComponent<PlayerUIScript>().SetPlayer(player, headshotSprites[PlayerData.GetSpriteID(PlayerData.playerPositions[playerIndex])]);
 
         string circleRef = "Player" + (playerIndex+1) + "Circle";
-        Debug.Log(circleRef);
-        Debug.Log(playerUI[playerIndex].transform.Find(circleRef));
-        switch(playerIndex)
+        switch(playerSpriteIDs[playerIndex])
         {
             case 0:
                 playerUI[playerIndex].transform.Find(circleRef).GetComponent<Image>().color = new Color(1f, 0f, 0f, 1f); //red
