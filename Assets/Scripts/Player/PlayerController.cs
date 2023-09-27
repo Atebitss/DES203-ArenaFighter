@@ -699,6 +699,7 @@ public class PlayerController : MonoBehaviour
     //~~~ TELEPORT ~~~\\ 
     private void Teleport()
     {
+        playerArrow.ShowArrow();
         isTeleporting = true;
         Vector2 previousVelocity = playerVelocity;
         transform.position = currentTeleporter.GetComponent<Teleporter>().GetDestination().position;
@@ -724,6 +725,13 @@ public class PlayerController : MonoBehaviour
         if (GetPlayerX() > 17.3f) { SetPlayerX(15.5f); }
         else if (GetPlayerX() < -17.3f) { SetPlayerX(-15.5f); }
         isTeleporting = false;
+
+        Invoke(nameof(DisableArrowAfterTeleport), 1f);
+    }
+
+    private void DisableArrowAfterTeleport()
+    {
+        playerArrow.HideArrow();
     }
 
 

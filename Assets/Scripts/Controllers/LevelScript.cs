@@ -292,7 +292,7 @@ public class LevelScript : MonoBehaviour
 
         PUIM.EnablePlayer(curPlayerPos, players[curPlayerPos]);
 
-        if (devMode)
+        if (devMode && PlayerData.GetDebugMode())
         {
             //Debug.Log("Dev mode for " + newPlayer.name);
             DUIM.EnablePlayer(curPlayerPos, players[curPlayerPos]);
