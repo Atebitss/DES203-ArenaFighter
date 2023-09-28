@@ -865,7 +865,6 @@ public class PlayerController : MonoBehaviour
     {
         if (hasIcePower == true)
         {
-            Debug.Log("Player Has Attacked with Ice");
             hasIcePower = false;
             DeleteVFXOfTag("CollectableVFX");
             otherPlayer.Freeze();
@@ -887,12 +886,13 @@ public class PlayerController : MonoBehaviour
     }
     public void Freeze()
     {
-       // breakAmount = Random.Range(5, 10); //sets the amount of times we need to press jump to escape to a ranodm number between these numbers
+        // breakAmount = Random.Range(5, 10); //sets the amount of times we need to press jump to escape to a ranodm number between these numbers
+        frozen = true;
+        hasIcePower = false;
         breakAmount = 6;
         iceBlock.ShowIce();
         buttonPress.ShowButtonPress();
-        frozen = true;
-        hasIcePower = false;
+        
         DeleteVFXOfTag("CollectableVFX");
         //RigidbodyConstraints2D.FreezeRotationZ; to freeze flip?
         playerRigid.constraints = RigidbodyConstraints2D.FreezeAll;

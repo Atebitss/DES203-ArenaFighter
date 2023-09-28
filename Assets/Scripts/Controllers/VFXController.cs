@@ -7,7 +7,6 @@ public class VFXController : MonoBehaviour
 {
     public VFX[] visualEffects;
     public LevelScript levelController;
-    private bool spawningCollectable;
 
     public void PlayVFX(Transform location, string name)
     {
