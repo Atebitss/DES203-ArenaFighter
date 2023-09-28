@@ -497,7 +497,7 @@ MonoBehaviour:
   fallGravityMult: 1.4
   midAirMoveMultiplier: 0.8
   maxFallSpeed: 20
-  dashSpeed: 10
+  dashSpeed: 5
   dashDuration: 0.1
   dashCooldownTime: 0.4
   dashEnabled: 1

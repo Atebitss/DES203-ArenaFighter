@@ -65,7 +65,7 @@ public class PlayerController : MonoBehaviour
 
     //~~~ DASHING ~~~\\
     [Header("Dashing")]
-    [SerializeField] private float dashSpeed = 20f;
+    [SerializeField] private float dashSpeed = 10f;
     [SerializeField] private float dashDuration = 0f;
     [SerializeField] private float dashCooldownTime = 0.8f;
     [SerializeField] private bool dashEnabled;
