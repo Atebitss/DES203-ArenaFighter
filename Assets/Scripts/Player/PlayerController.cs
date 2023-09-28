@@ -865,7 +865,6 @@ public class PlayerController : MonoBehaviour
     {
         if (hasIcePower == true)
         {
-            Debug.Log("Player Has Attacked with Ice");
             hasIcePower = false;
             DeleteVFXOfTag("CollectableVFX");
             otherPlayer.Freeze();
@@ -887,12 +886,13 @@ public class PlayerController : MonoBehaviour
     }
     public void Freeze()
     {
-       // breakAmount = Random.Range(5, 10); //sets the amount of times we need to press jump to escape to a ranodm number between these numbers
+        // breakAmount = Random.Range(5, 10); //sets the amount of times we need to press jump to escape to a ranodm number between these numbers
+        frozen = true;
+        hasIcePower = false;
         breakAmount = 6;
         iceBlock.ShowIce();
         buttonPress.ShowButtonPress();
-        frozen = true;
-        hasIcePower = false;
+        
         DeleteVFXOfTag("CollectableVFX");
         //RigidbodyConstraints2D.FreezeRotationZ; to freeze flip?
         playerRigid.constraints = RigidbodyConstraints2D.FreezeAll;
@@ -942,34 +942,40 @@ public class PlayerController : MonoBehaviour
     //~~~ DEATH ~~~\\
     public void Death() //RIP
     {
-        isDying = true;
-
-        animator.SetTrigger("Dying");
-        playerLight.HideLight();
-        iceBlock.HideIce();
-        buttonPress.HideButtonPress();
-        spriteRenderer.sortingOrder = 4;
-        PlayDeathAudio();
-
-        if (frozen)
+        if (!isDying)
         {
-            spriteRenderer.enabled = false;
-            
+            isDying = true;
+
+            animator.SetTrigger("Dying");
+            playerLight.HideLight();
+            iceBlock.HideIce();
+            buttonPress.HideButtonPress();
+            spriteRenderer.sortingOrder = 4;
+            PlayDeathAudio();
+
+            if (frozen)
+            {
+                spriteRenderer.enabled = false;
+
+            }
+
+
+            Invoke(nameof(KillDelay), 0.6f); //set to time of deathAnimation
+
+            StartCoroutine(IgnorePlayerCollisions(0.4f)); //stops players colliding with eachother after one has died for a duration
+
+            // if (controller != null) RENABLE TO CAUSE HAPTICS ON PLAYER DEATH
+            // { vfxController.GetComponent<HapticController>().PlayHaptics("Death", controller); }
+            if (frozen)
+            { vfxController.GetComponent<VFXController>().PlayVFX(transform, "Ice Death"); }
+            else
+            { vfxController.GetComponent<VFXController>().PlayVFX(this.gameObject.transform, "Death"); }
+
+            DeleteVFXOfTag("CollectableVFX");
         }
+        else { Debug.Log("can't die twice numbnuts"); }
         
-
-        Invoke(nameof(KillDelay), 0.6f); //set to time of deathAnimation
-
-        StartCoroutine(IgnorePlayerCollisions(0.4f)); //stops players colliding with eachother after one has died for a duration
-
-       // if (controller != null) RENABLE TO CAUSE HAPTICS ON PLAYER DEATH
-       // { vfxController.GetComponent<HapticController>().PlayHaptics("Death", controller); }
-        if (frozen)
-        { vfxController.GetComponent<VFXController>().PlayVFX(transform, "Ice Death"); }
-        else
-        { vfxController.GetComponent<VFXController>().PlayVFX(this.gameObject.transform, "Death"); }
-
-        DeleteVFXOfTag("CollectableVFX");
+    
     }
 
     //delays destroying target to allow the death anim to play
