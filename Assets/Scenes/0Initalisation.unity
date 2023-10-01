@@ -261,7 +261,7 @@ MonoBehaviour:
     isPlaying: 0
     source: {fileID: 0}
   - name: MusicFight
-    clip: {fileID: 8300000, guid: 859d68901c0122b47a306adb9c34166a, type: 3}
+    clip: {fileID: 8300000, guid: f36d0dfebe823d745a14f5a9cd4335b7, type: 3}
     volume: 0.3
     pitch: 1
     loop: 0
