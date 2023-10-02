@@ -29,11 +29,13 @@ public class ScoreboardHandler : MonoBehaviour
         {
             //Debug.Log("podium: " + playerCheck + ", player: " + (PlayerData.playerPositions[playerCheck]+1) + ", position: " + playerPositions[PlayerData.playerPositions[playerCheck]]);
             Vector2 podiumLocation = playerPositions[PlayerData.playerPositions[playerCheck]].transform.position;
+            Transform podiumTransform = playerPositions[PlayerData.playerPositions[playerCheck]].transform;
 
             //Debug.Log(playerPositions[PlayerData.playerPositions[playerCheck]]);
             //Debug.Log(podiums[playerCheck]);
-            GameObject refPodium = Instantiate(podiums[playerCheck], podiumLocation, Quaternion.identity);
+            GameObject refPodium = Instantiate(podiums[playerCheck], Vector2.zero, Quaternion.identity,podiumTransform);
             refPodium.transform.SetParent(playerPositions[PlayerData.playerPositions[playerCheck]].transform, false);
+            refPodium.transform.localPosition = Vector2.zero;
         }
 
         for(int playerCheck = 0; playerCheck < PlayerData.GetNumOfPlayers(); playerCheck++)
@@ -60,7 +62,7 @@ public class ScoreboardHandler : MonoBehaviour
             podiumImage[playerCheck].GetComponent<ChangeImage>().ImageChange(PlayerData.GetSprite(PlayerData.GetSpriteID(PlayerData.playerPositions[playerCheck])));
 
             //podiumText[playerCheck].color = new Color32(1, 1, 1, 1);
-            podiumText[playerCheck].text = "KILLS: " + PlayerData.playerScores[playerCheck];
+            podiumText[playerCheck].text = "KILLS " + PlayerData.playerScores[playerCheck];
         }
 
     }

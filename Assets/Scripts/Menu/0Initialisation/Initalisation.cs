@@ -25,7 +25,7 @@ public class Initalisation : MonoBehaviour
         PlayerData.SetDevMode(devMode);
         PlayerData.SetDevRoundTime(devRoundSecs);
         PlayerData.SetSprites(characterSprites);
-
+        
         SceneManager.LoadScene(1);
     }    
 }

@@ -194,7 +194,17 @@ public class LevelScript : MonoBehaviour
         //play sound if any player's wall sliding
         PlaySounds();
     }
-
+    private void Update()
+    {
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            if (Input.GetKey(KeyCode.F1))
+            {
+                SceneManager.LoadScene(0);
+            }
+               
+        }
+    }
     private void PlaySounds()
     {
         bool wallSlides = false;
