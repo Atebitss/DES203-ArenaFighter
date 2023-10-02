@@ -27,7 +27,7 @@ public class PlayerUIScript : MonoBehaviour
         if (playerScript != null)
         {
             UIText.text =
-                "Kills: " + playerScript.GetScore();
+                "Kills " + playerScript.GetScore();
                 //+ "\nTSLK: " + playerScript.GetTimeSinceLastKill().ToString("F2");
 
             if (playerScript.GetIsDying()) 
