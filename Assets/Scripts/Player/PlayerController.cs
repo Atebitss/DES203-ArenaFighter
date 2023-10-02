@@ -65,7 +65,7 @@ public class PlayerController : MonoBehaviour
 
     //~~~ DASHING ~~~\\
     [Header("Dashing")]
-    [SerializeField] private float dashSpeed = 20f;
+    [SerializeField] private float dashSpeed = 10f;
     [SerializeField] private float dashDuration = 0f;
     [SerializeField] private float dashCooldownTime = 0.8f;
     [SerializeField] private bool dashEnabled;
@@ -92,7 +92,9 @@ public class PlayerController : MonoBehaviour
     private float wallJumpCooldown;
     private bool onStickyWall;
     private bool isWallJumping;
+    private bool isWallSliding;
     private float wallJumpingDirection;
+    private string wallSlideDirection = "";
     [SerializeField] private float wallJumpingDuration = 0.4f;
     [SerializeField] private float wallClimbingDuration = 0.1f;
 
@@ -127,7 +129,7 @@ public class PlayerController : MonoBehaviour
    
 
     //~~~ FLIP ~~~\\
-    private bool facingRight;
+    public bool facingRight;
     private Vector3 startingScale = new Vector3(4, 4, 1);
 
 
@@ -182,7 +184,7 @@ public class PlayerController : MonoBehaviour
 
         //hide crown
         DisableCrown();
-        playerArrow.UpdateArrow(playerNum);
+        playerArrow.StartArrow(playerNum);
     }
     private void Start()
     {
@@ -211,9 +213,9 @@ public class PlayerController : MonoBehaviour
         WallSlide();
         BounceMovement();
   
-        if (devMode) { HighlightHitboxes(); }
-
+        if (PlayerData.GetDevMode()) { HighlightHitboxes(); }
     }
+
     public void MiscAdjustments()
     {
        
@@ -303,20 +305,16 @@ public class PlayerController : MonoBehaviour
         }
         
         //~~~ STATES ~~~\\ 
-
         if (move.x != 0 && IsGrounded())
         {
             animator.SetBool("isRunning", true);
             StartRunTrigger();
-           
-        
         }
         else
         {
             animator.SetBool("isRunning", false);
             isRunning = false;
             //AM.StopPlaying("Steps");
-        
         }
 
         if (!IsGrounded() && playerVelocity.y > 0 && !OnStickyWall())
@@ -340,7 +338,6 @@ public class PlayerController : MonoBehaviour
         }
 
         //Landing Logic
-
         if (!IsGrounded())
         {
             wasInAir = true;
@@ -355,7 +352,8 @@ public class PlayerController : MonoBehaviour
             isLanding = false;
         }
 
-
+        if (OnStickyWall() && !IsGrounded() && !frozen) { isWallSliding = true; }
+        else if (!OnStickyWall()) { isWallSliding = false; }
         animator.SetBool("isWallSliding", OnStickyWall() && !IsGrounded() && !frozen);
 
 
@@ -398,29 +396,17 @@ public class PlayerController : MonoBehaviour
         
         //update move vector with -1/+1, players current y velocity
         move = new Vector3(movement.x, movement.y, playerVelocity.y);
-       
-        
     }
  
     //called by FixedUpdate
     private void PlayerMovement()
     {
-
-        
         playerVelocity = playerRigid.velocity;   //update current velocity Vector2 to players current velocity
 
         if (move.x != 0) //gets previous Xmovement for use in Ice Stuff
         {
             previousXMovement = playerRigid.velocity.x;
         }
-
-
-         if (move.x != 0 && IsGrounded())
-        {
-                        //PlaySteps();
-        }
-
-
 
 
         if (hasInvertedControls) //Basic horizontal movment, and inverted horizontal movement, and slowed horizontal movement when in air
@@ -461,7 +447,7 @@ public class PlayerController : MonoBehaviour
                 iceBlock.HideIce();
                 buttonPress.HideButtonPress();
                 iceBlock.ResetIce();
-                Debug.Log("Broke free from Ice!!!");
+                //Debug.Log("Broke free from Ice!!!");
                 vfxController.GetComponent<VFXController>().PlayVFX(transform, "Shatter");
                 AM.Play("BreakFree");
             }
@@ -492,7 +478,7 @@ public class PlayerController : MonoBehaviour
         }
 
         //~~~ WALL JUMP ~~~\\ 
-        else if (wallCoyoteCounter > 0 & !IsGrounded() & facingRight && move.x > 0f) // Wall Climbing when facing right
+        else if (wallCoyoteCounter > 0 & !IsGrounded() & facingRight && move.x < 0f) // Wall Climbing when facing right
         {
             isWallJumping = true;
             playerRigid.velocity = new Vector2(-transform.localScale.x * wallClimbX, wallClimbY);
@@ -502,7 +488,7 @@ public class PlayerController : MonoBehaviour
 
             Invoke(nameof(StopWallJumping), wallClimbingDuration); //while we are wall climbing, the player cannot change thier velocity, so after a duration, let the players control the PC again
         }
-        else if (wallCoyoteCounter > 0 & !IsGrounded() & !facingRight && move.x < 0f) // Wall Climbing when facing left
+        else if (wallCoyoteCounter > 0 & !IsGrounded() & !facingRight && move.x > 0f) // Wall Climbing when facing left
         {
             isWallJumping = true;
             playerRigid.velocity = new Vector2(-transform.localScale.x * wallClimbX, wallClimbY);
@@ -515,16 +501,16 @@ public class PlayerController : MonoBehaviour
         else if (wallCoyoteCounter > 0 & !IsGrounded()) // Wall Jumping / Kicking
         {
             isWallJumping = true;
-            playerRigid.velocity = new Vector2(-transform.localScale.x * wallKickX, wallKickY);
+            playerRigid.velocity = new Vector2(transform.localScale.x * wallKickX, wallKickY);
             PlayJumpAudio();
             wallJumpCooldown = 0;
 
-            if (transform.localScale.x != wallJumpingDirection) //flips player so they are facing the direction that they are jumping towards
+            /*if (transform.localScale.x != wallJumpingDirection) //flips player so they are facing the direction that they are jumping towards
             {
                 Vector3 localScale = transform.localScale;
                 localScale.x *= -1f;
                 transform.localScale = localScale;
-            }
+            }*/
 
             Invoke(nameof(StopWallJumping), wallJumpingDuration); //while we are wall jumping, the player cannot change thier velocity, so after a duration, let the players control the PC again
 
@@ -552,7 +538,7 @@ public class PlayerController : MonoBehaviour
     //called by Fixed Update, line 42
     private void Flip()  //flips the player around when moving left or right | Allows us to determine player direction for animating and other stuffs
     {
-        if (!frozen) //cannot flip while frozen
+        if (!frozen && !OnStickyWall()) //cannot flip while frozen or sliding
         {
             if (move.x > 0f)
             {
@@ -562,6 +548,24 @@ public class PlayerController : MonoBehaviour
 
             else if (move.x < 0f)
             {
+                transform.localScale = new Vector3(-startingScale.x, startingScale.y, 1);
+                facingRight = false;
+            }
+        }
+        else if (isWallSliding)
+        {
+            //if player is wall sliding
+            //if player is not facing right & slide dir is in front, flip
+            if (!facingRight && wallSlideDirection.Equals("front"))
+            {
+                //Debug.Log("player is left("+ transform.localScale+"), flipping right("+ startingScale+")");
+                transform.localScale = startingScale;
+                facingRight = true;
+            }
+            //else if player is facing right & slide dir is behind, flip
+            else if (facingRight && wallSlideDirection.Equals("front"))
+            {
+                //Debug.Log("player is right(" + transform.localScale + "), flipping left(" + startingScale + ")");
                 transform.localScale = new Vector3(-startingScale.x, startingScale.y, 1);
                 facingRight = false;
             }
@@ -604,26 +608,17 @@ public class PlayerController : MonoBehaviour
                 isWallJumping = false;
                 CancelInvoke(nameof(StopWallJumping));
 
-
-                //PlayWallSlide();
-                
-
-
                 //flip player light around when sliding down a wall
                 playerLight.FlipLight(true);
+
                 if (move.y >= -0.8f)
                 {
                     playerRigid.velocity = new Vector2(playerRigid.velocity.x, Mathf.Clamp(playerRigid.velocity.y, wallSlideSpeed, float.MaxValue));
                 }
-
-
             }
             else
             {
                 playerLight.FlipLight(false);
-
-
-                //AM.StopPlaying("WallSlide");
             }
 
         }
@@ -672,7 +667,7 @@ public class PlayerController : MonoBehaviour
             isDashing = true;
             dashCooldown = 0;
             playerRigid.velocity = new Vector2(transform.localScale.x * dashSpeed, 0);
-            StartCoroutine(IgnorePlayerCollisions(dashDuration));
+            StartCoroutine(IgnorePlayerCollisions(dashDuration + 0.1f));
 
             AM.Play("Dash");
             vfxController.GetComponent<VFXController>().PlayPlayerVFX(playerNum, "Dash");
@@ -704,6 +699,7 @@ public class PlayerController : MonoBehaviour
     //~~~ TELEPORT ~~~\\ 
     private void Teleport()
     {
+        playerArrow.ShowArrow();
         isTeleporting = true;
         Vector2 previousVelocity = playerVelocity;
         transform.position = currentTeleporter.GetComponent<Teleporter>().GetDestination().position;
@@ -729,6 +725,13 @@ public class PlayerController : MonoBehaviour
         if (GetPlayerX() > 17.3f) { SetPlayerX(15.5f); }
         else if (GetPlayerX() < -17.3f) { SetPlayerX(-15.5f); }
         isTeleporting = false;
+
+        Invoke(nameof(DisableArrowAfterTeleport), 1f);
+    }
+
+    private void DisableArrowAfterTeleport()
+    {
+        playerArrow.HideArrow();
     }
 
 
@@ -860,9 +863,8 @@ public class PlayerController : MonoBehaviour
     //~~ ICE ATTACK ~~\\
     public void IceAttack(PlayerController otherPlayer) //when player attacks otherPlayer with an ice attack
     {
-        if (hasIcePower == true)
+        if (hasIcePower == true && otherPlayer.isDying == false)
         {
-            Debug.Log("Player Has Attacked with Ice");
             hasIcePower = false;
             DeleteVFXOfTag("CollectableVFX");
             otherPlayer.Freeze();
@@ -884,15 +886,20 @@ public class PlayerController : MonoBehaviour
     }
     public void Freeze()
     {
-       // breakAmount = Random.Range(5, 10); //sets the amount of times we need to press jump to escape to a ranodm number between these numbers
-        breakAmount = 6;
-        iceBlock.ShowIce();
-        buttonPress.ShowButtonPress();
-        frozen = true;
-        hasIcePower = false;
-        DeleteVFXOfTag("CollectableVFX");
-        //RigidbodyConstraints2D.FreezeRotationZ; to freeze flip?
-        playerRigid.constraints = RigidbodyConstraints2D.FreezeAll;
+        if (!isDying)
+        {
+            // breakAmount = Random.Range(5, 10); //sets the amount of times we need to press jump to escape to a ranodm number between these numbers
+            frozen = true;
+            hasIcePower = false;
+            breakAmount = 6;
+            iceBlock.ShowIce();
+            buttonPress.ShowButtonPress();
+
+            DeleteVFXOfTag("CollectableVFX");
+           
+            playerRigid.constraints = RigidbodyConstraints2D.FreezeAll;
+        }
+        
 
     }
 
@@ -902,7 +909,7 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Stun started on " + this.gameObject.transform.name);
         //start stun animation & freeze player for 1 second
         frozen = true;
-        Invoke(nameof(StunEnd), stunTime);
+       // Invoke(nameof(StunEnd), stunTime);
     }
 
     public void StunEnd()
@@ -939,34 +946,40 @@ public class PlayerController : MonoBehaviour
     //~~~ DEATH ~~~\\
     public void Death() //RIP
     {
-        isDying = true;
-
-        animator.SetTrigger("Dying");
-        playerLight.HideLight();
-        iceBlock.HideIce();
-        buttonPress.HideButtonPress();
-        spriteRenderer.sortingOrder = 4;
-        PlayDeathAudio();
-
-        if (frozen)
+        if (!isDying)
         {
-            spriteRenderer.enabled = false;
-            
+            isDying = true;
+            hasIcePower = false;
+            animator.SetTrigger("Dying");
+            playerLight.HideLight();
+            iceBlock.HideIce();
+            buttonPress.HideButtonPress();
+            spriteRenderer.sortingOrder = 4;
+            PlayDeathAudio();
+
+            if (frozen)
+            {
+                spriteRenderer.enabled = false;
+
+            }
+
+
+            Invoke(nameof(KillDelay), 0.6f); //set to time of deathAnimation
+
+            StartCoroutine(IgnorePlayerCollisions(0.6f)); //stops players colliding with eachother after one has died for a duration
+
+            // if (controller != null) RENABLE TO CAUSE HAPTICS ON PLAYER DEATH
+            // { vfxController.GetComponent<HapticController>().PlayHaptics("Death", controller); }
+            if (frozen)
+            { vfxController.GetComponent<VFXController>().PlayVFX(transform, "Ice Death"); }
+            else
+            { vfxController.GetComponent<VFXController>().PlayVFX(this.gameObject.transform, "Death"); }
+
+            DeleteVFXOfTag("CollectableVFX");
         }
+        else { Debug.Log("can't die twice numbnuts"); }
         
-
-        Invoke(nameof(KillDelay), 0.6f); //set to time of deathAnimation
-
-        StartCoroutine(IgnorePlayerCollisions(0.4f)); //stops players colliding with eachother after one has died for a duration
-
-       // if (controller != null) RENABLE TO CAUSE HAPTICS ON PLAYER DEATH
-       // { vfxController.GetComponent<HapticController>().PlayHaptics("Death", controller); }
-        if (frozen)
-        { vfxController.GetComponent<VFXController>().PlayVFX(transform, "Ice Death"); }
-        else
-        { vfxController.GetComponent<VFXController>().PlayVFX(this.gameObject.transform, "Death"); }
-
-        DeleteVFXOfTag("CollectableVFX");
+    
     }
 
     //delays destroying target to allow the death anim to play
@@ -980,6 +993,7 @@ public class PlayerController : MonoBehaviour
         invincible = true;
         frozen = false;
         hasIcePower = false;
+        isDying = false;
         spriteRenderer.enabled = true;
         playerArrow.ShowArrow();
         FaceTowardCenter();
@@ -989,7 +1003,7 @@ public class PlayerController : MonoBehaviour
         
         spriteRenderer.sortingOrder = 3;
         StartCoroutine(InvincibilityFlash());
-        invincible = true;
+        //invincible = true;
         //spriteRenderer.material = whiteMaterial;
         Invoke(nameof(InvincibilityTimer), invincibilityTime);
     }
@@ -1249,8 +1263,12 @@ public class PlayerController : MonoBehaviour
     public bool OnStickyWall()
     {
         //casts an invisble box from the players center to whichever way the player is facing to see if we are touching a sticky wall
-        RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, new Vector2(transform.localScale.x, 0), 0.2f, wallLayer);
-        return raycastHit.collider != null;
+        RaycastHit2D raycastFrontHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, new Vector2(transform.localScale.x, 0), 0.2f, wallLayer);
+        RaycastHit2D raycastBackHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, new Vector2(transform.localScale.x, 0), -0.2f, wallLayer);
+
+        if (raycastFrontHit) { wallSlideDirection = "front"; return raycastFrontHit; }
+        else if (raycastBackHit) { wallSlideDirection = "back"; return raycastBackHit; }
+        else { wallSlideDirection = ""; return false; }
     }
 
     public bool IsDeflecting()

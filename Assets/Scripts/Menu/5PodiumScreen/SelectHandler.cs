@@ -22,22 +22,26 @@ public class SelectHandler : MonoBehaviour
         {"ASS",
         "COC","COK","COQ","CUM",
         "DCK","DIC","DIK","DIQ",
-        "FAG","FGT","FAP","FCK","FUC","FUK","FUQ","FKU",
+        "FAG","FGT","FAP","FCK","FUC","FUK","FUQ","FCU","FKU","FQU",
         "JEW","JIZ",
         "KKK","KUM",
         "NGR","NIG",
+        "PIS",
         "SEX",
-        "TIT"};
+        "TIT",
+        "VAJ", "VAG"};
     private string[] extraProfanities = new string[]
         {"ASS","A$S","AS$","A$$",
         "COC","COK","COQ","CUM","C0C","C0K","C0Q",
         "DCK","DIC","DIK","DIQ","D1C","D1K","D1Q",
-        "FAG","FGT","FAP","FCK","FUC","FUK","FUQ","FKU",
+        "FAG","FGT","FAP","FCK","FUC","FUK","FUQ","FCU","FKU","FQU",
         "JEW","JIZ","J3W","J1Z",
         "KKK","KUM",
         "NGR","NIG","N1G",
+        "PIS", "P1S", "PI5", "P15",
         "SEX","S3X","$EX","$3X",
-        "TIT","T1T"};
+        "TIT","T1T",
+        "VAJ", "VAG", "V4J", "V4G"};
         
 
 

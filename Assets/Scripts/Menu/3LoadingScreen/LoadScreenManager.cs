@@ -10,6 +10,7 @@ public class LoadScreenManager : MonoBehaviour
     public float transitionTime = 1f;
     public Image pressStart;
     public Image loading;
+    private bool begun = false;
     private bool isLoading = true;
     private bool skipping = false;
     private bool pressedStart;
@@ -21,8 +22,11 @@ public class LoadScreenManager : MonoBehaviour
 
     private AudioManager AM;
 
+
+
     private void Awake()
     {
+        //if (PlayerData.GetDevMode()) { Debug.Log("LSM Awake"); }
         startAction.performed += ctx => StartAction(ctx);
         startAction.Enable();
 
@@ -32,39 +36,45 @@ public class LoadScreenManager : MonoBehaviour
         AM = FindObjectOfType<AudioManager>();
 
         if (PlayerData.GetDevMode()) { minLoadTime = 1; }
+
+        AM.StopPlaying("PodiumMusic");
+        pressStart.gameObject.SetActive(false);
+        Invoke(nameof(Begin), transitionTime);
     }
-    public void Start()
+
+    private void Begin()
     {
-
-    AM.StopPlaying("PodiumMusic");
-
-        StartCoroutine(LoadLevelASync(4));
+        //if (PlayerData.GetDevMode()) { Debug.Log("LSM Begin"); }
         boxAnimator.GetComponent<BoxAnimator>().AnimateBoxes();
+        StartCoroutine(LoadLevelASync(4));
+        begun = true;
     }
-    public void Update()
+
+    void Update()
     {
-       
-        if (isLoading)
+        if (begun)
         {
-            loading.gameObject.SetActive(true);
-            pressStart.gameObject.SetActive(false);
-        }
-        else
-        {
-            loading.gameObject.SetActive(false);
-            pressStart.gameObject.SetActive(true);
-        }
+            if (isLoading)
+            {
+                loading.gameObject.SetActive(true);
+            }
+            else
+            {
+                loading.gameObject.SetActive(false);
+                pressStart.gameObject.SetActive(true);
+            }
 
-        timer += Time.deltaTime;        
+            timer += Time.deltaTime;
 
-        if (timer > minLoadTime)
-        {
-            isLoading = false;
+            if (timer > minLoadTime)
+            {
+                isLoading = false;
+            }
         }
-        //print(pressedStart);
     }
     void StartAction(InputAction.CallbackContext ctx)
     {
+        //if (PlayerData.GetDevMode()) { Debug.Log("LSM StartAction"); }
         if (!isLoading)
         {
             AM.Play("SelectBeep");
@@ -78,12 +88,13 @@ public class LoadScreenManager : MonoBehaviour
 
     private void SkipAction(InputAction.CallbackContext ctx)
     {
-        //Debug.Log("Skip Action called");
-        if(ctx.performed && !skipping && SceneManager.GetActiveScene().name == "3LoadingScreen") { minLoadTime = 2; skipping = true; boxAnimator.GetComponent<BoxAnimator>().SetWaitTime(0.5f); }
+        //if (PlayerData.GetDevMode()) { Debug.Log("LSM SkipAction"); }
+        if (ctx.performed && !skipping && SceneManager.GetActiveScene().name == "3LoadingScreen") { minLoadTime = 2; skipping = true; boxAnimator.GetComponent<BoxAnimator>().SetWaitTime(0.5f); }
     }
 
     public void OnClick()
     {
+        //if (PlayerData.GetDevMode()) { Debug.Log("LSM OnClick"); }
         if (!isLoading)
         {
             AM.Play("SelectBeep");
@@ -96,6 +107,7 @@ public class LoadScreenManager : MonoBehaviour
     }
     IEnumerator LoadLevelASync(int levelIndex)
     {
+        //if (PlayerData.GetDevMode()) { Debug.Log("LSM LoadLevelASync"); }
         AsyncOperation operation = SceneManager.LoadSceneAsync(levelIndex);
         operation.allowSceneActivation = false;
 
@@ -110,6 +122,7 @@ public class LoadScreenManager : MonoBehaviour
     }
     IEnumerator LoadLevel()
     {
+        //if (PlayerData.GetDevMode()) { Debug.Log("LSM LoadLevel"); }
         startAction.Disable();
         skipAction.Disable();
 

@@ -9,13 +9,16 @@ public class GameEndManager : MonoBehaviour
 {
     public Animator transition;
     public float transitionTime = 1f;
+    private AudioManager AM;
+
+    void Awake() { AM = FindObjectOfType<AudioManager>(); }
 
 
     public void MainMenu()
     {
         if (SceneManager.GetActiveScene().name == "6GameEnd" || SceneManager.GetActiveScene().name == "7Leaderboard")
         {
-            FindObjectOfType<AudioManager>().Play("SelectBeep");
+            AM.Play("SelectBeep");
             StartCoroutine(LoadLevel(1));
         }
     }
@@ -24,7 +27,8 @@ public class GameEndManager : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name == "6GameEnd")
         {
-            FindObjectOfType<AudioManager>().Play("SelectBeep");
+            AM.Play("SelectBeep");
+            //if (AM.IsSoundPlaying("FightMusic")) { AM.StopPlaying("FightMusic"); }
             StartCoroutine(LoadLevel(3)); //can be changed to 4 to go straight into the game
         }
     }

@@ -12,11 +12,15 @@ public class LevelScript : MonoBehaviour
     public CameraShake CameraShake;
     [SerializeField] [Range(1, 100)] private float playerMoveForce = 25f;
     [SerializeField] [Range(10, 50)] private float playerJumpForce = 25f;
-    
+
     //debug
     [Header("Debug")]
     private bool devMode = false;
     private DebugUIManager DUIM;
+
+    //ui
+    [Header("UI")]
+    private PlayerUIManager PUIM;
 
     //spawn points
     private GameObject[] spawnPoints;
@@ -92,9 +96,11 @@ public class LevelScript : MonoBehaviour
         //set spawn point order
         SetSpawnPoints();
 
+        //update player ui
+        PUIM = GameObject.Find("PlayerUI").GetComponent<PlayerUIManager>();
 
         //update debug
-        if (devMode)
+        if (devMode && PlayerData.GetDebugMode())
         {
             DUIM = GameObject.Find("DebugUI").GetComponent<DebugUIManager>();
         }
@@ -103,10 +109,16 @@ public class LevelScript : MonoBehaviour
 
     private void Start()
     {
+        AM.StopPlaying("TitleScreenMusic");
+
+        if (AM.IsSoundPlaying("MusicFight"))
+        {
+            AM.StopPlaying("MusicFight");
+            AM.StopPlaying("SoundTrees");
+        }
 
         AM.Play("MusicFight");
         AM.Play("SoundTrees");
-        AM.StopPlaying("TitleScreenMusic");
 
         playerSpriteIDs = PlayerData.GetSpriteIDs();    //update sprite ids with previously selected sprites
 
@@ -143,7 +155,7 @@ public class LevelScript : MonoBehaviour
         {
             for (int i = 0; i < PlayerData.GetNumOfPlayers(); i++)
             {
-                players[i].GetComponent<PlayerController>().HideArrow();
+                playerScripts[i].HideArrow();
             }
         }
         //TODO : CHANGE THIS BACK TO BEGIN AT START OF LEVEL ONCE COUNTDOWN IS ADDED TO SONG
@@ -182,7 +194,17 @@ public class LevelScript : MonoBehaviour
         //play sound if any player's wall sliding
         PlaySounds();
     }
-
+    private void Update()
+    {
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            if (Input.GetKey(KeyCode.F1))
+            {
+                SceneManager.LoadScene(0);
+            }
+               
+        }
+    }
     private void PlaySounds()
     {
         bool wallSlides = false;
@@ -209,7 +231,7 @@ public class LevelScript : MonoBehaviour
         {
             if (playerScripts[i].GetPlayerXVelocity() != 0)
             {
-                if (PlayerData.GetDevMode()) { Debug.Log("player" + i + " walking"); }
+                //if (PlayerData.GetDevMode()) { Debug.Log("player" + i + " walking"); }
                 steps = true;
                 break;
             }
@@ -278,7 +300,9 @@ public class LevelScript : MonoBehaviour
         ApplySprites();
         ApplyLevelStats();
 
-        if (devMode)
+        PUIM.EnablePlayer(curPlayerPos, players[curPlayerPos]);
+
+        if (devMode && PlayerData.GetDebugMode())
         {
             //Debug.Log("Dev mode for " + newPlayer.name);
             DUIM.EnablePlayer(curPlayerPos, players[curPlayerPos]);

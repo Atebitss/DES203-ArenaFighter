@@ -9,7 +9,7 @@ public class PlayerData : MonoBehaviour
 {
     private static int numOfPlayers = 4;
     private static float devRoundTime = 1;
-    private static bool gameRun, devMode;
+    private static bool gameRun, devMode, debugMode;
 
     //character sprite references
     private static Sprite[] characterSprites = new Sprite[5];           //holds possible sprites
@@ -30,12 +30,15 @@ public class PlayerData : MonoBehaviour
     public static float[] playerTSLKs = new float[4];                   //holds players time since last kill
     public static int[] playerPositions = new int[] { 0, 1, 2, 3 };     //holds players current podium position
     public static string playerName;
-    
+
 
 
 
     public static bool GetDevMode() { return devMode; }
     public static void SetDevMode(bool update) { devMode = update; }
+
+    public static bool GetDebugMode() { return debugMode; }
+    public static void SetDebugMode(bool update) { debugMode = update; }
 
     public static float GetDevRoundTime() { return devRoundTime; }
     public static void SetDevRoundTime(float update) { devRoundTime = update; }
