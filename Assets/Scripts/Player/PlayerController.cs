@@ -667,7 +667,7 @@ public class PlayerController : MonoBehaviour
             isDashing = true;
             dashCooldown = 0;
             playerRigid.velocity = new Vector2(transform.localScale.x * dashSpeed, 0);
-            StartCoroutine(IgnorePlayerCollisions(dashDuration));
+            StartCoroutine(IgnorePlayerCollisions(dashDuration + 0.1f));
 
             AM.Play("Dash");
             vfxController.GetComponent<VFXController>().PlayPlayerVFX(playerNum, "Dash");
@@ -863,7 +863,7 @@ public class PlayerController : MonoBehaviour
     //~~ ICE ATTACK ~~\\
     public void IceAttack(PlayerController otherPlayer) //when player attacks otherPlayer with an ice attack
     {
-        if (hasIcePower == true)
+        if (hasIcePower == true && otherPlayer.isDying == false)
         {
             hasIcePower = false;
             DeleteVFXOfTag("CollectableVFX");
@@ -886,16 +886,20 @@ public class PlayerController : MonoBehaviour
     }
     public void Freeze()
     {
-        // breakAmount = Random.Range(5, 10); //sets the amount of times we need to press jump to escape to a ranodm number between these numbers
-        frozen = true;
-        hasIcePower = false;
-        breakAmount = 6;
-        iceBlock.ShowIce();
-        buttonPress.ShowButtonPress();
+        if (!isDying)
+        {
+            // breakAmount = Random.Range(5, 10); //sets the amount of times we need to press jump to escape to a ranodm number between these numbers
+            frozen = true;
+            hasIcePower = false;
+            breakAmount = 6;
+            iceBlock.ShowIce();
+            buttonPress.ShowButtonPress();
+
+            DeleteVFXOfTag("CollectableVFX");
+           
+            playerRigid.constraints = RigidbodyConstraints2D.FreezeAll;
+        }
         
-        DeleteVFXOfTag("CollectableVFX");
-        //RigidbodyConstraints2D.FreezeRotationZ; to freeze flip?
-        playerRigid.constraints = RigidbodyConstraints2D.FreezeAll;
 
     }
 
@@ -905,7 +909,7 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Stun started on " + this.gameObject.transform.name);
         //start stun animation & freeze player for 1 second
         frozen = true;
-        Invoke(nameof(StunEnd), stunTime);
+       // Invoke(nameof(StunEnd), stunTime);
     }
 
     public void StunEnd()
@@ -945,7 +949,7 @@ public class PlayerController : MonoBehaviour
         if (!isDying)
         {
             isDying = true;
-
+            hasIcePower = false;
             animator.SetTrigger("Dying");
             playerLight.HideLight();
             iceBlock.HideIce();
@@ -962,7 +966,7 @@ public class PlayerController : MonoBehaviour
 
             Invoke(nameof(KillDelay), 0.6f); //set to time of deathAnimation
 
-            StartCoroutine(IgnorePlayerCollisions(0.4f)); //stops players colliding with eachother after one has died for a duration
+            StartCoroutine(IgnorePlayerCollisions(0.6f)); //stops players colliding with eachother after one has died for a duration
 
             // if (controller != null) RENABLE TO CAUSE HAPTICS ON PLAYER DEATH
             // { vfxController.GetComponent<HapticController>().PlayHaptics("Death", controller); }
@@ -989,6 +993,7 @@ public class PlayerController : MonoBehaviour
         invincible = true;
         frozen = false;
         hasIcePower = false;
+        isDying = false;
         spriteRenderer.enabled = true;
         playerArrow.ShowArrow();
         FaceTowardCenter();

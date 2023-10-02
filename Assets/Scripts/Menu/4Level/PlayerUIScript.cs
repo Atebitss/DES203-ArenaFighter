@@ -18,7 +18,7 @@ public class PlayerUIScript : MonoBehaviour
     {
         UIText.text = "---THIS IS EMPTY UI TEXT---";
         UIX.SetActive(false);
-        UIText.color = new Color32(255, 255, 255, 255);
+        UIText.color = new Color32(0, 0, 0, 255);
     }
 
 

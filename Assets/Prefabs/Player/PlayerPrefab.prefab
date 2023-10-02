@@ -497,9 +497,9 @@ MonoBehaviour:
   fallGravityMult: 1.4
   midAirMoveMultiplier: 0.8
   maxFallSpeed: 20
-  dashSpeed: 5
-  dashDuration: 0.1
-  dashCooldownTime: 0.4
+  dashSpeed: 10
+  dashDuration: 0.08
+  dashCooldownTime: 0.2
   dashEnabled: 1
   IceDecceleration: 0.99
   iceSpeed: 16
@@ -521,7 +521,7 @@ MonoBehaviour:
   hasInvertedControls: 0
   facingRight: 0
   deflectDuration: 0.1
-  deflectForce: 15
+  deflectForce: 12
   attackBuildUp: 0
   attackTimer: 0.2
   originMat: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
