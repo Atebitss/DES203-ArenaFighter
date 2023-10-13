@@ -29,4 +29,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/7Leaderboard.unity
     guid: a3c4bb849c1beba45abc38ff06efe2fe
+  - enabled: 1
+    path: Assets/Scenes/8Video.unity
+    guid: d2e0c298a251d8b479cf2833871f246f
   m_configObjects: {}

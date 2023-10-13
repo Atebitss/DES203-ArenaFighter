@@ -8,7 +8,8 @@ public class MainMenuController : MonoBehaviour
 {
     public Animator transition;
     public float transitionTime = 1f;
-
+    public float screenSaverTime = 5;
+    private float timer;
     private AudioManager AM;
 
     public static MainMenuController instance = null;
@@ -42,9 +43,29 @@ public class MainMenuController : MonoBehaviour
         AM.StopPlaying("PodiumMusic");
 
         PlayerData.ResetStats();
+        timer=0;
+    }
+    private void Update()
+    {
+        if (timer < screenSaverTime)
+        {
+            timer += Time.deltaTime;
+        }
+        else
+        {
+            Screensaver();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            QuitGame();
+        }
     }
 
-
+    public void Screensaver()
+    {
+        StartCoroutine(LoadLevel(8));
+    }
     public void PlayGame()
     {
         AM.Play("SelectBeep");
@@ -55,7 +76,7 @@ public class MainMenuController : MonoBehaviour
         FindObjectOfType<AudioManager>().Play("SelectBeep");
         StartCoroutine(LoadLevel(7));
     }
-
+    
 
     public void QuitGame() 
     {
@@ -67,7 +88,7 @@ public class MainMenuController : MonoBehaviour
 
         Application.Quit();
 
-        //print("Quit");
+        print("Quit");
     }
 
     public void OptionsMenu()

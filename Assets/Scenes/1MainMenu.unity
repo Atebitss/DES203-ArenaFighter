@@ -693,6 +693,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transition: {fileID: 5042851957019510398}
   transitionTime: 1
+  screenSaverTime: 30
 --- !u!4 &1108278123
 Transform:
   m_ObjectHideFlags: 0
